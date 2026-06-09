@@ -13,6 +13,7 @@
     "fetch-vias": "tsx src/scripts/fetch-vias-exentas.ts"
   },
   "dependencies": {
+    "@astrojs/cloudflare": "^13.7.0",
     "@tailwindcss/vite": "^4.2.2",
     "@types/leaflet": "^1.9.21",
     "astro": "^6.1.5",
