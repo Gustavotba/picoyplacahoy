@@ -1,0 +1,79 @@
+---
+import Principal from '../layouts/Principal.astro';
+import Reloj from '../components/Reloj.astro';
+import MapaColombia from '../components/MapaColombia.astro';
+import { ciudades } from '../lib/ciudades';
+import { SITE_URL, SITE_NAME } from '../lib/seo';
+
+const titulo = 'Pico y Placa Hoy en Colombia — Consulta tu ciudad';
+const descripcion = `Consulta las restricciones de Pico y Placa vigentes hoy en ${ciudades.length} ciudades de Colombia: Bogotá, Medellín, Cali, Barranquilla, Bucaramanga y más.`;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: SITE_NAME,
+  url: SITE_URL,
+  description: descripcion,
+};
+
+// Datos para el mapa
+const ciudadesMarkers = ciudades
+  .filter((c) => c.coordenadas)
+  .map((c) => ({
+    slug: c.slug,
+    nombre: c.nombre,
+    coordenadas: c.coordenadas!,
+    tieneData: c.decreto_actual !== 'pendiente_verificar' && c.decreto_actual !== 'No aplica',
+  }));
+---
+
+<Principal titulo={titulo} descripcion={descripcion} jsonLd={jsonLd}>
+  <section class="mb-8 text-center">
+    <h1 class="text-3xl font-bold sm:text-4xl">
+      Pico y Placa Hoy en Colombia
+    </h1>
+    <p class="mt-2 text-gray-500 dark:text-gray-400">
+      Consulta las restricciones vigentes en {ciudades.length} ciudades.
+    </p>
+  </section>
+
+  <section class="mb-6">
+    <Reloj />
+  </section>
+
+  <!-- Mapa de Colombia -->
+  <section class="mb-8">
+    <h2 class="text-xl font-bold mb-3 text-center">Elige tu ciudad en Colombia</h2>
+    <MapaColombia ciudades={ciudadesMarkers} />
+    <p class="mt-2 text-xs text-gray-400 text-center">
+      <span class="inline-block w-3 h-3 rounded-full bg-yellow-400 border border-black mr-1 align-middle"></span> Datos disponibles
+      <span class="inline-block w-3 h-3 rounded-full bg-gray-400 border border-black ml-3 mr-1 align-middle"></span> Próximamente
+    </p>
+  </section>
+
+  <!-- Lista alfabética de ciudades (SEO) -->
+  <section class="mb-8">
+    <h2 class="text-lg font-bold mb-3">Todas las ciudades</h2>
+    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2">
+      {ciudades.map((c) => {
+        const tieneData = c.decreto_actual !== 'pendiente_verificar' && c.decreto_actual !== 'No aplica';
+        return (
+          <a
+            href={`/${c.slug}`}
+            class:list={[
+              'rounded-lg border px-3 py-2.5 text-sm font-medium text-center transition-colors',
+              tieneData
+                ? 'border-yellow-300 hover:border-yellow-400 hover:bg-yellow-50 dark:border-yellow-700 dark:hover:bg-yellow-950/20'
+                : 'border-gray-200 dark:border-gray-700 hover:border-gray-300 dark:hover:border-gray-600',
+            ]}
+          >
+            {c.nombre}
+            {!tieneData && c.decreto_actual === 'No aplica' && (
+              <span class="block text-xs text-gray-400">Sin P&P</span>
+            )}
+          </a>
+        );
+      })}
+    </div>
+  </section>
+</Principal>

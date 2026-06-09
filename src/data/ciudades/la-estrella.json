@@ -1,0 +1,142 @@
+{
+  "slug": "la-estrella",
+  "nombre": "La Estrella",
+  "departamento": "Antioquia",
+  "coordenadas": [
+    6.1583,
+    -75.6444
+  ],
+  "autoridad": "Secretaría de Movilidad de Medellín (Decreto metropolitano)",
+  "autoridad_web": "https://www.medellin.gov.co/es/secretaria-de-movilidad/",
+  "autoridad_twitter": "sttmed",
+  "decreto_actual": "Decreto 0184 de 2026 (metropolitano)",
+  "fecha_ultima_actualizacion": "2026-04-12",
+  "vigencia_desde": "2026-02-02",
+  "vigencia_hasta": "2026-07-31",
+  "notas_generales": [
+    "La Estrella comparte el decreto de pico y placa con Medellín y los 10 municipios del Valle de Aburrá.",
+    "Aplica la misma rotación, horarios y exenciones que Medellín.",
+    "No aplica en días festivos oficiales ni en corregimientos."
+  ],
+  "exenciones_generales": [
+    "Vehículos eléctricos (cero emisiones) registrados en RUNT",
+    "Vehículos híbridos registrados en RUNT",
+    "Vehículos a gas natural vehicular registrados en RUNT",
+    "Motos dedicadas a domicilios o mensajería"
+  ],
+  "vias_exentas": [
+    "Sistema Vial del Río: Autopista Sur, Avenida Regional y Avenida Paralela",
+    "Avenida Las Palmas",
+    "Avenida 33",
+    "Calle 10",
+    "Laterales de la quebrada La Iguaná"
+  ],
+  "sanciones": {
+    "tipo_multa": "Tipo C",
+    "base_legal": "Artículo 131, literal C, numeral 14 de la Ley 769 de 2002",
+    "valor_smldv": "15 SMLDV",
+    "valor_aproximado_pesos": 711750,
+    "incluye_inmovilizacion": true,
+    "descripcion": "Multa equivalente a 15 SMLDV más inmovilización del vehículo."
+  },
+  "vehiculos": {
+    "particulares": {
+      "aplica": true,
+      "descripcion": "Automóviles, camionetas, camperos de servicio particular y oficial",
+      "criterio_placa": "ultimo_digito",
+      "modalidad": "semanal_por_dia",
+      "horario_inicio": "05:00",
+      "horario_fin": "20:00",
+      "horario_texto": "5:00 a.m. a 8:00 p.m. (continuo)",
+      "dias_aplicables": [
+        "lunes",
+        "martes",
+        "miercoles",
+        "jueves",
+        "viernes"
+      ],
+      "aplica_festivos": false,
+      "aplica_fines_de_semana": false,
+      "rotacion": {
+        "lunes": [
+          1,
+          7
+        ],
+        "martes": [
+          0,
+          3
+        ],
+        "miercoles": [
+          4,
+          6
+        ],
+        "jueves": [
+          5,
+          9
+        ],
+        "viernes": [
+          2,
+          8
+        ]
+      },
+      "aplican_vias_exentas": true
+    },
+    "motos": {
+      "aplica": true,
+      "descripcion": "Motocicletas (excepto las dedicadas a domicilios o mensajería)",
+      "criterio_placa": "primer_digito",
+      "modalidad": "semanal_por_dia",
+      "horario_inicio": "05:00",
+      "horario_fin": "20:00",
+      "horario_texto": "5:00 a.m. a 8:00 p.m. (continuo)",
+      "dias_aplicables": [
+        "lunes",
+        "martes",
+        "miercoles",
+        "jueves",
+        "viernes"
+      ],
+      "aplica_festivos": false,
+      "aplica_fines_de_semana": false,
+      "rotacion": {
+        "lunes": [
+          1,
+          7
+        ],
+        "martes": [
+          0,
+          3
+        ],
+        "miercoles": [
+          4,
+          6
+        ],
+        "jueves": [
+          5,
+          9
+        ],
+        "viernes": [
+          2,
+          8
+        ]
+      },
+      "aplican_vias_exentas": true
+    },
+    "taxis": {
+      "aplica": false,
+      "descripcion": "Los taxis en el Valle de Aburrá tienen restricción quincenal — consultar en /medellin/taxis para calendario detallado."
+    },
+    "transporte_carga": {
+      "aplica": false,
+      "descripcion": "No aplica pico y placa para transporte de carga."
+    }
+  },
+  "contacto_ciudadano": {
+    "sitio_web_general": "https://www.medellin.gov.co",
+    "secretaria_movilidad": "https://www.medellin.gov.co/es/secretaria-de-movilidad/",
+    "twitter": "https://x.com/sttmed",
+    "facebook": "https://www.facebook.com/sttmed",
+    "linea_atencion": "(604) 385 55 55",
+    "linea_movilidad": "123"
+  }
+}

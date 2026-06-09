@@ -1,0 +1,125 @@
+---
+import Principal from '../../layouts/Principal.astro';
+import {
+  obtenerDepartamentos,
+  obtenerDepartamento,
+  tieneDatos,
+} from '../../lib/ciudades';
+import { breadcrumbJsonLd, canonicalDe } from '../../lib/seo';
+
+// Esta página es estática: una por cada departamento con ciudades.
+export const prerender = true;
+
+export function getStaticPaths() {
+  return obtenerDepartamentos().map((depto) => ({
+    params: { departamento: depto.slug },
+  }));
+}
+
+const { departamento } = Astro.params;
+const depto = obtenerDepartamento(departamento!);
+
+// Si por alguna razón no existe el departamento, redirigir al inicio.
+if (!depto) {
+  return Astro.redirect('/');
+}
+
+const conData = depto.ciudades.filter(tieneDatos);
+const sinData = depto.ciudades.filter((c) => !tieneDatos(c));
+
+const titulo = `Pico y Placa en ${depto.nombre} — Todas las ciudades`;
+const descripcion = `Consulta el Pico y Placa vigente hoy en las ciudades de ${depto.nombre}: ${depto.ciudades
+  .map((c) => c.nombre)
+  .join(', ')}.`;
+
+const breadcrumb = breadcrumbJsonLd([
+  { nombre: 'Inicio', ruta: '/' },
+  { nombre: depto.nombre, ruta: `/departamento/${depto.slug}` },
+]);
+
+const listaJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'ItemList',
+  name: `Ciudades con Pico y Placa en ${depto.nombre}`,
+  itemListElement: depto.ciudades.map((c, i) => ({
+    '@type': 'ListItem',
+    position: i + 1,
+    name: c.nombre,
+    url: canonicalDe(`/${c.slug}`),
+  })),
+};
+
+// Otros departamentos para enlazado interno
+const otrosDepartamentos = obtenerDepartamentos().filter(
+  (d) => d.slug !== depto.slug,
+);
+---
+
+<Principal
+  titulo={titulo}
+  descripcion={descripcion}
+  jsonLd={[breadcrumb, listaJsonLd]}
+>
+  <nav class="mb-4 text-sm text-gray-500 dark:text-gray-400" aria-label="Ruta de navegación">
+    <a href="/" class="hover:underline">Inicio</a>
+    <span class="mx-1">/</span>
+    <span class="text-gray-700 dark:text-gray-300">{depto.nombre}</span>
+  </nav>
+
+  <header class="mb-8">
+    <h1 class="text-3xl font-bold sm:text-4xl">
+      Pico y Placa en {depto.nombre}
+    </h1>
+    <p class="mt-2 text-gray-500 dark:text-gray-400">
+      Tenemos {depto.ciudades.length}
+      {depto.ciudades.length === 1 ? 'ciudad' : 'ciudades'} de {depto.nombre} en
+      nuestra plataforma. Elige una para ver su restricción vigente hoy.
+    </p>
+  </header>
+
+  {conData.length > 0 && (
+    <section class="mb-8">
+      <h2 class="mb-3 text-lg font-bold">Ciudades con Pico y Placa</h2>
+      <div class="grid grid-cols-2 gap-2 sm:grid-cols-3">
+        {conData.map((c) => (
+          <a
+            href={`/${c.slug}`}
+            class="rounded-lg border border-yellow-300 px-3 py-2.5 text-center text-sm font-medium transition-colors hover:border-yellow-400 hover:bg-yellow-50 dark:border-yellow-700 dark:hover:bg-yellow-950/20"
+          >
+            {c.nombre}
+          </a>
+        ))}
+      </div>
+    </section>
+  )}
+
+  {sinData.length > 0 && (
+    <section class="mb-8">
+      <h2 class="mb-3 text-lg font-bold">Ciudades sin Pico y Placa o por confirmar</h2>
+      <div class="grid grid-cols-2 gap-2 sm:grid-cols-3">
+        {sinData.map((c) => (
+          <a
+            href={`/${c.slug}`}
+            class="rounded-lg border border-gray-200 px-3 py-2.5 text-center text-sm font-medium transition-colors hover:border-gray-300 dark:border-gray-700 dark:hover:border-gray-600"
+          >
+            {c.nombre}
+          </a>
+        ))}
+      </div>
+    </section>
+  )}
+
+  <section class="mb-4">
+    <h2 class="mb-3 text-lg font-bold">Pico y Placa en otros departamentos</h2>
+    <div class="flex flex-wrap gap-2">
+      {otrosDepartamentos.map((d) => (
+        <a
+          href={`/departamento/${d.slug}`}
+          class="rounded-full border border-gray-200 px-3 py-1.5 text-sm transition-colors hover:border-yellow-400 hover:bg-yellow-50 dark:border-gray-700 dark:hover:bg-yellow-950/20"
+        >
+          {d.nombre}
+        </a>
+      ))}
+    </div>
+  </section>
+</Principal>

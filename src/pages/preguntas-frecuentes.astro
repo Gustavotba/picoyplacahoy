@@ -1,0 +1,129 @@
+---
+import Principal from '../layouts/Principal.astro';
+import { ciudades } from '../lib/ciudades';
+import { breadcrumbJsonLd } from '../lib/seo';
+
+export const prerender = true;
+
+const preguntas = [
+  {
+    pregunta: '¿Qué es el Pico y Placa?',
+    respuesta:
+      'Es una medida de restricción vehicular que limita la circulación de ciertos vehículos en determinados días y horarios, según el último (o primer) dígito de la placa. Busca reducir la congestión y la contaminación en las ciudades.',
+  },
+  {
+    pregunta: '¿Cómo sé qué placa tiene Pico y Placa hoy?',
+    respuesta:
+      'En picoyplacahoy.co eliges tu ciudad y ves de inmediato qué placas no pueden circular hoy, en qué horario y para qué tipo de vehículo (particulares, motos, taxis o transporte de carga).',
+  },
+  {
+    pregunta: '¿El Pico y Placa aplica los festivos y fines de semana?',
+    respuesta:
+      'En la mayoría de ciudades el Pico y Placa NO aplica los domingos ni festivos, y muchas veces tampoco los sábados. Nuestra plataforma ya tiene en cuenta el calendario de festivos de Colombia al calcular si aplica.',
+  },
+  {
+    pregunta: '¿El Pico y Placa se cuenta por el último o el primer dígito de la placa?',
+    respuesta:
+      'Depende de la ciudad. La mayoría usa el último dígito de la placa, pero algunas usan el primero. En la página de cada ciudad indicamos cuál criterio aplica.',
+  },
+  {
+    pregunta: '¿Cuánto cuesta la multa por violar el Pico y Placa?',
+    respuesta:
+      'Corresponde a la infracción C14, equivalente a 15 salarios mínimos legales diarios vigentes (SMLDV), y puede incluir la inmovilización del vehículo. Consulta la página de multas para más detalle.',
+  },
+  {
+    pregunta: '¿Qué vehículos están exentos del Pico y Placa?',
+    respuesta:
+      'Suelen estar exentos los vehículos de emergencia, de organismos de seguridad, eléctricos, de personas con discapacidad, servicios públicos, funerarios y de prensa. Cada ciudad define su propia lista en el decreto.',
+  },
+  {
+    pregunta: '¿Las motos tienen Pico y Placa?',
+    respuesta:
+      'En algunas ciudades sí y en otras no. Donde aplica, suele basarse en el dígito de la placa o, en algunos casos, en el color. Revisa la página de tu ciudad para confirmarlo.',
+  },
+  {
+    pregunta: '¿Qué tan confiable es esta información?',
+    respuesta:
+      'Tomamos los datos de los decretos oficiales de cada ciudad. Aun así, las normas cambian con frecuencia; por eso recomendamos verificar siempre con la fuente oficial antes de circular. No nos hacemos responsables por multas derivadas del uso de la información.',
+  },
+];
+
+const titulo = 'Preguntas frecuentes sobre el Pico y Placa en Colombia';
+const descripcion =
+  'Resolvemos las dudas más comunes sobre el Pico y Placa en Colombia: cómo funciona, festivos, multas, exenciones, motos y más.';
+
+const faq = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: preguntas.map((p) => ({
+    '@type': 'Question',
+    name: p.pregunta,
+    acceptedAnswer: { '@type': 'Answer', text: p.respuesta },
+  })),
+};
+
+const breadcrumb = breadcrumbJsonLd([
+  { nombre: 'Inicio', ruta: '/' },
+  { nombre: 'Preguntas frecuentes', ruta: '/preguntas-frecuentes' },
+]);
+
+const algunasCiudades = ciudades
+  .filter((c) => c.decreto_actual !== 'pendiente_verificar' && c.decreto_actual !== 'No aplica')
+  .slice(0, 12);
+---
+
+<Principal titulo={titulo} descripcion={descripcion} jsonLd={[breadcrumb, faq]}>
+  <nav class="mb-4 text-sm text-gray-500 dark:text-gray-400" aria-label="Ruta de navegación">
+    <a href="/" class="hover:underline">Inicio</a>
+    <span class="mx-1">/</span>
+    <span class="text-gray-700 dark:text-gray-300">Preguntas frecuentes</span>
+  </nav>
+
+  <header class="mb-6">
+    <h1 class="text-3xl font-bold sm:text-4xl">
+      Preguntas frecuentes sobre el Pico y Placa
+    </h1>
+    <p class="mt-2 text-gray-500 dark:text-gray-400">
+      Las dudas más comunes sobre la restricción vehicular en Colombia.
+    </p>
+  </header>
+
+  <section class="mb-8 space-y-3">
+    {preguntas.map((p) => (
+      <details class="rounded-lg border border-gray-200 p-4 dark:border-gray-700">
+        <summary class="cursor-pointer font-semibold">{p.pregunta}</summary>
+        <p class="mt-2 text-sm text-gray-600 dark:text-gray-400">{p.respuesta}</p>
+      </details>
+    ))}
+  </section>
+
+  <section class="mb-8">
+    <h2 class="mb-2 text-lg font-bold">Consulta el Pico y Placa de tu ciudad</h2>
+    <div class="flex flex-wrap gap-2">
+      {algunasCiudades.map((c) => (
+        <a
+          href={`/${c.slug}`}
+          class="rounded-full border border-gray-200 px-3 py-1.5 text-sm transition-colors hover:border-yellow-400 hover:bg-yellow-50 dark:border-gray-700 dark:hover:bg-yellow-950/20"
+        >
+          {c.nombre}
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <section class="mb-4">
+    <h2 class="mb-2 text-lg font-bold">También te puede interesar</h2>
+    <ul class="space-y-1 text-sm">
+      <li>
+        <a href="/exenciones-pico-y-placa" class="text-yellow-700 hover:underline dark:text-yellow-400">
+          Exenciones del Pico y Placa
+        </a>
+      </li>
+      <li>
+        <a href="/multas-pico-y-placa" class="text-yellow-700 hover:underline dark:text-yellow-400">
+          Multas y sanciones del Pico y Placa
+        </a>
+      </li>
+    </ul>
+  </section>
+</Principal>

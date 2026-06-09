@@ -1,0 +1,172 @@
+---
+import Principal from '../layouts/Principal.astro';
+import { ciudades } from '../lib/ciudades';
+import { breadcrumbJsonLd } from '../lib/seo';
+import { DIAS_LEGIBLES, CRITERIO_LEGIBLE } from '../lib/calcular';
+import { esSemanalPorDia } from '../lib/tipos';
+import type { DiaSemana } from '../lib/tipos';
+
+// Página estática: una por cada día hábil. La rotación por día de la semana
+// es fija, así que no necesita conocer la fecha de hoy.
+export const prerender = true;
+
+const DIAS_HABILES: DiaSemana[] = [
+  'lunes',
+  'martes',
+  'miercoles',
+  'jueves',
+  'viernes',
+];
+
+export function getStaticPaths() {
+  return [
+    'lunes',
+    'martes',
+    'miercoles',
+    'jueves',
+    'viernes',
+  ].map((dia) => ({ params: { dia } }));
+}
+
+const { dia } = Astro.params;
+const diaSemana = dia as DiaSemana;
+
+if (!DIAS_HABILES.includes(diaSemana)) {
+  return Astro.redirect('/');
+}
+
+const diaLegible = DIAS_LEGIBLES[diaSemana];
+
+interface FilaCiudad {
+  slug: string;
+  nombre: string;
+  particulares: { placas: number[]; criterio?: string } | null;
+  motos: { placas: number[]; criterio?: string } | null;
+}
+
+const filas: FilaCiudad[] = [];
+for (const ciudad of ciudades) {
+  const vp = ciudad.vehiculos.particulares;
+  const vm = ciudad.vehiculos.motos;
+  const particulares = esSemanalPorDia(vp)
+    ? { placas: vp.rotacion[diaSemana] ?? [], criterio: vp.criterio_placa }
+    : null;
+  const motos = esSemanalPorDia(vm)
+    ? { placas: vm.rotacion[diaSemana] ?? [], criterio: vm.criterio_placa }
+    : null;
+  // Solo incluir ciudades que tengan al menos una restricción ese día
+  const aplicaAlgo =
+    (particulares && particulares.placas.length > 0) ||
+    (motos && motos.placas.length > 0);
+  if (aplicaAlgo) {
+    filas.push({ slug: ciudad.slug, nombre: ciudad.nombre, particulares, motos });
+  }
+}
+filas.sort((a, b) => a.nombre.localeCompare(b.nombre, 'es'));
+
+const titulo = `Pico y Placa ${diaLegible} en Colombia — Placas que descansan`;
+const descripcion = `Consulta qué placas tienen Pico y Placa los días ${diaLegible.toLowerCase()} en las ciudades de Colombia. Lista por ciudad para particulares y motos.`;
+
+const breadcrumb = breadcrumbJsonLd([
+  { nombre: 'Inicio', ruta: '/' },
+  { nombre: `Pico y Placa ${diaLegible}`, ruta: `/pico-y-placa-${dia}` },
+]);
+
+const indiceDia = DIAS_HABILES.indexOf(diaSemana);
+const diaAnterior = indiceDia > 0 ? DIAS_HABILES[indiceDia - 1] : null;
+const diaSiguiente =
+  indiceDia < DIAS_HABILES.length - 1 ? DIAS_HABILES[indiceDia + 1] : null;
+
+const fmtPlacas = (placas: number[]) => placas.join(' y ');
+---
+
+<Principal titulo={titulo} descripcion={descripcion} jsonLd={breadcrumb}>
+  <nav class="mb-4 text-sm text-gray-500 dark:text-gray-400" aria-label="Ruta de navegación">
+    <a href="/" class="hover:underline">Inicio</a>
+    <span class="mx-1">/</span>
+    <span class="text-gray-700 dark:text-gray-300">Pico y Placa {diaLegible}</span>
+  </nav>
+
+  <header class="mb-6">
+    <h1 class="text-3xl font-bold sm:text-4xl">
+      Pico y Placa los {diaLegible.toLowerCase()} en Colombia
+    </h1>
+    <p class="mt-2 text-gray-500 dark:text-gray-400">
+      Estas son las placas con restricción los días {diaLegible.toLowerCase()} en
+      cada ciudad. La rotación por día de la semana es fija; los festivos pueden
+      cambiar la aplicación.
+    </p>
+  </header>
+
+  {filas.length === 0 ? (
+    <p class="rounded-lg border border-gray-200 p-4 text-sm dark:border-gray-700">
+      No tenemos ciudades con restricción registrada para los {diaLegible.toLowerCase()}.
+    </p>
+  ) : (
+    <section class="mb-8 overflow-x-auto">
+      <table class="w-full border-collapse text-sm">
+        <thead>
+          <tr class="border-b border-gray-200 text-left dark:border-gray-700">
+            <th class="py-2 pr-3 font-semibold">Ciudad</th>
+            <th class="py-2 pr-3 font-semibold">Particulares</th>
+            <th class="py-2 font-semibold">Motos</th>
+          </tr>
+        </thead>
+        <tbody>
+          {filas.map((fila) => (
+            <tr class="border-b border-gray-100 dark:border-gray-800">
+              <td class="py-2 pr-3">
+                <a href={`/${fila.slug}`} class="font-medium text-yellow-700 hover:underline dark:text-yellow-400">
+                  {fila.nombre}
+                </a>
+              </td>
+              <td class="py-2 pr-3">
+                {fila.particulares && fila.particulares.placas.length > 0 ? (
+                  <span class="font-mono font-bold">{fmtPlacas(fila.particulares.placas)}</span>
+                ) : (
+                  <span class="text-gray-400">—</span>
+                )}
+              </td>
+              <td class="py-2">
+                {fila.motos && fila.motos.placas.length > 0 ? (
+                  <span class="font-mono font-bold">{fmtPlacas(fila.motos.placas)}</span>
+                ) : (
+                  <span class="text-gray-400">—</span>
+                )}
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+      <p class="mt-2 text-xs text-gray-400">
+        Las placas indican el dígito (último o primer dígito según la ciudad) que
+        no puede circular ese día. Toca una ciudad para ver horarios y excepciones.
+      </p>
+    </section>
+  )}
+
+  <section class="mb-4">
+    <h2 class="mb-3 text-lg font-bold">Pico y Placa otros días</h2>
+    <div class="flex flex-wrap items-center gap-2">
+      {DIAS_HABILES.map((d) => (
+        <a
+          href={`/pico-y-placa-${d}`}
+          class:list={[
+            'rounded-full border px-3 py-1.5 text-sm transition-colors',
+            d === diaSemana
+              ? 'border-yellow-400 bg-yellow-50 font-semibold dark:bg-yellow-950/30'
+              : 'border-gray-200 hover:border-yellow-400 hover:bg-yellow-50 dark:border-gray-700 dark:hover:bg-yellow-950/20',
+          ]}
+        >
+          {DIAS_LEGIBLES[d]}
+        </a>
+      ))}
+      <a
+        href="/pico-y-placa-manana"
+        class="rounded-full border border-gray-200 px-3 py-1.5 text-sm transition-colors hover:border-yellow-400 hover:bg-yellow-50 dark:border-gray-700 dark:hover:bg-yellow-950/20"
+      >
+        Mañana
+      </a>
+    </div>
+  </section>
+</Principal>

@@ -1,0 +1,87 @@
+{
+  "slug": "soledad",
+  "nombre": "Soledad",
+  "departamento": "Atlántico",
+  "coordenadas": [10.9172, -74.7664],
+  "autoridad": "Instituto Municipal de Tránsito y Transporte de Soledad (IMTTRASOL)",
+  "autoridad_web": "https://www.soledad-atlantico.gov.co",
+  "autoridad_twitter": "",
+  "decreto_actual": "Decreto 288 de 2017",
+  "fecha_ultima_actualizacion": "2026-04-12",
+  "notas_generales": [
+    "En Soledad el Pico y Placa aplica SOLO a motos y vehículos similares (NO a particulares ni taxis).",
+    "Soledad tiene su propia regulación municipal (no participa del PyP unificado departamental del Atlántico).",
+    "El día 30 de cada mes hay restricción total de motos (Día Sin Moto).",
+    "Existe además un 'Pico y Color' único para motocarros: azules en días impares, naranjas en días pares."
+  ],
+  "exenciones_generales": [
+    "Motos con cilindraje igual o superior a 598 cc",
+    "Trabajadores de TransMetro (uniformados y carnetizados)",
+    "Trabajadores del aeropuerto Ernesto Cortissoz (uniformados y carnetizados)",
+    "Trabajadores de la Terminal de Transportes (uniformados y carnetizados)"
+  ],
+  "vias_exentas": [],
+  "dias_sin_moto": [
+    "Día 30 de cada mes: restricción total de motos, motociclos, ciclomotores, mototriciclos, tricimotos y cuatrimotos"
+  ],
+  "pico_y_color": {
+    "aplica_a": ["motocarros"],
+    "descripcion": "Regulación exclusiva para motocarros según el color del vehículo. En días impares no circulan los motocarros AZULES (placas impares). En días pares no circulan los motocarros NARANJAS (placas pares).",
+    "norma": "Decreto 274 del 1 de junio de 2016",
+    "colores": [
+      { "color": "Azul", "placas": "Placas impares (1,3,5,7,9) — no circulan en fechas impares" },
+      { "color": "Naranja", "placas": "Placas pares (0,2,4,6,8) — no circulan en fechas pares" }
+    ]
+  },
+  "sanciones": {
+    "descripcion": "Multa equivalente a 15 SMLDV más inmovilización del vehículo.",
+    "base_legal": "Artículo 131, literal C, numeral 14 de la Ley 769 de 2002",
+    "tipo_multa": "Tipo C",
+    "valor_smldv": "15 SMLDV",
+    "valor_aproximado_pesos": 711750,
+    "incluye_inmovilizacion": true
+  },
+  "vehiculos": {
+    "particulares": {
+      "aplica": false,
+      "descripcion": "Los vehículos particulares NO tienen Pico y Placa en Soledad."
+    },
+    "motos": {
+      "aplica": true,
+      "descripcion": "Motos, motociclos, ciclomotores, mototriciclos, tricimotos y cuatrimotos",
+      "criterio_placa": "ultimo_digito",
+      "modalidad": "semanal_por_dia",
+      "horario_inicio": "00:00",
+      "horario_fin": "23:59",
+      "horario_texto": "Todo el día (lunes a viernes)",
+      "dias_aplicables": ["lunes", "martes", "miercoles", "jueves", "viernes"],
+      "aplica_festivos": false,
+      "aplica_fines_de_semana": false,
+      "rotacion": {
+        "lunes": [1, 2],
+        "martes": [3, 4],
+        "miercoles": [5, 6],
+        "jueves": [7, 8],
+        "viernes": [9, 0]
+      },
+      "aplican_vias_exentas": false,
+      "nota_especial": "Exentas: motos con cilindraje ≥ 598 cc y trabajadores uniformados de TransMetro, aeropuerto y Terminal."
+    },
+    "taxis": {
+      "aplica": false,
+      "descripcion": "Los taxis NO tienen Pico y Placa en Soledad."
+    },
+    "transporte_carga": {
+      "aplica": false,
+      "descripcion": "El transporte de carga NO tiene Pico y Placa en Soledad."
+    }
+  },
+  "contacto_ciudadano": {
+    "sitio_web_general": "https://www.soledad-atlantico.gov.co",
+    "secretaria_movilidad": "https://www.soledad-atlantico.gov.co",
+    "twitter": "",
+    "facebook": "",
+    "linea_atencion": "pendiente_verificar",
+    "linea_movilidad": "pendiente_verificar"
+  }
+}

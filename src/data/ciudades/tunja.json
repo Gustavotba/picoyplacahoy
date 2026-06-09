@@ -1,0 +1,81 @@
+{
+  "slug": "tunja",
+  "nombre": "Tunja",
+  "departamento": "Boyacá",
+  "coordenadas": [5.5353, -73.3678],
+  "autoridad": "Secretaría de Movilidad y Vida Territorial de Tunja",
+  "autoridad_web": "https://www.tunja-boyaca.gov.co",
+  "autoridad_twitter": "",
+  "decreto_actual": "Decreto 0399 de 2024",
+  "fecha_ultima_actualizacion": "2026-04-12",
+  "vigencia_desde": "2024-09-19",
+  "vigencia_hasta": "2026-12-31",
+  "notas_generales": [
+    "El Pico y Placa en Tunja aplica SOLO a vehículos particulares (NO a motos ni taxis).",
+    "Opera en 3 franjas horarias con hora valle libre entre ellas.",
+    "Turistas exentos para ingreso a hospedaje presentando comprobante de reserva.",
+    "Vehículos de paso: mostrar recibo del peaje más reciente.",
+    "Se suspende del 15 de diciembre al 12 de enero (vacaciones de fin de año)."
+  ],
+  "exenciones_generales": [
+    "Turistas con comprobante de reserva de hospedaje",
+    "Vehículos de paso con recibo de peaje reciente",
+    "Vehículos eléctricos e híbridos",
+    "Vehículos de emergencia"
+  ],
+  "vias_exentas": [],
+  "suspensiones_anuales": [
+    "15 de diciembre al 12 de enero (vacaciones de fin de año)"
+  ],
+  "sanciones": {
+    "descripcion": "Multa equivalente a 15 SMLDV (~$650.000 COP) más inmovilización del vehículo.",
+    "base_legal": "Artículo 131, literal C, numeral 14 de la Ley 769 de 2002",
+    "tipo_multa": "Tipo C",
+    "valor_smldv": "15 SMLDV",
+    "valor_aproximado_pesos": 650000,
+    "incluye_inmovilizacion": true
+  },
+  "vehiculos": {
+    "particulares": {
+      "aplica": true,
+      "descripcion": "Vehículos particulares — 3 franjas horarias con hora valle libre entre ellas",
+      "criterio_placa": "ultimo_digito",
+      "modalidad": "semanal_por_dia",
+      "horario_inicio": "06:00",
+      "horario_fin": "20:00",
+      "horario_texto": "6:00-9:00 a.m. / 12:00-2:00 p.m. / 5:00-8:00 p.m. (3 franjas)",
+      "dias_aplicables": ["lunes", "martes", "miercoles", "jueves", "viernes"],
+      "aplica_festivos": false,
+      "aplica_fines_de_semana": false,
+      "rotacion": {
+        "lunes": [3, 4],
+        "martes": [5, 6],
+        "miercoles": [7, 8],
+        "jueves": [9, 0],
+        "viernes": [1, 2]
+      },
+      "aplican_vias_exentas": false,
+      "nota_especial": "Hora valle sin restricción: 9:00 a.m. a 12:00 m. y 2:00 p.m. a 5:00 p.m. En esas ventanas puedes circular libremente."
+    },
+    "motos": {
+      "aplica": false,
+      "descripcion": "Las motocicletas NO tienen Pico y Placa en Tunja."
+    },
+    "taxis": {
+      "aplica": false,
+      "descripcion": "Los taxis NO tienen Pico y Placa en Tunja."
+    },
+    "transporte_carga": {
+      "aplica": false,
+      "descripcion": "El transporte de carga NO tiene Pico y Placa en Tunja."
+    }
+  },
+  "contacto_ciudadano": {
+    "sitio_web_general": "https://www.tunja-boyaca.gov.co",
+    "secretaria_movilidad": "https://www.tunja-boyaca.gov.co",
+    "twitter": "",
+    "facebook": "",
+    "linea_atencion": "pendiente_verificar",
+    "linea_movilidad": "pendiente_verificar"
+  }
+}

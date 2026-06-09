@@ -1,0 +1,103 @@
+{
+  "slug": "ocana",
+  "nombre": "Ocaña",
+  "departamento": "Norte de Santander",
+  "coordenadas": [8.2369, -73.3581],
+  "autoridad": "Secretaría de Movilidad y Tránsito de Ocaña",
+  "autoridad_web": "https://www.ocana-nortedesantander.gov.co",
+  "autoridad_twitter": "",
+  "decreto_actual": "Decreto 049 de 2025",
+  "fecha_ultima_actualizacion": "2026-04-12",
+  "notas_generales": [
+    "En Ocaña el Pico y Placa aplica a vehículos particulares y motos (NO a taxis).",
+    "La restricción es DIFERENTE según el origen de la matrícula del vehículo.",
+    "Vehículos matriculados en Ocaña: 3 franjas horarias específicas.",
+    "Vehículos con matrícula de otra ciudad: restricción continua de 7:00 a.m. a 7:00 p.m. (Placa Día).",
+    "El 67% de los vehículos que circulan en Ocaña son motocicletas.",
+    "Zona de aplicación: centro histórico y Mercado Público (carreras 9-16, calles 7-11)."
+  ],
+  "exenciones_generales": [
+    "Vehículos de emergencia",
+    "Vehículos oficiales",
+    "Vehículos eléctricos"
+  ],
+  "vias_exentas": [],
+  "restriccion_por_matricula": {
+    "local": {
+      "franjas_horarias": ["7:30-8:30 a.m.", "11:30 a.m.-2:30 p.m.", "5:30-7:00 p.m."],
+      "nota": "Vehículos matriculados en Ocaña: aplica solo en estas 3 franjas horarias"
+    },
+    "foranea": {
+      "franjas_horarias": ["7:00 a.m.-7:00 p.m. (continuo)"],
+      "nota": "Vehículos con matrícula de otra ciudad (nacionales y extranjeros): restricción continua todo el día hábil"
+    }
+  },
+  "sanciones": {
+    "descripcion": "Multa equivalente a 15 SMLDV (~$650.000 COP) más inmovilización del vehículo.",
+    "base_legal": "Artículo 131, literal C, numeral 14 de la Ley 769 de 2002",
+    "tipo_multa": "Tipo C",
+    "valor_smldv": "15 SMLDV",
+    "valor_aproximado_pesos": 650000,
+    "incluye_inmovilizacion": true
+  },
+  "vehiculos": {
+    "particulares": {
+      "aplica": true,
+      "descripcion": "Vehículos particulares — restricción diferenciada según origen de matrícula",
+      "criterio_placa": "ultimo_digito",
+      "modalidad": "semanal_por_dia",
+      "horario_inicio": "07:00",
+      "horario_fin": "19:00",
+      "horario_texto": "3 franjas (matrícula Ocaña) o 7am-7pm continuo (matrícula foránea)",
+      "dias_aplicables": ["lunes", "martes", "miercoles", "jueves", "viernes"],
+      "aplica_festivos": false,
+      "aplica_fines_de_semana": false,
+      "rotacion": {
+        "lunes": [1, 2],
+        "martes": [3, 4],
+        "miercoles": [5, 6],
+        "jueves": [7, 8],
+        "viernes": [9, 0]
+      },
+      "aplican_vias_exentas": false,
+      "nota_especial": "Matrícula de Ocaña: 3 franjas (7:30-8:30, 11:30-14:30, 17:30-19:00). Matrícula foránea: continuo 7am-7pm."
+    },
+    "motos": {
+      "aplica": true,
+      "descripcion": "Motocicletas — misma rotación y franjas diferenciadas que particulares",
+      "criterio_placa": "ultimo_digito",
+      "modalidad": "semanal_por_dia",
+      "horario_inicio": "07:00",
+      "horario_fin": "19:00",
+      "horario_texto": "3 franjas (matrícula Ocaña) o 7am-7pm continuo (matrícula foránea)",
+      "dias_aplicables": ["lunes", "martes", "miercoles", "jueves", "viernes"],
+      "aplica_festivos": false,
+      "aplica_fines_de_semana": false,
+      "rotacion": {
+        "lunes": [1, 2],
+        "martes": [3, 4],
+        "miercoles": [5, 6],
+        "jueves": [7, 8],
+        "viernes": [9, 0]
+      },
+      "aplican_vias_exentas": false,
+      "nota_especial": "Aplica con la misma rotación y franjas diferenciadas por tipo de matrícula que los particulares."
+    },
+    "taxis": {
+      "aplica": false,
+      "descripcion": "Los taxis NO tienen Pico y Placa en Ocaña."
+    },
+    "transporte_carga": {
+      "aplica": false,
+      "descripcion": "Pendiente verificar restricciones de carga en Ocaña."
+    }
+  },
+  "contacto_ciudadano": {
+    "sitio_web_general": "https://www.ocana-nortedesantander.gov.co",
+    "secretaria_movilidad": "https://www.ocana-nortedesantander.gov.co",
+    "twitter": "",
+    "facebook": "",
+    "linea_atencion": "pendiente_verificar",
+    "linea_movilidad": "pendiente_verificar"
+  }
+}

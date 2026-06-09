@@ -1,0 +1,70 @@
+{
+  "slug": "malambo",
+  "nombre": "Malambo",
+  "departamento": "Atlántico",
+  "coordenadas": [10.8689, -74.7733],
+  "autoridad": "Secretaría de Tránsito y Transporte de Malambo",
+  "autoridad_web": "https://www.malambo-atlantico.gov.co",
+  "autoridad_twitter": "",
+  "decreto_actual": "Decreto municipal 079 de 2024 y Decreto departamental 000362 de 2025",
+  "fecha_ultima_actualizacion": "2026-06-09",
+  "notas_generales": [
+    "En Malambo el Pico y Placa aplica a motocicletas, motociclos, mototriciclos, motocarros y cuatrimotos según el último dígito de la placa, de lunes a viernes.",
+    "El día 30 de cada mes hay restricción total de motos (Día Sin Moto).",
+    "Los vehículos particulares, taxis y transporte de carga NO tienen restricción de Pico y Placa en Malambo."
+  ],
+  "exenciones_generales": [],
+  "vias_exentas": [],
+  "dias_sin_moto": [
+    "Día 30 de cada mes: restricción total de motos, motociclos, mototriciclos, motocarros y cuatrimotos"
+  ],
+  "sanciones": {
+    "descripcion": "Multa equivalente a 15 SMLDV más inmovilización del vehículo.",
+    "base_legal": "Artículo 131, literal C, numeral 14 de la Ley 769 de 2002",
+    "tipo_multa": "Tipo C",
+    "valor_smldv": "15 SMLDV",
+    "incluye_inmovilizacion": true
+  },
+  "vehiculos": {
+    "particulares": {
+      "aplica": false,
+      "descripcion": "Los vehículos particulares NO tienen Pico y Placa en Malambo."
+    },
+    "motos": {
+      "aplica": true,
+      "descripcion": "Motocicletas, motociclos, mototriciclos, motocarros y cuatrimotos según el último dígito de la placa",
+      "criterio_placa": "ultimo_digito",
+      "modalidad": "semanal_por_dia",
+      "horario_inicio": "00:00",
+      "horario_fin": "23:59",
+      "horario_texto": "Todo el día (lunes a viernes)",
+      "dias_aplicables": ["lunes", "martes", "miercoles", "jueves", "viernes"],
+      "aplica_festivos": false,
+      "aplica_fines_de_semana": false,
+      "rotacion": {
+        "lunes": [1, 2],
+        "martes": [3, 4],
+        "miercoles": [5, 6],
+        "jueves": [7, 8],
+        "viernes": [9, 0]
+      },
+      "nota_especial": "El día 30 de cada mes hay restricción total de motos (Día Sin Moto)."
+    },
+    "taxis": {
+      "aplica": false,
+      "descripcion": "Los taxis NO tienen Pico y Placa en Malambo."
+    },
+    "transporte_carga": {
+      "aplica": false,
+      "descripcion": "El transporte de carga NO tiene Pico y Placa en Malambo."
+    }
+  },
+  "contacto_ciudadano": {
+    "sitio_web_general": "https://www.malambo-atlantico.gov.co",
+    "secretaria_movilidad": "https://www.malambo-atlantico.gov.co",
+    "twitter": "",
+    "facebook": "",
+    "linea_atencion": "pendiente_verificar",
+    "linea_movilidad": "pendiente_verificar"
+  }
+}

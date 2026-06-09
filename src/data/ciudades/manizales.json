@@ -1,0 +1,64 @@
+{
+  "slug": "manizales",
+  "nombre": "Manizales",
+  "departamento": "Caldas",
+  "coordenadas": [5.0703, -75.5138],
+  "autoridad": "Secretaría de Movilidad de Manizales",
+  "autoridad_web": "https://manizales.gov.co",
+  "autoridad_twitter": "alcaldiamzles",
+  "decreto_actual": "Sin pico y placa para particulares (solo taxis)",
+  "fecha_ultima_actualizacion": "2026-06-09",
+  "notas_generales": [
+    "Manizales NO tiene Pico y Placa para vehículos particulares. La medida se justificaba por la obra de Los Cedros, que ya culminó, por lo que perdió su base jurídica.",
+    "Los taxis SÍ tienen Pico y Placa todo el año, de lunes a domingo.",
+    "La Secretaría de Movilidad suele levantar la restricción de taxis durante la Feria de Manizales (enero) y fechas especiales de fin de año."
+  ],
+  "exenciones_generales": [],
+  "vias_exentas": [],
+  "sanciones": {
+    "tipo_multa": "Tipo C",
+    "base_legal": "Artículo 131, literal C, numeral 14 de la Ley 769 de 2002",
+    "valor_smldv": "15 SMLDV",
+    "incluye_inmovilizacion": true,
+    "descripcion": "Multa equivalente a 15 salarios mínimos diarios legales vigentes (SMLDV) más inmovilización del vehículo."
+  },
+  "vehiculos": {
+    "particulares": {
+      "aplica": false,
+      "descripcion": "En Manizales NO hay Pico y Placa para vehículos particulares. La medida terminó al culminar la obra de Los Cedros, que era su base jurídica.",
+      "nota": "Esta situación puede cambiar si se reactivan obras de infraestructura. Verifica siempre con la Secretaría de Movilidad de Manizales."
+    },
+    "motos": {
+      "aplica": false,
+      "descripcion": "En Manizales no aplica Pico y Placa para motocicletas.",
+      "nota": "Esta situación puede cambiar. Verifica siempre con la Secretaría de Movilidad de Manizales."
+    },
+    "taxis": {
+      "aplica": true,
+      "horario": "Restricción según último dígito de placa (consultar programación oficial)",
+      "dias_habiles": ["lun", "mar", "mie", "jue", "vie", "sab", "dom"],
+      "aplica_festivos": true,
+      "restricciones": {
+        "lunes": ["pendiente_verificar"],
+        "martes": ["pendiente_verificar"],
+        "miercoles": ["pendiente_verificar"],
+        "jueves": ["pendiente_verificar"],
+        "viernes": ["pendiente_verificar"]
+      },
+      "notas": "Los taxis SÍ tienen Pico y Placa en Manizales, todos los días (lunes a domingo), según el último dígito de la placa con un esquema rodante que avanza día a día. La Secretaría de Movilidad publica la programación y suele levantar la medida durante la Feria de Manizales y fechas especiales. Consulta el dígito restringido del día con la Secretaría de Movilidad."
+    },
+    "transporte_carga": {
+      "aplica": false,
+      "descripcion": "En Manizales no aplica Pico y Placa para transporte de carga.",
+      "nota": "Esta situación puede cambiar. Verifica siempre con la Secretaría de Movilidad de Manizales."
+    }
+  },
+  "contacto_ciudadano": {
+    "sitio_web_general": "https://manizales.gov.co",
+    "secretaria_movilidad": "https://manizales.gov.co",
+    "twitter": "https://x.com/alcaldiamzles",
+    "facebook": "",
+    "linea_atencion": "pendiente_verificar",
+    "linea_movilidad": "pendiente_verificar"
+  }
+}

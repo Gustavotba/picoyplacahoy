@@ -1,0 +1,126 @@
+---
+import type { TipoVehiculo, ResultadoPicoPlaca } from '../lib/tipos';
+import { ETIQUETAS_VEHICULO, ICONOS_VEHICULO } from '../lib/tipos';
+import { CRITERIO_LEGIBLE } from '../lib/calcular';
+
+interface Props {
+  slugCiudad: string;
+  tipo: TipoVehiculo;
+  resultado: ResultadoPicoPlaca;
+}
+
+const { slugCiudad, tipo, resultado } = Astro.props;
+const etiqueta = ETIQUETAS_VEHICULO[tipo];
+const icono = ICONOS_VEHICULO[tipo];
+const criterioTexto = resultado.criterioPlaca ? CRITERIO_LEGIBLE[resultado.criterioPlaca] : '';
+
+// Contenido de la "placa"
+let placaTexto = '';
+let placaEstilo: 'aplica' | 'libre' | 'pendiente' | 'desactualizado' | 'sin_restriccion' = 'libre';
+
+if (resultado.datosDesactualizados) {
+  placaTexto = '—';
+  placaEstilo = 'desactualizado';
+} else if (resultado.esPendiente) {
+  placaTexto = '?';
+  placaEstilo = 'pendiente';
+} else if (resultado.aplica && resultado.placasRestringidas.length > 0) {
+  placaTexto = resultado.placasRestringidas.join(' y ');
+  placaEstilo = 'aplica';
+} else if (!resultado.aplica && resultado.horarioTexto === '' && !resultado.esFestivo && !resultado.esDiaHabil) {
+  placaTexto = 'SIN RESTRICCIÓN';
+  placaEstilo = 'sin_restriccion';
+} else {
+  placaTexto = 'LIBRE';
+  placaEstilo = 'libre';
+}
+
+const estilosPlaca: Record<string, { fondo: string; texto: string; borde: string }> = {
+  aplica:          { fondo: 'bg-yellow-400',  texto: 'text-black',      borde: 'border-black' },
+  libre:           { fondo: 'bg-green-500',   texto: 'text-white',      borde: 'border-green-700' },
+  pendiente:       { fondo: 'bg-gray-300 dark:bg-gray-600', texto: 'text-gray-500 dark:text-gray-300', borde: 'border-gray-400 dark:border-gray-500' },
+  desactualizado:  { fondo: 'bg-orange-300 dark:bg-orange-700', texto: 'text-orange-700 dark:text-orange-200', borde: 'border-orange-500' },
+  sin_restriccion: { fondo: 'bg-green-500',   texto: 'text-white',      borde: 'border-green-700' },
+};
+const ep = estilosPlaca[placaEstilo];
+---
+
+<a
+  href={`/${slugCiudad}/${tipo}`}
+  class="group flex flex-col overflow-hidden rounded-xl shadow-md hover:shadow-xl transition-all duration-200 hover:-translate-y-1"
+>
+  {/* === CABECERA === */}
+  <div class="flex items-center justify-center gap-3 bg-blue-600 px-4 py-3.5">
+    <div class="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl bg-white/90 p-2">
+      <img src={icono} alt={etiqueta} class="h-full w-full object-contain" />
+    </div>
+    <h3 class:list={[
+      'font-bold uppercase tracking-wide text-white',
+      tipo === 'transporte_carga' ? 'text-sm sm:text-base' : 'text-base',
+    ]}>
+      {etiqueta}
+    </h3>
+  </div>
+
+  {/* === CUERPO === */}
+  <div class="flex flex-1 flex-col items-center bg-white px-4 py-5 dark:bg-gray-900">
+
+    {/* Texto de estado */}
+    <p class:list={[
+      'text-sm font-semibold mb-3',
+      resultado.datosDesactualizados
+        ? 'text-orange-600 dark:text-orange-400'
+        : resultado.esPendiente
+          ? 'text-gray-500 dark:text-gray-400'
+          : resultado.aplica
+            ? 'text-red-600 dark:text-red-400'
+            : 'text-green-600 dark:text-green-400',
+    ]}>
+      {resultado.datosDesactualizados
+        ? 'Datos desactualizados'
+        : resultado.esPendiente
+          ? 'Pendiente de verificar'
+          : resultado.aplica
+            ? 'Hoy aplica Pico y Placa'
+            : resultado.esFestivo
+              ? 'Hoy es festivo — No aplica'
+              : !resultado.esDiaHabil && resultado.horarioTexto
+                ? 'Hoy no aplica (fin de semana)'
+                : 'Hoy no aplica Pico y Placa'}
+    </p>
+
+    {/* Placa vehicular */}
+    <div class={`w-full max-w-[220px] rounded-lg border-4 ${ep.borde} ${ep.fondo} px-4 py-3 text-center`}>
+      {criterioTexto && placaEstilo === 'aplica' && (
+        <p class="text-[10px] font-medium uppercase tracking-wider text-black/60 mb-0.5">
+          {criterioTexto}
+        </p>
+      )}
+      <p class:list={[
+        'font-mono font-black leading-none',
+        ep.texto,
+        placaEstilo === 'aplica' ? 'text-5xl' : '',
+        placaEstilo === 'libre' ? 'text-3xl' : '',
+        placaEstilo === 'sin_restriccion' ? 'text-lg' : '',
+        placaEstilo === 'pendiente' ? 'text-5xl' : '',
+        placaEstilo === 'desactualizado' ? 'text-4xl' : '',
+      ]}>
+        {placaTexto}
+      </p>
+    </div>
+
+    {/* Horario */}
+    {resultado.horarioTexto && !resultado.esPendiente && !resultado.datosDesactualizados && (
+      <p class="mt-3 text-xs text-gray-500 dark:text-gray-400">
+        {resultado.horarioTexto}
+      </p>
+    )}
+  </div>
+
+  {/* === PIE === */}
+  <div class="bg-gray-50 px-4 py-2.5 text-center dark:bg-gray-800">
+    <span class="text-xs font-semibold text-yellow-700 group-hover:text-red-600 dark:text-yellow-500 dark:group-hover:text-red-400 transition-colors">
+      Ver detalle →
+    </span>
+  </div>
+</a>

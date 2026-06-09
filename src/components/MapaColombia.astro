@@ -1,0 +1,82 @@
+---
+/**
+ * Mapa interactivo de Colombia con markers clicables por ciudad.
+ * Usa Leaflet + OpenStreetMap. Carga solo en el cliente.
+ */
+interface CiudadMarker {
+  slug: string;
+  nombre: string;
+  coordenadas: [number, number];
+  tieneData: boolean;
+}
+
+interface Props {
+  ciudades: CiudadMarker[];
+  altura?: string;
+  id?: string;
+}
+
+const { ciudades, altura = 'h-[400px] sm:h-[500px]', id = 'mapa-colombia' } = Astro.props;
+const datosCliente = JSON.stringify(ciudades);
+---
+
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+  integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+
+<div
+  id={id}
+  class={`${altura} w-full rounded-lg border border-gray-200 dark:border-gray-700 z-0`}
+  data-ciudades={datosCliente}
+  data-map-id={id}
+></div>
+
+<script>
+  async function inicializarMapaColombia() {
+    const contenedores = document.querySelectorAll('[data-map-id]');
+    if (!contenedores.length) return;
+
+    const L = await import('leaflet');
+
+    for (const contenedor of contenedores) {
+      const el = contenedor as HTMLElement;
+      if (el.dataset.inicializado) continue;
+      el.dataset.inicializado = 'true';
+
+      const ciudades = JSON.parse(el.dataset.ciudades || '[]');
+      const mapId = el.dataset.mapId || 'mapa-colombia';
+
+      const mapa = L.map(mapId, { scrollWheelZoom: false }).setView([4.5, -73.5], 5);
+
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OSM</a>',
+        maxZoom: 18,
+      }).addTo(mapa);
+
+      for (const c of ciudades) {
+        const color = c.tieneData ? '#FBBF24' : '#9CA3AF';
+        const marker = L.circleMarker(c.coordenadas, {
+          radius: 7,
+          fillColor: color,
+          color: '#000',
+          weight: 1.5,
+          fillOpacity: 0.9,
+        }).addTo(mapa);
+
+        const estado = c.tieneData ? 'Datos disponibles' : 'Próximamente';
+        marker.bindTooltip(`<strong>${c.nombre}</strong><br><span style="color:${color}">${estado}</span>`, {
+          direction: 'top',
+          offset: [0, -8],
+        });
+
+        marker.on('click', () => { window.location.href = `/${c.slug}`; });
+        marker.getElement()?.style.setProperty('cursor', 'pointer');
+      }
+    }
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', inicializarMapaColombia);
+  } else {
+    inicializarMapaColombia();
+  }
+</script>

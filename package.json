@@ -1,0 +1,27 @@
+{
+  "name": "picoyplacahoy",
+  "type": "module",
+  "version": "0.0.1",
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro",
+    "fetch-vias": "tsx src/scripts/fetch-vias-exentas.ts"
+  },
+  "dependencies": {
+    "@tailwindcss/vite": "^4.2.2",
+    "@types/leaflet": "^1.9.21",
+    "astro": "^6.1.5",
+    "colombian-holidays": "^5.0.10",
+    "date-fns": "^4.1.0",
+    "leaflet": "^1.9.4",
+    "tailwindcss": "^4.2.2"
+  },
+  "devDependencies": {
+    "tsx": "^4.21.0"
+  }
+}

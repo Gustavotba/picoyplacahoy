@@ -1,0 +1,80 @@
+{
+  "slug": "buenaventura",
+  "nombre": "Buenaventura",
+  "departamento": "Valle del Cauca",
+  "coordenadas": [3.8801, -77.0312],
+  "autoridad": "Secretaría de Tránsito y Transporte de Buenaventura",
+  "autoridad_web": "https://www.buenaventura.gov.co",
+  "autoridad_twitter": "",
+  "decreto_actual": "Decreto 0408 de 2024 (particulares) y Decreto 0409 de 2024 (servicio público)",
+  "fecha_ultima_actualizacion": "2026-06-09",
+  "vigencia_desde": "2026-01-13",
+  "vigencia_hasta": "2026-06-30",
+  "notas_generales": [
+    "La medida aplica a vehículos particulares de lunes a viernes, de 7:00 a.m. a 7:00 p.m., según el último dígito de la placa.",
+    "No aplica en días festivos oficiales de Colombia.",
+    "Los vehículos de servicio público (taxis) tienen un esquema de rotación rodante distinto al de particulares."
+  ],
+  "exenciones_generales": [],
+  "vias_exentas": [],
+  "sanciones": {
+    "tipo_multa": "Tipo C",
+    "base_legal": "Artículo 131, literal C, numeral 14 de la Ley 769 de 2002",
+    "valor_smldv": "15 SMLDV",
+    "incluye_inmovilizacion": true,
+    "descripcion": "Multa equivalente a 15 salarios mínimos diarios legales vigentes (SMLDV) más inmovilización del vehículo."
+  },
+  "vehiculos": {
+    "particulares": {
+      "aplica": true,
+      "descripcion": "Vehículos particulares según el último dígito de la placa",
+      "criterio_placa": "ultimo_digito",
+      "modalidad": "semanal_por_dia",
+      "horario_inicio": "07:00",
+      "horario_fin": "19:00",
+      "horario_texto": "7:00 a.m. a 7:00 p.m. (continuo)",
+      "dias_aplicables": ["lunes", "martes", "miercoles", "jueves", "viernes"],
+      "aplica_festivos": false,
+      "aplica_fines_de_semana": false,
+      "rotacion": {
+        "lunes": [1, 2],
+        "martes": [3, 4],
+        "miercoles": [5, 6],
+        "jueves": [7, 8],
+        "viernes": [9, 0]
+      }
+    },
+    "motos": {
+      "aplica": false,
+      "descripcion": "Los decretos vigentes de Buenaventura regulan el Pico y Placa para particulares y servicio público; no establecen una restricción equivalente para motos.",
+      "nota": "Esta situación puede cambiar. Verifica siempre con la Secretaría de Tránsito y Transporte de Buenaventura."
+    },
+    "taxis": {
+      "aplica": true,
+      "horario": "7:00 a.m. a 7:00 p.m.",
+      "dias_habiles": ["lun", "mar", "mie", "jue", "vie"],
+      "aplica_festivos": false,
+      "restricciones": {
+        "lunes": ["pendiente_verificar"],
+        "martes": ["pendiente_verificar"],
+        "miercoles": ["pendiente_verificar"],
+        "jueves": ["pendiente_verificar"],
+        "viernes": ["pendiente_verificar"]
+      },
+      "notas": "Los vehículos de servicio público (taxis) SÍ tienen Pico y Placa en Buenaventura (Decreto 0409), con un esquema de rotación rodante distinto al de particulares. Consulta el dígito vigente del día con la Secretaría de Tránsito y Transporte de Buenaventura."
+    },
+    "transporte_carga": {
+      "aplica": false,
+      "descripcion": "El Pico y Placa de Buenaventura no establece restricción para transporte de carga.",
+      "nota": "Esta situación puede cambiar. Verifica siempre con la Secretaría de Tránsito y Transporte de Buenaventura."
+    }
+  },
+  "contacto_ciudadano": {
+    "sitio_web_general": "https://www.buenaventura.gov.co",
+    "secretaria_movilidad": "https://www.buenaventura.gov.co",
+    "twitter": "",
+    "facebook": "",
+    "linea_atencion": "pendiente_verificar",
+    "linea_movilidad": "pendiente_verificar"
+  }
+}

@@ -1,0 +1,25 @@
+---
+import type { Ciudad } from '../lib/tipos';
+
+interface Props {
+  ciudades: Ciudad[];
+}
+
+const { ciudades } = Astro.props;
+---
+
+<div class="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4">
+  {ciudades.map((ciudad) => (
+    <a
+      href={`/${ciudad.slug}`}
+      class="group flex flex-col items-center rounded-xl border border-gray-200 bg-white p-5 text-center shadow-sm transition-all hover:border-yellow-400 hover:shadow-md dark:border-gray-700 dark:bg-gray-900 dark:hover:border-yellow-400"
+    >
+      <span class="text-2xl font-bold text-yellow-500 group-hover:text-yellow-600">
+        {ciudad.nombre}
+      </span>
+      <span class="mt-1 text-xs text-gray-500 dark:text-gray-400">
+        {ciudad.departamento}
+      </span>
+    </a>
+  ))}
+</div>

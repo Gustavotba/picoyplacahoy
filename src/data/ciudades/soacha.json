@@ -1,0 +1,61 @@
+{
+  "slug": "soacha",
+  "nombre": "Soacha",
+  "departamento": "Cundinamarca",
+  "coordenadas": [4.5875, -74.2142],
+  "autoridad": "Alcaldía Municipal de Soacha",
+  "autoridad_web": "https://www.soacha-cundinamarca.gov.co",
+  "autoridad_twitter": "",
+  "decreto_actual": "No aplica",
+  "fecha_ultima_actualizacion": "2026-04-12",
+  "notas_generales": [
+    "Soacha NO tiene Pico y Placa municipal propio para ningún tipo de vehículo.",
+    "Sin embargo, los vehículos de Soacha están afectados por el Pico y Placa Regional de Bogotá al ingresar a la capital.",
+    "Desde 2026, vehículos matriculados fuera de Bogotá (incluidos los de Soacha) tienen restricción algunos sábados al ingresar a Bogotá.",
+    "Si te mueves solo dentro de Soacha, no tienes restricción de Pico y Placa."
+  ],
+  "exenciones_generales": [],
+  "vias_exentas": [],
+  "afectacion_regional": {
+    "titulo": "Pico y Placa Regional de ingreso a Bogotá",
+    "autoridad": "Secretaría Distrital de Movilidad de Bogotá",
+    "descripcion": "Los vehículos particulares de Soacha están sujetos al Pico y Placa Regional cuando ingresan a Bogotá. La restricción rige entre el límite municipal de Soacha y la Avenida Boyacá.",
+    "aplicacion": "Días hábiles (lunes a viernes), festivos según calendario, y algunos sábados para vehículos no matriculados en Bogotá",
+    "enlace_ciudad": "bogota"
+  },
+  "novedad_2026": {
+    "titulo": "Restricción sábados para vehículos no matriculados en Bogotá",
+    "descripcion": "Desde el primer semestre de 2026, los vehículos particulares matriculados en Soacha y otros municipios fuera de Bogotá tienen restricción de Pico y Placa algunos sábados al ingresar a Bogotá, bajo modalidad par/impar por fecha.",
+    "pronunciamiento": "El alcalde de Soacha, Julián Sánchez Perico, expresó que la medida afecta directamente a los habitantes de Cundinamarca."
+  },
+  "sanciones": {
+    "descripcion": "Soacha no tiene Pico y Placa municipal. Las sanciones aplican al ingresar a Bogotá sin cumplir su restricción: multa tipo C (15 SMLDV) más inmovilización.",
+    "base_legal": "Artículo 131, literal C, numeral 14 de la Ley 769 de 2002"
+  },
+  "vehiculos": {
+    "particulares": {
+      "aplica": false,
+      "descripcion": "Los vehículos particulares NO tienen Pico y Placa dentro de Soacha. La restricción aplica solo al ingresar a Bogotá."
+    },
+    "motos": {
+      "aplica": false,
+      "descripcion": "Las motocicletas NO tienen Pico y Placa en Soacha."
+    },
+    "taxis": {
+      "aplica": false,
+      "descripcion": "Los taxis NO tienen Pico y Placa en Soacha."
+    },
+    "transporte_carga": {
+      "aplica": false,
+      "descripcion": "El transporte de carga NO tiene Pico y Placa en Soacha."
+    }
+  },
+  "contacto_ciudadano": {
+    "sitio_web_general": "https://www.soacha-cundinamarca.gov.co",
+    "secretaria_movilidad": "https://www.soacha-cundinamarca.gov.co",
+    "twitter": "",
+    "facebook": "",
+    "linea_atencion": "pendiente_verificar",
+    "linea_movilidad": "pendiente_verificar"
+  }
+}

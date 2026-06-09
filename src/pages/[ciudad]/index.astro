@@ -1,0 +1,614 @@
+---
+import Principal from '../../layouts/Principal.astro';
+import TarjetaVehiculo from '../../components/TarjetaVehiculo.astro';
+import Reloj from '../../components/Reloj.astro';
+import MapaViasExentas from '../../components/MapaViasExentas.astro';
+import PicoYPlacaSolidarioComp from '../../components/PicoYPlacaSolidario.astro';
+import { obtenerCiudad, tiposVehiculo, ciudades } from '../../lib/ciudades';
+import { calcularPicoPlaca, fechaColombia, formatearFechaColombia } from '../../lib/calcular';
+import { ETIQUETAS_VEHICULO, ICONOS_VEHICULO } from '../../lib/tipos';
+import type { TipoVehiculo, PicoYPlacaSolidario } from '../../lib/tipos';
+import { breadcrumbJsonLd } from '../../lib/seo';
+
+import medellinGeo from '../../data/ciudades/medellin.geo.json';
+const geodatos: Record<string, unknown> = { medellin: medellinGeo };
+
+export const prerender = false;
+
+const { ciudad: slugCiudad } = Astro.params;
+const ciudad = obtenerCiudad(slugCiudad!);
+if (!ciudad) return Astro.redirect('/');
+
+const fechaParam = Astro.url.searchParams.get('fecha');
+const hoy = fechaParam ? new Date(fechaParam + 'T12:00:00') : fechaColombia();
+const esDebug = !!fechaParam;
+const fechaFormateada = formatearFechaColombia(hoy);
+const resultados = tiposVehiculo.map((tipo) => ({
+  tipo,
+  resultado: calcularPicoPlaca(ciudad, tipo, hoy),
+}));
+
+const ciudadSinPyP = ciudad.decreto_actual === 'No aplica';
+const tieneVigencia = ciudad.vigencia_desde && ciudad.vigencia_hasta;
+const tieneNotasGenerales = ciudad.notas_generales && ciudad.notas_generales.length > 0;
+const tieneExenciones = ciudad.exenciones_generales && ciudad.exenciones_generales.length > 0;
+const tieneViasExentas = ciudad.vias_exentas && ciudad.vias_exentas.length > 0;
+const tieneContacto = !!ciudad.contacto_ciudadano;
+const tieneSancionesDetalladas = ciudad.sanciones.valor_aproximado_pesos !== undefined;
+
+const centrosMapa: Record<string, { centro: [number, number]; zoom: number }> = {
+  medellin: { centro: [6.2442, -75.5812], zoom: 13 },
+};
+const mapaDisponible = ciudad.slug in centrosMapa && ciudad.slug in geodatos;
+const mapaConfig = mapaDisponible ? centrosMapa[ciudad.slug] : null;
+const mapaGeojson = mapaDisponible ? geodatos[ciudad.slug] : null;
+
+// Ciudades cercanas con PyP (relación geográfica)
+const CERCANAS_MAP: Record<string, string[]> = {
+  turbaco: ['cartagena', 'barranquilla'],
+  malambo: ['barranquilla', 'cartagena', 'soledad'],
+  soledad: ['barranquilla', 'cartagena', 'malambo'],
+  tunja: ['bogota', 'bucaramanga', 'soacha'],
+  dosquebradas: ['pereira', 'manizales', 'armenia'],
+  rionegro: ['medellin', 'bello', 'envigado'],
+  fusagasuga: ['bogota', 'soacha'],
+  buenaventura: ['cali', 'palmira'],
+  ipiales: ['pasto', 'popayan', 'cali'],
+  ocana: ['cucuta', 'bucaramanga', 'pamplona'],
+  pamplona: ['cucuta', 'bucaramanga', 'ocana'],
+  quibdo: ['medellin', 'pereira', 'manizales'],
+  'santa-cruz-de-lorica': ['cartagena', 'barranquilla'],
+};
+const slugsCercanas = CERCANAS_MAP[ciudad.slug] ?? [];
+const ciudadesCercanas = slugsCercanas
+  .map((s) => ciudades.find((c) => c.slug === s))
+  .filter(Boolean) as typeof ciudades;
+
+// URL Ley 769
+const URL_LEY_769 = 'https://www.funcionpublica.gov.co/eva/gestornormativo/norma.php?i=5557';
+
+// SEO
+const titulo = ciudadSinPyP
+  ? `En ${ciudad.nombre} no hay Pico y Placa | Puedes circular cualquier día`
+  : `Pico y Placa hoy en ${ciudad.nombre} — Particulares, Motos, Taxis`;
+const descripcion = ciudadSinPyP
+  ? `En ${ciudad.nombre}, ${ciudad.departamento}, no aplica la restricción vehicular de Pico y Placa. Puedes circular cualquier día. Consulta ciudades cercanas con restricción.`
+  : `Consulta si hoy aplica Pico y Placa en ${ciudad.nombre}, ${ciudad.departamento}. Horarios, placas restringidas y más.`;
+
+const jsonLdBase = {
+  '@context': 'https://schema.org',
+  '@type': 'GovernmentService',
+  name: `Pico y Placa en ${ciudad.nombre}`,
+  serviceType: 'Restricción vehicular',
+  areaServed: { '@type': 'City', name: ciudad.nombre },
+  provider: { '@type': 'GovernmentOrganization', name: ciudad.autoridad, url: ciudad.autoridad_web },
+};
+
+// FAQ expandida para ciudades sin PyP
+const ciudadCercanaConPyP = ciudadesCercanas[0]?.nombre ?? 'Bogotá';
+const faqSinPyP = ciudadSinPyP ? {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: `¿Hay Pico y Placa en ${ciudad.nombre}?`,
+      acceptedAnswer: { '@type': 'Answer', text: `No. En ${ciudad.nombre}, ${ciudad.departamento}, no existe restricción de Pico y Placa. Los vehículos pueden circular cualquier día sin restricción por número de placa.` },
+    },
+    {
+      '@type': 'Question',
+      name: `¿Qué debo hacer si viajo a ${ciudadCercanaConPyP} desde ${ciudad.nombre}?`,
+      acceptedAnswer: { '@type': 'Answer', text: `Si viajas a ${ciudadCercanaConPyP}, verifica primero si tu placa tiene restricción ese día. Consulta en picoyplacahoy.co la rotación vigente. Infringir el Pico y Placa puede resultar en multas de más de $700.000 COP más inmovilización del vehículo.` },
+    },
+    {
+      '@type': 'Question',
+      name: `¿Hay planes de implementar Pico y Placa en ${ciudad.nombre}?`,
+      acceptedAnswer: { '@type': 'Answer', text: `No hay anuncios oficiales al respecto. La Secretaría de Tránsito local es la responsable de anunciar cualquier cambio. Si se implementa, actualizaremos esta página inmediatamente.` },
+    },
+    {
+      '@type': 'Question',
+      name: `¿Aplican multas de tránsito en ${ciudad.nombre}?`,
+      acceptedAnswer: { '@type': 'Answer', text: `Sí. El Código Nacional de Tránsito (Ley 769 de 2002) aplica en todo el territorio colombiano. Las demás normas de tránsito (velocidad, cinturón, semáforos, etc.) se aplican normalmente en ${ciudad.nombre}.` },
+    },
+    {
+      '@type': 'Question',
+      name: `¿Dónde verifico información oficial de tránsito en ${ciudad.nombre}?`,
+      acceptedAnswer: { '@type': 'Answer', text: `Puedes consultar directamente con ${ciudad.autoridad} en su sitio web oficial: ${ciudad.autoridad_web}` },
+    },
+  ],
+} : null;
+
+// Rastro de migas (breadcrumb) para datos estructurados
+const breadcrumb = breadcrumbJsonLd([
+  { nombre: 'Inicio', ruta: '/' },
+  { nombre: ciudad.nombre, ruta: `/${ciudad.slug}` },
+]);
+
+// Todos los bloques JSON-LD de esta página (se filtran los nulos)
+const bloquesJsonLd = [jsonLdBase, breadcrumb, faqSinPyP].filter(Boolean) as Array<Record<string, unknown>>;
+---
+
+<Principal titulo={titulo} descripcion={descripcion} jsonLd={bloquesJsonLd}>
+
+  {esDebug && (
+    <div class="mb-4 rounded-lg border-2 border-dashed border-purple-400 bg-purple-50 px-4 py-2 text-sm text-purple-700 dark:bg-purple-950/30 dark:text-purple-300">
+      Modo debug: simulando fecha <strong>{fechaParam}</strong> · <a href={`/${ciudad.slug}`} class="underline">Volver a hoy</a>
+    </div>
+  )}
+
+  <nav class="mb-4">
+    <a href="/" class="text-sm text-yellow-600 hover:text-yellow-500 hover:underline">← Todas las ciudades</a>
+  </nav>
+
+  <header class="mb-6">
+    <h1 class="text-3xl sm:text-4xl font-bold">
+      {ciudadSinPyP
+        ? <>En <span class="text-green-500">{ciudad.nombre}</span> no hay Pico y Placa</>
+        : <>Pico y Placa hoy en <span class="text-yellow-500">{ciudad.nombre}</span></>}
+    </h1>
+    <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
+      {ciudad.departamento} · <span class="capitalize">{fechaFormateada}</span>
+    </p>
+  </header>
+
+  {/* ========== CIUDAD SIN PICO Y PLACA ========== */}
+  {ciudadSinPyP && (
+    <>
+      {/* 1. Banner verde */}
+      <section class="mb-8 rounded-xl border-2 border-green-300 bg-green-50 dark:border-green-700 dark:bg-green-950/20 p-8 text-center">
+        <p class="text-4xl sm:text-5xl font-black text-green-600 dark:text-green-400 mb-3">SIN PICO Y PLACA</p>
+        <p class="text-lg text-gray-600 dark:text-gray-400">
+          En {ciudad.nombre} puedes circular cualquier día sin restricción de Pico y Placa.
+        </p>
+      </section>
+
+      {/* 2. Tarjetas de tipos de vehículo (todas SIN RESTRICCIÓN) */}
+      <section class="mb-8">
+        <h2 class="text-lg font-bold mb-3">Estado por tipo de vehículo</h2>
+        <div class="grid grid-cols-1 gap-3 sm:grid-cols-2">
+          {tiposVehiculo.map((tipo) => (
+            <a href={`/${ciudad.slug}/${tipo}`}
+              class="group flex items-center gap-4 rounded-xl border-2 border-green-200 bg-white dark:bg-gray-900 dark:border-green-800 p-4 shadow-sm hover:shadow-md hover:border-green-400 transition-all">
+              <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg bg-green-50 dark:bg-green-950/30 p-2">
+                <img src={ICONOS_VEHICULO[tipo]} alt={ETIQUETAS_VEHICULO[tipo]} class="h-full w-full object-contain" />
+              </div>
+              <div class="flex-1">
+                <p class="font-bold text-sm">{ETIQUETAS_VEHICULO[tipo]}</p>
+                <p class="text-xs text-green-600 dark:text-green-400 font-semibold flex items-center gap-1">
+                  <svg class="w-3.5 h-3.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7" /></svg>
+                  SIN RESTRICCIÓN
+                </p>
+                <p class="text-xs text-gray-400 mt-0.5">Puede circular cualquier día</p>
+              </div>
+              <span class="text-xs text-gray-400 group-hover:text-yellow-500">→</span>
+            </a>
+          ))}
+        </div>
+      </section>
+
+      {/* 3. FAQ ¿Por qué no tiene PyP? */}
+      <section class="mb-6 rounded-lg border border-blue-200 bg-blue-50 p-5 dark:bg-blue-950/20 dark:border-blue-800">
+        <h2 class="font-bold mb-2">¿Por qué {ciudad.nombre} no tiene Pico y Placa?</h2>
+        <p class="text-sm text-gray-700 dark:text-gray-300">
+          Aunque la mayoría de ciudades grandes de Colombia aplican la medida de Pico y Placa para reducir la congestión vehicular, algunas municipalidades han decidido no implementarla. Esto puede deberse a menor volumen de tráfico, infraestructura vial suficiente o decisiones de política local. Si la situación cambia, actualizaremos esta página.
+        </p>
+      </section>
+
+      {/* Afectación regional (Soacha, Fusagasugá) */}
+      {ciudad.afectacion_regional && (
+        <section class="mb-6 rounded-lg border-2 border-amber-300 bg-amber-50 p-5 dark:bg-amber-950/20 dark:border-amber-700">
+          <h2 class="font-bold mb-2 flex items-center gap-2">
+            <span class="text-xl">⚠️</span>
+            <span>{ciudad.afectacion_regional.titulo}</span>
+          </h2>
+          <p class="text-sm text-gray-700 dark:text-gray-300 mb-2">{ciudad.afectacion_regional.descripcion}</p>
+          <p class="text-xs text-gray-500 dark:text-gray-400 mb-2">
+            <strong>Aplica:</strong> {ciudad.afectacion_regional.aplicacion}
+          </p>
+          <p class="text-xs text-gray-500 dark:text-gray-400">
+            <strong>Autoridad:</strong> {ciudad.afectacion_regional.autoridad}
+          </p>
+          {ciudad.afectacion_regional.enlace_ciudad && (
+            <a href={`/${ciudad.afectacion_regional.enlace_ciudad}`}
+              class="inline-block mt-3 rounded-lg bg-yellow-400 hover:bg-yellow-500 text-black font-bold text-sm px-4 py-2 transition-colors">
+              Ver Pico y Placa en {ciudad.afectacion_regional.enlace_ciudad === 'bogota' ? 'Bogotá' : ciudad.afectacion_regional.enlace_ciudad} →
+            </a>
+          )}
+        </section>
+      )}
+
+      {/* Novedad 2026 (Soacha) */}
+      {ciudad.novedad_2026 && (
+        <section class="mb-6 rounded-lg border border-orange-200 bg-orange-50 p-4 dark:bg-orange-950/20 dark:border-orange-700">
+          <h3 class="font-bold text-sm mb-1">{ciudad.novedad_2026.titulo}</h3>
+          <p class="text-sm text-gray-700 dark:text-gray-300">{ciudad.novedad_2026.descripcion}</p>
+          {ciudad.novedad_2026.pronunciamiento && (
+            <p class="text-xs text-gray-500 dark:text-gray-400 mt-2 italic">"{ciudad.novedad_2026.pronunciamiento}"</p>
+          )}
+        </section>
+      )}
+
+      {/* Pico y Color (Soledad) */}
+      {ciudad.pico_y_color && (
+        <section class="mb-6 rounded-lg border-2 border-purple-300 bg-purple-50 p-5 dark:bg-purple-950/20 dark:border-purple-700">
+          <h2 class="font-bold mb-2">Pico y Color (motocarros)</h2>
+          <p class="text-sm text-gray-700 dark:text-gray-300 mb-3">{ciudad.pico_y_color.descripcion}</p>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            {ciudad.pico_y_color.colores.map((c) => (
+              <div class="rounded-lg border border-gray-200 dark:border-gray-700 p-3 text-center">
+                <p class="font-bold text-lg">{c.color}</p>
+                <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">{c.placas}</p>
+              </div>
+            ))}
+          </div>
+          <p class="text-xs text-gray-400 mt-2">Norma: {ciudad.pico_y_color.norma}</p>
+        </section>
+      )}
+
+      {/* Días sin moto (Turbaco, Soledad) */}
+      {ciudad.dias_sin_moto && ciudad.dias_sin_moto.length > 0 && (
+        <section class="mb-6 rounded-lg border border-red-200 bg-red-50 p-4 dark:bg-red-950/20 dark:border-red-800">
+          <h3 class="font-bold text-sm mb-2">Días Sin Moto</h3>
+          <ul class="space-y-1">
+            {ciudad.dias_sin_moto.map((d) => (
+              <li class="text-sm text-gray-700 dark:text-gray-300 flex items-start gap-2">
+                <span class="text-red-500 mt-0.5 shrink-0">🚫</span><span>{d}</span>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
+
+      {/* Suspensiones anuales (Tunja) */}
+      {ciudad.suspensiones_anuales && ciudad.suspensiones_anuales.length > 0 && (
+        <section class="mb-6 rounded-lg border border-green-200 bg-green-50 p-4 dark:bg-green-950/20 dark:border-green-800">
+          <h3 class="font-bold text-sm mb-2">Periodos sin restricción</h3>
+          <ul class="space-y-1">
+            {ciudad.suspensiones_anuales.map((s) => (
+              <li class="text-sm text-gray-700 dark:text-gray-300 flex items-start gap-2">
+                <span class="text-green-500 mt-0.5 shrink-0">✓</span><span>{s}</span>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
+
+      {/* Restricción diferenciada por matrícula (Ocaña) */}
+      {ciudad.restriccion_por_matricula && (
+        <section class="mb-6">
+          <h2 class="text-lg font-bold mb-3">Restricción según origen de matrícula</h2>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div class="rounded-lg border-2 border-blue-300 bg-blue-50 p-4 dark:bg-blue-950/20 dark:border-blue-700">
+              <h3 class="font-bold text-sm mb-1">Matrícula de {ciudad.nombre}</h3>
+              <p class="text-sm text-gray-700 dark:text-gray-300">{ciudad.restriccion_por_matricula.local.nota}</p>
+              <ul class="mt-2 space-y-0.5">
+                {ciudad.restriccion_por_matricula.local.franjas_horarias.map((f) => (
+                  <li class="text-sm font-mono font-bold">{f}</li>
+                ))}
+              </ul>
+            </div>
+            <div class="rounded-lg border-2 border-orange-300 bg-orange-50 p-4 dark:bg-orange-950/20 dark:border-orange-700">
+              <h3 class="font-bold text-sm mb-1">Matrícula de otra ciudad</h3>
+              <p class="text-sm text-gray-700 dark:text-gray-300">{ciudad.restriccion_por_matricula.foranea.nota}</p>
+              <ul class="mt-2 space-y-0.5">
+                {ciudad.restriccion_por_matricula.foranea.franjas_horarias.map((f) => (
+                  <li class="text-sm font-mono font-bold">{f}</li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* 4. Ciudades cercanas CON PyP */}
+      {ciudadesCercanas.length > 0 && (
+        <section class="mb-6">
+          <h2 class="text-lg font-bold mb-3">Ciudades cercanas con Pico y Placa</h2>
+          <p class="text-sm text-gray-500 dark:text-gray-400 mb-3">
+            Si viajas a estas ciudades, verifica antes si tu placa tiene restricción.
+          </p>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            {ciudadesCercanas.map((c) => {
+              const tieneData = c.decreto_actual !== 'pendiente_verificar' && c.decreto_actual !== 'No aplica';
+              return (
+                <a href={`/${c.slug}`}
+                  class="flex items-center gap-3 rounded-lg border border-yellow-200 bg-yellow-50 dark:bg-yellow-950/10 dark:border-yellow-800 p-4 hover:border-yellow-400 hover:shadow-md transition-all">
+                  <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-yellow-400 text-black font-bold text-sm">
+                    PyP
+                  </div>
+                  <div>
+                    <p class="font-bold text-sm">{c.nombre}</p>
+                    <p class="text-xs text-gray-500 dark:text-gray-400">
+                      {tieneData ? `${c.decreto_actual}` : 'Datos pendientes de verificar'}
+                    </p>
+                  </div>
+                </a>
+              );
+            })}
+          </div>
+        </section>
+      )}
+
+      {/* 5. ¿Qué debes saber si viajas? */}
+      <section class="mb-6">
+        <h2 class="text-lg font-bold mb-3">¿Qué debes saber si viajas en Colombia?</h2>
+        <p class="text-sm text-gray-700 dark:text-gray-300 mb-3">
+          La mayoría de ciudades grandes de Colombia aplican Pico y Placa. Si sales de {ciudad.nombre} y conduces en otra ciudad, podrías necesitar verificar la restricción.
+        </p>
+        <div class="rounded-lg border border-red-200 bg-red-50 p-4 dark:bg-red-950/20 dark:border-red-800 mb-3">
+          <p class="text-sm font-semibold text-red-700 dark:text-red-300">Sanción por infringir Pico y Placa en Colombia:</p>
+          <p class="text-2xl font-mono font-bold text-red-600 dark:text-red-400 mt-1">$711.750 COP</p>
+          <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">
+            Multa tipo C (15 SMLDV) + inmovilización del vehículo ·
+            <a href={URL_LEY_769} target="_blank" rel="noopener noreferrer" class="text-red-600 dark:text-red-400 hover:underline">
+              Art. 131, Ley 769 de 2002
+            </a>
+          </p>
+        </div>
+        <a href="/" class="inline-flex items-center gap-2 rounded-lg bg-yellow-400 hover:bg-yellow-500 text-black font-bold text-sm px-5 py-3 transition-colors shadow-sm">
+          Ver el mapa completo de Colombia →
+        </a>
+      </section>
+
+      {/* 6. Contacto oficial */}
+      <section class="mb-6 rounded-lg border border-gray-200 dark:border-gray-700 p-4">
+        <h2 class="text-lg font-bold mb-2">Contacto oficial de tránsito en {ciudad.nombre}</h2>
+        <p class="text-sm text-gray-700 dark:text-gray-300 mb-2">{ciudad.autoridad}</p>
+        <div class="space-y-1 text-sm">
+          <p>
+            <span class="text-gray-500">Web:</span>{' '}
+            <a href={ciudad.autoridad_web} target="_blank" rel="noopener noreferrer" class="text-yellow-600 hover:underline">{ciudad.autoridad_web}</a>
+          </p>
+          {tieneContacto && ciudad.contacto_ciudadano!.linea_atencion !== 'pendiente_verificar' && (
+            <p><span class="text-gray-500">Teléfono:</span> {ciudad.contacto_ciudadano!.linea_atencion}</p>
+          )}
+        </div>
+        <p class="text-xs text-gray-400 mt-3 italic">
+          Aunque {ciudad.nombre} no tenga Pico y Placa, verifica siempre con la Secretaría local antes de cualquier viaje importante.
+        </p>
+      </section>
+    </>
+  )}
+
+  {/* ========== CIUDAD CON PICO Y PLACA ========== */}
+  {!ciudadSinPyP && (
+    <>
+      {ciudad.decreto_actual !== 'pendiente_verificar' && (
+        <div class="mb-6 rounded-lg border-l-4 border-yellow-400 bg-yellow-50 px-4 py-3 dark:bg-yellow-950/30 dark:border-yellow-500">
+          <p class="font-semibold text-sm text-gray-800 dark:text-yellow-100">{ciudad.decreto_actual}</p>
+          {tieneVigencia && (
+            <p class="text-xs text-gray-600 dark:text-yellow-200/70 mt-0.5">Vigencia: {ciudad.vigencia_desde} al {ciudad.vigencia_hasta}</p>
+          )}
+          <p class="text-xs text-gray-500 dark:text-gray-400 mt-0.5">Fuente: {ciudad.autoridad}</p>
+        </div>
+      )}
+
+      <section class="mb-6"><Reloj /></section>
+
+      <section class="grid grid-cols-1 gap-4 sm:grid-cols-2 mb-8">
+        {resultados.map(({ tipo, resultado }) => (
+          <TarjetaVehiculo slugCiudad={ciudad.slug} tipo={tipo as TipoVehiculo} resultado={resultado} />
+        ))}
+      </section>
+
+      {tieneNotasGenerales && (
+        <section class="mb-6 rounded-lg border-2 border-yellow-300 bg-yellow-50 p-4 dark:bg-yellow-950/20 dark:border-yellow-700">
+          <h2 class="text-lg font-bold mb-2">Notas importantes</h2>
+          <ul class="space-y-1.5">
+            {ciudad.notas_generales!.map((nota) => (
+              <li class="text-sm text-gray-700 dark:text-gray-300 flex items-start gap-2">
+                <span class="text-yellow-500 mt-0.5 shrink-0">•</span><span>{nota}</span>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
+
+      {tieneExenciones && (
+        <section class="mb-6 rounded-lg border border-green-200 bg-green-50 p-4 dark:bg-green-950/20 dark:border-green-800">
+          <h2 class="text-lg font-bold mb-2">Vehículos exentos</h2>
+          <ul class="space-y-1.5">
+            {ciudad.exenciones_generales!.map((e) => (
+              <li class="text-sm text-gray-700 dark:text-gray-300 flex items-start gap-2">
+                <span class="text-green-500 mt-0.5 shrink-0">✓</span><span>{e}</span>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
+
+      {tieneViasExentas && mapaDisponible && mapaConfig && (
+        <MapaViasExentas nombreCiudad={ciudad.nombre} centro={mapaConfig.centro} zoom={mapaConfig.zoom} geojson={mapaGeojson} />
+      )}
+
+      {tieneViasExentas && (
+        <section class="mb-6">
+          <details class="rounded-lg border border-gray-200 dark:border-gray-700 overflow-hidden" open={!mapaDisponible}>
+            <summary class="cursor-pointer bg-gray-50 dark:bg-gray-800 px-4 py-3 font-semibold text-sm">
+              Lista completa de vías exentas ({ciudad.vias_exentas!.length})
+            </summary>
+            <div class="px-4 py-3 bg-white dark:bg-gray-900">
+              <ul class="space-y-1.5">
+                {ciudad.vias_exentas!.map((via) => (
+                  <li class="text-sm text-gray-700 dark:text-gray-300 flex items-start gap-2">
+                    <span class="text-green-500 mt-0.5 shrink-0">→</span><span>{via}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </details>
+        </section>
+      )}
+
+      {ciudad.pico_y_placa_solidario && ciudad.pico_y_placa_solidario.existe === true && (
+        <PicoYPlacaSolidarioComp datos={ciudad.pico_y_placa_solidario as PicoYPlacaSolidario} nombreCiudad={ciudad.nombre} />
+      )}
+
+      <section class="mb-6 rounded-lg border border-red-200 bg-red-50 p-4 dark:bg-red-950/20 dark:border-red-800">
+        <h2 class="text-lg font-bold mb-2">Sanciones</h2>
+        <p class="text-sm text-gray-700 dark:text-gray-300">{ciudad.sanciones.descripcion}</p>
+        {tieneSancionesDetalladas && (
+          <div class="mt-3 grid grid-cols-2 sm:grid-cols-3 gap-2 text-center">
+            {ciudad.sanciones.tipo_multa && (
+              <div class="rounded bg-red-100 dark:bg-red-900/40 p-2">
+                <p class="text-xs text-gray-500 dark:text-gray-400">Tipo</p>
+                <p class="font-bold text-red-700 dark:text-red-300">{ciudad.sanciones.tipo_multa}</p>
+              </div>
+            )}
+            {ciudad.sanciones.valor_smldv && (
+              <div class="rounded bg-red-100 dark:bg-red-900/40 p-2">
+                <p class="text-xs text-gray-500 dark:text-gray-400">Multa</p>
+                <p class="font-bold text-red-700 dark:text-red-300">{ciudad.sanciones.valor_smldv}</p>
+              </div>
+            )}
+            {ciudad.sanciones.valor_aproximado_pesos && (
+              <div class="rounded bg-red-100 dark:bg-red-900/40 p-2">
+                <p class="text-xs text-gray-500 dark:text-gray-400">Aprox.</p>
+                <p class="font-bold text-red-700 dark:text-red-300">${ciudad.sanciones.valor_aproximado_pesos.toLocaleString('es-CO')}</p>
+              </div>
+            )}
+          </div>
+        )}
+        <p class="mt-2 text-xs text-gray-500 dark:text-gray-400">{ciudad.sanciones.base_legal}</p>
+      </section>
+
+      {tieneContacto && ciudad.contacto_ciudadano!.twitter && (
+        <section class="mb-6">
+          <h2 class="text-lg font-bold mb-3">Canales oficiales</h2>
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+            <a href={ciudad.contacto_ciudadano!.secretaria_movilidad} target="_blank" rel="noopener noreferrer"
+              class="flex flex-col items-center gap-1.5 rounded-lg border border-gray-200 dark:border-gray-700 p-3 text-center hover:border-yellow-400 hover:bg-yellow-50 dark:hover:bg-yellow-950/20 transition-colors">
+              <svg class="w-6 h-6 text-yellow-600 dark:text-yellow-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" /></svg>
+              <span class="text-xs font-medium">Web oficial</span>
+            </a>
+            <a href={ciudad.contacto_ciudadano!.twitter} target="_blank" rel="noopener noreferrer"
+              class="flex flex-col items-center gap-1.5 rounded-lg border border-gray-200 dark:border-gray-700 p-3 text-center hover:border-yellow-400 hover:bg-yellow-50 dark:hover:bg-yellow-950/20 transition-colors">
+              <svg class="w-6 h-6 text-yellow-600 dark:text-yellow-400" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" /></svg>
+              <span class="text-xs font-medium">X / Twitter</span>
+            </a>
+            <a href={ciudad.contacto_ciudadano!.facebook} target="_blank" rel="noopener noreferrer"
+              class="flex flex-col items-center gap-1.5 rounded-lg border border-gray-200 dark:border-gray-700 p-3 text-center hover:border-yellow-400 hover:bg-yellow-50 dark:hover:bg-yellow-950/20 transition-colors">
+              <svg class="w-6 h-6 text-yellow-600 dark:text-yellow-400" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" /></svg>
+              <span class="text-xs font-medium">Facebook</span>
+            </a>
+            <a href={`tel:${ciudad.contacto_ciudadano!.linea_atencion.replace(/\s|-/g, '')}`}
+              class="flex flex-col items-center gap-1.5 rounded-lg border border-gray-200 dark:border-gray-700 p-3 text-center hover:border-yellow-400 hover:bg-yellow-50 dark:hover:bg-yellow-950/20 transition-colors">
+              <svg class="w-6 h-6 text-yellow-600 dark:text-yellow-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" /></svg>
+              <span class="text-xs font-medium">{ciudad.contacto_ciudadano!.linea_atencion}</span>
+            </a>
+          </div>
+        </section>
+      )}
+    </>
+  )}
+
+  {/* Campos especiales para ciudades CON PyP */}
+  {!ciudadSinPyP && ciudad.pico_y_color && (
+    <section class="mb-6 rounded-lg border-2 border-purple-300 bg-purple-50 p-5 dark:bg-purple-950/20 dark:border-purple-700">
+      <h2 class="font-bold mb-2">Pico y Color (motocarros)</h2>
+      <p class="text-sm text-gray-700 dark:text-gray-300 mb-3">{ciudad.pico_y_color.descripcion}</p>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+        {ciudad.pico_y_color.colores.map((c) => (
+          <div class="rounded-lg border border-gray-200 dark:border-gray-700 p-3 text-center">
+            <p class="font-bold text-lg">{c.color}</p>
+            <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">{c.placas}</p>
+          </div>
+        ))}
+      </div>
+      <p class="text-xs text-gray-400 mt-2">Norma: {ciudad.pico_y_color.norma}</p>
+    </section>
+  )}
+
+  {!ciudadSinPyP && ciudad.dias_sin_moto && ciudad.dias_sin_moto.length > 0 && (
+    <section class="mb-6 rounded-lg border border-red-200 bg-red-50 p-4 dark:bg-red-950/20 dark:border-red-800">
+      <h3 class="font-bold text-sm mb-2">Días Sin Moto</h3>
+      <ul class="space-y-1">
+        {ciudad.dias_sin_moto.map((d) => (
+          <li class="text-sm text-gray-700 dark:text-gray-300 flex items-start gap-2">
+            <span class="text-red-500 mt-0.5 shrink-0">🚫</span><span>{d}</span>
+          </li>
+        ))}
+      </ul>
+    </section>
+  )}
+
+  {!ciudadSinPyP && ciudad.suspensiones_anuales && ciudad.suspensiones_anuales.length > 0 && (
+    <section class="mb-6 rounded-lg border border-green-200 bg-green-50 p-4 dark:bg-green-950/20 dark:border-green-800">
+      <h3 class="font-bold text-sm mb-2">Periodos sin restricción</h3>
+      <ul class="space-y-1">
+        {ciudad.suspensiones_anuales.map((s) => (
+          <li class="text-sm text-gray-700 dark:text-gray-300 flex items-start gap-2">
+            <span class="text-green-500 mt-0.5 shrink-0">✓</span><span>{s}</span>
+          </li>
+        ))}
+      </ul>
+    </section>
+  )}
+
+  {!ciudadSinPyP && ciudad.restriccion_por_matricula && (
+    <section class="mb-6">
+      <h2 class="text-lg font-bold mb-3">Restricción según origen de matrícula</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+        <div class="rounded-lg border-2 border-blue-300 bg-blue-50 p-4 dark:bg-blue-950/20 dark:border-blue-700">
+          <h3 class="font-bold text-sm mb-1">Matrícula de {ciudad.nombre}</h3>
+          <p class="text-sm text-gray-700 dark:text-gray-300">{ciudad.restriccion_por_matricula.local.nota}</p>
+          <ul class="mt-2 space-y-0.5">
+            {ciudad.restriccion_por_matricula.local.franjas_horarias.map((f) => (
+              <li class="text-sm font-mono font-bold">{f}</li>
+            ))}
+          </ul>
+        </div>
+        <div class="rounded-lg border-2 border-orange-300 bg-orange-50 p-4 dark:bg-orange-950/20 dark:border-orange-700">
+          <h3 class="font-bold text-sm mb-1">Matrícula de otra ciudad</h3>
+          <p class="text-sm text-gray-700 dark:text-gray-300">{ciudad.restriccion_por_matricula.foranea.nota}</p>
+          <ul class="mt-2 space-y-0.5">
+            {ciudad.restriccion_por_matricula.foranea.franjas_horarias.map((f) => (
+              <li class="text-sm font-mono font-bold">{f}</li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </section>
+  )}
+
+  {/* ========== SECCIONES COMUNES ========== */}
+
+  <!-- Todas las ciudades de Colombia -->
+  <section class="mb-6">
+    <h2 class="text-lg font-bold mb-3">Todas las ciudades de Colombia</h2>
+    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-1.5">
+      {ciudades.map((c) => {
+        const esActual = c.slug === ciudad.slug;
+        const activo = c.decreto_actual !== 'pendiente_verificar' && c.decreto_actual !== 'No aplica';
+        return (
+          <a
+            href={esActual ? undefined : `/${c.slug}`}
+            class:list={[
+              'flex items-center gap-1.5 rounded px-2.5 py-2 text-sm transition-colors',
+              esActual
+                ? 'bg-yellow-100 font-bold text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-300 cursor-default'
+                : 'hover:bg-yellow-50 dark:hover:bg-yellow-950/20',
+            ]}
+          >
+            <span class:list={['text-[8px]', activo ? 'text-green-500' : 'text-gray-300 dark:text-gray-600']}>●</span>
+            {c.nombre}
+          </a>
+        );
+      })}
+    </div>
+  </section>
+
+  <footer class="pt-4 border-t border-gray-200 dark:border-gray-800 text-sm text-gray-500 dark:text-gray-400">
+    <p>
+      Última actualización: {ciudad.fecha_ultima_actualizacion}
+      {ciudad.decreto_actual !== 'pendiente_verificar' && ciudad.decreto_actual !== 'No aplica' && (
+        <span> · {ciudad.decreto_actual}</span>
+      )}
+    </p>
+    <p class="mt-1">
+      <a href={ciudad.autoridad_web} target="_blank" rel="noopener noreferrer" class="text-yellow-600 hover:underline">
+        Verificar en fuente oficial →
+      </a>
+    </p>
+  </footer>
+</Principal>

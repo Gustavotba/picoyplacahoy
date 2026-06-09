@@ -1,0 +1,152 @@
+---
+import Principal from '../layouts/Principal.astro';
+import { ciudades } from '../lib/ciudades';
+import { breadcrumbJsonLd } from '../lib/seo';
+
+export const prerender = true;
+
+// Categorías comúnmente exentas en los decretos de Pico y Placa de Colombia.
+// Son generales: cada ciudad define su propia lista en su decreto oficial.
+const categorias = [
+  {
+    titulo: 'Vehículos de emergencia',
+    detalle:
+      'Ambulancias, vehículos de bomberos, defensa civil y atención de desastres.',
+  },
+  {
+    titulo: 'Organismos de seguridad',
+    detalle:
+      'Policía, Ejército, Fiscalía, INPEC y demás vehículos oficiales en servicio.',
+  },
+  {
+    titulo: 'Vehículos eléctricos e híbridos',
+    detalle:
+      'En muchas ciudades los vehículos 100% eléctricos (y a veces los híbridos) están exentos como incentivo ambiental. Esto varía por ciudad.',
+  },
+  {
+    titulo: 'Personas con discapacidad',
+    detalle:
+      'Vehículos que transportan personas con movilidad reducida, generalmente con acreditación o registro previo.',
+  },
+  {
+    titulo: 'Servicios públicos y funerarios',
+    detalle:
+      'Vehículos de servicios públicos (acueducto, energía, gas), carros fúnebres y mortuorios.',
+  },
+  {
+    titulo: 'Medios de comunicación y prensa',
+    detalle: 'Vehículos de prensa debidamente identificados, según cada decreto.',
+  },
+  {
+    titulo: 'Caravanas y misiones diplomáticas',
+    detalle: 'Vehículos del cuerpo diplomático y consular acreditado.',
+  },
+  {
+    titulo: 'Transporte escolar y de servicios médicos',
+    detalle:
+      'En varias ciudades el transporte escolar y el que lleva pacientes a citas médicas está exento o tiene permisos especiales.',
+  },
+];
+
+const titulo = 'Exenciones del Pico y Placa en Colombia — Quién no tiene restricción';
+const descripcion =
+  'Conoce qué vehículos están exentos del Pico y Placa en Colombia: emergencia, eléctricos, discapacidad, servicios públicos y más. Cada ciudad define su propia lista.';
+
+const faq = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: '¿Los carros eléctricos tienen Pico y Placa?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'En la mayoría de ciudades colombianas los vehículos 100% eléctricos están exentos del Pico y Placa como incentivo ambiental. Sin embargo, cada ciudad lo define en su decreto, así que conviene verificar la norma local.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: '¿Qué vehículos están exentos del Pico y Placa?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Generalmente están exentos los vehículos de emergencia, organismos de seguridad, eléctricos, de personas con discapacidad, servicios públicos, funerarios, prensa y misiones diplomáticas. La lista exacta depende del decreto de cada ciudad.',
+      },
+    },
+  ],
+};
+
+const breadcrumb = breadcrumbJsonLd([
+  { nombre: 'Inicio', ruta: '/' },
+  { nombre: 'Exenciones del Pico y Placa', ruta: '/exenciones-pico-y-placa' },
+]);
+
+const ciudadesConData = ciudades.filter(
+  (c) => c.decreto_actual !== 'pendiente_verificar' && c.decreto_actual !== 'No aplica',
+);
+---
+
+<Principal titulo={titulo} descripcion={descripcion} jsonLd={[breadcrumb, faq]}>
+  <nav class="mb-4 text-sm text-gray-500 dark:text-gray-400" aria-label="Ruta de navegación">
+    <a href="/" class="hover:underline">Inicio</a>
+    <span class="mx-1">/</span>
+    <span class="text-gray-700 dark:text-gray-300">Exenciones</span>
+  </nav>
+
+  <header class="mb-6">
+    <h1 class="text-3xl font-bold sm:text-4xl">
+      Exenciones del Pico y Placa en Colombia
+    </h1>
+    <p class="mt-2 text-gray-500 dark:text-gray-400">
+      Algunos vehículos no están sujetos a la restricción de Pico y Placa. Estas
+      son las categorías que suelen estar exentas en los decretos colombianos.
+    </p>
+  </header>
+
+  <div class="mb-6 rounded-lg border border-yellow-300 bg-yellow-50 p-4 text-sm dark:border-yellow-700 dark:bg-yellow-950/20">
+    <strong>Importante:</strong> cada ciudad define sus propias exenciones en su
+    decreto oficial. Esta lista es orientativa. Verifica siempre la norma vigente
+    en tu ciudad antes de circular.
+  </div>
+
+  <section class="mb-8 grid gap-3 sm:grid-cols-2">
+    {categorias.map((cat) => (
+      <div class="rounded-lg border border-gray-200 p-4 dark:border-gray-700">
+        <h2 class="font-semibold">{cat.titulo}</h2>
+        <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">{cat.detalle}</p>
+      </div>
+    ))}
+  </section>
+
+  <section class="mb-8">
+    <h2 class="mb-2 text-lg font-bold">Exenciones por ciudad</h2>
+    <p class="mb-3 text-sm text-gray-600 dark:text-gray-400">
+      Consulta la lista exacta de exenciones de tu ciudad en su página:
+    </p>
+    <div class="flex flex-wrap gap-2">
+      {ciudadesConData.map((c) => (
+        <a
+          href={`/${c.slug}`}
+          class="rounded-full border border-gray-200 px-3 py-1.5 text-sm transition-colors hover:border-yellow-400 hover:bg-yellow-50 dark:border-gray-700 dark:hover:bg-yellow-950/20"
+        >
+          {c.nombre}
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <section class="mb-4">
+    <h2 class="mb-2 text-lg font-bold">También te puede interesar</h2>
+    <ul class="space-y-1 text-sm">
+      <li>
+        <a href="/multas-pico-y-placa" class="text-yellow-700 hover:underline dark:text-yellow-400">
+          Multas y sanciones del Pico y Placa
+        </a>
+      </li>
+      <li>
+        <a href="/preguntas-frecuentes" class="text-yellow-700 hover:underline dark:text-yellow-400">
+          Preguntas frecuentes sobre el Pico y Placa
+        </a>
+      </li>
+    </ul>
+  </section>
+</Principal>

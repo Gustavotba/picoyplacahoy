@@ -1,0 +1,73 @@
+{
+  "slug": "ipiales",
+  "nombre": "Ipiales",
+  "departamento": "Nariño",
+  "coordenadas": [0.8278, -77.6386],
+  "autoridad": "Secretaría de Tránsito y Transporte de Ipiales",
+  "autoridad_web": "https://www.ipiales-narino.gov.co",
+  "autoridad_twitter": "",
+  "decreto_actual": "Calendario oficial de Pico y Placa de la Alcaldía de Ipiales",
+  "fecha_ultima_actualizacion": "2026-06-09",
+  "notas_generales": [
+    "Ipiales SÍ tiene Pico y Placa para vehículos particulares y motos, de lunes a viernes, según el dígito de la placa publicado en el calendario oficial de la Alcaldía.",
+    "Por ser ciudad fronteriza, la medida también puede aplicar a vehículos con matrícula ecuatoriana.",
+    "IMPORTANTE: el horario y la tabla oficial de dígitos por día no están publicados de forma clara en el portal oficial. Consulta siempre el calendario vigente con la Secretaría de Tránsito y Transporte de Ipiales antes de circular."
+  ],
+  "exenciones_generales": [],
+  "vias_exentas": [],
+  "sanciones": {
+    "tipo_multa": "Tipo C",
+    "base_legal": "Artículo 131, literal C, numeral 14 de la Ley 769 de 2002",
+    "valor_smldv": "15 SMLDV",
+    "incluye_inmovilizacion": true,
+    "descripcion": "Multa equivalente a 15 salarios mínimos diarios legales vigentes (SMLDV) más inmovilización del vehículo."
+  },
+  "vehiculos": {
+    "particulares": {
+      "aplica": true,
+      "horario": "pendiente_verificar",
+      "dias_habiles": ["lun", "mar", "mie", "jue", "vie"],
+      "aplica_festivos": false,
+      "restricciones": {
+        "lunes": ["pendiente_verificar"],
+        "martes": ["pendiente_verificar"],
+        "miercoles": ["pendiente_verificar"],
+        "jueves": ["pendiente_verificar"],
+        "viernes": ["pendiente_verificar"]
+      },
+      "notas": "Ipiales SÍ tiene Pico y Placa para particulares de lunes a viernes según el calendario oficial de la Alcaldía. El portal oficial no publica una tabla clara de dígitos por día ni el horario exacto; consulta el calendario vigente con la Secretaría de Tránsito y Transporte de Ipiales."
+    },
+    "motos": {
+      "aplica": true,
+      "horario": "pendiente_verificar",
+      "dias_habiles": ["lun", "mar", "mie", "jue", "vie"],
+      "aplica_festivos": false,
+      "restricciones": {
+        "lunes": ["pendiente_verificar"],
+        "martes": ["pendiente_verificar"],
+        "miercoles": ["pendiente_verificar"],
+        "jueves": ["pendiente_verificar"],
+        "viernes": ["pendiente_verificar"]
+      },
+      "notas": "Las motos en Ipiales también tienen Pico y Placa de lunes a viernes según el calendario oficial. Consulta el dígito y horario vigentes con la Secretaría de Tránsito y Transporte de Ipiales."
+    },
+    "taxis": {
+      "aplica": false,
+      "descripcion": "El calendario de Pico y Placa de Ipiales regula particulares y motos; no se confirma restricción equivalente para taxis.",
+      "nota": "Esta situación puede cambiar. Verifica siempre con la Secretaría de Tránsito y Transporte de Ipiales."
+    },
+    "transporte_carga": {
+      "aplica": false,
+      "descripcion": "En Ipiales no se confirma Pico y Placa para transporte de carga.",
+      "nota": "Esta situación puede cambiar. Verifica siempre con la Secretaría de Tránsito y Transporte de Ipiales."
+    }
+  },
+  "contacto_ciudadano": {
+    "sitio_web_general": "https://www.ipiales-narino.gov.co",
+    "secretaria_movilidad": "https://www.ipiales-narino.gov.co",
+    "twitter": "",
+    "facebook": "https://www.facebook.com/AlcaldiaDeIpiales",
+    "linea_atencion": "pendiente_verificar",
+    "linea_movilidad": "pendiente_verificar"
+  }
+}

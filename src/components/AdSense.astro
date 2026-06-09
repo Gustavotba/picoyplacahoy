@@ -1,0 +1,23 @@
+---
+// Componente de AdSense — desactivado hasta que el dueño active la publicidad.
+// Renderiza un div placeholder con altura fija para evitar CLS cuando se active.
+interface Props {
+  ubicacion: 'cabecera' | 'entre-tarjetas' | 'sidebar';
+}
+
+const { ubicacion } = Astro.props;
+---
+
+<!-- AdSense desactivado — reservar espacio para evitar CLS -->
+<div
+  class:list={[
+    'adsense-slot',
+    {
+      'h-[90px]': ubicacion === 'cabecera',
+      'h-[250px]': ubicacion === 'entre-tarjetas',
+      'h-[600px]': ubicacion === 'sidebar',
+    },
+  ]}
+  data-ubicacion={ubicacion}
+  aria-hidden="true"
+></div>

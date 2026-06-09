@@ -1,0 +1,16 @@
+{
+  "name": "Pico y Placa Hoy Colombia",
+  "short_name": "PicoyPlaca",
+  "description": "Consulta las restricciones de Pico y Placa vigentes en las principales ciudades de Colombia.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#FFFFFF",
+  "theme_color": "#FBBF24",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}

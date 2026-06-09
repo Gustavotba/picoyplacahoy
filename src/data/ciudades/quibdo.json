@@ -1,0 +1,48 @@
+{
+  "slug": "quibdo",
+  "nombre": "Quibdó",
+  "departamento": "Chocó",
+  "coordenadas": [
+    5.6947,
+    -76.6583
+  ],
+  "autoridad": "Secretaría de Tránsito de Quibdó",
+  "autoridad_web": "https://www.quibdo-choco.gov.co",
+  "decreto_actual": "No aplica",
+  "fecha_ultima_actualizacion": "2026-04-12",
+  "notas_generales": [
+    "Quibdó no tiene pico y placa vigente."
+  ],
+  "exenciones_generales": [],
+  "vias_exentas": [],
+  "sanciones": {
+    "descripcion": "Quibdó no tiene pico y placa vigente.",
+    "base_legal": "Artículo 131, literal C, numeral 14 de la Ley 769 de 2002"
+  },
+  "vehiculos": {
+    "particulares": {
+      "aplica": false,
+      "descripcion": "Quibdó no tiene pico y placa para vehículos particulares."
+    },
+    "motos": {
+      "aplica": false,
+      "descripcion": "No hay pico y placa para motos en Quibdó."
+    },
+    "taxis": {
+      "aplica": false,
+      "descripcion": "Los taxis NO tienen Pico y Placa en Quibdó."
+    },
+    "transporte_carga": {
+      "aplica": false,
+      "descripcion": "El transporte de carga NO tiene Pico y Placa en Quibdó."
+    }
+  },
+  "contacto_ciudadano": {
+    "sitio_web_general": "https://www.quibdo-choco.gov.co",
+    "secretaria_movilidad": "https://www.quibdo-choco.gov.co",
+    "twitter": "",
+    "facebook": "",
+    "linea_atencion": "pendiente_verificar",
+    "linea_movilidad": "pendiente_verificar"
+  }
+}

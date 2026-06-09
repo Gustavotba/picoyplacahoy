@@ -1,0 +1,96 @@
+{
+  "slug": "dosquebradas",
+  "nombre": "Dosquebradas",
+  "departamento": "Risaralda",
+  "coordenadas": [4.8333, -75.6667],
+  "autoridad": "Secretaría de Tránsito y Movilidad de Dosquebradas",
+  "autoridad_web": "https://www.dosquebradas.gov.co",
+  "autoridad_twitter": "",
+  "decreto_actual": "Decreto 119 de 2024",
+  "fecha_ultima_actualizacion": "2026-04-12",
+  "notas_generales": [
+    "Dosquebradas comparte rotación de dígitos con Pereira (ciudades conurbadas).",
+    "Las motos se rigen por el PRIMER dígito de la placa (no el último).",
+    "No aplica en días festivos oficiales.",
+    "Aplica también a motocarros, mototriciclos y cuatrimotos."
+  ],
+  "exenciones_generales": [
+    "Vehículos eléctricos e híbridos",
+    "Vehículos de emergencia",
+    "Transporte escolar",
+    "Vehículos diplomáticos y consulares"
+  ],
+  "vias_exentas": [
+    "Viaducto César Gaviria Trujillo",
+    "Avenida Simón Bolívar (carrera 16)",
+    "Avenida del Ferrocarril (carrera 10)",
+    "Variante La Romelia – El Pollo (troncal de Occidente)"
+  ],
+  "sanciones": {
+    "descripcion": "Multa equivalente a 15 SMLDV más inmovilización del vehículo.",
+    "base_legal": "Artículo 131, literal C, numeral 14 de la Ley 769 de 2002",
+    "tipo_multa": "Tipo C",
+    "valor_smldv": "15 SMLDV",
+    "valor_aproximado_pesos": 711750,
+    "incluye_inmovilizacion": true
+  },
+  "vehiculos": {
+    "particulares": {
+      "aplica": true,
+      "descripcion": "Vehículos particulares — misma rotación que Pereira",
+      "criterio_placa": "ultimo_digito",
+      "modalidad": "semanal_por_dia",
+      "horario_inicio": "06:00",
+      "horario_fin": "20:00",
+      "horario_texto": "6:00 a.m. a 8:00 p.m.",
+      "dias_aplicables": ["lunes", "martes", "miercoles", "jueves", "viernes"],
+      "aplica_festivos": false,
+      "aplica_fines_de_semana": false,
+      "rotacion": {
+        "lunes": [0, 1],
+        "martes": [2, 3],
+        "miercoles": [4, 5],
+        "jueves": [6, 7],
+        "viernes": [8, 9]
+      },
+      "aplican_vias_exentas": true
+    },
+    "motos": {
+      "aplica": true,
+      "descripcion": "Motos, motocarros, mototriciclos, cuatrimotos — por PRIMER dígito de la placa",
+      "criterio_placa": "primer_digito",
+      "modalidad": "semanal_por_dia",
+      "horario_inicio": "06:00",
+      "horario_fin": "20:00",
+      "horario_texto": "6:00 a.m. a 8:00 p.m.",
+      "dias_aplicables": ["lunes", "martes", "miercoles", "jueves", "viernes"],
+      "aplica_festivos": false,
+      "aplica_fines_de_semana": false,
+      "rotacion": {
+        "lunes": [0, 1],
+        "martes": [2, 3],
+        "miercoles": [4, 5],
+        "jueves": [6, 7],
+        "viernes": [8, 9]
+      },
+      "aplican_vias_exentas": true,
+      "nota_especial": "En Dosquebradas las motos se rigen por el PRIMER dígito de la placa (no el último como en otras ciudades)."
+    },
+    "taxis": {
+      "aplica": false,
+      "descripcion": "Pendiente verificar restricciones de taxis en Dosquebradas."
+    },
+    "transporte_carga": {
+      "aplica": false,
+      "descripcion": "Pendiente verificar restricciones de carga en Dosquebradas."
+    }
+  },
+  "contacto_ciudadano": {
+    "sitio_web_general": "https://www.dosquebradas.gov.co",
+    "secretaria_movilidad": "https://www.dosquebradas.gov.co",
+    "twitter": "",
+    "facebook": "",
+    "linea_atencion": "(606) 351 5333",
+    "linea_movilidad": "(606) 351 5333"
+  }
+}

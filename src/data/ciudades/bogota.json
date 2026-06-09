@@ -1,0 +1,246 @@
+{
+  "slug": "bogota",
+  "nombre": "Bogotá",
+  "departamento": "Cundinamarca",
+  "coordenadas": [
+    4.6097,
+    -74.0817
+  ],
+  "autoridad": "Secretaría Distrital de Movilidad",
+  "autoridad_web": "https://www.movilidadbogota.gov.co",
+  "autoridad_twitter": "MovilidadBogota",
+  "decreto_actual": "Decreto Distrital 003 de 2023",
+  "fecha_ultima_actualizacion": "2026-04-12",
+  "vigencia_desde": "2023-01-17",
+  "vigencia_hasta": "2026-12-31",
+  "notas_generales": [
+    "La restricción opera por FECHA par/impar del calendario, no por día de la semana.",
+    "Fechas impares (1, 3, 5...): no circulan placas terminadas en 1, 2, 3, 4 y 5.",
+    "Fechas pares (2, 4, 6...): no circulan placas terminadas en 6, 7, 8, 9 y 0.",
+    "No aplica en días festivos oficiales.",
+    "Vehículos matriculados fuera de Bogotá también tienen restricción los sábados.",
+    "Programa Pico y Placa Solidario: pago diario para circular en día restringido."
+  ],
+  "exenciones_generales": [
+    "Vehículos eléctricos y cero emisiones",
+    "Vehículos híbridos (combustión + eléctrico)",
+    "Motocicletas (totalmente exentas)",
+    "Vehículos diplomáticos y consulares",
+    "Vehículos de emergencia (ambulancias, bomberos)",
+    "Vehículos de personas con discapacidad registrados en RLCPD",
+    "Transporte escolar",
+    "Vehículos de instrucción de conducción",
+    "Vehículos inscritos en Pico y Placa Solidario"
+  ],
+  "vias_exentas": [
+    "Autopista Norte (Peaje Andes a Portal Norte TransMilenio) — solo para pico y placa regional",
+    "Autopista Sur (límite Soacha a Av. Boyacá) — solo para pico y placa regional",
+    "Avenida Centenario (Río Bogotá a Av. Ciudad de Cali) — solo para pico y placa regional",
+    "Calle 80 (Puente de Guadua a Portal 80 TransMilenio) — solo para pico y placa regional",
+    "Carrera 7 (Calle 245 a Calle 183) — solo para pico y placa regional"
+  ],
+  "sanciones": {
+    "tipo_multa": "Tipo C",
+    "base_legal": "Artículo 131, literal C, numeral 14 de la Ley 769 de 2002",
+    "valor_smldv": "15 SMLDV",
+    "valor_aproximado_pesos": 522900,
+    "incluye_inmovilizacion": true,
+    "descripcion": "Multa equivalente a 15 salarios mínimos diarios legales vigentes más inmovilización del vehículo."
+  },
+  "vehiculos": {
+    "particulares": {
+      "aplica": true,
+      "descripcion": "Vehículos particulares — restricción por fecha par/impar del calendario",
+      "criterio_placa": "ultimo_digito",
+      "modalidad": "par_impar_por_fecha",
+      "horario_inicio": "06:00",
+      "horario_fin": "21:00",
+      "horario_texto": "6:00 a.m. a 9:00 p.m.",
+      "dias_aplicables": [
+        "lunes",
+        "martes",
+        "miercoles",
+        "jueves",
+        "viernes"
+      ],
+      "aplica_festivos": false,
+      "aplica_fines_de_semana": false,
+      "regla_par_impar": {
+        "fecha_impar": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "fecha_par": [
+          6,
+          7,
+          8,
+          9,
+          0
+        ]
+      },
+      "aplican_vias_exentas": true
+    },
+    "motos": {
+      "aplica": false,
+      "descripcion": "Las motocicletas están totalmente exentas de pico y placa en Bogotá.",
+      "nota": "Exención establecida en el Artículo 2 del Decreto 208 de 2020."
+    },
+    "taxis": {
+      "aplica": true,
+      "descripcion": "Taxis — restricción rotatoria de 2 dígitos por día, calendario mensual publicado por la SDM",
+      "criterio_placa": "ultimo_digito",
+      "modalidad": "quincenal_por_fecha",
+      "horario_inicio": "05:30",
+      "horario_fin": "21:00",
+      "horario_texto": "5:30 a.m. a 9:00 p.m. (lunes a sábado)",
+      "dias_aplicables": [
+        "lunes",
+        "martes",
+        "miercoles",
+        "jueves",
+        "viernes",
+        "sabado"
+      ],
+      "aplica_festivos": false,
+      "aplica_fines_de_semana": false,
+      "aplican_vias_exentas": false,
+      "nota_especial": "La rotación de taxis es publicada mensualmente por la Secretaría de Movilidad. Consultar el calendario oficial.",
+      "fechas_restriccion": {}
+    },
+    "transporte_carga": {
+      "aplica": true,
+      "descripcion": "Vehículos de carga con más de 20 años de antigüedad — restricción en horas pico",
+      "criterio_placa": "ultimo_digito",
+      "modalidad": "semanal_por_dia",
+      "horario_inicio": "06:00",
+      "horario_fin": "08:00",
+      "horario_texto": "6:00-8:00 a.m. y 5:00-8:00 p.m. (dos franjas)",
+      "dias_aplicables": [
+        "lunes",
+        "martes",
+        "miercoles",
+        "jueves",
+        "viernes"
+      ],
+      "aplica_festivos": false,
+      "aplica_fines_de_semana": false,
+      "aplican_vias_exentas": false,
+      "rotacion": {
+        "lunes": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9
+        ],
+        "martes": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9
+        ],
+        "miercoles": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9
+        ],
+        "jueves": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9
+        ],
+        "viernes": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9
+        ]
+      },
+      "nota_especial": "Restricción por franjas horarias para TODOS los dígitos (vehículos >20 años). Vehículos más nuevos no aplican."
+    }
+  },
+  "contacto_ciudadano": {
+    "sitio_web_general": "https://bogota.gov.co",
+    "secretaria_movilidad": "https://www.movilidadbogota.gov.co",
+    "twitter": "https://x.com/MovilidadBogota",
+    "facebook": "https://www.facebook.com/MovilidadBogota",
+    "linea_atencion": "195",
+    "linea_movilidad": "195"
+  },
+  "pico_y_placa_solidario": {
+    "existe": true,
+    "nombre_oficial": "Pico y Placa Solidario",
+    "descripcion": "Permiso voluntario pagado que autoriza a circular en Bogotá en días y horarios de restricción de Pico y Placa. Los recursos financian el Sistema Integrado de Transporte Público (SITP).",
+    "autoridad": "Secretaría Distrital de Movilidad de Bogotá",
+    "resolucion": "Resolución 120963 de 2026",
+    "sitio_oficial": "https://picoyplacasolidario.movilidadbogota.gov.co",
+    "tarifas_base": {
+      "diario": 70294,
+      "mensual": 561808,
+      "semestral": 2809311,
+      "moneda": "COP",
+      "fecha_actualizacion": "2026-02-03",
+      "nota": "Son tarifas base mínimas. El valor final depende de factores multiplicadores según el avalúo, modelo, tipo de combustible y lugar de matrícula del vehículo. Usa el simulador oficial para calcular tu tarifa exacta."
+    },
+    "factores_multiplicadores": {
+      "descripcion": "El precio final se calcula multiplicando la tarifa base por los siguientes factores:",
+      "detalles": [
+        "Factor avalúo: vehículos de mayor valor pagan más",
+        "Factor modelo: vehículos más nuevos pagan más",
+        "Factor combustible: depende del tipo de motor",
+        "Factor municipio: matriculados en Bogotá = 1.0 | matriculados fuera de Bogotá = 1.5 (50% más)"
+      ]
+    },
+    "requisitos": [
+      "Estar inscrito en el RUNT",
+      "SOAT vigente",
+      "Revisión técnico-mecánica vigente",
+      "Estar al día en pago de multas de tránsito",
+      "Si el vehículo está matriculado en Bogotá, pagar el impuesto vehicular del año en curso"
+    ],
+    "excepciones_gratis": [
+      "Vehículos 100% eléctricos matriculados en Bogotá (tramitan excepción sin pago)",
+      "Vehículos híbridos matriculados en Bogotá (tramitan excepción sin pago)"
+    ],
+    "destino_recaudo": "El 100% de los recursos recaudados se destinan al Fondo de Estabilización Tarifaria (FET), que financia el Sistema Integrado de Transporte Público (SITP) de Bogotá.",
+    "notas_adicionales": [
+      "A partir de 2026 se implementó Pico y Placa los sábados, pero SOLO para vehículos matriculados fuera de Bogotá.",
+      "El único sitio oficial para tramitarlo es movilidadbogota.gov.co. Desconfía de intermediarios.",
+      "Las tarifas se actualizan cada año según el IPC (Índice de Precios al Consumidor)."
+    ]
+  }
+}

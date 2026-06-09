@@ -1,0 +1,102 @@
+{
+  "slug": "cucuta",
+  "nombre": "Cúcuta",
+  "departamento": "Norte de Santander",
+  "coordenadas": [7.8939, -72.5078],
+  "autoridad": "Secretaría de Tránsito y Movilidad de Cúcuta",
+  "autoridad_web": "https://cucuta.gov.co",
+  "autoridad_twitter": "alcaldiacucuta",
+  "decreto_actual": "Decreto 0212 de 2024",
+  "fecha_ultima_actualizacion": "2026-06-09",
+  "notas_generales": [
+    "La medida aplica en el área metropolitana de Cúcuta: Cúcuta, Los Patios, Villa del Rosario y El Zulia.",
+    "Pico y Placa para vehículos del área metropolitana: aplica en tres franjas horarias (7:00 a 8:30 a.m., 11:30 a.m. a 2:30 p.m. y 5:30 a 7:30 p.m.).",
+    "Placa Día: los vehículos con placa nacional (no metropolitana) o extranjera tienen restricción continua de 7:00 a.m. a 8:00 p.m. dentro del anillo vial central, con la misma rotación de dígitos.",
+    "No aplica en días festivos oficiales de Colombia.",
+    "El Decreto 0212 de 2024 reemplazó al anterior Decreto 0300 de 2019."
+  ],
+  "exenciones_generales": [],
+  "vias_exentas": [
+    "Anillo vial oriental",
+    "Anillo vial occidental"
+  ],
+  "sanciones": {
+    "tipo_multa": "Tipo C",
+    "base_legal": "Artículo 131, literal C, numeral 14 de la Ley 769 de 2002",
+    "valor_smldv": "15 SMLDV",
+    "incluye_inmovilizacion": true,
+    "descripcion": "Multa equivalente a 15 salarios mínimos diarios legales vigentes (SMLDV) más inmovilización del vehículo."
+  },
+  "vehiculos": {
+    "particulares": {
+      "aplica": true,
+      "descripcion": "Vehículos particulares del área metropolitana según el último dígito de la placa",
+      "criterio_placa": "ultimo_digito",
+      "modalidad": "semanal_por_dia",
+      "horario_inicio": "07:00",
+      "horario_fin": "19:30",
+      "horario_texto": "Tres franjas: 7:00 a 8:30 a.m., 11:30 a.m. a 2:30 p.m. y 5:30 a 7:30 p.m.",
+      "dias_aplicables": ["lunes", "martes", "miercoles", "jueves", "viernes"],
+      "aplica_festivos": false,
+      "aplica_fines_de_semana": false,
+      "rotacion": {
+        "lunes": [1, 2],
+        "martes": [3, 4],
+        "miercoles": [5, 6],
+        "jueves": [7, 8],
+        "viernes": [9, 0]
+      }
+    },
+    "motos": {
+      "aplica": true,
+      "descripcion": "Motocicletas del área metropolitana según el último dígito de la placa",
+      "criterio_placa": "ultimo_digito",
+      "modalidad": "semanal_por_dia",
+      "horario_inicio": "07:00",
+      "horario_fin": "19:30",
+      "horario_texto": "Tres franjas: 7:00 a 8:30 a.m., 11:30 a.m. a 2:30 p.m. y 5:30 a 7:30 p.m.",
+      "dias_aplicables": ["lunes", "martes", "miercoles", "jueves", "viernes"],
+      "aplica_festivos": false,
+      "aplica_fines_de_semana": false,
+      "rotacion": {
+        "lunes": [1, 2],
+        "martes": [3, 4],
+        "miercoles": [5, 6],
+        "jueves": [7, 8],
+        "viernes": [9, 0]
+      }
+    },
+    "taxis": {
+      "aplica": true,
+      "descripcion": "Transporte público individual (taxis) bajo modalidad Placa Día",
+      "criterio_placa": "ultimo_digito",
+      "modalidad": "semanal_por_dia",
+      "horario_inicio": "07:00",
+      "horario_fin": "20:00",
+      "horario_texto": "7:00 a.m. a 8:00 p.m. (Placa Día, continuo)",
+      "dias_aplicables": ["lunes", "martes", "miercoles", "jueves", "viernes"],
+      "aplica_festivos": false,
+      "aplica_fines_de_semana": false,
+      "rotacion": {
+        "lunes": [1, 2],
+        "martes": [3, 4],
+        "miercoles": [5, 6],
+        "jueves": [7, 8],
+        "viernes": [9, 0]
+      }
+    },
+    "transporte_carga": {
+      "aplica": false,
+      "descripcion": "El Decreto 0212 de 2024 no establece Pico y Placa para transporte de carga en Cúcuta.",
+      "nota": "Esta situación puede cambiar. Verifica siempre con la Secretaría de Tránsito y Movilidad de Cúcuta."
+    }
+  },
+  "contacto_ciudadano": {
+    "sitio_web_general": "https://cucuta.gov.co",
+    "secretaria_movilidad": "https://cucuta.gov.co",
+    "twitter": "https://x.com/alcaldiacucuta",
+    "facebook": "",
+    "linea_atencion": "pendiente_verificar",
+    "linea_movilidad": "pendiente_verificar"
+  }
+}

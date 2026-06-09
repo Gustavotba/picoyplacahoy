@@ -1,0 +1,127 @@
+---
+import Principal from '../layouts/Principal.astro';
+import { breadcrumbJsonLd } from '../lib/seo';
+
+export const prerender = true;
+
+const titulo = 'Multas del Pico y Placa en Colombia — Valor y sanciones 2026';
+const descripcion =
+  'Cuánto cuesta la multa por violar el Pico y Placa en Colombia, en qué consiste la infracción C14, la inmovilización del vehículo y la base legal (Ley 769 de 2002).';
+
+const faq = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: '¿Cuánto cuesta la multa por Pico y Placa?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Violar el Pico y Placa corresponde a la infracción C14 del Código Nacional de Tránsito, equivalente a 15 salarios mínimos legales diarios vigentes (SMLDV). El valor en pesos cambia cada año según el salario mínimo. Además puede implicar la inmovilización del vehículo.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: '¿Me pueden inmovilizar el carro por Pico y Placa?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Sí. En la mayoría de ciudades la infracción C14 incluye la inmovilización del vehículo, que se lleva a patios. El costo de grúa y patios es adicional a la multa.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: '¿La multa de Pico y Placa tiene descuento por pago pronto?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'En general, pagar dentro de los primeros días y asistir al curso pedagógico puede dar derecho a descuentos sobre el comparendo, según lo establecido en la normativa de tránsito. Consulta el organismo de tránsito de tu ciudad para los plazos exactos.',
+      },
+    },
+  ],
+};
+
+const breadcrumb = breadcrumbJsonLd([
+  { nombre: 'Inicio', ruta: '/' },
+  { nombre: 'Multas del Pico y Placa', ruta: '/multas-pico-y-placa' },
+]);
+---
+
+<Principal titulo={titulo} descripcion={descripcion} jsonLd={[breadcrumb, faq]}>
+  <nav class="mb-4 text-sm text-gray-500 dark:text-gray-400" aria-label="Ruta de navegación">
+    <a href="/" class="hover:underline">Inicio</a>
+    <span class="mx-1">/</span>
+    <span class="text-gray-700 dark:text-gray-300">Multas</span>
+  </nav>
+
+  <header class="mb-6">
+    <h1 class="text-3xl font-bold sm:text-4xl">
+      Multas del Pico y Placa en Colombia
+    </h1>
+    <p class="mt-2 text-gray-500 dark:text-gray-400">
+      Esto es lo que debes saber sobre la sanción por circular en horario
+      restringido de Pico y Placa.
+    </p>
+  </header>
+
+  <div class="mb-6 space-y-4 text-sm leading-relaxed">
+    <section class="rounded-lg border border-gray-200 p-4 dark:border-gray-700">
+      <h2 class="text-lg font-semibold">Infracción C14</h2>
+      <p class="mt-1 text-gray-600 dark:text-gray-400">
+        Circular en zona o periodo restringido por Pico y Placa corresponde a la
+        infracción <strong>C14</strong> del Código Nacional de Tránsito. El valor
+        equivale a <strong>15 salarios mínimos legales diarios vigentes
+        (SMLDV)</strong>, por lo que el monto en pesos cambia cada año junto con
+        el salario mínimo.
+      </p>
+    </section>
+
+    <section class="rounded-lg border border-gray-200 p-4 dark:border-gray-700">
+      <h2 class="text-lg font-semibold">Inmovilización del vehículo</h2>
+      <p class="mt-1 text-gray-600 dark:text-gray-400">
+        Además de la multa, la mayoría de ciudades contempla la
+        <strong>inmovilización</strong> del vehículo, que se traslada a patios. El
+        costo de la grúa y de los patios es <strong>adicional</strong> al valor
+        del comparendo.
+      </p>
+    </section>
+
+    <section class="rounded-lg border border-gray-200 p-4 dark:border-gray-700">
+      <h2 class="text-lg font-semibold">Base legal</h2>
+      <p class="mt-1 text-gray-600 dark:text-gray-400">
+        La sanción se fundamenta en la
+        <a
+          href="https://www.funcionpublica.gov.co/eva/gestornormativo/norma.php?i=5557"
+          target="_blank"
+          rel="noopener"
+          class="text-yellow-700 underline dark:text-yellow-400"
+        >
+          Ley 769 de 2002 (Código Nacional de Tránsito)
+        </a>
+        y en los decretos municipales o distritales de cada ciudad, que definen
+        horarios, placas y excepciones.
+      </p>
+    </section>
+
+    <div class="rounded-lg border border-yellow-300 bg-yellow-50 p-4 dark:border-yellow-700 dark:bg-yellow-950/20">
+      <strong>Aviso:</strong> esta información es de carácter general e
+      informativo, no es asesoría legal. El valor exacto de la multa, los
+      descuentos y los procedimientos varían por ciudad y por año. Consulta el
+      organismo de tránsito de tu ciudad para tu caso particular.
+    </div>
+  </div>
+
+  <section class="mb-4">
+    <h2 class="mb-2 text-lg font-bold">También te puede interesar</h2>
+    <ul class="space-y-1 text-sm">
+      <li>
+        <a href="/exenciones-pico-y-placa" class="text-yellow-700 hover:underline dark:text-yellow-400">
+          ¿Qué vehículos están exentos del Pico y Placa?
+        </a>
+      </li>
+      <li>
+        <a href="/preguntas-frecuentes" class="text-yellow-700 hover:underline dark:text-yellow-400">
+          Preguntas frecuentes sobre el Pico y Placa
+        </a>
+      </li>
+    </ul>
+  </section>
+</Principal>

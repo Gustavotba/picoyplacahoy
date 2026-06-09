@@ -1,0 +1,190 @@
+---
+import { ciudades } from '../lib/ciudades';
+
+// Obtener slug actual de la URL
+const urlActual = Astro.url.pathname.replace(/\/$/, '');
+const slugActual = urlActual.split('/')[1] || '';
+
+// Regiones para el mega-menú
+const regiones = [
+  {
+    nombre: 'Valle de Aburrá',
+    slugs: ['medellin', 'bello', 'envigado', 'itagui', 'sabaneta', 'la-estrella', 'caldas', 'copacabana', 'girardota', 'barbosa', 'rionegro'],
+  },
+  {
+    nombre: 'Bogotá y centro',
+    slugs: ['bogota', 'soacha', 'fusagasuga', 'tunja', 'ibague', 'villavicencio'],
+  },
+  {
+    nombre: 'Eje Cafetero',
+    slugs: ['pereira', 'dosquebradas', 'manizales', 'armenia'],
+  },
+  {
+    nombre: 'Pacífico y Valle',
+    slugs: ['cali', 'palmira', 'buenaventura', 'popayan', 'pasto', 'ipiales'],
+  },
+  {
+    nombre: 'Caribe',
+    slugs: ['barranquilla', 'soledad', 'malambo', 'cartagena', 'turbaco', 'santa-marta', 'santa-cruz-de-lorica'],
+  },
+  {
+    nombre: 'Santanderes y Norte',
+    slugs: ['bucaramanga', 'cucuta', 'ocana', 'pamplona'],
+  },
+  {
+    nombre: 'Otras',
+    slugs: ['quibdo'],
+  },
+];
+
+// Mapear slugs a datos de ciudad
+const ciudadesPorSlug = new Map(ciudades.map((c) => [c.slug, c]));
+
+function tienePyP(slug: string): boolean {
+  const c = ciudadesPorSlug.get(slug);
+  if (!c) return false;
+  return c.decreto_actual !== 'pendiente_verificar' && c.decreto_actual !== 'No aplica';
+}
+---
+
+<header class="bg-yellow-400 text-black relative z-50">
+  <div class="mx-auto flex max-w-5xl items-center justify-between px-4 py-3">
+    <a href="/" class="flex items-center gap-2 font-bold text-xl">
+      <img src="/iconos/logo.svg" alt="Pico y Placa Hoy" class="h-10 w-10" />
+      <span class="hidden sm:inline">Pico y Placa Hoy</span>
+      <span class="sm:hidden">PyP Hoy</span>
+    </a>
+
+    {/* === DESKTOP: mega-menú con <details> === */}
+    <nav class="hidden md:block">
+      <details class="group relative" id="mega-menu">
+        <summary class="cursor-pointer list-none select-none rounded-lg bg-black/10 px-4 py-2 text-sm font-bold hover:bg-black/20 transition-colors">
+          Elige tu ciudad ▼
+        </summary>
+        <div class="absolute right-0 top-full mt-2 w-[850px] rounded-xl border-t-4 border-yellow-500 bg-white shadow-2xl dark:bg-gray-900 dark:border-yellow-400 p-6 grid grid-cols-3 gap-6 z-50">
+          {regiones.map((region) => (
+            <div>
+              <h3 class="text-xs font-bold uppercase tracking-wider text-gray-400 mb-2">{region.nombre}</h3>
+              <ul class="space-y-0.5">
+                {region.slugs.map((slug) => {
+                  const c = ciudadesPorSlug.get(slug);
+                  if (!c) return null;
+                  const esActual = slug === slugActual;
+                  const activo = tienePyP(slug);
+                  return (
+                    <li>
+                      <a
+                        href={`/${slug}`}
+                        class:list={[
+                          'flex items-center gap-1.5 rounded px-2 py-1.5 text-sm transition-colors',
+                          esActual
+                            ? 'bg-yellow-100 font-bold text-yellow-800 dark:bg-yellow-900/40 dark:text-yellow-300'
+                            : 'text-gray-700 dark:text-gray-300 hover:bg-yellow-50 dark:hover:bg-yellow-950/20',
+                        ]}
+                      >
+                        <span class:list={[
+                          'text-[8px]',
+                          activo ? 'text-green-500' : 'text-gray-300 dark:text-gray-600',
+                        ]}>●</span>
+                        {c.nombre}
+                      </a>
+                    </li>
+                  );
+                })}
+              </ul>
+            </div>
+          ))}
+        </div>
+      </details>
+    </nav>
+
+    {/* === MÓVIL: botón que abre drawer === */}
+    <button
+      class="md:hidden rounded-lg bg-black/10 px-3 py-2 text-sm font-bold hover:bg-black/20 transition-colors"
+      id="btn-menu-movil"
+      aria-label="Abrir menú de ciudades"
+      aria-expanded="false"
+    >
+      ☰ Ciudades
+    </button>
+  </div>
+</header>
+
+{/* === DRAWER MÓVIL === */}
+<div id="drawer-overlay" class="fixed inset-0 bg-black/50 z-50 hidden" aria-hidden="true"></div>
+<nav
+  id="drawer-menu"
+  class="fixed top-0 right-0 h-full w-[85%] max-w-sm bg-white dark:bg-gray-900 shadow-2xl z-50 transform translate-x-full transition-transform duration-300 overflow-y-auto"
+  role="dialog"
+  aria-label="Menú de ciudades"
+>
+  <div class="flex items-center justify-between px-4 py-3 border-b border-gray-200 dark:border-gray-700">
+    <h2 class="font-bold text-lg">Ciudades</h2>
+    <button id="btn-cerrar-drawer" class="rounded-lg p-2 hover:bg-gray-100 dark:hover:bg-gray-800 text-xl" aria-label="Cerrar menú">✕</button>
+  </div>
+  <div class="px-4 py-3">
+    {regiones.map((region) => (
+      <div class="mb-4">
+        <h3 class="text-xs font-bold uppercase tracking-wider text-gray-400 mb-1">{region.nombre}</h3>
+        {region.slugs.map((slug) => {
+          const c = ciudadesPorSlug.get(slug);
+          if (!c) return null;
+          const esActual = slug === slugActual;
+          const activo = tienePyP(slug);
+          return (
+            <a
+              href={`/${slug}`}
+              class:list={[
+                'flex items-center gap-2 rounded-lg px-3 py-2.5 text-sm min-h-[44px] transition-colors',
+                esActual
+                  ? 'bg-yellow-100 font-bold text-yellow-800 dark:bg-yellow-900/40 dark:text-yellow-300'
+                  : 'text-gray-700 dark:text-gray-300 hover:bg-yellow-50 dark:hover:bg-yellow-950/20',
+              ]}
+            >
+              <span class:list={['text-[8px]', activo ? 'text-green-500' : 'text-gray-300']}>●</span>
+              {c.nombre}
+            </a>
+          );
+        })}
+      </div>
+    ))}
+  </div>
+</nav>
+
+<script>
+  // Mega-menú desktop: cerrar al clic fuera
+  document.addEventListener('click', (e) => {
+    const mega = document.getElementById('mega-menu');
+    if (mega && !mega.contains(e.target as Node)) {
+      mega.removeAttribute('open');
+    }
+  });
+
+  // Drawer móvil
+  const btnAbrir = document.getElementById('btn-menu-movil');
+  const btnCerrar = document.getElementById('btn-cerrar-drawer');
+  const overlay = document.getElementById('drawer-overlay');
+  const drawer = document.getElementById('drawer-menu');
+
+  function abrirDrawer() {
+    overlay?.classList.remove('hidden');
+    drawer?.classList.remove('translate-x-full');
+    btnAbrir?.setAttribute('aria-expanded', 'true');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function cerrarDrawer() {
+    overlay?.classList.add('hidden');
+    drawer?.classList.add('translate-x-full');
+    btnAbrir?.setAttribute('aria-expanded', 'false');
+    document.body.style.overflow = '';
+  }
+
+  btnAbrir?.addEventListener('click', abrirDrawer);
+  btnCerrar?.addEventListener('click', cerrarDrawer);
+  overlay?.addEventListener('click', cerrarDrawer);
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') cerrarDrawer();
+  });
+</script>

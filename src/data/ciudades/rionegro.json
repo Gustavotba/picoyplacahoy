@@ -1,0 +1,49 @@
+{
+  "slug": "rionegro",
+  "nombre": "Rionegro",
+  "departamento": "Antioquia",
+  "coordenadas": [
+    6.1551,
+    -75.3742
+  ],
+  "autoridad": "Secretaría de Movilidad de Rionegro",
+  "autoridad_web": "https://www.rionegro.gov.co",
+  "decreto_actual": "No aplica",
+  "fecha_ultima_actualizacion": "2026-04-12",
+  "notas_generales": [
+    "Rionegro NO tiene Pico y Placa. La Alcaldía de Rionegro desmintió públicamente los mensajes en redes sociales que anunciaban supuestas restricciones; no se ha expedido ningún decreto que establezca la medida.",
+    "Los vehículos pueden circular cualquier día sin restricción por número de placa."
+  ],
+  "exenciones_generales": [],
+  "vias_exentas": [],
+  "sanciones": {
+    "descripcion": "Rionegro no tiene pico y placa vigente.",
+    "base_legal": "Artículo 131, literal C, numeral 14 de la Ley 769 de 2002"
+  },
+  "vehiculos": {
+    "particulares": {
+      "aplica": false,
+      "descripcion": "Rionegro no tiene pico y placa para vehículos particulares."
+    },
+    "motos": {
+      "aplica": false,
+      "descripcion": "No hay pico y placa para motos en Rionegro."
+    },
+    "taxis": {
+      "aplica": false,
+      "descripcion": "En Rionegro no hay Pico y Placa para taxis."
+    },
+    "transporte_carga": {
+      "aplica": false,
+      "descripcion": "En Rionegro no hay Pico y Placa para transporte de carga."
+    }
+  },
+  "contacto_ciudadano": {
+    "sitio_web_general": "https://www.rionegro.gov.co",
+    "secretaria_movilidad": "https://www.rionegro.gov.co",
+    "twitter": "",
+    "facebook": "",
+    "linea_atencion": "pendiente_verificar",
+    "linea_movilidad": "pendiente_verificar"
+  }
+}

@@ -1,0 +1,129 @@
+---
+import Principal from '../layouts/Principal.astro';
+import { ciudades } from '../lib/ciudades';
+import { breadcrumbJsonLd } from '../lib/seo';
+import {
+  fechaColombia,
+  formatearFechaColombia,
+  calcularPicoPlaca,
+} from '../lib/calcular';
+
+// Necesita conocer "hoy" en el momento de la visita para calcular "mañana".
+export const prerender = false;
+
+const hoy = fechaColombia();
+const manana = new Date(hoy);
+manana.setDate(manana.getDate() + 1);
+const fechaTexto = formatearFechaColombia(manana);
+
+interface FilaCiudad {
+  slug: string;
+  nombre: string;
+  particulares: number[];
+  motos: number[];
+}
+
+const filas: FilaCiudad[] = [];
+for (const ciudad of ciudades) {
+  const rp = calcularPicoPlaca(ciudad, 'particulares', manana);
+  const rm = calcularPicoPlaca(ciudad, 'motos', manana);
+  if (rp.placasRestringidas.length > 0 || rm.placasRestringidas.length > 0) {
+    filas.push({
+      slug: ciudad.slug,
+      nombre: ciudad.nombre,
+      particulares: rp.placasRestringidas,
+      motos: rm.placasRestringidas,
+    });
+  }
+}
+filas.sort((a, b) => a.nombre.localeCompare(b.nombre, 'es'));
+
+const titulo = 'Pico y Placa mañana en Colombia — Placas restringidas';
+const descripcion = `Consulta el Pico y Placa de mañana (${fechaTexto}) en las ciudades de Colombia: qué placas no podrán circular para particulares y motos.`;
+
+const breadcrumb = breadcrumbJsonLd([
+  { nombre: 'Inicio', ruta: '/' },
+  { nombre: 'Pico y Placa mañana', ruta: '/pico-y-placa-manana' },
+]);
+
+const fmtPlacas = (placas: number[]) => placas.join(' y ');
+---
+
+<Principal titulo={titulo} descripcion={descripcion} jsonLd={breadcrumb}>
+  <nav class="mb-4 text-sm text-gray-500 dark:text-gray-400" aria-label="Ruta de navegación">
+    <a href="/" class="hover:underline">Inicio</a>
+    <span class="mx-1">/</span>
+    <span class="text-gray-700 dark:text-gray-300">Pico y Placa mañana</span>
+  </nav>
+
+  <header class="mb-6">
+    <h1 class="text-3xl font-bold sm:text-4xl">Pico y Placa mañana en Colombia</h1>
+    <p class="mt-2 capitalize text-gray-500 dark:text-gray-400">{fechaTexto}</p>
+    <p class="mt-1 text-gray-500 dark:text-gray-400">
+      Estas son las placas que no podrán circular mañana en cada ciudad. Ya
+      tenemos en cuenta si mañana es festivo o fin de semana.
+    </p>
+  </header>
+
+  {filas.length === 0 ? (
+    <p class="rounded-lg border border-green-200 bg-green-50 p-4 text-sm dark:border-green-800 dark:bg-green-950/20">
+      Según nuestros datos, mañana no hay Pico y Placa para particulares ni motos
+      en las ciudades registradas (posible festivo o fin de semana). Verifica
+      siempre con la fuente oficial de tu ciudad.
+    </p>
+  ) : (
+    <section class="mb-8 overflow-x-auto">
+      <table class="w-full border-collapse text-sm">
+        <thead>
+          <tr class="border-b border-gray-200 text-left dark:border-gray-700">
+            <th class="py-2 pr-3 font-semibold">Ciudad</th>
+            <th class="py-2 pr-3 font-semibold">Particulares</th>
+            <th class="py-2 font-semibold">Motos</th>
+          </tr>
+        </thead>
+        <tbody>
+          {filas.map((fila) => (
+            <tr class="border-b border-gray-100 dark:border-gray-800">
+              <td class="py-2 pr-3">
+                <a href={`/${fila.slug}`} class="font-medium text-yellow-700 hover:underline dark:text-yellow-400">
+                  {fila.nombre}
+                </a>
+              </td>
+              <td class="py-2 pr-3">
+                {fila.particulares.length > 0 ? (
+                  <span class="font-mono font-bold">{fmtPlacas(fila.particulares)}</span>
+                ) : (
+                  <span class="text-gray-400">—</span>
+                )}
+              </td>
+              <td class="py-2">
+                {fila.motos.length > 0 ? (
+                  <span class="font-mono font-bold">{fmtPlacas(fila.motos)}</span>
+                ) : (
+                  <span class="text-gray-400">—</span>
+                )}
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+      <p class="mt-2 text-xs text-gray-400">
+        Toca una ciudad para ver horarios, excepciones y los próximos días.
+      </p>
+    </section>
+  )}
+
+  <section class="mb-4">
+    <h2 class="mb-3 text-lg font-bold">Pico y Placa por día de la semana</h2>
+    <div class="flex flex-wrap gap-2">
+      {['lunes', 'martes', 'miercoles', 'jueves', 'viernes'].map((d) => (
+        <a
+          href={`/pico-y-placa-${d}`}
+          class="rounded-full border border-gray-200 px-3 py-1.5 text-sm capitalize transition-colors hover:border-yellow-400 hover:bg-yellow-50 dark:border-gray-700 dark:hover:bg-yellow-950/20"
+        >
+          {d === 'miercoles' ? 'Miércoles' : d}
+        </a>
+      ))}
+    </div>
+  </section>
+</Principal>

@@ -1,0 +1,85 @@
+{
+  "slug": "villavicencio",
+  "nombre": "Villavicencio",
+  "departamento": "Meta",
+  "coordenadas": [4.142, -73.6266],
+  "autoridad": "Secretaría de Movilidad de Villavicencio",
+  "autoridad_web": "https://www.villavicencio.gov.co",
+  "autoridad_twitter": "AlcaldiaVillavo",
+  "decreto_actual": "Decreto 015 de 2026",
+  "fecha_ultima_actualizacion": "2026-06-09",
+  "vigencia_desde": "2026-01-26",
+  "vigencia_hasta": "2026-12-22",
+  "notas_generales": [
+    "La medida para particulares aplica de lunes a viernes en dos franjas: 6:30 a 9:30 a.m. y 5:00 a 8:00 p.m., según el último dígito de la placa.",
+    "Se mantiene el polígono de restricción de 2025. Los vehículos pueden circular por las vías que delimitan el polígono sin ingresar a la zona restringida.",
+    "No aplica en días festivos oficiales de Colombia.",
+    "Excepciones especiales sin restricción: 3 de junio (Día de la Bicicleta) y 31 de octubre (Día de los Niños)."
+  ],
+  "exenciones_generales": [],
+  "vias_exentas": [],
+  "sanciones": {
+    "tipo_multa": "Tipo C",
+    "base_legal": "Artículo 131, literal C, numeral 14 de la Ley 769 de 2002",
+    "valor_smldv": "15 SMLDV",
+    "incluye_inmovilizacion": true,
+    "descripcion": "Multa equivalente a 15 salarios mínimos diarios legales vigentes (SMLDV) más inmovilización del vehículo (comparendo C14)."
+  },
+  "vehiculos": {
+    "particulares": {
+      "aplica": true,
+      "descripcion": "Vehículos particulares según el último dígito de la placa",
+      "criterio_placa": "ultimo_digito",
+      "modalidad": "semanal_por_dia",
+      "horario_inicio": "06:30",
+      "horario_fin": "20:00",
+      "horario_texto": "Dos franjas: 6:30 a 9:30 a.m. y 5:00 a 8:00 p.m.",
+      "dias_aplicables": ["lunes", "martes", "miercoles", "jueves", "viernes"],
+      "aplica_festivos": false,
+      "aplica_fines_de_semana": false,
+      "rotacion": {
+        "lunes": [5, 6],
+        "martes": [7, 8],
+        "miercoles": [9, 0],
+        "jueves": [1, 2],
+        "viernes": [3, 4]
+      }
+    },
+    "motos": {
+      "aplica": false,
+      "descripcion": "En Villavicencio no aplica Pico y Placa para motocicletas.",
+      "nota": "Esta situación puede cambiar. Verifica siempre con la Secretaría de Movilidad de Villavicencio."
+    },
+    "taxis": {
+      "aplica": true,
+      "horario": "6:00 a.m. a medianoche (lunes a domingo)",
+      "dias_habiles": ["lun", "mar", "mie", "jue", "vie", "sab", "dom"],
+      "aplica_festivos": true,
+      "restricciones": {
+        "lunes": ["pendiente_verificar"],
+        "martes": ["pendiente_verificar"],
+        "miercoles": ["pendiente_verificar"],
+        "jueves": ["pendiente_verificar"],
+        "viernes": ["pendiente_verificar"]
+      },
+      "notas": "Los taxis SÍ tienen Pico y Placa en Villavicencio: aplica de lunes a domingo entre las 6:00 a.m. y la medianoche, según el último dígito de la placa nacional. El decreto autoriza la circulación solo para mantenimiento entre 6:30-8:30 a.m., 1:00-2:00 p.m. y 3:00-5:00 p.m., con aviso visible de 'Fuera de servicio' y sin pasajeros. Consulta el dígito restringido del día con la Secretaría de Movilidad."
+    },
+    "transporte_carga": {
+      "aplica": false,
+      "descripcion": "El Decreto 015 de 2026 no establece Pico y Placa para transporte de carga en Villavicencio.",
+      "nota": "Esta situación puede cambiar. Verifica siempre con la Secretaría de Movilidad de Villavicencio."
+    }
+  },
+  "jornadas_especiales": [
+    { "fecha": "2026-06-03", "nombre": "Día de la Bicicleta", "descripcion": "Sin restricción de Pico y Placa." },
+    { "fecha": "2026-10-31", "nombre": "Día de los Niños", "descripcion": "Sin restricción de Pico y Placa." }
+  ],
+  "contacto_ciudadano": {
+    "sitio_web_general": "https://www.villavicencio.gov.co",
+    "secretaria_movilidad": "https://www.villavicencio.gov.co",
+    "twitter": "https://x.com/AlcaldiaVillavo",
+    "facebook": "",
+    "linea_atencion": "pendiente_verificar",
+    "linea_movilidad": "pendiente_verificar"
+  }
+}

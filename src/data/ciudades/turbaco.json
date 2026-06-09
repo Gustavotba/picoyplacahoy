@@ -1,0 +1,70 @@
+{
+  "slug": "turbaco",
+  "nombre": "Turbaco",
+  "departamento": "Bolívar",
+  "coordenadas": [10.3311, -75.4122],
+  "autoridad": "Secretaría de Tránsito de Turbaco",
+  "autoridad_web": "https://www.turbaco-bolivar.gov.co",
+  "autoridad_twitter": "",
+  "decreto_actual": "Decreto 035 de 2026",
+  "fecha_ultima_actualizacion": "2026-04-12",
+  "notas_generales": [
+    "En Turbaco el Pico y Placa aplica SOLO a motos y motocarros (NO a particulares ni taxis).",
+    "Rotación par/impar: en fechas impares no circulan placas impares, en fechas pares no circulan placas pares.",
+    "Segundo y último viernes de cada mes: Día Sin Moto (restricción total para motos)."
+  ],
+  "exenciones_generales": [],
+  "vias_exentas": [],
+  "dias_sin_moto": [
+    "Segundo viernes de cada mes",
+    "Último viernes de cada mes"
+  ],
+  "sanciones": {
+    "descripcion": "Multa equivalente a 15 SMLDV más inmovilización del vehículo.",
+    "base_legal": "Artículo 131, literal C, numeral 14 de la Ley 769 de 2002",
+    "tipo_multa": "Tipo C",
+    "valor_smldv": "15 SMLDV",
+    "valor_aproximado_pesos": 711750,
+    "incluye_inmovilizacion": true
+  },
+  "vehiculos": {
+    "particulares": {
+      "aplica": false,
+      "descripcion": "Los vehículos particulares NO tienen Pico y Placa en Turbaco."
+    },
+    "motos": {
+      "aplica": true,
+      "descripcion": "Motos, motocarros, motociclos, ciclomotores, mototriciclos, tricimotos y cuatrimotos — rotación par/impar por fecha",
+      "criterio_placa": "ultimo_digito",
+      "modalidad": "par_impar_por_fecha",
+      "horario_inicio": "00:00",
+      "horario_fin": "23:59",
+      "horario_texto": "Todo el día (24 horas)",
+      "dias_aplicables": ["lunes", "martes", "miercoles", "jueves", "viernes", "sabado", "domingo"],
+      "aplica_festivos": true,
+      "aplica_fines_de_semana": true,
+      "regla_par_impar": {
+        "fecha_impar": [1, 3, 5, 7, 9],
+        "fecha_par": [0, 2, 4, 6, 8]
+      },
+      "nota_especial": "En fechas impares del calendario no circulan placas terminadas en dígito impar (1,3,5,7,9). En fechas pares no circulan placas terminadas en dígito par (0,2,4,6,8).",
+      "aplican_vias_exentas": false
+    },
+    "taxis": {
+      "aplica": false,
+      "descripcion": "Los taxis NO tienen Pico y Placa en Turbaco."
+    },
+    "transporte_carga": {
+      "aplica": false,
+      "descripcion": "El transporte de carga NO tiene Pico y Placa en Turbaco."
+    }
+  },
+  "contacto_ciudadano": {
+    "sitio_web_general": "https://www.turbaco-bolivar.gov.co",
+    "secretaria_movilidad": "https://www.turbaco-bolivar.gov.co",
+    "twitter": "",
+    "facebook": "",
+    "linea_atencion": "pendiente_verificar",
+    "linea_movilidad": "pendiente_verificar"
+  }
+}

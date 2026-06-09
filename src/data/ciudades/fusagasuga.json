@@ -1,0 +1,55 @@
+{
+  "slug": "fusagasuga",
+  "nombre": "Fusagasugá",
+  "departamento": "Cundinamarca",
+  "coordenadas": [4.3437, -74.3652],
+  "autoridad": "Secretaría de Movilidad de Fusagasugá",
+  "autoridad_web": "https://www.fusagasuga-cundinamarca.gov.co",
+  "autoridad_twitter": "",
+  "decreto_actual": "No aplica",
+  "fecha_ultima_actualizacion": "2026-04-12",
+  "notas_generales": [
+    "Fusagasugá NO tiene Pico y Placa vigente para ningún tipo de vehículo.",
+    "Se implementó una medida transitoria con el Decreto 418 de 2020 (vigente solo del 14 dic 2020 al 15 ene 2021). Desde entonces no hay PyP.",
+    "Los vehículos de Fusagasugá están sujetos al Pico y Placa REGIONAL de la vía Bogotá-Girardot durante puentes festivos y temporadas altas."
+  ],
+  "exenciones_generales": [],
+  "vias_exentas": [],
+  "afectacion_regional": {
+    "titulo": "Pico y Placa Regional vía Bogotá-Girardot",
+    "autoridad": "Secretaría Distrital de Movilidad de Bogotá",
+    "descripcion": "Durante puentes festivos y temporadas altas, puede haber restricciones en la vía Bogotá-Girardot que afectan a vehículos que transitan entre Fusagasugá y Bogotá.",
+    "aplicacion": "Puentes festivos, Semana Santa, plan retorno, temporadas altas",
+    "enlace_ciudad": "bogota"
+  },
+  "sanciones": {
+    "descripcion": "Fusagasugá no tiene Pico y Placa vigente. Las sanciones generales del Código Nacional de Tránsito aplican normalmente.",
+    "base_legal": "Artículo 131, literal C, numeral 14 de la Ley 769 de 2002"
+  },
+  "vehiculos": {
+    "particulares": {
+      "aplica": false,
+      "descripcion": "Los vehículos particulares NO tienen Pico y Placa en Fusagasugá."
+    },
+    "motos": {
+      "aplica": false,
+      "descripcion": "Las motocicletas NO tienen Pico y Placa en Fusagasugá."
+    },
+    "taxis": {
+      "aplica": false,
+      "descripcion": "Los taxis NO tienen Pico y Placa en Fusagasugá."
+    },
+    "transporte_carga": {
+      "aplica": false,
+      "descripcion": "El transporte de carga NO tiene Pico y Placa en Fusagasugá."
+    }
+  },
+  "contacto_ciudadano": {
+    "sitio_web_general": "https://www.fusagasuga-cundinamarca.gov.co",
+    "secretaria_movilidad": "https://www.fusagasuga-cundinamarca.gov.co",
+    "twitter": "",
+    "facebook": "",
+    "linea_atencion": "pendiente_verificar",
+    "linea_movilidad": "pendiente_verificar"
+  }
+}

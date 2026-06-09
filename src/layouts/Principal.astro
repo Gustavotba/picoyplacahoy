@@ -1,0 +1,73 @@
+---
+import '../styles/global.css';
+import Cabecera from '../components/Cabecera.astro';
+import PieDePagina from '../components/PieDePagina.astro';
+import { SITE_URL, SITE_NAME, OG_IMAGEN_DEFECTO, canonicalDe } from '../lib/seo';
+
+interface Props {
+  titulo: string;
+  descripcion: string;
+  urlCanonica?: string;
+  imagen?: string;
+  jsonLd?: Record<string, unknown> | Array<Record<string, unknown>>;
+}
+
+const { titulo, descripcion, urlCanonica, imagen, jsonLd } = Astro.props;
+// Canónica limpia: siempre absoluta y SIN query strings (ej. ?fecha=...)
+const urlCompleta = urlCanonica ?? canonicalDe(Astro.url.pathname);
+// Imagen para compartir, siempre como URL absoluta
+const imagenAbsoluta = new URL(imagen ?? OG_IMAGEN_DEFECTO, SITE_URL).href;
+// Permite pasar uno o varios bloques de datos estructurados
+const bloquesJsonLd = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
+---
+
+<!doctype html>
+<html lang="es" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <!-- SEO -->
+    <title>{titulo}</title>
+    <meta name="description" content={descripcion} />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href={urlCompleta} />
+
+    <!-- Open Graph -->
+    <meta property="og:title" content={titulo} />
+    <meta property="og:description" content={descripcion} />
+    <meta property="og:url" content={urlCompleta} />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="es_CO" />
+    <meta property="og:site_name" content={SITE_NAME} />
+    <meta property="og:image" content={imagenAbsoluta} />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={titulo} />
+    <meta name="twitter:description" content={descripcion} />
+    <meta name="twitter:image" content={imagenAbsoluta} />
+
+    <!-- PWA -->
+    <link rel="manifest" href="/manifest.json" />
+    <meta name="theme-color" content="#FBBF24" />
+
+    <!-- Fuente Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
+
+    <!-- JSON-LD -->
+    {bloquesJsonLd.map((bloque) => (
+      <script type="application/ld+json" set:html={JSON.stringify(bloque)} />
+    ))}
+  </head>
+  <body class="min-h-screen bg-white text-[#111111] dark:bg-[#0A0A0A] dark:text-[#FEF3C7]" style="font-family: 'Inter', system-ui, sans-serif;">
+    <Cabecera />
+    <main class="mx-auto max-w-5xl px-4 py-6">
+      <slot />
+    </main>
+    <PieDePagina />
+  </body>
+</html>

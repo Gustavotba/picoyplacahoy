@@ -1,0 +1,49 @@
+---
+// Reloj en tiempo real con zona horaria de Colombia.
+// Usa una isla de JavaScript mínima (client-side) para actualizar cada segundo.
+---
+
+<div class="text-center">
+  <p class="text-sm text-gray-500 dark:text-gray-400">Hora actual en Colombia</p>
+  <time
+    id="reloj-colombia"
+    class="block text-3xl font-bold font-mono tabular-nums"
+    datetime=""
+  >
+    --:--:--
+  </time>
+  <p id="fecha-colombia" class="mt-1 text-sm text-gray-500 dark:text-gray-400"></p>
+</div>
+
+<script>
+  function actualizarReloj() {
+    const ahora = new Date();
+    const opciones: Intl.DateTimeFormatOptions = {
+      timeZone: 'America/Bogota',
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit',
+      hour12: true,
+    };
+    const opcionesFecha: Intl.DateTimeFormatOptions = {
+      timeZone: 'America/Bogota',
+      weekday: 'long',
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric',
+    };
+
+    const reloj = document.getElementById('reloj-colombia');
+    const fecha = document.getElementById('fecha-colombia');
+
+    if (reloj) {
+      reloj.textContent = ahora.toLocaleTimeString('es-CO', opciones);
+    }
+    if (fecha) {
+      fecha.textContent = ahora.toLocaleDateString('es-CO', opcionesFecha);
+    }
+  }
+
+  actualizarReloj();
+  setInterval(actualizarReloj, 1000);
+</script>

@@ -1,0 +1,74 @@
+{
+  "slug": "pamplona",
+  "nombre": "Pamplona",
+  "departamento": "Norte de Santander",
+  "coordenadas": [7.3753, -72.6477],
+  "autoridad": "Secretaría de Tránsito y Transporte de Pamplona",
+  "autoridad_web": "https://pamplona-nortedesantander.gov.co",
+  "autoridad_twitter": "",
+  "decreto_actual": "Decreto 067 del 28 de agosto de 2018",
+  "fecha_ultima_actualizacion": "2026-06-09",
+  "notas_generales": [
+    "En Pamplona el Pico y Placa restringe la circulación y el parqueo en el centro histórico de la ciudad, de lunes a viernes, según el último dígito de la placa.",
+    "El horario de restricción es de 8:00 a.m. a 6:00 p.m.",
+    "La medida fue establecida por el Decreto 067 del 28 de agosto de 2018.",
+    "IMPORTANTE: la asignación exacta de dígitos por día no está publicada de forma oficial en línea. Consulta siempre el dígito vigente del día con la Secretaría de Tránsito y Transporte de Pamplona."
+  ],
+  "exenciones_generales": [
+    "Vehículos eléctricos",
+    "Vehículos con esquema de seguridad",
+    "Servicios públicos esenciales",
+    "Taxis y busetas",
+    "Vehículos diplomáticos y consulares",
+    "Carrozas fúnebres, ambulancias y vehículos de atención en salud",
+    "Vehículos de medios de comunicación debidamente identificados",
+    "Autoridades judiciales",
+    "Transporte escolar"
+  ],
+  "vias_exentas": [],
+  "sanciones": {
+    "tipo_multa": "Tipo C",
+    "base_legal": "Artículo 131, literal C, numeral 14 de la Ley 769 de 2002",
+    "valor_smldv": "15 SMLDV",
+    "incluye_inmovilizacion": true,
+    "descripcion": "Multa equivalente a 15 salarios mínimos diarios legales vigentes (SMLDV) más inmovilización del vehículo."
+  },
+  "vehiculos": {
+    "particulares": {
+      "aplica": true,
+      "horario": "8:00 a.m. a 6:00 p.m.",
+      "dias_habiles": ["lun", "mar", "mie", "jue", "vie"],
+      "aplica_festivos": false,
+      "restricciones": {
+        "lunes": ["pendiente_verificar"],
+        "martes": ["pendiente_verificar"],
+        "miercoles": ["pendiente_verificar"],
+        "jueves": ["pendiente_verificar"],
+        "viernes": ["pendiente_verificar"]
+      },
+      "notas": "Pamplona SÍ tiene Pico y Placa para particulares en el centro histórico (Decreto 067 de 2018), de lunes a viernes de 8:00 a.m. a 6:00 p.m., según el último dígito de la placa. La tabla oficial de dígitos por día no está publicada en línea; consulta el dígito vigente del día con la Secretaría de Tránsito de Pamplona."
+    },
+    "motos": {
+      "aplica": false,
+      "descripcion": "El Decreto 067 de 2018 regula la circulación de vehículos en el centro histórico de Pamplona; no establece una restricción equivalente de Pico y Placa para motos.",
+      "nota": "Esta situación puede cambiar. Verifica siempre con la Secretaría de Tránsito y Transporte de Pamplona."
+    },
+    "taxis": {
+      "aplica": false,
+      "descripcion": "Los taxis están exentos de la medida de Pico y Placa en Pamplona según el Decreto 067 de 2018."
+    },
+    "transporte_carga": {
+      "aplica": false,
+      "descripcion": "En Pamplona no aplica Pico y Placa para transporte de carga.",
+      "nota": "Esta situación puede cambiar. Verifica siempre con la Secretaría de Tránsito y Transporte de Pamplona."
+    }
+  },
+  "contacto_ciudadano": {
+    "sitio_web_general": "https://pamplona-nortedesantander.gov.co",
+    "secretaria_movilidad": "https://pamplona-nortedesantander.gov.co/NuestraAlcaldia/Paginas/Secretar%C3%ADa-Tr%C3%A1nsito-Transporte.aspx",
+    "twitter": "",
+    "facebook": "",
+    "linea_atencion": "pendiente_verificar",
+    "linea_movilidad": "pendiente_verificar"
+  }
+}

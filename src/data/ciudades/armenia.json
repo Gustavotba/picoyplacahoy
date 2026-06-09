@@ -1,0 +1,81 @@
+{
+  "slug": "armenia",
+  "nombre": "Armenia",
+  "departamento": "Quindío",
+  "coordenadas": [4.5339, -75.6811],
+  "autoridad": "Secretaría de Tránsito y Transporte de Armenia",
+  "autoridad_web": "https://www.armenia.gov.co",
+  "autoridad_twitter": "AlcaldiaArmenia",
+  "decreto_actual": "Decreto 350 de 2020 (prorrogado hasta noviembre de 2026)",
+  "fecha_ultima_actualizacion": "2026-06-09",
+  "vigencia_desde": "2025-12-01",
+  "vigencia_hasta": "2026-11-30",
+  "notas_generales": [
+    "La medida aplica en todo el perímetro urbano de Armenia, de 7:00 a.m. a 7:00 p.m., para particulares y motos.",
+    "IMPORTANTE: Armenia usa una rotación rodante en ciclo, no fija por día de la semana. Los dos dígitos restringidos se mantienen dos días seguidos y van avanzando (1-2, luego 3-4, 5-6, 7-8, 9-0). Por eso un mismo día de la semana puede tener distintos dígitos según el ciclo. Consulta siempre el dígito del día con la Secretaría de Tránsito.",
+    "No aplica en días festivos oficiales de Colombia.",
+    "La medida fue prorrogada por la Alcaldía hasta noviembre de 2026."
+  ],
+  "exenciones_generales": [
+    "Vehículos de asistencia médica y ambulancias",
+    "Vehículos de las Fuerzas Armadas y Policía Nacional",
+    "Carrozas fúnebres y vehículos de emergencia",
+    "Vehículos adaptados para personas con discapacidad"
+  ],
+  "vias_exentas": [],
+  "sanciones": {
+    "tipo_multa": "Tipo C",
+    "base_legal": "Artículo 131, literal C, numeral 14 de la Ley 769 de 2002",
+    "valor_smldv": "15 SMLDV",
+    "incluye_inmovilizacion": true,
+    "descripcion": "Multa equivalente a 15 salarios mínimos diarios legales vigentes (SMLDV) más inmovilización del vehículo."
+  },
+  "vehiculos": {
+    "particulares": {
+      "aplica": true,
+      "horario": "7:00 a.m. a 7:00 p.m. (continuo)",
+      "dias_habiles": ["lun", "mar", "mie", "jue", "vie", "sab", "dom"],
+      "aplica_festivos": false,
+      "restricciones": {
+        "lunes": ["pendiente_verificar"],
+        "martes": ["pendiente_verificar"],
+        "miercoles": ["pendiente_verificar"],
+        "jueves": ["pendiente_verificar"],
+        "viernes": ["pendiente_verificar"]
+      },
+      "notas": "Armenia tiene Pico y Placa para particulares de 7:00 a.m. a 7:00 p.m. con una rotación rodante: dos dígitos se restringen durante dos días seguidos y luego avanzan (1-2, 3-4, 5-6, 7-8, 9-0). Como la asignación no es fija por día de la semana, consulta el dígito vigente de hoy con la Secretaría de Tránsito de Armenia."
+    },
+    "motos": {
+      "aplica": true,
+      "horario": "7:00 a.m. a 7:00 p.m. (continuo)",
+      "dias_habiles": ["lun", "mar", "mie", "jue", "vie", "sab", "dom"],
+      "aplica_festivos": false,
+      "restricciones": {
+        "lunes": ["pendiente_verificar"],
+        "martes": ["pendiente_verificar"],
+        "miercoles": ["pendiente_verificar"],
+        "jueves": ["pendiente_verificar"],
+        "viernes": ["pendiente_verificar"]
+      },
+      "notas": "Las motos en Armenia siguen la misma rotación rodante que los particulares, de 7:00 a.m. a 7:00 p.m. Consulta el dígito vigente del día con la Secretaría de Tránsito de Armenia."
+    },
+    "taxis": {
+      "aplica": false,
+      "descripcion": "El Decreto 350 de 2020 regula el Pico y Placa para particulares y motos en Armenia; no establece restricción equivalente para taxis.",
+      "nota": "Esta situación puede cambiar. Verifica siempre con la Secretaría de Tránsito de Armenia."
+    },
+    "transporte_carga": {
+      "aplica": false,
+      "descripcion": "En Armenia no aplica Pico y Placa para transporte de carga.",
+      "nota": "Esta situación puede cambiar. Verifica siempre con la Secretaría de Tránsito de Armenia."
+    }
+  },
+  "contacto_ciudadano": {
+    "sitio_web_general": "https://www.armenia.gov.co",
+    "secretaria_movilidad": "https://www.armenia.gov.co",
+    "twitter": "https://x.com/AlcaldiaArmenia",
+    "facebook": "",
+    "linea_atencion": "pendiente_verificar",
+    "linea_movilidad": "pendiente_verificar"
+  }
+}

@@ -1,0 +1,100 @@
+{
+  "slug": "pereira",
+  "nombre": "Pereira",
+  "departamento": "Risaralda",
+  "coordenadas": [4.8143, -75.6946],
+  "autoridad": "Instituto de Movilidad de Pereira",
+  "autoridad_web": "https://www.movilidadpereira.gov.co",
+  "autoridad_twitter": "MovilidadPereir",
+  "decreto_actual": "Instituto de Movilidad de Pereira (vigente 2026)",
+  "fecha_ultima_actualizacion": "2026-06-09",
+  "notas_generales": [
+    "La medida aplica de lunes a viernes, en jornada continua de 6:00 a.m. a 8:00 p.m., según el último dígito de la placa para particulares y el primer dígito para motos.",
+    "No aplica en días festivos oficiales de Colombia.",
+    "Los taxis tienen un esquema de rotación rodante (un dígito por día en secuencia continua)."
+  ],
+  "exenciones_generales": [],
+  "vias_exentas": [
+    "Autopistas del Café",
+    "Ruta Condina",
+    "Desvío La Romelia – El Pollo",
+    "Camino El Tigre – Cerritos",
+    "Ruta Marsella – Turín",
+    "Cruce de la Glorieta San Joaquín en dirección a Alcalá"
+  ],
+  "sanciones": {
+    "tipo_multa": "Tipo C",
+    "base_legal": "Artículo 131, literal C, numeral 14 de la Ley 769 de 2002",
+    "valor_smldv": "15 SMLDV",
+    "valor_aproximado_pesos": 633200,
+    "incluye_inmovilizacion": true,
+    "descripcion": "Multa equivalente a 15 salarios mínimos diarios legales vigentes (SMLDV) más inmovilización del vehículo."
+  },
+  "vehiculos": {
+    "particulares": {
+      "aplica": true,
+      "descripcion": "Vehículos particulares según el último dígito de la placa",
+      "criterio_placa": "ultimo_digito",
+      "modalidad": "semanal_por_dia",
+      "horario_inicio": "06:00",
+      "horario_fin": "20:00",
+      "horario_texto": "6:00 a.m. a 8:00 p.m. (continuo)",
+      "dias_aplicables": ["lunes", "martes", "miercoles", "jueves", "viernes"],
+      "aplica_festivos": false,
+      "aplica_fines_de_semana": false,
+      "rotacion": {
+        "lunes": [0, 1],
+        "martes": [2, 3],
+        "miercoles": [4, 5],
+        "jueves": [6, 7],
+        "viernes": [8, 9]
+      }
+    },
+    "motos": {
+      "aplica": true,
+      "descripcion": "Motocicletas, motocarros, mototriciclos y cuatrimotos según el primer dígito de la placa",
+      "criterio_placa": "primer_digito",
+      "modalidad": "semanal_por_dia",
+      "horario_inicio": "06:00",
+      "horario_fin": "20:00",
+      "horario_texto": "6:00 a.m. a 8:00 p.m. (continuo)",
+      "dias_aplicables": ["lunes", "martes", "miercoles", "jueves", "viernes"],
+      "aplica_festivos": false,
+      "aplica_fines_de_semana": false,
+      "rotacion": {
+        "lunes": [0, 1],
+        "martes": [2, 3],
+        "miercoles": [4, 5],
+        "jueves": [6, 7],
+        "viernes": [8, 9]
+      }
+    },
+    "taxis": {
+      "aplica": true,
+      "horario": "6:00 a.m. a 8:00 p.m.",
+      "dias_habiles": ["lun", "mar", "mie", "jue", "vie"],
+      "aplica_festivos": false,
+      "restricciones": {
+        "lunes": ["pendiente_verificar"],
+        "martes": ["pendiente_verificar"],
+        "miercoles": ["pendiente_verificar"],
+        "jueves": ["pendiente_verificar"],
+        "viernes": ["pendiente_verificar"]
+      },
+      "notas": "Los taxis SÍ tienen Pico y Placa en Pereira, con un esquema distinto al de particulares: se restringe un único dígito del último número de placa que avanza día a día de forma continua. Consulta el dígito del día con el Instituto de Movilidad de Pereira."
+    },
+    "transporte_carga": {
+      "aplica": false,
+      "descripcion": "El Pico y Placa de Pereira no establece restricción para transporte de carga.",
+      "nota": "Esta situación puede cambiar. Verifica siempre con el Instituto de Movilidad de Pereira."
+    }
+  },
+  "contacto_ciudadano": {
+    "sitio_web_general": "https://www.pereira.gov.co",
+    "secretaria_movilidad": "https://www.movilidadpereira.gov.co/PicoyPlaca.html",
+    "twitter": "https://x.com/MovilidadPereir",
+    "facebook": "",
+    "linea_atencion": "pendiente_verificar",
+    "linea_movilidad": "pendiente_verificar"
+  }
+}

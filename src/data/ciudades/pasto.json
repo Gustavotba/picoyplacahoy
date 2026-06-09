@@ -1,0 +1,46 @@
+{
+  "slug": "pasto",
+  "nombre": "Pasto",
+  "departamento": "Nariño",
+  "coordenadas": [1.2136, -77.2811],
+  "autoridad": "Secretaría de Tránsito y Transporte de Pasto",
+  "autoridad_web": "https://www.pasto.gov.co",
+  "decreto_actual": "No aplica",
+  "fecha_ultima_actualizacion": "2026-06-09",
+  "notas_generales": [
+    "Por ahora no se muestra una restricción de Pico y Placa vigente para Pasto en esta plataforma.",
+    "Verifica siempre la información oficial con la Secretaría de Tránsito y Transporte de Pasto antes de circular."
+  ],
+  "exenciones_generales": [],
+  "vias_exentas": [],
+  "sanciones": {
+    "descripcion": "Multa equivalente a 15 SMLDV más inmovilización del vehículo.",
+    "base_legal": "Artículo 131, literal C, numeral 14 de la Ley 769 de 2002"
+  },
+  "vehiculos": {
+    "particulares": {
+      "aplica": false,
+      "descripcion": "Por ahora no se muestra Pico y Placa para vehículos particulares en Pasto."
+    },
+    "motos": {
+      "aplica": false,
+      "descripcion": "Por ahora no se muestra Pico y Placa para motos en Pasto."
+    },
+    "taxis": {
+      "aplica": false,
+      "descripcion": "Por ahora no se muestra Pico y Placa para taxis en Pasto."
+    },
+    "transporte_carga": {
+      "aplica": false,
+      "descripcion": "Por ahora no se muestra Pico y Placa para transporte de carga en Pasto."
+    }
+  },
+  "contacto_ciudadano": {
+    "sitio_web_general": "https://www.pasto.gov.co",
+    "secretaria_movilidad": "https://www.pasto.gov.co",
+    "twitter": "",
+    "facebook": "",
+    "linea_atencion": "pendiente_verificar",
+    "linea_movilidad": "pendiente_verificar"
+  }
+}

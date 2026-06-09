@@ -1,0 +1,169 @@
+---
+import type { PicoYPlacaSolidario } from '../lib/tipos';
+
+interface Props {
+  datos: PicoYPlacaSolidario;
+  nombreCiudad: string;
+}
+
+const { datos, nombreCiudad } = Astro.props;
+const t = datos.tarifas_base;
+
+function formatCOP(valor: number): string {
+  return '$' + valor.toLocaleString('es-CO');
+}
+
+// FAQ JSON-LD
+const faqJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: `¿Cuánto cuesta el Pico y Placa Solidario en ${nombreCiudad}?`,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: `La tarifa base diaria es ${formatCOP(t.diario)}, mensual ${formatCOP(t.mensual)} y semestral ${formatCOP(t.semestral)} (COP, 2026). ${t.nota}`,
+      },
+    },
+    {
+      '@type': 'Question',
+      name: '¿Qué requisitos necesito para tramitar el Pico y Placa Solidario?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: datos.requisitos.join('. ') + '.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: `¿Cuánto pagan los vehículos matriculados fuera de ${nombreCiudad}?`,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Los vehículos matriculados fuera de Bogotá pagan un factor multiplicador de 1.5 (50% más que la tarifa base). Además, desde 2026 tienen Pico y Placa los sábados.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: '¿Los vehículos eléctricos pagan Pico y Placa Solidario?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'No. Los vehículos 100% eléctricos e híbridos matriculados en Bogotá tramitan la excepción sin costo. No necesitan pagar el Solidario.',
+      },
+    },
+  ],
+};
+
+const planes = [
+  { nombre: 'Diario', valor: t.diario, descripcion: 'por día' },
+  { nombre: 'Mensual', valor: t.mensual, descripcion: 'por mes' },
+  { nombre: 'Semestral', valor: t.semestral, descripcion: 'por semestre' },
+];
+---
+
+<script type="application/ld+json" set:html={JSON.stringify(faqJsonLd)} />
+
+<section id="pico-y-placa-solidario" class="mb-8 scroll-mt-20">
+  <div class="rounded-xl border-2 border-yellow-400 bg-gradient-to-b from-yellow-50 to-white dark:from-yellow-950/20 dark:to-gray-900 p-6 sm:p-8">
+
+    <h2 class="text-2xl font-bold mb-2 flex items-center gap-2">
+      <span class="text-3xl">🎟️</span>
+      <span>¿Tienes pico y placa hoy? Compra tu permiso</span>
+    </h2>
+    <p class="text-sm text-gray-600 dark:text-gray-400 mb-6">
+      {datos.descripcion}
+    </p>
+
+    <!-- Tarjetas de tarifas -->
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
+      {planes.map((plan) => (
+        <div class="rounded-lg border-2 border-black bg-yellow-50 dark:bg-yellow-950/30 dark:border-yellow-600 p-4 text-center shadow-sm">
+          <p class="text-sm font-semibold text-gray-600 dark:text-gray-400 uppercase tracking-wider">
+            {plan.nombre}
+          </p>
+          <p class="text-xs text-gray-400 mb-2">tarifa base desde</p>
+          <p class="text-3xl sm:text-4xl font-mono font-black text-black dark:text-yellow-300">
+            {formatCOP(plan.valor)}
+          </p>
+          <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">{plan.descripcion}</p>
+        </div>
+      ))}
+    </div>
+
+    <!-- Factores multiplicadores -->
+    <details class="mb-6 rounded-lg border border-gray-200 dark:border-gray-700 overflow-hidden">
+      <summary class="cursor-pointer bg-gray-50 dark:bg-gray-800 px-4 py-3 font-semibold text-sm hover:bg-gray-100 dark:hover:bg-gray-750 transition-colors">
+        ¿Cómo se calcula tu tarifa exacta?
+      </summary>
+      <div class="px-4 py-3 bg-white dark:bg-gray-900">
+        <p class="text-sm text-gray-600 dark:text-gray-400 mb-2">
+          {datos.factores_multiplicadores.descripcion}
+        </p>
+        <ul class="space-y-1.5">
+          {datos.factores_multiplicadores.detalles.map((d) => (
+            <li class="text-sm text-gray-700 dark:text-gray-300 flex items-start gap-2">
+              <span class="text-yellow-500 mt-0.5 shrink-0">×</span>
+              <span>{d}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </details>
+
+    <!-- Requisitos -->
+    <div class="mb-6">
+      <h3 class="font-bold text-sm mb-2">Requisitos para tramitarlo</h3>
+      <ul class="space-y-1.5">
+        {datos.requisitos.map((r) => (
+          <li class="text-sm text-gray-700 dark:text-gray-300 flex items-start gap-2">
+            <span class="text-green-500 mt-0.5 shrink-0">✓</span>
+            <span>{r}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+
+    <!-- Excepciones gratis -->
+    {datos.excepciones_gratis.length > 0 && (
+      <div class="mb-6">
+        <h3 class="font-bold text-sm mb-2">¿Quiénes NO pagan?</h3>
+        <ul class="space-y-1.5">
+          {datos.excepciones_gratis.map((e) => (
+            <li class="text-sm text-gray-700 dark:text-gray-300 flex items-start gap-2">
+              <span class="text-yellow-500 mt-0.5 shrink-0">★</span>
+              <span>{e}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    )}
+
+    <!-- Destino del recaudo -->
+    <div class="mb-6 rounded-lg bg-blue-50 dark:bg-blue-950/20 border border-blue-200 dark:border-blue-800 p-4">
+      <p class="text-sm text-blue-800 dark:text-blue-300">
+        <span class="font-bold">Destino del dinero:</span> {datos.destino_recaudo}
+      </p>
+    </div>
+
+    <!-- Notas adicionales -->
+    {datos.notas_adicionales && datos.notas_adicionales.length > 0 && (
+      <div class="mb-6">
+        {datos.notas_adicionales.map((nota) => (
+          <p class="text-xs text-gray-500 dark:text-gray-400 mb-1">• {nota}</p>
+        ))}
+      </div>
+    )}
+
+    <!-- CTA -->
+    <a
+      href={datos.sitio_oficial}
+      target="_blank"
+      rel="noopener noreferrer"
+      class="block w-full rounded-lg bg-yellow-400 hover:bg-yellow-500 text-black font-bold text-center py-3.5 px-6 text-lg transition-colors shadow-md hover:shadow-lg"
+    >
+      Tramitar en el sitio oficial →
+    </a>
+    <p class="text-xs text-gray-400 text-center mt-2">
+      {datos.resolucion} · {datos.autoridad}
+    </p>
+  </div>
+</section>

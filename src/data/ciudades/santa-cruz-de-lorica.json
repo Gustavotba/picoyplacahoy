@@ -1,0 +1,48 @@
+{
+  "slug": "santa-cruz-de-lorica",
+  "nombre": "Santa Cruz de Lorica",
+  "departamento": "Córdoba",
+  "coordenadas": [
+    9.2389,
+    -75.8144
+  ],
+  "autoridad": "Alcaldía de Lorica",
+  "autoridad_web": "https://www.santacruzdelorica-cordoba.gov.co",
+  "decreto_actual": "No aplica",
+  "fecha_ultima_actualizacion": "2026-04-12",
+  "notas_generales": [
+    "Lorica no tiene pico y placa vigente."
+  ],
+  "exenciones_generales": [],
+  "vias_exentas": [],
+  "sanciones": {
+    "descripcion": "Santa Cruz de Lorica no tiene pico y placa vigente.",
+    "base_legal": "Artículo 131, literal C, numeral 14 de la Ley 769 de 2002"
+  },
+  "vehiculos": {
+    "particulares": {
+      "aplica": false,
+      "descripcion": "Santa Cruz de Lorica no tiene pico y placa para vehículos particulares."
+    },
+    "motos": {
+      "aplica": false,
+      "descripcion": "No hay pico y placa para motos en Santa Cruz de Lorica."
+    },
+    "taxis": {
+      "aplica": false,
+      "descripcion": "Los taxis NO tienen Pico y Placa en Santa Cruz de Lorica."
+    },
+    "transporte_carga": {
+      "aplica": false,
+      "descripcion": "El transporte de carga NO tiene Pico y Placa en Santa Cruz de Lorica."
+    }
+  },
+  "contacto_ciudadano": {
+    "sitio_web_general": "https://www.santacruzdelorica-cordoba.gov.co",
+    "secretaria_movilidad": "https://www.santacruzdelorica-cordoba.gov.co",
+    "twitter": "",
+    "facebook": "",
+    "linea_atencion": "pendiente_verificar",
+    "linea_movilidad": "pendiente_verificar"
+  }
+}
