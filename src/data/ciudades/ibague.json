@@ -6,22 +6,41 @@
   "autoridad": "Secretaría de Movilidad de Ibagué",
   "autoridad_web": "https://www.ibague.gov.co",
   "autoridad_twitter": "alcaldiaibague",
-  "decreto_actual": "Decreto 0768 de 2025",
-  "fecha_ultima_actualizacion": "2026-06-09",
-  "vigencia_desde": "2026-01-01",
-  "vigencia_hasta": "2026-06-30",
+  "decreto_actual": "Decreto 0768 del 26 de diciembre de 2025",
+  "fecha_ultima_actualizacion": "2026-08-02",
+  "vigencia_desde": "2026-07-01",
+  "vigencia_hasta": "2026-12-31",
   "notas_generales": [
+    "Nueva rotación vigente desde el 1 de julio de 2026: cada pareja de dígitos se corrió un día hacia adelante respecto al primer semestre.",
+    "El Decreto 0768 regula todo el año 2026 y contiene las dos rotaciones semestrales. Lo que cambió el 1 de julio fue la rotación, no el decreto.",
     "La medida aplica de lunes a viernes según el último dígito de la placa, en jornada continua de 6:00 a.m. a 9:00 p.m.",
-    "Hora valle: los vehículos matriculados en Ibagué pueden circular libremente de 9:00 a 11:00 a.m. y de 3:00 a 5:00 p.m., aunque su placa tenga restricción.",
-    "El periodo pedagógico fue del 2 al 9 de enero de 2026; desde el 10 de enero rigen las sanciones.",
-    "No aplica en días festivos oficiales de Colombia.",
-    "Los dígitos rotan cada semestre, por lo que la asignación cambia el segundo semestre del año."
+    "Hora valle: los vehículos matriculados en el organismo de tránsito de Ibagué pueden circular libremente de 9:00 a 11:00 a.m. y de 3:00 a 5:00 p.m., aunque su placa tenga restricción.",
+    "El pico y placa de Ibagué es sectorizado: cubre el perímetro definido por el decreto, no toda la ciudad.",
+    "El período pedagógico fue del 1 al 7 de julio de 2026; desde el 8 de julio rigen las sanciones.",
+    "No aplica sábados, domingos ni días festivos oficiales de Colombia (los taxis son la excepción: a ellos sí les aplica todos los días)."
   ],
-  "exenciones_generales": [],
+  "exenciones_generales": [
+    "Motocicletas (excepción expresa del decreto)",
+    "Vehículos eléctricos y a gas natural vehicular",
+    "Vehículos híbridos",
+    "Vehículos particulares matriculados en Ibagué durante la hora valle (9:00–11:00 a.m. y 3:00–5:00 p.m.)",
+    "Ambulancias, Bomberos, Defensa Civil, Cruz Roja y medicina domiciliaria",
+    "Policía, Fuerzas Militares y escoltas",
+    "Vehículos de personas con discapacidad",
+    "Vehículos oficiales, blindados, diplomáticos y consulares",
+    "Fiscales, jueces, magistrados y demás autoridades",
+    "Medios de comunicación identificados",
+    "Servicios públicos domiciliarios",
+    "Distribución de bienes y alimentos, y transporte de valores",
+    "Vehículos funerarios",
+    "Centros de Enseñanza Automovilística",
+    "Vehículos de paso de otras regiones, presentando recibo de peaje (máximo 120 minutos)",
+    "Vehículos que transitan por variantes nacionales"
+  ],
   "vias_exentas": [],
   "sanciones": {
     "tipo_multa": "Tipo C",
-    "base_legal": "Artículo 131, literal C, numeral 14 de la Ley 769 de 2002",
+    "base_legal": "Artículo 131, literal C, numeral 14 de la Ley 769 de 2002, modificado por el artículo 21 de la Ley 1383 de 2010",
     "valor_smldv": "15 SMLDV",
     "incluye_inmovilizacion": true,
     "descripcion": "Multa equivalente a 15 salarios mínimos diarios legales vigentes (SMLDV) más inmovilización del vehículo."
@@ -39,31 +58,33 @@
       "aplica_festivos": false,
       "aplica_fines_de_semana": false,
       "rotacion": {
-        "lunes": [8, 9],
-        "martes": [0, 1],
-        "miercoles": [2, 3],
-        "jueves": [4, 5],
-        "viernes": [6, 7]
+        "lunes": [6, 7],
+        "martes": [8, 9],
+        "miercoles": [0, 1],
+        "jueves": [2, 3],
+        "viernes": [4, 5]
       }
     },
     "motos": {
       "aplica": false,
-      "descripcion": "En Ibagué no aplica Pico y Placa para motocicletas en 2026.",
+      "descripcion": "En Ibagué no aplica Pico y Placa para motocicletas: son una excepción expresa del decreto.",
       "nota": "Esta situación puede cambiar. Verifica siempre con la Secretaría de Movilidad de Ibagué."
     },
     "taxis": {
       "aplica": true,
       "horario": "6:00 a.m. a 8:00 p.m.",
-      "dias_habiles": ["lun", "mar", "mie", "jue", "vie"],
-      "aplica_festivos": false,
+      "dias_habiles": ["lun", "mar", "mie", "jue", "vie", "sab", "dom"],
+      "aplica_festivos": true,
       "restricciones": {
         "lunes": ["pendiente_verificar"],
         "martes": ["pendiente_verificar"],
         "miercoles": ["pendiente_verificar"],
         "jueves": ["pendiente_verificar"],
-        "viernes": ["pendiente_verificar"]
+        "viernes": ["pendiente_verificar"],
+        "sabado": ["pendiente_verificar"],
+        "domingo": ["pendiente_verificar"]
       },
-      "notas": "Los taxis SÍ tienen Pico y Placa en Ibagué, con un esquema distinto al de particulares: se restringe un único dígito del último número de placa que avanza día a día de forma continua (0, 1, 2... y vuelve a empezar), de 6:00 a.m. a 8:00 p.m. La medida estuvo suspendida del 12 de diciembre de 2025 al 12 de enero de 2026 y se reanudó el 13 de enero de 2026. Como la asignación diaria depende de un conteo continuo, consulta el dígito del día con la Secretaría de Movilidad de Ibagué."
+      "notas": "Los taxis SÍ tienen Pico y Placa en Ibagué, con un esquema distinto al de particulares. Desde el Decreto 0085 del 13 de febrero de 2026, el horario es de 6:00 a.m. a 8:00 p.m. (antes era restricción continua de 24 horas) y aplica de domingo a domingo, incluidos festivos. Se restringe un único dígito del último número de placa, que avanza día a día de forma continua (0, 1, 2… y vuelve a empezar), independiente del día de la semana. Como esa secuencia se pausa cada vez que la medida se suspende, no publicamos una tabla fija: consulta el dígito del día directamente con la Secretaría de Movilidad de Ibagué."
     },
     "transporte_carga": {
       "aplica": false,
@@ -75,8 +96,8 @@
     "sitio_web_general": "https://www.ibague.gov.co",
     "secretaria_movilidad": "https://www.ibague.gov.co",
     "twitter": "https://x.com/alcaldiaibague",
-    "facebook": "",
-    "linea_atencion": "pendiente_verificar",
-    "linea_movilidad": "pendiente_verificar"
+    "facebook": "https://www.facebook.com/alcaldiaibague",
+    "linea_atencion": "(608) 277 0788",
+    "linea_movilidad": "(608) 277 0788"
   }
 }

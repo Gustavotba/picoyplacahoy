@@ -6,24 +6,42 @@
   "autoridad": "Secretaría de Tránsito y Transporte de Popayán",
   "autoridad_web": "https://www.popayan.gov.co",
   "autoridad_twitter": "AlcaldiaPopayan",
-  "decreto_actual": "Decreto 20261000000355 de 2026",
-  "fecha_ultima_actualizacion": "2026-06-09",
-  "vigencia_desde": "2026-01-12",
-  "vigencia_hasta": "2026-06-26",
+  "decreto_actual": "Decreto 20261000000355 del 9 de enero de 2026",
+  "fecha_ultima_actualizacion": "2026-08-02",
+  "vigencia_desde": "2026-07-06",
+  "vigencia_hasta": "2026-12-31",
   "notas_generales": [
+    "Nueva rotación vigente desde el 6 de julio de 2026 hasta el 31 de diciembre de 2026.",
+    "El mismo decreto contiene las dos rotaciones del año: la del primer semestre (12 de enero al 26 de junio) y la del segundo semestre, que es la que rige ahora.",
     "La medida aplica en toda la zona urbana de Popayán, de lunes a viernes entre las 7:00 a.m. y las 8:00 p.m., según el último dígito de la placa.",
     "No hay restricción los sábados, domingos ni días festivos.",
-    "La rotación cambia cada semestre; el primer semestre rige del 12 de enero al 26 de junio de 2026.",
-    "Aplica a vehículos particulares, motocicletas, motocarros, mototriciclos y cuatrimotos de servicio particular."
+    "Aplica a vehículos particulares, motocicletas, motocarros, mototriciclos y cuatrimotos de servicio particular, con la misma tabla de dígitos.",
+    "El período pedagógico fue del 29 de junio al 3 de julio de 2026; las sanciones ya están vigentes."
   ],
-  "exenciones_generales": [],
-  "vias_exentas": [],
+  "exenciones_generales": [
+    "Vehículos con combustibles limpios: a gas, gas/gasolina, eléctricos e híbridos (gasolina/eléctricos). No requieren permiso ni solicitud.",
+    "Vehículos de emergencia y organismos de socorro (las ambulancias no requieren trámite)",
+    "Vehículos oficiales y caravanas presidenciales o ministeriales",
+    "Vehículos que transportan personas con discapacidad",
+    "Vehículos funerarios",
+    "Vehículos del ICBF",
+    "Vehículos protegidos por la UNP y la Fiscalía",
+    "Vehículos de la rama judicial, fuerzas militares y policía",
+    "Transporte escolar",
+    "Vehículos de servicios públicos esenciales y grúas",
+    "Escoltas y vehículos de vigilancia",
+    "Medios de comunicación y mensajería",
+    "Vehículos de alcaldes del Cauca y personal operativo de la Secretaría de Tránsito"
+  ],
+  "vias_exentas": [
+    "Corredores de paso definidos en el artículo séptimo del decreto, articulados sobre la Variante Norte, la Variante Sur, la Circunvalar (Calle 17 – Carrera 3BE – Calle 16E – Carrera 7E – Carrera 6E con Calle 5), la Carrera 17 (Vía Panamericana) y la Calle 5 vía al Tambo, para los recorridos de paso hacia Cali, Timbío, El Tambo y la vía al Huila."
+  ],
   "sanciones": {
     "tipo_multa": "Tipo C",
-    "base_legal": "Artículo 131, literal C, numeral 14 de la Ley 769 de 2002",
+    "base_legal": "Artículo 131, literal C, numeral 14 de la Ley 769 de 2002, modificado por el artículo 21 de la Ley 1383 de 2010",
     "valor_smldv": "15 SMLDV",
     "incluye_inmovilizacion": true,
-    "descripcion": "Multa equivalente a 15 salarios mínimos diarios legales vigentes (SMLDV) más inmovilización del vehículo."
+    "descripcion": "Multa equivalente a 15 salarios mínimos diarios legales vigentes (SMLDV). El decreto ordena además que el vehículo sea inmediatamente inmovilizado."
   },
   "vehiculos": {
     "particulares": {
@@ -38,11 +56,11 @@
       "aplica_festivos": false,
       "aplica_fines_de_semana": false,
       "rotacion": {
-        "lunes": [1, 2],
-        "martes": [3, 4],
-        "miercoles": [5, 6],
-        "jueves": [7, 8],
-        "viernes": [9, 0]
+        "lunes": [9, 0],
+        "martes": [1, 2],
+        "miercoles": [3, 4],
+        "jueves": [5, 6],
+        "viernes": [7, 8]
       }
     },
     "motos": {
@@ -57,11 +75,11 @@
       "aplica_festivos": false,
       "aplica_fines_de_semana": false,
       "rotacion": {
-        "lunes": [1, 2],
-        "martes": [3, 4],
-        "miercoles": [5, 6],
-        "jueves": [7, 8],
-        "viernes": [9, 0]
+        "lunes": [9, 0],
+        "martes": [1, 2],
+        "miercoles": [3, 4],
+        "jueves": [5, 6],
+        "viernes": [7, 8]
       }
     },
     "taxis": {
@@ -71,8 +89,8 @@
     },
     "transporte_carga": {
       "aplica": false,
-      "descripcion": "En Popayán no aplica Pico y Placa para transporte de carga.",
-      "nota": "Esta situación puede cambiar. Verifica siempre con la Secretaría de Tránsito y Transporte de Popayán."
+      "descripcion": "En Popayán no aplica Pico y Placa para transporte público de carga.",
+      "nota": "Ojo: un camión con placa de servicio particular sí queda cubierto por la restricción, porque el decreto habla de vehículos automotores de servicio particular."
     }
   },
   "contacto_ciudadano": {
@@ -80,7 +98,7 @@
     "secretaria_movilidad": "https://www.popayan.gov.co/SecretariasyEntidades/sectransito/Paginas/Pico-y-Placa.aspx",
     "twitter": "https://x.com/AlcaldiaPopayan",
     "facebook": "",
-    "linea_atencion": "pendiente_verificar",
-    "linea_movilidad": "pendiente_verificar"
+    "linea_atencion": "321 496 5013",
+    "linea_movilidad": "321 496 5013"
   }
 }
