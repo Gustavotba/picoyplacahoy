@@ -34,7 +34,9 @@ const tieneNotasGenerales = ciudad.notas_generales && ciudad.notas_generales.len
 const tieneExenciones = ciudad.exenciones_generales && ciudad.exenciones_generales.length > 0;
 const tieneViasExentas = ciudad.vias_exentas && ciudad.vias_exentas.length > 0;
 const tieneContacto = !!ciudad.contacto_ciudadano;
-const tieneSancionesDetalladas = ciudad.sanciones.valor_aproximado_pesos !== undefined;
+const tieneSancionesDetalladas = Boolean(
+  ciudad.sanciones.tipo_multa || ciudad.sanciones.valor_smldv || ciudad.sanciones.valor_aproximado_pesos,
+);
 
 const centrosMapa: Record<string, { centro: [number, number]; zoom: number }> = {
   medellin: { centro: [6.2442, -75.5812], zoom: 13 },

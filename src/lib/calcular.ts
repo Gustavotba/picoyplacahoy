@@ -129,26 +129,17 @@ export function calcularPicoPlaca(
 
   // --- Formato nuevo (con modalidad) ---
 
-  // Verificar vigencia
-  if (!dentroDeVigencia(ciudad, fecha)) {
-    return {
-      aplica: false,
-      esFestivo: false,
-      esDiaHabil: false,
-      esPendiente: false,
-      datosDesactualizados: true,
-      placasRestringidas: [],
-      horarioTexto: '',
-      mensaje: 'Los datos de restricción están fuera del periodo de vigencia. Verifica con la fuente oficial.',
-    };
-  }
-
   const festivo = esFestivo(fecha);
   const finDeSemana = esFinDeSemana(fecha);
   const diaSemana = DIAS_SEMANA[fecha.getDay()];
 
   // Campos comunes de vehículos con restricción activa
   const vehiculoActivo = vehiculo as { aplica_festivos: boolean; aplica_fines_de_semana: boolean; horario_texto: string; criterio_placa?: string; descripcion?: string };
+
+  // Los festivos y fines de semana se resuelven ANTES de mirar la vigencia:
+  // en esos días nunca hay restricción, así que la respuesta sigue siendo
+  // correcta aunque el decreto cargado ya haya vencido o todavía no empiece
+  // a regir (por ejemplo, el fin de semana que separa dos semestres).
 
   // Si es festivo y no aplica en festivos
   if (festivo && !vehiculoActivo.aplica_festivos) {
@@ -179,6 +170,20 @@ export function calcularPicoPlaca(
       criterioPlaca: vehiculoActivo.criterio_placa as ResultadoPicoPlaca['criterioPlaca'],
       descripcionVehiculo: vehiculoActivo.descripcion,
       mensaje: 'Hoy es fin de semana. No aplica Pico y Placa.',
+    };
+  }
+
+  // Verificar vigencia (solo para días hábiles, donde sí importa qué decreto rige)
+  if (!dentroDeVigencia(ciudad, fecha)) {
+    return {
+      aplica: false,
+      esFestivo: false,
+      esDiaHabil: false,
+      esPendiente: false,
+      datosDesactualizados: true,
+      placasRestringidas: [],
+      horarioTexto: '',
+      mensaje: 'Los datos de restricción están fuera del periodo de vigencia. Verifica con la fuente oficial.',
     };
   }
 

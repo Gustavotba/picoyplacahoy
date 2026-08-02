@@ -6,17 +6,21 @@
     6.1659,
     -75.584
   ],
-  "autoridad": "Secretaría de Movilidad de Medellín (Decreto metropolitano)",
+  "autoridad": "Área Metropolitana del Valle de Aburrá",
   "autoridad_web": "https://www.medellin.gov.co/es/secretaria-de-movilidad/",
   "autoridad_twitter": "sttmed",
-  "decreto_actual": "Decreto 0184 de 2026 (metropolitano)",
-  "fecha_ultima_actualizacion": "2026-04-12",
-  "vigencia_desde": "2026-02-02",
-  "vigencia_hasta": "2026-07-31",
+  "decreto_actual": "Rotación metropolitana segundo semestre 2026",
+  "fecha_ultima_actualizacion": "2026-08-02",
+  "vigencia_desde": "2026-08-03",
+  "vigencia_hasta": "2027-01-29",
   "notas_generales": [
-    "Envigado comparte el decreto de pico y placa con Medellín y los 10 municipios del Valle de Aburrá.",
-    "Aplica la misma rotación, horarios y exenciones que Medellín.",
-    "No aplica en días festivos oficiales ni en corregimientos."
+    "Nueva rotación vigente desde el lunes 3 de agosto de 2026.",
+    "Envigado aplica la misma rotación, horarios y exenciones acordadas para todo el Valle de Aburrá.",
+    "Del 3 al 6 de agosto de 2026 la sanción es pedagógica. Desde el lunes 10 de agosto la sanción es económica.",
+    "La fase pedagógica NO aplica a taxis: a ellos se les sanciona desde el primer día.",
+    "El Área Metropolitana acuerda la rotación, pero cada municipio expide su propio decreto. Confirma con la alcaldía de Envigado el decreto local vigente.",
+    "No aplica en días festivos oficiales ni los fines de semana.",
+    "Las vías exentas varían entre municipios. Verifica cuáles rigen en tu recorrido antes de salir."
   ],
   "exenciones_generales": [
     "Vehículos eléctricos (cero emisiones) registrados en RUNT",
@@ -35,9 +39,9 @@
     "tipo_multa": "Tipo C",
     "base_legal": "Artículo 131, literal C, numeral 14 de la Ley 769 de 2002",
     "valor_smldv": "15 SMLDV",
-    "valor_aproximado_pesos": 711750,
     "incluye_inmovilizacion": true,
-    "descripcion": "Multa equivalente a 15 SMLDV más inmovilización del vehículo."
+    "descripcion": "Multa equivalente a 15 salarios mínimos diarios legales vigentes (SMLDV) más inmovilización del vehículo. El decreto no fija un valor en pesos: consulta el monto vigente con la autoridad de tránsito.",
+    "valor_uvb": "52,29 UVB"
   },
   "vehiculos": {
     "particulares": {
@@ -59,24 +63,24 @@
       "aplica_fines_de_semana": false,
       "rotacion": {
         "lunes": [
-          1,
-          7
+          5,
+          8
         ],
         "martes": [
-          0,
-          3
+          1,
+          4
         ],
         "miercoles": [
-          4,
-          6
+          0,
+          2
         ],
         "jueves": [
-          5,
-          9
+          3,
+          6
         ],
         "viernes": [
-          2,
-          8
+          7,
+          9
         ]
       },
       "aplican_vias_exentas": true
@@ -100,31 +104,190 @@
       "aplica_fines_de_semana": false,
       "rotacion": {
         "lunes": [
-          1,
-          7
+          5,
+          8
         ],
         "martes": [
-          0,
-          3
+          1,
+          4
         ],
         "miercoles": [
-          4,
-          6
+          0,
+          2
         ],
         "jueves": [
-          5,
-          9
+          3,
+          6
         ],
         "viernes": [
-          2,
-          8
+          7,
+          9
         ]
       },
       "aplican_vias_exentas": true
     },
     "taxis": {
-      "aplica": false,
-      "descripcion": "Los taxis en el Valle de Aburrá tienen restricción quincenal — consultar en /medellin/taxis para calendario detallado."
+      "aplica": true,
+      "descripcion": "Transporte público individual (taxis)",
+      "criterio_placa": "ultimo_digito",
+      "modalidad": "quincenal_por_fecha",
+      "horario_inicio": "06:00",
+      "horario_fin": "20:00",
+      "horario_texto": "6:00 a.m. a 8:00 p.m.",
+      "dias_aplicables": [
+        "lunes",
+        "martes",
+        "miercoles",
+        "jueves",
+        "viernes"
+      ],
+      "aplica_festivos": false,
+      "aplica_fines_de_semana": false,
+      "aplican_vias_exentas": false,
+      "nota_especial": "La rotación de taxis es quincenal y rige en todo el Valle de Aburrá, incluido Envigado: cada dígito se restringe un día fijo de la semana que cambia cada mes, solo en días hábiles. Para los taxis NO hay vías exentas ni fase pedagógica.",
+      "fechas_restriccion": {
+        "0": [
+          "2026-08-13",
+          "2026-08-27",
+          "2026-09-11",
+          "2026-09-25",
+          "2026-10-05",
+          "2026-10-26",
+          "2026-11-10",
+          "2026-11-24",
+          "2026-12-09",
+          "2026-12-23",
+          "2027-01-07",
+          "2027-01-21"
+        ],
+        "1": [
+          "2026-08-21",
+          "2026-09-04",
+          "2026-09-14",
+          "2026-09-28",
+          "2026-10-13",
+          "2026-10-27",
+          "2026-11-11",
+          "2026-11-25",
+          "2026-12-10",
+          "2026-12-24",
+          "2027-01-08",
+          "2027-01-22"
+        ],
+        "2": [
+          "2026-08-03",
+          "2026-08-24",
+          "2026-09-08",
+          "2026-09-22",
+          "2026-10-07",
+          "2026-10-21",
+          "2026-11-05",
+          "2026-11-19",
+          "2026-12-03",
+          "2026-12-18",
+          "2027-01-18"
+        ],
+        "3": [
+          "2026-08-04",
+          "2026-08-18",
+          "2026-09-01",
+          "2026-09-16",
+          "2026-09-30",
+          "2026-10-15",
+          "2026-10-29",
+          "2026-11-13",
+          "2026-11-27",
+          "2026-12-07",
+          "2026-12-21",
+          "2027-01-05",
+          "2027-01-19"
+        ],
+        "4": [
+          "2026-08-12",
+          "2026-08-26",
+          "2026-09-10",
+          "2026-09-24",
+          "2026-10-09",
+          "2026-10-23",
+          "2026-11-09",
+          "2026-11-30",
+          "2026-12-22",
+          "2027-01-06",
+          "2027-01-20"
+        ],
+        "5": [
+          "2026-08-06",
+          "2026-08-20",
+          "2026-09-03",
+          "2026-09-18",
+          "2026-10-02",
+          "2026-10-19",
+          "2026-11-03",
+          "2026-11-17",
+          "2026-12-01",
+          "2026-12-16",
+          "2026-12-30",
+          "2027-01-14",
+          "2027-01-28"
+        ],
+        "6": [
+          "2026-08-14",
+          "2026-08-28",
+          "2026-09-07",
+          "2026-09-21",
+          "2026-10-06",
+          "2026-10-20",
+          "2026-11-04",
+          "2026-11-18",
+          "2026-12-02",
+          "2026-12-17",
+          "2026-12-31",
+          "2027-01-15",
+          "2027-01-29"
+        ],
+        "7": [
+          "2026-08-10",
+          "2026-08-31",
+          "2026-09-15",
+          "2026-09-29",
+          "2026-10-14",
+          "2026-10-28",
+          "2026-11-12",
+          "2026-11-26",
+          "2026-12-11",
+          "2027-01-04",
+          "2027-01-25"
+        ],
+        "8": [
+          "2026-08-11",
+          "2026-08-25",
+          "2026-09-09",
+          "2026-09-23",
+          "2026-10-08",
+          "2026-10-22",
+          "2026-11-06",
+          "2026-11-20",
+          "2026-12-04",
+          "2026-12-14",
+          "2026-12-28",
+          "2027-01-12",
+          "2027-01-26"
+        ],
+        "9": [
+          "2026-08-05",
+          "2026-08-19",
+          "2026-09-02",
+          "2026-09-17",
+          "2026-10-01",
+          "2026-10-16",
+          "2026-10-30",
+          "2026-11-23",
+          "2026-12-15",
+          "2026-12-29",
+          "2027-01-13",
+          "2027-01-27"
+        ]
+      }
     },
     "transporte_carga": {
       "aplica": false,

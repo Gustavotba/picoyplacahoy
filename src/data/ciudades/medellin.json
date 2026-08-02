@@ -6,44 +6,56 @@
   "autoridad_web": "https://www.medellin.gov.co/es/secretaria-de-movilidad/",
   "autoridad_twitter": "sttmed",
   "autoridad_facebook": "sttmed",
-  "decreto_actual": "Decreto 0184 de 2026",
+  "decreto_actual": "Decreto de 2026 (Radicado 1720211767) — segundo semestre",
   "coordenadas": [6.2442, -75.5812],
-  "fecha_ultima_actualizacion": "2026-04-12",
-  "vigencia_desde": "2026-02-02",
-  "vigencia_hasta": "2026-07-31",
+  "fecha_ultima_actualizacion": "2026-08-02",
+  "vigencia_desde": "2026-08-03",
+  "vigencia_hasta": "2027-01-29",
   "notas_generales": [
-    "La medida aplica en Medellín y los 10 municipios del Valle de Aburrá.",
-    "No aplica en días festivos oficiales de Colombia.",
-    "No aplica en los corregimientos de Medellín."
+    "Nueva rotación vigente desde el lunes 3 de agosto de 2026.",
+    "Del 3 al 6 de agosto de 2026 la sanción es pedagógica (no hay multa). Desde el lunes 10 de agosto la sanción es económica.",
+    "La fase pedagógica NO aplica a taxis: a ellos se les sanciona desde el primer día.",
+    "La medida aplica en Medellín y los 9 municipios del Valle de Aburrá, pero cada municipio expide su propio decreto para su territorio.",
+    "No aplica en días festivos oficiales de Colombia ni los fines de semana.",
+    "No aplica en los 5 corregimientos de Medellín.",
+    "El número definitivo del decreto aún no se publica en la Gaceta Oficial. Se cita el radicado provisional 1720211767 de 2026 para trazabilidad.",
+    "Deroga el Decreto 0141 del 30 de enero de 2026, que rigió el primer semestre."
   ],
   "exenciones_generales": [
     "Vehículos eléctricos (cero emisiones) registrados en RUNT",
     "Vehículos híbridos registrados en RUNT",
     "Vehículos a gas natural vehicular registrados en RUNT",
-    "Motos, mototriciclos, tricimotos y ciclomotores destinados a domicilios o mensajería (particulares y oficiales)"
+    "Motos, mototriciclos, tricimotos y ciclomotores destinados a domicilios o mensajería (particulares y oficiales)",
+    "Vehículos oficiales"
   ],
   "vias_exentas": [
-    "Sistema Vial del Río: Autopista Sur, Avenida Regional y Avenida Paralela",
-    "Avenida Las Palmas",
-    "Avenida 33 (desde el río hasta su conexión con Las Palmas)",
-    "Calle 10 (desde el río hasta la Terminal del Sur y conexión con el aeropuerto Olaya Herrera)",
-    "Laterales de la quebrada La Iguaná (entre carreras 63 y 80)",
-    "Vía 4.1 hacia el occidente antioqueño",
-    "Corregimientos de Medellín (los 5 corregimientos)"
+    "Sistema Vial del Río: Autopista Sur, Avenida Regional y Avenida Regional occidental (paralela), con sus vías distribuidoras, entre los límites con Bello, Itagüí y Envigado",
+    "Accesos a la Terminal del Norte: carrera 64A entre calles 75B y 88; calle 78 entre Avenida Regional y carrera 64C; carrera 64C entre calles 78 y 88; calle 88 entre carreras 64C y 64A",
+    "Calle 10 entre la carrera 48 (Glorieta Monterrey) y la Terminal del Sur, con conexión al aeropuerto Olaya Herrera por la carrera 65",
+    "Calle 8B entre carreras 65 y 67",
+    "Carrera 67 entre calle 8B y calle 10",
+    "Carrera 49 entre calle 10 y calle 16",
+    "Carrera 65 en ambos sentidos entre calle 10 y calle 14 (glorieta de acceso al aeropuerto)",
+    "Calle 37 (Avenida 33) entre el Sistema Vial del Río y su conexión con la Avenida Las Palmas",
+    "Avenida Las Palmas desde el empalme con la calle 37 hasta los límites con Envigado, incluida la Conexión Vial Túnel Aburrá–Oriente",
+    "Conexión Vial Guillermo Gaviria Correa – Vía al Mar km 4.1 (Túnel de Occidente)",
+    "Corredor vial de La Iguaná: calles 54, 55, 57, 59, 59A, 60, 65 y transversal 55, entre el Sistema Vial del Río y la Conexión Vial Guillermo Gaviria Correa",
+    "Puente Horacio Toro (calle 58) y sus lazos de incorporación",
+    "Puente de Acevedo que empalma con la Autopista Medellín–Bogotá y sus lazos desde y hacia el Sistema Vial del Río",
+    "Los 5 corregimientos de Medellín"
   ],
   "sanciones": {
     "tipo_multa": "Tipo C",
     "base_legal": "Artículo 131, literal C, numeral 14 de la Ley 769 de 2002, modificado por el artículo 21 de la Ley 1383 de 2010",
     "valor_smldv": "15 SMLDV",
     "valor_uvb": "52,29 UVB",
-    "valor_aproximado_pesos": 711750,
     "incluye_inmovilizacion": true,
-    "descripcion": "Multa equivalente a 15 salarios mínimos diarios legales vigentes (SMLDV) más inmovilización del vehículo."
+    "descripcion": "Multa equivalente a 15 salarios mínimos diarios legales vigentes (SMLDV) más inmovilización del vehículo. El decreto no fija un valor en pesos: consulta el monto vigente con la Secretaría de Movilidad."
   },
   "vehiculos": {
     "particulares": {
       "aplica": true,
-      "descripcion": "Automóviles, camionetas, camperos, motocarros y cuatriciclos de servicio particular y oficial",
+      "descripcion": "Automóviles, camionetas, camperos y motocarros de servicio particular",
       "criterio_placa": "ultimo_digito",
       "modalidad": "semanal_por_dia",
       "horario_inicio": "05:00",
@@ -53,17 +65,17 @@
       "aplica_festivos": false,
       "aplica_fines_de_semana": false,
       "rotacion": {
-        "lunes": [1, 7],
-        "martes": [0, 3],
-        "miercoles": [4, 6],
-        "jueves": [5, 9],
-        "viernes": [2, 8]
+        "lunes": [5, 8],
+        "martes": [1, 4],
+        "miercoles": [0, 2],
+        "jueves": [3, 6],
+        "viernes": [7, 9]
       },
       "aplican_vias_exentas": true
     },
     "motos": {
       "aplica": true,
-      "descripcion": "Motocicletas, mototriciclos, tricimotos y ciclomotores de 2 y 4 tiempos (excepto los dedicados a domicilios o mensajería)",
+      "descripcion": "Motocicletas, mototriciclos, tricimotos, ciclomotores y cuatriciclos de 2 y 4 tiempos (excepto los dedicados a domicilios o mensajería)",
       "criterio_placa": "primer_digito",
       "modalidad": "semanal_por_dia",
       "horario_inicio": "05:00",
@@ -73,11 +85,11 @@
       "aplica_festivos": false,
       "aplica_fines_de_semana": false,
       "rotacion": {
-        "lunes": [1, 7],
-        "martes": [0, 3],
-        "miercoles": [4, 6],
-        "jueves": [5, 9],
-        "viernes": [2, 8]
+        "lunes": [5, 8],
+        "martes": [1, 4],
+        "miercoles": [0, 2],
+        "jueves": [3, 6],
+        "viernes": [7, 9]
       },
       "aplican_vias_exentas": true
     },
@@ -93,23 +105,19 @@
       "aplica_festivos": false,
       "aplica_fines_de_semana": false,
       "aplican_vias_exentas": false,
-      "nota_especial": "Los taxis sin pasajero pueden circular el día de restricción ÚNICAMENTE para reparación o mantenimiento, con aviso visible en la parte trasera del vehículo indicando que va al taller.",
+      "nota_especial": "La rotación de taxis es quincenal: cada dígito se restringe un día fijo de la semana que cambia cada mes, y solo en días hábiles. Para los taxis NO hay vías exentas ni fase pedagógica: la sanción económica rige desde el 3 de agosto de 2026.",
       "fechas_restriccion": {
-        "0": ["2026-02-04", "2026-02-18", "2026-03-05", "2026-03-19", "2026-04-10", "2026-04-24", "2026-05-11", "2026-06-02", "2026-06-16", "2026-06-30", "2026-07-15", "2026-07-29"],
-        "1": ["2026-02-05", "2026-02-19", "2026-03-06", "2026-03-20", "2026-04-08", "2026-04-22", "2026-05-05", "2026-05-19", "2026-06-03", "2026-06-17", "2026-07-01", "2026-07-16", "2026-07-30"],
-        "2": ["2026-02-13", "2026-02-27", "2026-03-09", "2026-03-30", "2026-04-14", "2026-04-28", "2026-05-07", "2026-05-21", "2026-06-11", "2026-06-25", "2026-07-10", "2026-07-24"],
-        "3": ["2026-02-06", "2026-02-20", "2026-03-10", "2026-03-24", "2026-04-08", "2026-04-22", "2026-06-05", "2026-06-19", "2026-07-02", "2026-07-16", "2026-07-30"],
-        "4": ["2026-02-03", "2026-02-17", "2026-03-14", "2026-03-28", "2026-04-01", "2026-04-16", "2026-04-30", "2026-05-15", "2026-05-29", "2026-06-22", "2026-07-13", "2026-07-27"],
-        "5": ["2026-02-11", "2026-02-25", "2026-03-12", "2026-03-26", "2026-04-17", "2026-06-09", "2026-06-23", "2026-07-02", "2026-07-16", "2026-07-30"],
-        "6": ["2026-02-12", "2026-02-26", "2026-03-13", "2026-03-27", "2026-04-07", "2026-04-21", "2026-05-14", "2026-05-28", "2026-07-06", "2026-07-20"],
-        "7": ["2026-02-02", "2026-02-16", "2026-03-02", "2026-03-16", "2026-04-02", "2026-04-21", "2026-05-04", "2026-05-18", "2026-06-12", "2026-06-26", "2026-07-02", "2026-07-17", "2026-07-31"],
-        "8": ["2026-02-02", "2026-02-16", "2026-03-03", "2026-03-17", "2026-03-31", "2026-04-15", "2026-04-29", "2026-05-14", "2026-05-28", "2026-06-12", "2026-06-26", "2026-07-06", "2026-07-27"],
-        "9": ["2026-02-10", "2026-02-24", "2026-03-11", "2026-03-25", "2026-04-09", "2026-04-23", "2026-05-08", "2026-05-22", "2026-06-01", "2026-07-07", "2026-07-21"]
-      },
-      "fechas_pendientes_confirmar": [
-        "Revisar placas 3 y 5 en mayo (casillas borrosas en imagen)",
-        "Revisar placa 6 en junio (casilla borrosa en imagen)"
-      ]
+        "0": ["2026-08-13", "2026-08-27", "2026-09-11", "2026-09-25", "2026-10-05", "2026-10-26", "2026-11-10", "2026-11-24", "2026-12-09", "2026-12-23", "2027-01-07", "2027-01-21"],
+        "1": ["2026-08-21", "2026-09-04", "2026-09-14", "2026-09-28", "2026-10-13", "2026-10-27", "2026-11-11", "2026-11-25", "2026-12-10", "2026-12-24", "2027-01-08", "2027-01-22"],
+        "2": ["2026-08-03", "2026-08-24", "2026-09-08", "2026-09-22", "2026-10-07", "2026-10-21", "2026-11-05", "2026-11-19", "2026-12-03", "2026-12-18", "2027-01-18"],
+        "3": ["2026-08-04", "2026-08-18", "2026-09-01", "2026-09-16", "2026-09-30", "2026-10-15", "2026-10-29", "2026-11-13", "2026-11-27", "2026-12-07", "2026-12-21", "2027-01-05", "2027-01-19"],
+        "4": ["2026-08-12", "2026-08-26", "2026-09-10", "2026-09-24", "2026-10-09", "2026-10-23", "2026-11-09", "2026-11-30", "2026-12-22", "2027-01-06", "2027-01-20"],
+        "5": ["2026-08-06", "2026-08-20", "2026-09-03", "2026-09-18", "2026-10-02", "2026-10-19", "2026-11-03", "2026-11-17", "2026-12-01", "2026-12-16", "2026-12-30", "2027-01-14", "2027-01-28"],
+        "6": ["2026-08-14", "2026-08-28", "2026-09-07", "2026-09-21", "2026-10-06", "2026-10-20", "2026-11-04", "2026-11-18", "2026-12-02", "2026-12-17", "2026-12-31", "2027-01-15", "2027-01-29"],
+        "7": ["2026-08-10", "2026-08-31", "2026-09-15", "2026-09-29", "2026-10-14", "2026-10-28", "2026-11-12", "2026-11-26", "2026-12-11", "2027-01-04", "2027-01-25"],
+        "8": ["2026-08-11", "2026-08-25", "2026-09-09", "2026-09-23", "2026-10-08", "2026-10-22", "2026-11-06", "2026-11-20", "2026-12-04", "2026-12-14", "2026-12-28", "2027-01-12", "2027-01-26"],
+        "9": ["2026-08-05", "2026-08-19", "2026-09-02", "2026-09-17", "2026-10-01", "2026-10-16", "2026-10-30", "2026-11-23", "2026-12-15", "2026-12-29", "2027-01-13", "2027-01-27"]
+      }
     },
     "transporte_carga": {
       "aplica": false,

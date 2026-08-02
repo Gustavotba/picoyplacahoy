@@ -58,7 +58,9 @@ const tieneTwitter = !!contacto?.twitter;
 const tieneFacebook = !!contacto?.facebook;
 const tieneTelefono = !!contacto?.linea_atencion && contacto.linea_atencion !== 'pendiente_verificar';
 const tieneContacto = !!contacto && (tieneWeb || tieneTwitter || tieneFacebook || tieneTelefono);
-const tieneSancionesDetalladas = ciudad.sanciones.valor_aproximado_pesos !== undefined;
+const tieneSancionesDetalladas = Boolean(
+  ciudad.sanciones.tipo_multa || ciudad.sanciones.valor_smldv || ciudad.sanciones.valor_aproximado_pesos,
+);
 const esVehiculoSemanal = esSemanalPorDia(vehiculo);
 const esVehiculoQuincenal = esQuincenalPorFecha(vehiculo);
 const esVehiculoInactivo = esSinRestriccion(vehiculo);
