@@ -2,45 +2,464 @@
   "slug": "pasto",
   "nombre": "Pasto",
   "departamento": "Nariño",
-  "coordenadas": [1.2136, -77.2811],
+  "coordenadas": [
+    1.2136,
+    -77.2811
+  ],
   "autoridad": "Secretaría de Tránsito y Transporte de Pasto",
   "autoridad_web": "https://www.pasto.gov.co",
-  "decreto_actual": "No aplica",
-  "fecha_ultima_actualizacion": "2026-06-09",
+  "decreto_actual": "Decreto 0122 del 24 de julio de 2026",
+  "fecha_ultima_actualizacion": "2026-08-03",
   "notas_generales": [
-    "Por ahora no se muestra una restricción de Pico y Placa vigente para Pasto en esta plataforma.",
-    "Verifica siempre la información oficial con la Secretaría de Tránsito y Transporte de Pasto antes de circular."
+    "Pasto SÍ tiene Pico y Placa: aplica a carros particulares, motos y taxis por el último dígito de la placa, de lunes a viernes entre las 7:30 a.m. y las 7:00 p.m., en el perímetro urbano.",
+    "La rotación funciona por CICLOS SEMANALES: hay 5 ciclos y cada semana calendario avanza al siguiente. Por eso los dígitos de cada día cambian de una semana a otra.",
+    "OJO: el decreto se renueva aproximadamente cada DOS MESES (no por semestres). El actual rige hasta el 24 de septiembre de 2026; consulta la rotación nueva cuando la Secretaría expida el siguiente decreto.",
+    "No aplica sábados, domingos ni festivos.",
+    "La Alcaldía está preparando un esquema de \"pico y placa solidario\" (pago para exención). Cuando se reglamente, el esquema actual puede cambiar.",
+    "En temporada del Carnaval de Negros y Blancos (primeros días de enero) la Secretaría suele modificar o levantar temporalmente la medida para taxis; verifica en diciembre."
   ],
-  "exenciones_generales": [],
+  "exenciones_generales": [
+    "Vehículos a gas natural, gas propano, eléctricos e híbridos",
+    "Transporte público colectivo municipal, especial y por carretera",
+    "Transporte de alimentos perecederos y de medicamentos (con identificación y certificado)",
+    "Vehículos de personas con discapacidad (con un acompañante e historial clínico)",
+    "Materiales de construcción con Plan de Manejo de Tránsito aprobado",
+    "Policía, Fuerzas Militares, CTI e INPEC",
+    "Vehículos del Estado en ejercicio de sus funciones",
+    "Grúas y organismos de socorro (Cruz Roja, Bomberos, Defensa Civil)",
+    "Carrozas fúnebres",
+    "Empresas de servicios públicos",
+    "Medios de comunicación identificados",
+    "Escoltas y supervisores de seguridad privada",
+    "Misión médica y veterinarias de urgencia",
+    "Funcionarios judiciales y de organismos de control",
+    "Magistrados, congresistas, diputados, concejales y notarios",
+    "Transporte escolar autorizado y docentes de zonas rurales",
+    "Taxis en reparación o mantenimiento el día de su restricción (con factura y hora)",
+    "Urgencias domiciliarias (plomería, electricidad) y escuelas de conducción",
+    "Alcaldes municipales de Nariño"
+  ],
   "vias_exentas": [],
   "sanciones": {
-    "descripcion": "Multa equivalente a 15 SMLDV más inmovilización del vehículo.",
-    "base_legal": "Artículo 131, literal C, numeral 14 de la Ley 769 de 2002"
+    "tipo_multa": "Tipo C",
+    "base_legal": "Artículo 131, literal C, numeral 14 de la Ley 769 de 2002, modificado por el artículo 21 de la Ley 1383 de 2010",
+    "valor_smldv": "15 SMLDV",
+    "incluye_inmovilizacion": true,
+    "descripcion": "Multa equivalente a 15 salarios mínimos diarios legales vigentes (SMLDV) más inmovilización del vehículo. El decreto no fija cifra en pesos: consulta el monto vigente con la Secretaría de Tránsito."
   },
   "vehiculos": {
     "particulares": {
-      "aplica": false,
-      "descripcion": "Por ahora no se muestra Pico y Placa para vehículos particulares en Pasto."
+      "aplica": true,
+      "criterio_placa": "ultimo_digito",
+      "modalidad": "quincenal_por_fecha",
+      "horario_inicio": "07:30",
+      "horario_fin": "19:00",
+      "horario_texto": "7:30 a.m. a 7:00 p.m. (continuo)",
+      "dias_aplicables": [
+        "lunes",
+        "martes",
+        "miercoles",
+        "jueves",
+        "viernes"
+      ],
+      "aplica_festivos": false,
+      "aplica_fines_de_semana": false,
+      "aplican_vias_exentas": false,
+      "fechas_restriccion": {
+        "0": [
+          "2026-07-31",
+          "2026-08-06",
+          "2026-08-12",
+          "2026-08-18",
+          "2026-08-24",
+          "2026-09-04",
+          "2026-09-10",
+          "2026-09-16",
+          "2026-09-22"
+        ],
+        "1": [
+          "2026-07-31",
+          "2026-08-06",
+          "2026-08-12",
+          "2026-08-18",
+          "2026-08-24",
+          "2026-09-04",
+          "2026-09-10",
+          "2026-09-16",
+          "2026-09-22"
+        ],
+        "2": [
+          "2026-08-13",
+          "2026-08-19",
+          "2026-08-25",
+          "2026-08-31",
+          "2026-09-11",
+          "2026-09-17",
+          "2026-09-23"
+        ],
+        "3": [
+          "2026-08-13",
+          "2026-08-19",
+          "2026-08-25",
+          "2026-08-31",
+          "2026-09-11",
+          "2026-09-17",
+          "2026-09-23"
+        ],
+        "4": [
+          "2026-07-28",
+          "2026-08-03",
+          "2026-08-14",
+          "2026-08-20",
+          "2026-08-26",
+          "2026-09-01",
+          "2026-09-07",
+          "2026-09-18",
+          "2026-09-24"
+        ],
+        "5": [
+          "2026-07-28",
+          "2026-08-03",
+          "2026-08-14",
+          "2026-08-20",
+          "2026-08-26",
+          "2026-09-01",
+          "2026-09-07",
+          "2026-09-18",
+          "2026-09-24"
+        ],
+        "6": [
+          "2026-07-29",
+          "2026-08-04",
+          "2026-08-10",
+          "2026-08-21",
+          "2026-08-27",
+          "2026-09-02",
+          "2026-09-08",
+          "2026-09-14"
+        ],
+        "7": [
+          "2026-07-29",
+          "2026-08-04",
+          "2026-08-10",
+          "2026-08-21",
+          "2026-08-27",
+          "2026-09-02",
+          "2026-09-08",
+          "2026-09-14"
+        ],
+        "8": [
+          "2026-07-30",
+          "2026-08-05",
+          "2026-08-11",
+          "2026-08-28",
+          "2026-09-03",
+          "2026-09-09",
+          "2026-09-15",
+          "2026-09-21"
+        ],
+        "9": [
+          "2026-07-30",
+          "2026-08-05",
+          "2026-08-11",
+          "2026-08-28",
+          "2026-09-03",
+          "2026-09-09",
+          "2026-09-15",
+          "2026-09-21"
+        ]
+      },
+      "descripcion": "Vehículos automotores de servicio particular según el último dígito de la placa",
+      "nota_especial": "La rotación avanza por ciclos semanales (5 ciclos que se repiten), así que el dígito de cada día cambia de semana en semana. Este calendario cubre la vigencia del Decreto 0122 (28 de julio al 24 de septiembre de 2026)."
     },
     "motos": {
-      "aplica": false,
-      "descripcion": "Por ahora no se muestra Pico y Placa para motos en Pasto."
+      "aplica": true,
+      "criterio_placa": "ultimo_digito",
+      "modalidad": "quincenal_por_fecha",
+      "horario_inicio": "07:30",
+      "horario_fin": "19:00",
+      "horario_texto": "7:30 a.m. a 7:00 p.m. (continuo)",
+      "dias_aplicables": [
+        "lunes",
+        "martes",
+        "miercoles",
+        "jueves",
+        "viernes"
+      ],
+      "aplica_festivos": false,
+      "aplica_fines_de_semana": false,
+      "aplican_vias_exentas": false,
+      "fechas_restriccion": {
+        "0": [
+          "2026-07-31",
+          "2026-08-06",
+          "2026-08-12",
+          "2026-08-18",
+          "2026-08-24",
+          "2026-09-04",
+          "2026-09-10",
+          "2026-09-16",
+          "2026-09-22"
+        ],
+        "1": [
+          "2026-07-31",
+          "2026-08-06",
+          "2026-08-12",
+          "2026-08-18",
+          "2026-08-24",
+          "2026-09-04",
+          "2026-09-10",
+          "2026-09-16",
+          "2026-09-22"
+        ],
+        "2": [
+          "2026-08-13",
+          "2026-08-19",
+          "2026-08-25",
+          "2026-08-31",
+          "2026-09-11",
+          "2026-09-17",
+          "2026-09-23"
+        ],
+        "3": [
+          "2026-08-13",
+          "2026-08-19",
+          "2026-08-25",
+          "2026-08-31",
+          "2026-09-11",
+          "2026-09-17",
+          "2026-09-23"
+        ],
+        "4": [
+          "2026-07-28",
+          "2026-08-03",
+          "2026-08-14",
+          "2026-08-20",
+          "2026-08-26",
+          "2026-09-01",
+          "2026-09-07",
+          "2026-09-18",
+          "2026-09-24"
+        ],
+        "5": [
+          "2026-07-28",
+          "2026-08-03",
+          "2026-08-14",
+          "2026-08-20",
+          "2026-08-26",
+          "2026-09-01",
+          "2026-09-07",
+          "2026-09-18",
+          "2026-09-24"
+        ],
+        "6": [
+          "2026-07-29",
+          "2026-08-04",
+          "2026-08-10",
+          "2026-08-21",
+          "2026-08-27",
+          "2026-09-02",
+          "2026-09-08",
+          "2026-09-14"
+        ],
+        "7": [
+          "2026-07-29",
+          "2026-08-04",
+          "2026-08-10",
+          "2026-08-21",
+          "2026-08-27",
+          "2026-09-02",
+          "2026-09-08",
+          "2026-09-14"
+        ],
+        "8": [
+          "2026-07-30",
+          "2026-08-05",
+          "2026-08-11",
+          "2026-08-28",
+          "2026-09-03",
+          "2026-09-09",
+          "2026-09-15",
+          "2026-09-21"
+        ],
+        "9": [
+          "2026-07-30",
+          "2026-08-05",
+          "2026-08-11",
+          "2026-08-28",
+          "2026-09-03",
+          "2026-09-09",
+          "2026-09-15",
+          "2026-09-21"
+        ]
+      },
+      "descripcion": "Motocicletas según el último dígito numérico de la placa",
+      "nota_especial": "La rotación avanza por ciclos semanales (5 ciclos que se repiten), así que el dígito de cada día cambia de semana en semana. Este calendario cubre la vigencia del Decreto 0122 (28 de julio al 24 de septiembre de 2026). El decreto restringe los \"vehículos automotores\" en general; la inclusión de las motos la confirman la práctica de la Secretaría y la prensa local."
     },
     "taxis": {
-      "aplica": false,
-      "descripcion": "Por ahora no se muestra Pico y Placa para taxis en Pasto."
+      "aplica": true,
+      "criterio_placa": "ultimo_digito",
+      "modalidad": "quincenal_por_fecha",
+      "horario_inicio": "07:30",
+      "horario_fin": "19:00",
+      "horario_texto": "7:30 a.m. a 7:00 p.m. (continuo)",
+      "dias_aplicables": [
+        "lunes",
+        "martes",
+        "miercoles",
+        "jueves",
+        "viernes"
+      ],
+      "aplica_festivos": false,
+      "aplica_fines_de_semana": false,
+      "aplican_vias_exentas": false,
+      "fechas_restriccion": {
+        "0": [
+          "2026-07-31",
+          "2026-08-06",
+          "2026-08-12",
+          "2026-08-18",
+          "2026-08-24",
+          "2026-09-04",
+          "2026-09-10",
+          "2026-09-16",
+          "2026-09-22"
+        ],
+        "1": [
+          "2026-07-31",
+          "2026-08-06",
+          "2026-08-12",
+          "2026-08-18",
+          "2026-08-24",
+          "2026-09-04",
+          "2026-09-10",
+          "2026-09-16",
+          "2026-09-22"
+        ],
+        "2": [
+          "2026-08-13",
+          "2026-08-19",
+          "2026-08-25",
+          "2026-08-31",
+          "2026-09-11",
+          "2026-09-17",
+          "2026-09-23"
+        ],
+        "3": [
+          "2026-08-13",
+          "2026-08-19",
+          "2026-08-25",
+          "2026-08-31",
+          "2026-09-11",
+          "2026-09-17",
+          "2026-09-23"
+        ],
+        "4": [
+          "2026-07-28",
+          "2026-08-03",
+          "2026-08-14",
+          "2026-08-20",
+          "2026-08-26",
+          "2026-09-01",
+          "2026-09-07",
+          "2026-09-18",
+          "2026-09-24"
+        ],
+        "5": [
+          "2026-07-28",
+          "2026-08-03",
+          "2026-08-14",
+          "2026-08-20",
+          "2026-08-26",
+          "2026-09-01",
+          "2026-09-07",
+          "2026-09-18",
+          "2026-09-24"
+        ],
+        "6": [
+          "2026-07-29",
+          "2026-08-04",
+          "2026-08-10",
+          "2026-08-21",
+          "2026-08-27",
+          "2026-09-02",
+          "2026-09-08",
+          "2026-09-14"
+        ],
+        "7": [
+          "2026-07-29",
+          "2026-08-04",
+          "2026-08-10",
+          "2026-08-21",
+          "2026-08-27",
+          "2026-09-02",
+          "2026-09-08",
+          "2026-09-14"
+        ],
+        "8": [
+          "2026-07-30",
+          "2026-08-05",
+          "2026-08-11",
+          "2026-08-28",
+          "2026-09-03",
+          "2026-09-09",
+          "2026-09-15",
+          "2026-09-21"
+        ],
+        "9": [
+          "2026-07-30",
+          "2026-08-05",
+          "2026-08-11",
+          "2026-08-28",
+          "2026-09-03",
+          "2026-09-09",
+          "2026-09-15",
+          "2026-09-21"
+        ]
+      },
+      "descripcion": "Taxis según el último dígito de la placa",
+      "nota_especial": "La rotación avanza por ciclos semanales (5 ciclos que se repiten), así que el dígito de cada día cambia de semana en semana. Este calendario cubre la vigencia del Decreto 0122 (28 de julio al 24 de septiembre de 2026). Los taxis pueden circular el día de su restricción únicamente para reparación o mantenimiento, con factura del taller."
     },
     "transporte_carga": {
-      "aplica": false,
-      "descripcion": "Por ahora no se muestra Pico y Placa para transporte de carga en Pasto."
+      "aplica": true,
+      "horario": "7:30 a.m. a 7:00 p.m.",
+      "dias_habiles": [
+        "lun",
+        "mar",
+        "mie",
+        "jue",
+        "vie"
+      ],
+      "aplica_festivos": false,
+      "restricciones": {
+        "lunes": [
+          "pendiente_verificar"
+        ],
+        "martes": [
+          "pendiente_verificar"
+        ],
+        "miercoles": [
+          "pendiente_verificar"
+        ],
+        "jueves": [
+          "pendiente_verificar"
+        ],
+        "viernes": [
+          "pendiente_verificar"
+        ]
+      },
+      "notas": "El Decreto 0122 restringe los \"vehículos automotores\" en general y NO crea una categoría aparte para carga: solo exime el transporte de perecederos, medicamentos y materiales de construcción con PMT. Ante la duda, asume que a un camión no exceptuado le aplica la misma tabla del último dígito y confirma con la Secretaría de Tránsito antes de circular."
     }
   },
   "contacto_ciudadano": {
     "sitio_web_general": "https://www.pasto.gov.co",
-    "secretaria_movilidad": "https://www.pasto.gov.co",
-    "twitter": "",
+    "secretaria_movilidad": "https://www.pasto.gov.co/index.php/noticias-transito",
+    "twitter": "https://x.com/STTMPASTO",
     "facebook": "",
-    "linea_atencion": "pendiente_verificar",
-    "linea_movilidad": "pendiente_verificar"
-  }
+    "linea_atencion": "(602) 724 4326",
+    "linea_movilidad": "317 056 1616"
+  },
+  "autoridad_twitter": "STTMPASTO",
+  "vigencia_desde": "2026-07-28",
+  "vigencia_hasta": "2026-09-24"
 }

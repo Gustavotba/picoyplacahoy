@@ -4,14 +4,16 @@
   "departamento": "Cundinamarca",
   "coordenadas": [4.3437, -74.3652],
   "autoridad": "Secretaría de Movilidad de Fusagasugá",
-  "autoridad_web": "https://www.fusagasuga-cundinamarca.gov.co",
-  "autoridad_twitter": "",
+  "autoridad_web": "https://www.fusagasuga.gov.co",
+  "autoridad_twitter": "AlcFusagasuga",
   "decreto_actual": "No aplica",
-  "fecha_ultima_actualizacion": "2026-04-12",
+  "fecha_ultima_actualizacion": "2026-08-03",
   "notas_generales": [
     "Fusagasugá NO tiene Pico y Placa vigente para ningún tipo de vehículo.",
-    "Se implementó una medida transitoria con el Decreto 418 de 2020 (vigente solo del 14 dic 2020 al 15 ene 2021). Desde entonces no hay PyP.",
-    "Los vehículos de Fusagasugá están sujetos al Pico y Placa REGIONAL de la vía Bogotá-Girardot durante puentes festivos y temporadas altas."
+    "Verificado el 3 de agosto de 2026 revisando el repositorio normativo oficial completo de la Alcaldía (los 645 decretos publicados entre 2018 y 2026): no existe ningún decreto que establezca la medida.",
+    "El único pico y placa que ha tenido Fusagasugá fue una medida de pandemia en el centro, vigente solo del 14 de diciembre de 2020 al 15 de enero de 2021. Las tablas de 'pico y placa Fusagasugá' que circulan en internet con horarios inventados no citan ningún decreto y son falsas.",
+    "Los vehículos de Fusagasugá sí quedan sujetos al Pico y Placa REGIONAL de la vía Bogotá-Girardot durante los puentes festivos y temporadas altas (medida de la vía nacional, no del municipio).",
+    "Si viajas a Bogotá, recuerda que dentro de la capital aplica el Pico y Placa de Bogotá."
   ],
   "exenciones_generales": [],
   "vias_exentas": [],
@@ -45,11 +47,11 @@
     }
   },
   "contacto_ciudadano": {
-    "sitio_web_general": "https://www.fusagasuga-cundinamarca.gov.co",
-    "secretaria_movilidad": "https://www.fusagasuga-cundinamarca.gov.co",
-    "twitter": "",
-    "facebook": "",
-    "linea_atencion": "pendiente_verificar",
-    "linea_movilidad": "pendiente_verificar"
+    "sitio_web_general": "https://www.fusagasuga.gov.co",
+    "secretaria_movilidad": "https://movilidad.alcaldiafusagasuga.gov.co",
+    "twitter": "https://x.com/AlcFusagasuga",
+    "facebook": "https://www.facebook.com/alcaldiafusagasugaoficial",
+    "linea_atencion": "(601) 886 8181",
+    "linea_movilidad": "(601) 867 5858"
   }
 }
