@@ -28,7 +28,15 @@ export const GET: APIRoute = ({ params }) => {
   if (!ics) {
     return new Response(
       `No hay días de pico y placa para la placa ${numero} en ${ciudad.nombre} dentro del periodo vigente.`,
-      { status: 404, headers: { 'Content-Type': 'text/plain; charset=utf-8' } },
+      {
+        status: 404,
+        headers: {
+          'Content-Type': 'text/plain; charset=utf-8',
+          // Sin caché: si mañana la ciudad gana datos, el borde no debe seguir
+          // sirviendo este 404 viejo (ya nos pasó al cargar Pasto).
+          'Cache-Control': 'no-store',
+        },
+      },
     );
   }
 
