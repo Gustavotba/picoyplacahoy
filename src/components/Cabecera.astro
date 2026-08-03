@@ -8,7 +8,10 @@ const slugActual = urlActual.split('/')[1] || '';
 // Regiones para el mega-menú
 const regiones = [
   {
-    nombre: 'Valle de Aburrá',
+    // Rionegro es del Oriente antioqueño, NO del Valle de Aburrá: el decreto
+    // metropolitano de Medellín no lo cubre. Se lista aquí por cercanía geográfica,
+    // por eso el título dice "y Oriente" y no solo "Valle de Aburrá".
+    nombre: 'Valle de Aburrá y Oriente',
     slugs: ['medellin', 'bello', 'envigado', 'itagui', 'sabaneta', 'la-estrella', 'caldas', 'copacabana', 'girardota', 'barbosa', 'rionegro'],
   },
   {

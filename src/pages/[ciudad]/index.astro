@@ -197,6 +197,21 @@ const bloquesJsonLd = [jsonLdBase, breadcrumb, faqSinPyP].filter(Boolean) as Arr
         </p>
       </section>
 
+      {/* Notas importantes — también en ciudades SIN pico y placa: aquí van las
+          advertencias de que sí hay restricción en municipios vecinos. */}
+      {tieneNotasGenerales && (
+        <section class="mb-6 rounded-lg border-2 border-yellow-300 bg-yellow-50 p-4 dark:bg-yellow-950/20 dark:border-yellow-700">
+          <h2 class="text-lg font-bold mb-2">Notas importantes</h2>
+          <ul class="space-y-1.5">
+            {ciudad.notas_generales!.map((nota) => (
+              <li class="text-sm text-gray-700 dark:text-gray-300 flex items-start gap-2">
+                <span class="text-yellow-500 mt-0.5 shrink-0">•</span><span>{nota}</span>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
+
       {/* Afectación regional (Soacha, Fusagasugá) */}
       {ciudad.afectacion_regional && (
         <section class="mb-6 rounded-lg border-2 border-amber-300 bg-amber-50 p-5 dark:bg-amber-950/20 dark:border-amber-700">

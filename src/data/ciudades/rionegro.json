@@ -7,18 +7,26 @@
     -75.3742
   ],
   "autoridad": "Secretaría de Movilidad de Rionegro",
-  "autoridad_web": "https://www.rionegro.gov.co",
+  "autoridad_web": "https://movilidad.rionegro.gov.co",
+  "autoridad_twitter": "MovilidadRgro",
+  "autoridad_facebook": "movilidadrionegro",
   "decreto_actual": "No aplica",
-  "fecha_ultima_actualizacion": "2026-04-12",
+  "fecha_ultima_actualizacion": "2026-08-03",
   "notas_generales": [
-    "Rionegro NO tiene Pico y Placa. La Alcaldía de Rionegro desmintió públicamente los mensajes en redes sociales que anunciaban supuestas restricciones; no se ha expedido ningún decreto que establezca la medida.",
-    "Los vehículos pueden circular cualquier día sin restricción por número de placa."
+    "Rionegro NO tiene Pico y Placa. La Secretaría de Movilidad de Rionegro confirmó que \"no se ha expedido ningún decreto ni acto administrativo que establezca la implementación del pico y placa en Rionegro\".",
+    "Los vehículos pueden circular cualquier día sin restricción por número de placa, a cualquier hora.",
+    "Verificado el 3 de agosto de 2026. El repositorio oficial de documentos de la Alcaldía (rionegro.gov.co/documentos) no arroja ningún decreto ni resolución de pico y placa, y la normatividad municipal publicada por la Secretaría de Movilidad tampoco incluye la medida.",
+    "En abril de 2026 circularon en redes sociales imágenes falsas anunciando un supuesto pico y placa en Rionegro de 5:00 a.m. a 8:00 p.m. para carros y motos. Ese horario corresponde en realidad al de Medellín. La Alcaldía lo desmintió públicamente el 27 y 28 de abril de 2026.",
+    "Rionegro NO hace parte del Área Metropolitana del Valle de Aburrá y por lo tanto NO está cubierto por el decreto de pico y placa de Medellín y sus 9 municipios. Rionegro pertenece al Oriente antioqueño.",
+    "Ojo si viaja hacia Medellín: aunque en Rionegro no hay restricción, al ingresar a Medellín o al Valle de Aburrá sí aplica el pico y placa de esa jurisdicción. En puentes festivos también puede haber medidas de plan retorno en el Túnel de Oriente.",
+    "Aparte del pico y placa, Rionegro ha expedido decretos temporales que restringen el parrillero en motocicleta en horario nocturno (medida de seguridad, no de movilidad por placa). Su vigencia cambia con frecuencia: consulte el estado actual con la Secretaría de Movilidad en transito@rionegro.gov.co o al (604) 520 4060."
   ],
   "exenciones_generales": [],
   "vias_exentas": [],
   "sanciones": {
-    "descripcion": "Rionegro no tiene pico y placa vigente.",
-    "base_legal": "Artículo 131, literal C, numeral 14 de la Ley 769 de 2002"
+    "descripcion": "Rionegro no tiene pico y placa vigente, por lo que no existe sanción por circular según el número de placa. La sanción que se describe abajo es la que aplicaría en los municipios que sí tienen la medida.",
+    "base_legal": "Artículo 131, literal C, numeral 14 de la Ley 769 de 2002",
+    "incluye_inmovilizacion": true
   },
   "vehiculos": {
     "particulares": {
@@ -39,11 +47,11 @@
     }
   },
   "contacto_ciudadano": {
-    "sitio_web_general": "https://www.rionegro.gov.co",
-    "secretaria_movilidad": "https://www.rionegro.gov.co",
-    "twitter": "",
-    "facebook": "",
-    "linea_atencion": "pendiente_verificar",
-    "linea_movilidad": "pendiente_verificar"
+    "sitio_web_general": "https://rionegro.gov.co",
+    "secretaria_movilidad": "https://movilidad.rionegro.gov.co",
+    "twitter": "https://x.com/MovilidadRgro",
+    "facebook": "https://www.facebook.com/movilidadrionegro",
+    "linea_atencion": "(604) 520 4060",
+    "linea_movilidad": "123"
   }
 }
