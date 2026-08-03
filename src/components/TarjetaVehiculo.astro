@@ -1,7 +1,7 @@
 ---
 import type { TipoVehiculo, ResultadoPicoPlaca } from '../lib/tipos';
 import { ETIQUETAS_VEHICULO, ICONOS_VEHICULO } from '../lib/tipos';
-import { CRITERIO_LEGIBLE } from '../lib/calcular';
+import { CRITERIO_LEGIBLE, placaDestacada } from '../lib/calcular';
 
 interface Props {
   slugCiudad: string;
@@ -25,7 +25,7 @@ if (resultado.datosDesactualizados) {
   placaTexto = '?';
   placaEstilo = 'pendiente';
 } else if (resultado.aplica && resultado.placasRestringidas.length > 0) {
-  placaTexto = resultado.placasRestringidas.join(' y ');
+  placaTexto = placaDestacada(resultado.placasRestringidas);
   placaEstilo = 'aplica';
 } else if (!resultado.aplica && resultado.horarioTexto === '' && !resultado.esFestivo && !resultado.esDiaHabil) {
   placaTexto = 'SIN RESTRICCIÓN';
@@ -43,6 +43,12 @@ const estilosPlaca: Record<string, { fondo: string; texto: string; borde: string
   sin_restriccion: { fondo: 'bg-green-500',   texto: 'text-white',      borde: 'border-green-700' },
 };
 const ep = estilosPlaca[placaEstilo];
+
+// El recuadro de la placa es de ancho fijo. Con 1 o 2 dígitos cabe el tamaño grande;
+// con 3 a 9 (Bogotá restringe 5 a la vez) hay que bajarlo o el último se desborda.
+// Con los 10 se muestra "TODAS", que vuelve a caber en grande.
+const cuantasPlacas = resultado.placasRestringidas.length;
+const tamanoPlaca = cuantasPlacas >= 3 && cuantasPlacas < 10 ? 'text-3xl' : 'text-5xl';
 ---
 
 <a
@@ -99,7 +105,7 @@ const ep = estilosPlaca[placaEstilo];
       <p class:list={[
         'font-mono font-black leading-none',
         ep.texto,
-        placaEstilo === 'aplica' ? 'text-5xl' : '',
+        placaEstilo === 'aplica' ? tamanoPlaca : '',
         placaEstilo === 'libre' ? 'text-3xl' : '',
         placaEstilo === 'sin_restriccion' ? 'text-lg' : '',
         placaEstilo === 'pendiente' ? 'text-5xl' : '',

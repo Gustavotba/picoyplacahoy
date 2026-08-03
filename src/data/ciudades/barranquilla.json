@@ -38,30 +38,17 @@
     },
     "taxis": {
       "aplica": true,
-      "descripcion": "Los taxis tienen pico y placa permanente todo el año (lunes a viernes, 6:00 a.m. a 9:00 p.m.)",
-      "criterio_placa": "ultimo_digito",
-      "modalidad": "semanal_por_dia",
-      "horario_inicio": "06:00",
-      "horario_fin": "21:00",
-      "horario_texto": "6:00 a.m. a 9:00 p.m.",
-      "dias_aplicables": [
-        "lunes",
-        "martes",
-        "miercoles",
-        "jueves",
-        "viernes"
-      ],
+      "horario": "6:00 a.m. a 9:00 p.m.",
+      "dias_habiles": ["lun", "mar", "mie", "jue", "vie"],
       "aplica_festivos": false,
-      "aplica_fines_de_semana": false,
-      "rotacion": {
-        "lunes": [],
-        "martes": [],
-        "miercoles": [],
-        "jueves": [],
-        "viernes": []
+      "restricciones": {
+        "lunes": ["pendiente_verificar"],
+        "martes": ["pendiente_verificar"],
+        "miercoles": ["pendiente_verificar"],
+        "jueves": ["pendiente_verificar"],
+        "viernes": ["pendiente_verificar"]
       },
-      "nota_especial": "Rotación de taxis publicada semestralmente por la Secretaría de Tránsito. Pendiente de verificar rotación exacta.",
-      "aplican_vias_exentas": false
+      "notas": "Los taxis SÍ tienen Pico y Placa permanente en Barranquilla, de lunes a viernes entre las 6:00 a.m. y las 9:00 p.m. La Secretaría de Tránsito publica la rotación por semestres y aún no la hemos podido verificar en la fuente oficial, así que no publicamos dígitos: consúltalos con la Secretaría antes de salir."
     },
     "transporte_carga": {
       "aplica": false,

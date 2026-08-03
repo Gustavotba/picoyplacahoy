@@ -18,6 +18,7 @@ import {
   formatearISO,
   DIAS_LEGIBLES,
   CRITERIO_LEGIBLE,
+  placaDestacada,
 } from '../../lib/calcular';
 import {
   ETIQUETAS_VEHICULO,
@@ -96,9 +97,14 @@ let placaTexto = '';
 let placaEstilo: 'aplica' | 'libre' | 'pendiente' | 'desactualizado' | 'sin_restriccion' = 'libre';
 if (resultado.datosDesactualizados) { placaTexto = '—'; placaEstilo = 'desactualizado'; }
 else if (resultado.esPendiente) { placaTexto = '?'; placaEstilo = 'pendiente'; }
-else if (resultado.aplica && resultado.placasRestringidas.length > 0) { placaTexto = resultado.placasRestringidas.join(' y '); placaEstilo = 'aplica'; }
+else if (resultado.aplica && resultado.placasRestringidas.length > 0) { placaTexto = placaDestacada(resultado.placasRestringidas); placaEstilo = 'aplica'; }
 else if (!resultado.aplica && resultado.horarioTexto === '' && !resultado.esFestivo && !resultado.esDiaHabil) { placaTexto = 'SIN RESTRICCIÓN'; placaEstilo = 'sin_restriccion'; }
 else { placaTexto = 'LIBRE'; placaEstilo = 'libre'; }
+
+// Ver TarjetaVehiculo.astro: con 3 a 9 dígitos hay que reducir la letra para que
+// la placa no se desborde del recuadro.
+const cuantasPlacas = resultado.placasRestringidas.length;
+const tamanoPlaca = cuantasPlacas >= 3 && cuantasPlacas < 10 ? 'text-4xl' : 'text-6xl';
 
 const estilosPlaca: Record<string, { fondo: string; texto: string; borde: string }> = {
   aplica:          { fondo: 'bg-yellow-400',  texto: 'text-black',      borde: 'border-black' },
@@ -239,7 +245,7 @@ const bloquesJsonLd = [servicioJsonLd, breadcrumb];
           <p class:list={[
             'font-mono font-black leading-none',
             ep.texto,
-            placaEstilo === 'aplica' ? 'text-6xl' : '',
+            placaEstilo === 'aplica' ? tamanoPlaca : '',
             placaEstilo === 'libre' ? 'text-4xl' : '',
             placaEstilo === 'sin_restriccion' ? 'text-xl' : '',
             placaEstilo === 'pendiente' ? 'text-6xl' : '',

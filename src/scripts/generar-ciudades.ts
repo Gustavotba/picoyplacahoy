@@ -91,9 +91,11 @@ const ciudades: CiudadData[] = [
         dias_aplicables: ['lunes', 'martes', 'miercoles', 'jueves', 'viernes'],
         aplica_festivos: false,
         aplica_fines_de_semana: false,
+        // Dígitos RESTRINGIDOS (no los que circulan). En fecha impar no circulan
+        // 6-7-8-9-0; en fecha par no circulan 1-2-3-4-5 (Decreto Distrital 003 de 2023).
         regla_par_impar: {
-          fecha_impar: [1, 2, 3, 4, 5],
-          fecha_par: [6, 7, 8, 9, 0],
+          fecha_impar: [6, 7, 8, 9, 0],
+          fecha_par: [1, 2, 3, 4, 5],
         },
         aplican_vias_exentas: true,
       },

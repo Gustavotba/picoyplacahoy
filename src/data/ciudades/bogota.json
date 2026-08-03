@@ -15,11 +15,10 @@
   "vigencia_hasta": "2026-12-31",
   "notas_generales": [
     "La restricción opera por FECHA par/impar del calendario, no por día de la semana.",
-    "Fechas impares (1, 3, 5...): no circulan placas terminadas en 1, 2, 3, 4 y 5.",
-    "Fechas pares (2, 4, 6...): no circulan placas terminadas en 6, 7, 8, 9 y 0.",
-    "No aplica en días festivos oficiales.",
-    "Vehículos matriculados fuera de Bogotá también tienen restricción los sábados.",
-    "Programa Pico y Placa Solidario: pago diario para circular en día restringido."
+    "Fechas impares (1, 3, 5...): no circulan placas terminadas en 6, 7, 8, 9 y 0.",
+    "Fechas pares (2, 4, 6...): no circulan placas terminadas en 1, 2, 3, 4 y 5.",
+    "Horario: lunes a viernes de 6:00 a.m. a 9:00 p.m. No aplica sábados, domingos ni festivos.",
+    "Programa Pico y Placa Solidario: pago para circular en día restringido."
   ],
   "exenciones_generales": [
     "Vehículos eléctricos y cero emisiones",
@@ -41,11 +40,10 @@
   ],
   "sanciones": {
     "tipo_multa": "Tipo C",
-    "base_legal": "Artículo 131, literal C, numeral 14 de la Ley 769 de 2002",
+    "base_legal": "Artículo 131, literal C, numeral 14 de la Ley 769 de 2002, modificado por el artículo 21 de la Ley 1383 de 2010",
     "valor_smldv": "15 SMLDV",
-    "valor_aproximado_pesos": 522900,
     "incluye_inmovilizacion": true,
-    "descripcion": "Multa equivalente a 15 salarios mínimos diarios legales vigentes más inmovilización del vehículo."
+    "descripcion": "Multa equivalente a 15 salarios mínimos diarios legales vigentes (SMLDV) más inmovilización del vehículo. Las fuentes oficiales no coinciden en el valor en pesos: consulta el monto vigente con la Secretaría Distrital de Movilidad."
   },
   "vehiculos": {
     "particulares": {
@@ -67,20 +65,21 @@
       "aplica_fines_de_semana": false,
       "regla_par_impar": {
         "fecha_impar": [
-          1,
-          2,
-          3,
-          4,
-          5
-        ],
-        "fecha_par": [
           6,
           7,
           8,
           9,
           0
+        ],
+        "fecha_par": [
+          1,
+          2,
+          3,
+          4,
+          5
         ]
       },
+      "nota_especial": "En Bogotá la restricción depende de la FECHA del calendario, no del día de la semana. En fechas impares no circulan las placas terminadas en 6, 7, 8, 9 y 0; en fechas pares no circulan las terminadas en 1, 2, 3, 4 y 5.",
       "aplican_vias_exentas": true
     },
     "motos": {
@@ -90,25 +89,18 @@
     },
     "taxis": {
       "aplica": true,
-      "descripcion": "Taxis — restricción rotatoria de 2 dígitos por día, calendario mensual publicado por la SDM",
-      "criterio_placa": "ultimo_digito",
-      "modalidad": "quincenal_por_fecha",
-      "horario_inicio": "05:30",
-      "horario_fin": "21:00",
-      "horario_texto": "5:30 a.m. a 9:00 p.m. (lunes a sábado)",
-      "dias_aplicables": [
-        "lunes",
-        "martes",
-        "miercoles",
-        "jueves",
-        "viernes",
-        "sabado"
-      ],
+      "horario": "5:30 a.m. a 9:00 p.m.",
+      "dias_habiles": ["lun", "mar", "mie", "jue", "vie", "sab"],
       "aplica_festivos": false,
-      "aplica_fines_de_semana": false,
-      "aplican_vias_exentas": false,
-      "nota_especial": "La rotación de taxis es publicada mensualmente por la Secretaría de Movilidad. Consultar el calendario oficial.",
-      "fechas_restriccion": {}
+      "restricciones": {
+        "lunes": ["pendiente_verificar"],
+        "martes": ["pendiente_verificar"],
+        "miercoles": ["pendiente_verificar"],
+        "jueves": ["pendiente_verificar"],
+        "viernes": ["pendiente_verificar"],
+        "sabado": ["pendiente_verificar"]
+      },
+      "notas": "Los taxis SÍ tienen Pico y Placa en Bogotá: de lunes a SÁBADO, de 5:30 a.m. a 9:00 p.m., con dos dígitos restringidos por día en un ciclo rodante (1-2, 3-4, 5-6, 7-8, 9-0). No aplica domingos ni festivos. La Secretaría Distrital de Movilidad publica el calendario mes a mes, y los festivos consumen turno del ciclo, así que la secuencia no es predecible con certeza. Consulta el calendario del mes en movilidadbogota.gov.co antes de salir."
     },
     "transporte_carga": {
       "aplica": true,

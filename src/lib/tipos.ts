@@ -5,7 +5,7 @@ export type DiaSemana = 'lunes' | 'martes' | 'miercoles' | 'jueves' | 'viernes' 
 export type TipoVehiculo = 'particulares' | 'motos' | 'taxis' | 'transporte_carga';
 
 /** Modalidad de restricción */
-export type Modalidad = 'semanal_por_dia' | 'quincenal_por_fecha';
+export type Modalidad = 'semanal_por_dia' | 'quincenal_por_fecha' | 'par_impar_por_fecha';
 
 /** Criterio para determinar qué dígito de la placa aplica */
 export type CriterioPlaca = 'ultimo_digito' | 'primer_digito';
@@ -60,6 +60,27 @@ export interface VehiculoQuincenalPorFecha {
   fechas_pendientes_confirmar?: string[];
 }
 
+/** Vehículo con restricción según la paridad del día del mes (Bogotá, Turbaco) */
+export interface VehiculoParImparPorFecha {
+  aplica: true;
+  descripcion: string;
+  criterio_placa: CriterioPlaca;
+  modalidad: 'par_impar_por_fecha';
+  horario_inicio: string;
+  horario_fin: string;
+  horario_texto: string;
+  dias_aplicables: DiaSemana[];
+  aplica_festivos: boolean;
+  aplica_fines_de_semana: boolean;
+  aplican_vias_exentas?: boolean;
+  nota_especial?: string;
+  /** Dígitos RESTRINGIDOS (los que no pueden circular) según la paridad de la fecha */
+  regla_par_impar: {
+    fecha_impar: number[];
+    fecha_par: number[];
+  };
+}
+
 /** Vehículo sin restricción vigente (ej: transporte de carga en Medellín) */
 export interface VehiculoSinRestriccion {
   aplica: false;
@@ -81,6 +102,7 @@ export interface VehiculoPlaceholder {
 export type InfoVehiculo =
   | VehiculoSemanalPorDia
   | VehiculoQuincenalPorFecha
+  | VehiculoParImparPorFecha
   | VehiculoSinRestriccion
   | VehiculoPlaceholder;
 
@@ -97,6 +119,11 @@ export function esSemanalPorDia(v: InfoVehiculo): v is VehiculoSemanalPorDia {
 /** Type guard: vehículo con modalidad quincenal por fecha */
 export function esQuincenalPorFecha(v: InfoVehiculo): v is VehiculoQuincenalPorFecha {
   return 'modalidad' in v && (v as VehiculoQuincenalPorFecha).modalidad === 'quincenal_por_fecha';
+}
+
+/** Type guard: vehículo con modalidad par/impar por fecha */
+export function esParImparPorFecha(v: InfoVehiculo): v is VehiculoParImparPorFecha {
+  return 'modalidad' in v && (v as VehiculoParImparPorFecha).modalidad === 'par_impar_por_fecha';
 }
 
 /** Type guard: vehículo sin restricción */

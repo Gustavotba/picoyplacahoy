@@ -2,7 +2,7 @@ import { format } from 'date-fns';
 import { es } from 'date-fns/locale';
 import { esFestivo } from './festivos';
 import type { Ciudad, TipoVehiculo, DiaSemana, ResultadoPicoPlaca } from './tipos';
-import { esPlaceholder, esSemanalPorDia, esQuincenalPorFecha } from './tipos';
+import { esPlaceholder, esSemanalPorDia, esQuincenalPorFecha, esParImparPorFecha } from './tipos';
 
 /** Mapa de número de día (0=dom) a DiaSemana */
 const DIAS_SEMANA: DiaSemana[] = [
@@ -44,6 +44,32 @@ export function formatearFechaColombia(fecha: Date): string {
 /** Formatea una fecha como ISO: "2026-04-12" */
 export function formatearISO(fecha: Date): string {
   return format(fecha, 'yyyy-MM-dd');
+}
+
+/**
+ * Texto de la placa para el recuadro amarillo grande. Con 2 dígitos cabe
+ * "5 y 8"; con más (Bogotá restringe 5 a la vez) hay que compactar a "6·7·8·9·0",
+ * y cuando están los 10 no se enumeran porque se desbordan del recuadro.
+ */
+export function placaDestacada(placas: number[]): string {
+  if (placas.length >= 10) return 'TODAS';
+  return placas.length <= 2 ? placas.join(' y ') : placas.join('·');
+}
+
+/** Arma la lista de dígitos para el mensaje: "8", "5 y 8", "6, 7, 8, 9 y 0" */
+function listarPlacas(placas: number[]): string {
+  if (placas.length === 1) return String(placas[0]);
+  return `${placas.slice(0, -1).join(', ')} y ${placas[placas.length - 1]}`;
+}
+
+/**
+ * Frase completa para el mensaje. Cuando la restricción cubre los 10 dígitos
+ * (ej. la carga de más de 20 años en Bogotá, restringida en horas pico) no tiene
+ * sentido enumerarlos: se dice "todas las placas".
+ */
+function describirPlacas(criterio: CriterioPlaca, placas: number[]): string {
+  if (placas.length >= 10) return 'todas las placas';
+  return `placas con ${CRITERIO_LEGIBLE[criterio]} ${listarPlacas(placas)}`;
 }
 
 /** Verifica si una fecha está dentro del rango de vigencia de la ciudad */
@@ -201,7 +227,7 @@ export function calcularPicoPlaca(
       criterioPlaca: vehiculo.criterio_placa,
       descripcionVehiculo: vehiculo.descripcion,
       mensaje: placas.length > 0
-        ? `Hoy aplica Pico y Placa para placas con ${CRITERIO_LEGIBLE[vehiculo.criterio_placa]} ${placas.join(' y ')}.`
+        ? `Hoy aplica Pico y Placa para ${describirPlacas(vehiculo.criterio_placa, placas)}.`
         : 'Hoy no aplica Pico y Placa para este tipo de vehículo.',
     };
   }
@@ -227,8 +253,30 @@ export function calcularPicoPlaca(
       criterioPlaca: vehiculo.criterio_placa,
       descripcionVehiculo: vehiculo.descripcion,
       mensaje: placasHoy.length > 0
-        ? `Hoy aplica Pico y Placa para taxis con ${CRITERIO_LEGIBLE[vehiculo.criterio_placa]} ${placasHoy.join(' y ')}.`
+        ? `Hoy aplica Pico y Placa para taxis con ${CRITERIO_LEGIBLE[vehiculo.criterio_placa]} ${listarPlacas(placasHoy)}.`
         : 'Hoy no hay restricción de Pico y Placa para taxis.',
+    };
+  }
+
+  // Modalidad par/impar según el día del mes (Bogotá, Turbaco)
+  if (esParImparPorFecha(vehiculo)) {
+    const esFechaPar = fecha.getDate() % 2 === 0;
+    const placas = esFechaPar
+      ? vehiculo.regla_par_impar.fecha_par
+      : vehiculo.regla_par_impar.fecha_impar;
+    return {
+      aplica: placas.length > 0,
+      esFestivo: festivo,
+      esDiaHabil: true,
+      esPendiente: false,
+      datosDesactualizados: false,
+      placasRestringidas: placas,
+      horarioTexto: vehiculo.horario_texto,
+      criterioPlaca: vehiculo.criterio_placa,
+      descripcionVehiculo: vehiculo.descripcion,
+      mensaje: placas.length > 0
+        ? `Hoy es fecha ${esFechaPar ? 'par' : 'impar'}: aplica Pico y Placa para ${describirPlacas(vehiculo.criterio_placa, placas)}.`
+        : 'Hoy no aplica Pico y Placa para este tipo de vehículo.',
     };
   }
 
