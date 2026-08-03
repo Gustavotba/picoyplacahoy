@@ -35,6 +35,31 @@
     "Calle 10",
     "Laterales de la quebrada La Iguaná"
   ],
+  "imagenes_oficiales": [
+    {
+      "archivo": "/oficial/medellin-rotacion-2026-2.jpg",
+      "titulo": "Rotación oficial de carros particulares y motos — segundo semestre 2026",
+      "tipos": [
+        "particulares",
+        "motos"
+      ],
+      "fuente_url": "https://www.medellin.gov.co/es/secretaria-de-movilidad/pico-y-placa-medellin-2023-segundo-semestre/",
+      "fuente_nombre": "Alcaldía de Medellín y Área Metropolitana del Valle de Aburrá",
+      "ancho": 760,
+      "alto": 760
+    },
+    {
+      "archivo": "/oficial/medellin-taxis-2026-2.jpg",
+      "titulo": "Calendario oficial de taxis — segundo semestre 2026",
+      "tipos": [
+        "taxis"
+      ],
+      "fuente_url": "https://www.medellin.gov.co/es/secretaria-de-movilidad/pico-y-placa-medellin-2023-segundo-semestre/",
+      "fuente_nombre": "Alcaldía de Medellín y Área Metropolitana del Valle de Aburrá",
+      "ancho": 760,
+      "alto": 760
+    }
+  ],
   "sanciones": {
     "tipo_multa": "Tipo C",
     "base_legal": "Artículo 131, literal C, numeral 14 de la Ley 769 de 2002",

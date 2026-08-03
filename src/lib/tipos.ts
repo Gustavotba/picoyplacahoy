@@ -232,6 +232,20 @@ export interface JornadaEspecial {
   descripcion?: string;
 }
 
+/** Infográfico oficial de la autoridad, que el usuario puede usar para verificar el dato */
+export interface ImagenOficial {
+  /** Ruta dentro de /public */
+  archivo: string;
+  titulo: string;
+  /** Tipos de vehículo a los que corresponde. Si se omite, aplica a todos. */
+  tipos?: TipoVehiculo[];
+  /** Página oficial de donde se descargó */
+  fuente_url: string;
+  fuente_nombre: string;
+  ancho: number;
+  alto: number;
+}
+
 /** Estructura completa de una ciudad */
 export interface Ciudad {
   slug: string;
@@ -249,6 +263,7 @@ export interface Ciudad {
   notas_generales?: string[];
   exenciones_generales?: string[];
   vias_exentas?: string[];
+  imagenes_oficiales?: ImagenOficial[];
   sanciones: Sanciones;
   vehiculos: Record<TipoVehiculo, InfoVehiculo>;
   contacto_ciudadano?: ContactoCiudadano;

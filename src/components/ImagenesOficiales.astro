@@ -1,0 +1,53 @@
+---
+import type { ImagenOficial, TipoVehiculo } from '../lib/tipos';
+
+interface Props {
+  imagenes: ImagenOficial[];
+  nombreCiudad: string;
+  /** Si se pasa, solo muestra las imágenes que corresponden a ese tipo de vehículo */
+  tipo?: TipoVehiculo;
+}
+
+const { imagenes, nombreCiudad, tipo } = Astro.props;
+
+// Una imagen sin `tipos` aplica a todos los vehículos de la ciudad
+const visibles = tipo
+  ? imagenes.filter((img) => !img.tipos || img.tipos.includes(tipo))
+  : imagenes;
+---
+
+{visibles.length > 0 && (
+  <section class="mb-6">
+    <h2 class="text-lg font-bold mb-1">Verifica con la fuente oficial</h2>
+    <p class="mb-3 text-sm text-gray-600 dark:text-gray-400">
+      Estos son los infográficos que publicó la autoridad de tránsito. Compáralos con lo que
+      te mostramos arriba: si alguna vez no coinciden, manda siempre la fuente oficial.
+    </p>
+
+    <div class="grid gap-4 sm:grid-cols-2">
+      {visibles.map((img) => (
+        <figure class="overflow-hidden rounded-lg border border-gray-200 dark:border-gray-700">
+          <a href={img.fuente_url} target="_blank" rel="noopener noreferrer nofollow"
+            class="block bg-gray-50 dark:bg-gray-800">
+            <img
+              src={img.archivo}
+              alt={`${img.titulo} en ${nombreCiudad}, publicado por ${img.fuente_nombre}`}
+              width={img.ancho}
+              height={img.alto}
+              loading="lazy"
+              decoding="async"
+              class="h-auto w-full"
+            />
+          </a>
+          <figcaption class="px-3 py-2 text-xs text-gray-600 dark:text-gray-400">
+            <span class="block font-medium text-gray-800 dark:text-gray-200">{img.titulo}</span>
+            <a href={img.fuente_url} target="_blank" rel="noopener noreferrer nofollow"
+              class="mt-0.5 inline-block text-yellow-700 hover:underline dark:text-yellow-500">
+              Fuente: {img.fuente_nombre} →
+            </a>
+          </figcaption>
+        </figure>
+      ))}
+    </div>
+  </section>
+)}
