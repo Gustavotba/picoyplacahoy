@@ -8,47 +8,40 @@
   ],
   "autoridad": "Secretaría Distrital de Tránsito y Seguridad Vial",
   "autoridad_web": "https://www.barranquilla.gov.co/transito",
-  "autoridad_twitter": "TransitoBaq",
-  "decreto_actual": "Sin pico y placa permanente para particulares (solo taxis)",
-  "fecha_ultima_actualizacion": "2026-04-12",
+  "autoridad_twitter": "alcaldiabquilla",
+  "decreto_actual": "Decreto 0450 de 2025 (derogó el pico y placa de taxis)",
+  "fecha_ultima_actualizacion": "2026-08-03",
   "notas_generales": [
-    "Barranquilla NO tiene pico y placa permanente para vehículos particulares.",
-    "Solo se aplica de forma temporal durante eventos especiales (ej: Carnaval).",
-    "Los taxis SÍ tienen pico y placa permanente todo el año."
+    "Barranquilla NO tiene pico y placa para ningún tipo de vehículo.",
+    "El pico y placa de taxis se eliminó de forma permanente el 7 de julio de 2025 con el Decreto Distrital 0450 de 2025, que derogó el Decreto 0205 de 2009. Más de 10.500 taxistas quedaron sin restricción.",
+    "La Alcaldía anunció que hará seguimiento a los efectos de la medida, así que podría revisarse en el futuro.",
+    "Los vehículos particulares tampoco tienen pico y placa permanente. Solo se han aplicado restricciones temporales durante eventos especiales, como los días de Carnaval.",
+    "Las motos no tienen pico y placa por dígito de placa, pero sí otras restricciones de circulación (horario nocturno y zona Centro) por el Decreto 0703 de 2025."
   ],
   "exenciones_generales": [],
   "vias_exentas": [],
   "sanciones": {
     "tipo_multa": "Tipo C",
-    "base_legal": "Artículo 131, literal C, numeral 14 de la Ley 769 de 2002",
+    "base_legal": "Artículo 131, literal C, numeral 14 de la Ley 769 de 2002, modificado por el artículo 21 de la Ley 1383 de 2010",
     "valor_smldv": "15 SMLDV",
-    "valor_aproximado_pesos": 633200,
     "incluye_inmovilizacion": true,
-    "descripcion": "Multa equivalente a 15 SMLDV más inmovilización del vehículo."
+    "descripcion": "Multa equivalente a 15 salarios mínimos diarios legales vigentes (SMLDV) más inmovilización del vehículo. Aplica a las restricciones de circulación que sí estén vigentes, como las de motos o las medidas temporales de eventos."
   },
   "vehiculos": {
     "particulares": {
       "aplica": false,
-      "descripcion": "Barranquilla no tiene pico y placa permanente para vehículos particulares. Solo se aplica durante eventos especiales como el Carnaval.",
-      "nota": "Verificar con la Secretaría de Tránsito si hay restricciones temporales vigentes."
+      "descripcion": "Barranquilla no tiene pico y placa permanente para vehículos particulares.",
+      "nota": "En eventos especiales como el Carnaval sí se han aplicado restricciones temporales por decreto. Verifica con la Secretaría de Tránsito antes de fechas de gran afluencia."
     },
     "motos": {
       "aplica": false,
-      "descripcion": "No hay pico y placa para motocicletas en Barranquilla."
+      "descripcion": "Las motos no tienen pico y placa por dígito de placa en Barranquilla.",
+      "nota": "Ojo: sí existen otras restricciones para motos (Decreto 0703 de 2025), como la prohibición de circular entre las 11:00 p.m. y las 5:00 a.m. y las limitaciones en la zona Centro. El pico y placa departamental del Atlántico excluye expresamente a Barranquilla."
     },
     "taxis": {
-      "aplica": true,
-      "horario": "6:00 a.m. a 9:00 p.m.",
-      "dias_habiles": ["lun", "mar", "mie", "jue", "vie"],
-      "aplica_festivos": false,
-      "restricciones": {
-        "lunes": ["pendiente_verificar"],
-        "martes": ["pendiente_verificar"],
-        "miercoles": ["pendiente_verificar"],
-        "jueves": ["pendiente_verificar"],
-        "viernes": ["pendiente_verificar"]
-      },
-      "notas": "Los taxis SÍ tienen Pico y Placa permanente en Barranquilla, de lunes a viernes entre las 6:00 a.m. y las 9:00 p.m. La Secretaría de Tránsito publica la rotación por semestres y aún no la hemos podido verificar en la fuente oficial, así que no publicamos dígitos: consúltalos con la Secretaría antes de salir."
+      "aplica": false,
+      "descripcion": "Los taxis YA NO tienen pico y placa en Barranquilla.",
+      "nota": "El Decreto Distrital 0450 del 7 de julio de 2025 eliminó la medida de forma permanente y derogó el Decreto 0205 de 2009, que la había establecido. Antes regía de lunes a viernes entre las 6:00 a.m. y las 9:00 p.m. según el último dígito de la placa."
     },
     "transporte_carga": {
       "aplica": false,
@@ -58,9 +51,9 @@
   "contacto_ciudadano": {
     "sitio_web_general": "https://www.barranquilla.gov.co",
     "secretaria_movilidad": "https://www.barranquilla.gov.co/transito",
-    "twitter": "https://x.com/TransitoBaq",
-    "facebook": "https://www.facebook.com/TransitoBaq",
+    "twitter": "https://x.com/alcaldiabquilla",
+    "facebook": "https://www.facebook.com/alcaldiabquilla",
     "linea_atencion": "195",
-    "linea_movilidad": "195"
+    "linea_movilidad": "(605) 401 0205"
   }
 }
