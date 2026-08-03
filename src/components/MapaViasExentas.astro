@@ -50,8 +50,12 @@ const datosCliente = JSON.stringify({ centro, zoom, geojson: tieneGeojson ? geoj
 
   <!-- Leyenda -->
   <p class="mt-2 text-sm text-gray-500 dark:text-gray-400 flex items-center gap-2">
-    <span class="inline-block w-8 h-1 rounded bg-green-600"></span>
+    <span class="inline-block w-8 h-1 rounded bg-green-600 shrink-0"></span>
     Vías exentas (puedes circular con pico y placa)
+  </p>
+  <p class="mt-1.5 text-xs text-gray-500 dark:text-gray-400">
+    El mapa dibuja los corredores principales. <strong>No están todos:</strong> si una vía no
+    aparece marcada, revisa la lista completa más abajo antes de asumir que tiene restricción.
   </p>
 </section>
 
@@ -65,9 +69,12 @@ const datosCliente = JSON.stringify({ centro, zoom, geojson: tieneGeojson ? geoj
 
     const L = await import('leaflet');
 
+    // Ojo: no llamar setView() aquí. Si se fija la vista y enseguida se llama
+    // fitBounds(), la animación del primer encuadre anula al segundo y el mapa se
+    // queda en el zoom inicial, mostrando las vías cortadas.
     const mapa = L.map('mapa-vias-exentas', {
       scrollWheelZoom: false,
-    }).setView(datos.centro, 13);
+    });
 
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
@@ -89,10 +96,13 @@ const datosCliente = JSON.stringify({ centro, zoom, geojson: tieneGeojson ? geoj
       },
     }).addTo(mapa);
 
-    // Ajustar el mapa para mostrar todas las vías con padding
+    // Encuadrar para que se vean TODAS las vías. animate:false hace que se aplique
+    // de inmediato: con animación, getZoom() y el encuadre quedan a medias.
     const bounds = capaVias.getBounds();
     if (bounds.isValid()) {
-      mapa.fitBounds(bounds, { padding: [40, 40] });
+      mapa.fitBounds(bounds, { padding: [30, 30], animate: false });
+    } else {
+      mapa.setView(datos.centro, datos.zoom ?? 13);
     }
   }
 
