@@ -1,0 +1,63 @@
+---
+import type { Ciudad, TipoVehiculo } from '../lib/tipos';
+import { ETIQUETAS_VEHICULO } from '../lib/tipos';
+import { admiteCalendario } from '../lib/calendario';
+import { formatearFechaColombia } from '../lib/calcular';
+
+interface Props {
+  ciudad: Ciudad;
+  tipo: TipoVehiculo;
+}
+
+const { ciudad, tipo } = Astro.props;
+const disponible = admiteCalendario(ciudad, tipo);
+
+const vehiculo = ciudad.vehiculos[tipo] as { criterio_placa?: string; horario_texto?: string };
+const criterio = vehiculo.criterio_placa === 'primer_digito' ? 'primer' : 'último';
+const etiqueta = ETIQUETAS_VEHICULO[tipo].toLowerCase();
+const digitos = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+
+// "2027-01-29" no se lee bien: se muestra como "jueves 29 de enero de 2027"
+let vigenciaTexto = '';
+if (ciudad.vigencia_hasta) {
+  const [a, m, d] = ciudad.vigencia_hasta.split('-').map(Number);
+  vigenciaTexto = formatearFechaColombia(new Date(a, m - 1, d, 12));
+}
+---
+
+{disponible && (
+  <section class="mb-6 rounded-lg border border-yellow-300 bg-yellow-50 p-4 dark:border-yellow-700 dark:bg-yellow-950/20">
+    <h2 class="mb-1 flex items-center gap-2 text-lg font-bold">
+      <svg class="h-5 w-5 shrink-0 text-yellow-600 dark:text-yellow-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+          d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+      </svg>
+      <span>No se te vuelva a pasar</span>
+    </h2>
+
+    <p class="mb-3 text-sm text-gray-700 dark:text-gray-300">
+      Agrega tus días de pico y placa al calendario del celular. Te avisa
+      <strong>la noche anterior</strong>, para que sepas si dejas el carro en casa.
+      Toca el <strong>{criterio} número</strong> de tu placa:
+    </p>
+
+    <div class="grid grid-cols-5 gap-2 sm:grid-cols-10">
+      {digitos.map((d) => (
+        <a
+          href={`/calendario/${ciudad.slug}/${tipo}/${d}.ics`}
+          class="flex items-center justify-center rounded-lg border-2 border-gray-300 bg-white py-3 font-mono text-xl font-black text-black transition-colors hover:border-yellow-500 hover:bg-yellow-400 dark:border-gray-600 dark:bg-gray-800 dark:text-yellow-300 dark:hover:border-yellow-500 dark:hover:bg-yellow-700"
+          aria-label={`Descargar calendario de pico y placa para ${etiqueta} con ${criterio} dígito ${d} en ${ciudad.nombre}`}
+        >
+          {d}
+        </a>
+      ))}
+    </div>
+
+    <p class="mt-3 text-xs text-gray-500 dark:text-gray-400">
+      Se descarga un archivo de calendario (.ics) que funciona en iPhone, Android, Google
+      Calendar y Outlook. Incluye solo los días que faltan del periodo vigente
+      {vigenciaTexto && <> (hasta el {vigenciaTexto})</>}. Cuando cambie la
+      rotación, vuelve por el nuevo.
+    </p>
+  </section>
+)}

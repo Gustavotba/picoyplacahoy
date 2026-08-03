@@ -3,6 +3,7 @@ import Principal from '../../layouts/Principal.astro';
 import Reloj from '../../components/Reloj.astro';
 import MapaViasExentas from '../../components/MapaViasExentas.astro';
 import ImagenesOficiales from '../../components/ImagenesOficiales.astro';
+import DescargarCalendario from '../../components/DescargarCalendario.astro';
 import { obtenerCiudad, obtenerSlugs, tiposVehiculo, ciudades } from '../../lib/ciudades';
 
 // GeoJSON de vías exentas por ciudad
@@ -555,6 +556,8 @@ const bloquesJsonLd = [servicioJsonLd, breadcrumb];
   )}
 
   </>)}
+
+  <DescargarCalendario ciudad={ciudad} tipo={tipo} />
 
   {ciudad.imagenes_oficiales && ciudad.imagenes_oficiales.length > 0 && (
     <ImagenesOficiales imagenes={ciudad.imagenes_oficiales} nombreCiudad={ciudad.nombre} tipo={tipo} />
