@@ -1,0 +1,119 @@
+---
+/**
+ * Tarjeta compacta de la portada: responde "¿qué placas no circulan hoy?"
+ * para una ciudad, sin que el usuario tenga que entrar a la página de detalle.
+ */
+import { CRITERIO_LEGIBLE } from '../lib/calcular';
+import { digitosCompactos, CRITERIO_CORTO } from '../lib/resumen';
+import type { ResumenCiudadHoy } from '../lib/resumen';
+
+interface Props {
+  resumen: ResumenCiudadHoy;
+}
+
+const { resumen } = Astro.props;
+const particulares = resumen.tipos.particulares;
+const motos = resumen.tipos.motos;
+
+type EstiloPlaca = 'aplica' | 'libre' | 'pendiente' | 'desactualizado';
+
+// Qué va dentro del recuadro de la placa
+let texto: string;
+let estilo: EstiloPlaca;
+
+if (resumen.sinPicoYPlaca) {
+  texto = 'SIN P&P';
+  estilo = 'libre';
+} else if (particulares.desactualizado) {
+  texto = '—';
+  estilo = 'desactualizado';
+} else if (particulares.aplica && particulares.digitos.length > 0) {
+  texto = digitosCompactos(particulares.digitos);
+  estilo = 'aplica';
+} else if (particulares.pendiente) {
+  texto = '?';
+  estilo = 'pendiente';
+} else {
+  texto = 'LIBRE';
+  estilo = 'libre';
+}
+
+const estilos: Record<EstiloPlaca, { fondo: string; texto: string; borde: string }> = {
+  aplica: { fondo: 'bg-yellow-400', texto: 'text-black', borde: 'border-black' },
+  libre: { fondo: 'bg-green-500', texto: 'text-white', borde: 'border-green-700' },
+  pendiente: {
+    fondo: 'bg-gray-200 dark:bg-gray-700',
+    texto: 'text-gray-500 dark:text-gray-300',
+    borde: 'border-gray-400 dark:border-gray-600',
+  },
+  desactualizado: {
+    fondo: 'bg-orange-300 dark:bg-orange-800',
+    texto: 'text-orange-800 dark:text-orange-100',
+    borde: 'border-orange-500',
+  },
+};
+const ep = estilos[estilo];
+
+// Con muchos dígitos (Bogotá restringe 5 a la vez) el texto se desborda del
+// recuadro en móvil, así que se baja un escalón.
+const tamano = texto.length > 5 ? 'text-lg' : 'text-2xl';
+
+// Rótulo del criterio, solo cuando hay dígitos que mirar.
+const criterio =
+  estilo === 'aplica' && particulares.criterio
+    ? CRITERIO_LEGIBLE[particulares.criterio]
+    : '';
+
+/**
+ * Línea de abajo. Las motos solo se mencionan aparte cuando su respuesta es
+ * distinta a la de los carros, que es el caso que confunde a la gente: en Cali
+ * los carros rotan y las motos nunca tienen turno, y en Medellín los dos rotan
+ * con los mismos dígitos pero las motos se miran por el PRIMER dígito. Por eso
+ * no basta con comparar los dígitos: también hay que comparar el criterio.
+ */
+const digitosMotos = motos.aplica ? digitosCompactos(motos.digitos) : '';
+const mismosDigitos = digitosMotos === digitosCompactos(particulares.digitos);
+const mismoCriterio = motos.criterio === particulares.criterio;
+let subtitulo: string;
+
+if (estilo === 'pendiente') {
+  subtitulo = 'Dato sin verificar';
+} else if (estilo === 'desactualizado') {
+  subtitulo = 'Decreto vencido';
+} else if (resumen.sinPicoYPlaca) {
+  subtitulo = 'Ningún vehículo';
+} else if (!particulares.aplica && !motos.aplica) {
+  // Día libre para los dos (fin de semana, festivo o ciudad sin restricción)
+  subtitulo = 'Carros y motos';
+} else if (!motos.aplica) {
+  subtitulo = 'Motos libres';
+} else if (mismosDigitos && mismoCriterio) {
+  subtitulo = 'Carros y motos';
+} else {
+  subtitulo = motos.criterio
+    ? `Motos ${digitosMotos} · ${CRITERIO_CORTO[motos.criterio]}`
+    : `Motos ${digitosMotos}`;
+}
+---
+
+<a
+  href={`/${resumen.slug}`}
+  class="group flex flex-col items-center rounded-xl border border-gray-200 bg-white p-3 text-center shadow-sm transition-all hover:-translate-y-0.5 hover:border-yellow-400 hover:shadow-md dark:border-gray-700 dark:bg-gray-900"
+>
+  <span class="text-sm font-bold leading-tight">{resumen.nombre}</span>
+
+  <div class={`mt-2 w-full rounded-lg border-[3px] ${ep.borde} ${ep.fondo} px-2 py-2`}>
+    {criterio && (
+      <p class="mb-0.5 text-[9px] font-medium uppercase leading-none tracking-wider text-black/60">
+        {criterio}
+      </p>
+    )}
+    <p class={`font-mono font-black leading-none ${ep.texto} ${tamano}`}>{texto}</p>
+  </div>
+
+  {/* Altura fija: si no, las tarjetas con subtítulo de dos renglones
+      (ej. "Motos 1·4 · primer díg.") desalinean la fila. */}
+  <span class="mt-1.5 min-h-[2.1rem] text-[11px] leading-tight text-gray-500 dark:text-gray-400">
+    {subtitulo}
+  </span>
+</a>

@@ -1,7 +1,7 @@
 import { format } from 'date-fns';
 import { es } from 'date-fns/locale';
 import { esFestivo } from './festivos';
-import type { Ciudad, TipoVehiculo, DiaSemana, ResultadoPicoPlaca } from './tipos';
+import type { Ciudad, TipoVehiculo, DiaSemana, ResultadoPicoPlaca, CriterioPlaca } from './tipos';
 import { esPlaceholder, esSemanalPorDia, esQuincenalPorFecha, esParImparPorFecha } from './tipos';
 
 /** Mapa de número de día (0=dom) a DiaSemana */

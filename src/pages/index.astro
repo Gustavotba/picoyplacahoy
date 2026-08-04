@@ -2,11 +2,39 @@
 import Principal from '../layouts/Principal.astro';
 import Reloj from '../components/Reloj.astro';
 import MapaColombia from '../components/MapaColombia.astro';
+import TarjetaCiudadHoy from '../components/TarjetaCiudadHoy.astro';
 import { ciudades } from '../lib/ciudades';
+import { fechaColombia, formatearFechaColombia } from '../lib/calcular';
+import { resumirCiudades, insigniaDe } from '../lib/resumen';
 import { SITE_URL, SITE_NAME } from '../lib/seo';
 
+// La portada muestra el estado de HOY, así que se arma en el momento de la
+// visita. Si se prerenderizara, quedaría congelada en la fecha del build.
+export const prerender = false;
+
+// `?fecha=YYYY-MM-DD` permite comprobar cómo se verá otro día (mismo truco
+// que en las páginas de ciudad).
+const fechaParam = Astro.url.searchParams.get('fecha');
+const hoy = fechaParam ? new Date(fechaParam + 'T12:00:00') : fechaColombia();
+const esDebug = !!fechaParam;
+const fechaFormateada = formatearFechaColombia(hoy);
+// Solo la primera letra. La clase `capitalize` de Tailwind no sirve aquí
+// porque en español produciría "Martes 4 De Agosto De 2026".
+const fechaTitulo = fechaFormateada.charAt(0).toUpperCase() + fechaFormateada.slice(1);
+
+const resumenes = resumirCiudades(ciudades, hoy);
+const porSlug = new Map(resumenes.map((r) => [r.slug, r]));
+
+// Las ciudades más consultadas van arriba, resueltas de un vistazo.
+const SLUGS_DESTACADAS = ['bogota', 'medellin', 'cali', 'barranquilla', 'cartagena', 'bucaramanga'];
+const destacadas = SLUGS_DESTACADAS.map((slug) => porSlug.get(slug)).filter(
+  (r): r is NonNullable<typeof r> => r !== undefined,
+);
+
+const cuantasConRestriccion = resumenes.filter((r) => r.algunoAplica).length;
+
 const titulo = 'Pico y Placa Hoy en Colombia — Consulta tu ciudad';
-const descripcion = `Consulta las restricciones de Pico y Placa vigentes hoy en ${ciudades.length} ciudades de Colombia: Bogotá, Medellín, Cali, Barranquilla, Bucaramanga y más.`;
+const descripcion = `Pico y Placa hoy ${fechaFormateada} en Colombia: consulta qué placas no pueden circular en ${ciudades.length} ciudades — Bogotá, Medellín, Cali, Barranquilla, Bucaramanga y más.`;
 
 const jsonLd = {
   '@context': 'https://schema.org',
@@ -25,10 +53,32 @@ const ciudadesMarkers = ciudades
     coordenadas: c.coordenadas!,
     tieneData: c.decreto_actual !== 'pendiente_verificar' && c.decreto_actual !== 'No aplica',
   }));
+
+// Estilos de la insignia de cada ciudad en la lista completa
+const ESTILOS_INSIGNIA: Record<string, string> = {
+  aplica: 'bg-yellow-400 text-black border-black',
+  libre: 'text-green-600 dark:text-green-400 border-transparent',
+  sin_pyp: 'text-green-600 dark:text-green-400 border-transparent',
+  pendiente: 'text-gray-400 dark:text-gray-500 border-transparent',
+  desactualizado: 'text-orange-600 dark:text-orange-400 border-transparent',
+};
+
+const ENLACES_UTILES = [
+  { ruta: '/pico-y-placa-manana', texto: '¿Y mañana?' },
+  { ruta: '/exenciones-pico-y-placa', texto: 'Vehículos exentos' },
+  { ruta: '/multas-pico-y-placa', texto: 'Multas' },
+  { ruta: '/preguntas-frecuentes', texto: 'Preguntas frecuentes' },
+];
 ---
 
 <Principal titulo={titulo} descripcion={descripcion} jsonLd={jsonLd}>
-  <section class="mb-8 text-center">
+  {esDebug && (
+    <div class="mb-4 rounded-lg border-2 border-dashed border-purple-400 bg-purple-50 px-4 py-2 text-sm text-purple-700 dark:bg-purple-950/30 dark:text-purple-300">
+      Modo debug: simulando fecha <strong>{fechaParam}</strong> · <a href="/" class="underline">Volver a hoy</a>
+    </div>
+  )}
+
+  <section class="mb-6 text-center">
     <h1 class="text-3xl font-bold sm:text-4xl">
       Pico y Placa Hoy en Colombia
     </h1>
@@ -41,6 +91,38 @@ const ciudadesMarkers = ciudades
     <Reloj />
   </section>
 
+  <!-- Respuesta inmediata: qué placas no circulan hoy en las ciudades grandes -->
+  <section class="mb-6">
+    <h2 class="text-center text-xl font-bold">
+      Placas que no circulan hoy
+    </h2>
+    <p class="mt-1 mb-4 text-center text-sm text-gray-500 dark:text-gray-400">
+      {fechaTitulo}
+    </p>
+
+    <div class="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
+      {destacadas.map((resumen) => <TarjetaCiudadHoy resumen={resumen} />)}
+    </div>
+
+    <p class="mt-3 text-center text-xs text-gray-400">
+      {cuantasConRestriccion > 0
+        ? `Hoy hay restricción en ${cuantasConRestriccion} de las ${ciudades.length} ciudades. Toca una ciudad para ver horarios y excepciones.`
+        : 'Hoy no hay restricción en ninguna de las ciudades registradas. Verifica siempre con la fuente oficial.'}
+    </p>
+  </section>
+
+  <!-- Accesos a las páginas temáticas -->
+  <nav class="mb-8 flex flex-wrap justify-center gap-2" aria-label="Enlaces útiles">
+    {ENLACES_UTILES.map((enlace) => (
+      <a
+        href={enlace.ruta}
+        class="rounded-full border border-gray-200 px-3.5 py-1.5 text-sm font-medium transition-colors hover:border-yellow-400 hover:bg-yellow-50 dark:border-gray-700 dark:hover:bg-yellow-950/20"
+      >
+        {enlace.texto}
+      </a>
+    ))}
+  </nav>
+
   <!-- Mapa de Colombia -->
   <section class="mb-8">
     <h2 class="text-xl font-bold mb-3 text-center">Elige tu ciudad en Colombia</h2>
@@ -51,29 +133,52 @@ const ciudadesMarkers = ciudades
     </p>
   </section>
 
-  <!-- Lista alfabética de ciudades (SEO) -->
+  <!-- Lista completa de ciudades, cada una con su respuesta de hoy -->
   <section class="mb-8">
-    <h2 class="text-lg font-bold mb-3">Todas las ciudades</h2>
-    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2">
-      {ciudades.map((c) => {
-        const tieneData = c.decreto_actual !== 'pendiente_verificar' && c.decreto_actual !== 'No aplica';
+    <h2 class="text-lg font-bold">Todas las ciudades hoy</h2>
+    <p class="mb-3 text-sm text-gray-500 dark:text-gray-400">
+      Dígitos restringidos para vehículos particulares. Toca una ciudad para ver
+      motos, taxis y carga.
+    </p>
+    <div class="grid grid-cols-1 gap-2 sm:grid-cols-2 lg:grid-cols-3">
+      {resumenes.map((resumen) => {
+        const insignia = insigniaDe(resumen);
         return (
           <a
-            href={`/${c.slug}`}
-            class:list={[
-              'rounded-lg border px-3 py-2.5 text-sm font-medium text-center transition-colors',
-              tieneData
-                ? 'border-yellow-300 hover:border-yellow-400 hover:bg-yellow-50 dark:border-yellow-700 dark:hover:bg-yellow-950/20'
-                : 'border-gray-200 dark:border-gray-700 hover:border-gray-300 dark:hover:border-gray-600',
-            ]}
+            href={`/${resumen.slug}`}
+            class="flex items-center justify-between gap-2 rounded-lg border border-gray-200 px-3 py-2.5 text-sm transition-colors hover:border-yellow-400 hover:bg-yellow-50 dark:border-gray-700 dark:hover:bg-yellow-950/20"
           >
-            {c.nombre}
-            {!tieneData && c.decreto_actual === 'No aplica' && (
-              <span class="block text-xs text-gray-400">Sin P&P</span>
-            )}
+            <span class="font-medium">{resumen.nombre}</span>
+            <span class="flex shrink-0 items-center gap-1.5">
+              {insignia.etiqueta && (
+                <span class="text-[10px] uppercase tracking-wide text-gray-400">
+                  {insignia.etiqueta}
+                </span>
+              )}
+              <span
+                class:list={[
+                  'rounded border-2 px-2 py-0.5 font-mono text-sm font-bold',
+                  ESTILOS_INSIGNIA[insignia.estado],
+                ]}
+              >
+                {insignia.texto}
+              </span>
+            </span>
           </a>
         );
       })}
     </div>
+  </section>
+
+  <!-- Por qué confiar en estos datos -->
+  <section class="rounded-lg border border-gray-200 bg-gray-50 p-4 text-sm dark:border-gray-700 dark:bg-gray-900">
+    <h2 class="mb-1 font-bold">De dónde salen estos datos</h2>
+    <p class="text-gray-600 dark:text-gray-400">
+      Cada ciudad se carga leyendo el decreto oficial de su alcaldía o secretaría
+      de movilidad, y en la página de cada ciudad puedes ver el número del
+      decreto y el enlace a la fuente. Cuando no tenemos el documento oficial lo
+      decimos: verás un <span class="font-mono font-bold">?</span> en vez de un
+      dato inventado.
+    </p>
   </section>
 </Principal>

@@ -31,3 +31,6 @@ pnpm-debug.log*
 # memoria interna del proyecto
 CLAUDE.md
 LECCIONES.md
+
+# borradores de investigación (decretos descargados, scripts de un solo uso)
+.tmp_*
