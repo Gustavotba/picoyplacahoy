@@ -14,6 +14,16 @@ const { imagenes, nombreCiudad, tipo } = Astro.props;
 const visibles = tipo
   ? imagenes.filter((img) => !img.tipos || img.tipos.includes(tipo))
   : imagenes;
+
+/**
+ * Texto alternativo pensado para búsqueda de imágenes: arranca con "Pico y
+ * Placa" y la ciudad, que es como la gente busca. No repite la fuente, que ya
+ * va escrita visible en el pie de la figura, para no pasarse de largo (lo
+ * recomendable es quedarse por debajo de ~125 caracteres).
+ */
+function textoAlternativo(titulo: string): string {
+  return `Pico y Placa en ${nombreCiudad}: ${titulo}`;
+}
 ---
 
 {visibles.length > 0 && (
@@ -31,7 +41,7 @@ const visibles = tipo
             class="block bg-gray-50 dark:bg-gray-800">
             <img
               src={img.archivo}
-              alt={`${img.titulo} en ${nombreCiudad}, publicado por ${img.fuente_nombre}`}
+              alt={textoAlternativo(img.titulo)}
               width={img.ancho}
               height={img.alto}
               loading="lazy"
