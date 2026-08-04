@@ -6,12 +6,15 @@
   "autoridad": "Secretaría de Tránsito y Transporte de Ipiales",
   "autoridad_web": "https://www.ipiales-narino.gov.co",
   "autoridad_twitter": "",
-  "decreto_actual": "Calendario oficial de Pico y Placa de la Alcaldía de Ipiales",
-  "fecha_ultima_actualizacion": "2026-06-09",
+  "decreto_actual": "Sin pico y placa vigente (la medida de 2022 se levantó; verificado el 4 de agosto de 2026)",
+  "fecha_ultima_actualizacion": "2026-08-04",
   "notas_generales": [
-    "Ipiales SÍ tiene Pico y Placa para vehículos particulares y motos, de lunes a viernes, según el dígito de la placa publicado en el calendario oficial de la Alcaldía.",
-    "Por ser ciudad fronteriza, la medida también puede aplicar a vehículos con matrícula ecuatoriana.",
-    "IMPORTANTE: el horario y la tabla oficial de dígitos por día no están publicados de forma clara en el portal oficial. Consulta siempre el calendario vigente con la Secretaría de Tránsito y Transporte de Ipiales antes de circular."
+    "No encontramos pico y placa vigente en Ipiales. Hasta el 4 de agosto de 2026 esta página decía que sí había restricción para carros y motos, sin poder mostrar los dígitos: la retiramos.",
+    "La medida existió en 2022, por obras de pavimentación: rotaba por ciclos semanales en parejas de dígitos (0y1, 2y3, 4y5, 6y7, 8y9), de 7:30 a.m. a 7:30 p.m. de lunes a viernes, e incluía expresamente los vehículos con placa extranjera. Nunca se publicó el número del decreto que la creó.",
+    "Que se acabó lo confirman dos hechos: en junio de 2023 colectivos ciudadanos pedían públicamente que se ESTABLECIERA (o sea, ya no regía), y en julio de 2025 el presidente de la Cámara de Comercio dijo sobre la medida de 2022 que «no fue muy positiva, por eso se terminó». La propuesta de revivirla en 2025 nunca se convirtió en decreto.",
+    "Cómo lo verificamos: barrimos el 99% del repositorio normativo del municipio (4.837 contenidos de 2016 a 2026, incluidos 828 decretos) y ninguno establece pico y placa por dígito de placa. Ojo: el repositorio es selectivo — publica una parte de los decretos —, así que esta ausencia es evidencia fuerte pero no prueba absoluta. Si la Alcaldía anuncia una medida nueva, actualizaremos de inmediato.",
+    "Lo que SÍ rige hoy para motociclistas (y no es pico y placa): el Decreto 418 del 2 de julio de 2026 prohíbe llevar como parrillero a un hombre mayor de 14 años, las 24 horas, todos los días, en todo el perímetro urbano incluidas la vía Panamericana y la perimetral. Es una medida de seguridad, con 13 excepciones (fuerza pública, organismos de socorro, salud domiciliaria, periodistas, entre otras) y sin fecha de terminación.",
+    "Por ser ciudad fronteriza con Ecuador, cualquier medida futura puede incluir vehículos de placa extranjera, como ya ocurrió en 2022. Si vienes de Tulcán, verifica antes con la Secretaría de Tránsito."
   ],
   "exenciones_generales": [],
   "vias_exentas": [],
@@ -20,46 +23,26 @@
     "base_legal": "Artículo 131, literal C, numeral 14 de la Ley 769 de 2002",
     "valor_smldv": "15 SMLDV",
     "incluye_inmovilizacion": true,
-    "descripcion": "Multa equivalente a 15 salarios mínimos diarios legales vigentes (SMLDV) más inmovilización del vehículo."
+    "descripcion": "Multa equivalente a 15 salarios mínimos diarios legales vigentes (SMLDV) más inmovilización del vehículo. Aplica a las restricciones de tránsito que sí estén vigentes, como la del parrillero hombre en moto."
   },
   "vehiculos": {
     "particulares": {
-      "aplica": true,
-      "horario": "pendiente_verificar",
-      "dias_habiles": ["lun", "mar", "mie", "jue", "vie"],
-      "aplica_festivos": false,
-      "restricciones": {
-        "lunes": ["pendiente_verificar"],
-        "martes": ["pendiente_verificar"],
-        "miercoles": ["pendiente_verificar"],
-        "jueves": ["pendiente_verificar"],
-        "viernes": ["pendiente_verificar"]
-      },
-      "notas": "Ipiales SÍ tiene Pico y Placa para particulares de lunes a viernes según el calendario oficial de la Alcaldía. El portal oficial no publica una tabla clara de dígitos por día ni el horario exacto; consulta el calendario vigente con la Secretaría de Tránsito y Transporte de Ipiales."
+      "aplica": false,
+      "descripcion": "No hay Pico y Placa vigente para vehículos particulares en Ipiales.",
+      "nota": "La medida de 2022 se levantó y ningún decreto posterior la revivió (verificado el 4 de agosto de 2026 en el repositorio normativo del municipio). Si la Alcaldía anuncia una nueva, actualizaremos esta página."
     },
     "motos": {
-      "aplica": true,
-      "horario": "pendiente_verificar",
-      "dias_habiles": ["lun", "mar", "mie", "jue", "vie"],
-      "aplica_festivos": false,
-      "restricciones": {
-        "lunes": ["pendiente_verificar"],
-        "martes": ["pendiente_verificar"],
-        "miercoles": ["pendiente_verificar"],
-        "jueves": ["pendiente_verificar"],
-        "viernes": ["pendiente_verificar"]
-      },
-      "notas": "Las motos en Ipiales también tienen Pico y Placa de lunes a viernes según el calendario oficial. Consulta el dígito y horario vigentes con la Secretaría de Tránsito y Transporte de Ipiales."
+      "aplica": false,
+      "descripcion": "No hay Pico y Placa por dígito de placa para motos en Ipiales.",
+      "nota": "Ojo: sí rige el Decreto 418 del 2 de julio de 2026, que prohíbe llevar de parrillero a un hombre mayor de 14 años, las 24 horas, todos los días, en todo el perímetro urbano. No es pico y placa, pero es una restricción real para motociclistas."
     },
     "taxis": {
       "aplica": false,
-      "descripcion": "El calendario de Pico y Placa de Ipiales regula particulares y motos; no se confirma restricción equivalente para taxis.",
-      "nota": "Esta situación puede cambiar. Verifica siempre con la Secretaría de Tránsito y Transporte de Ipiales."
+      "descripcion": "Los taxis no tienen Pico y Placa en Ipiales."
     },
     "transporte_carga": {
       "aplica": false,
-      "descripcion": "En Ipiales no se confirma Pico y Placa para transporte de carga.",
-      "nota": "Esta situación puede cambiar. Verifica siempre con la Secretaría de Tránsito y Transporte de Ipiales."
+      "descripcion": "El transporte de carga no tiene Pico y Placa en Ipiales."
     }
   },
   "contacto_ciudadano": {
@@ -67,7 +50,7 @@
     "secretaria_movilidad": "https://www.ipiales-narino.gov.co",
     "twitter": "",
     "facebook": "https://www.facebook.com/AlcaldiaDeIpiales",
-    "linea_atencion": "pendiente_verificar",
-    "linea_movilidad": "pendiente_verificar"
+    "linea_atencion": "(602) 773 4044",
+    "linea_movilidad": "(602) 773 4044"
   }
 }
