@@ -260,6 +260,13 @@ export interface Ciudad {
   fecha_ultima_actualizacion: string;
   vigencia_desde?: string;
   vigencia_hasta?: string;
+  /**
+   * El decreto rige indefinidamente, hasta que otro lo derogue: no es que se nos
+   * haya olvidado poner `vigencia_hasta`. Hay que verificarlo leyendo el artículo
+   * de vigencia del decreto, y sirve para que la auditoría no lo confunda con un
+   * dato incompleto. Pereira y Dosquebradas son así; Medellín o Cali, no.
+   */
+  vigencia_indefinida?: boolean;
   notas_generales?: string[];
   exenciones_generales?: string[];
   vias_exentas?: string[];

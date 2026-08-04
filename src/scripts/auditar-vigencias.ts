@@ -24,6 +24,12 @@ import { ETIQUETAS_VEHICULO } from '../lib/tipos';
  */
 const DIAS_AVISO = Number(process.argv[2]) > 0 ? Number(process.argv[2]) : 30;
 
+/**
+ * Cada cuánto hay que reconsultar una ciudad cuyo decreto es indefinido. Esas
+ * no vencen solas, así que sin este plazo se quedarían sin revisar para siempre.
+ */
+const DIAS_REVISION_INDEFINIDOS = 180;
+
 type Gravedad = 'grave' | 'aviso' | 'nota';
 
 interface Hallazgo {
@@ -90,13 +96,28 @@ for (const ciudad of ciudades) {
 
   // --- Vigencia del decreto ---
   if (activos.length > 0) {
-    if (!ciudad.vigencia_hasta) {
+    if (ciudad.vigencia_indefinida) {
+      // El decreto no caduca solo (Pereira, Dosquebradas). No es un dato
+      // incompleto, pero tampoco puede quedarse sin revisar para siempre:
+      // el riesgo aquí no es que venza, es que lo deroguen y no nos enteremos.
+      const dias = -diasHasta(ciudad.fecha_ultima_actualizacion);
+      if (dias > DIAS_REVISION_INDEFINIDOS) {
+        apuntar(
+          'aviso',
+          ciudad.nombre,
+          'Decreto indefinido sin revisar hace mucho',
+          `Rige hasta que lo deroguen, así que nunca vencerá solo. Última revisión: ` +
+            `${ciudad.fecha_ultima_actualizacion} (hace ${dias} días). Toca comprobar que no lo hayan derogado.`,
+        );
+      }
+    } else if (!ciudad.vigencia_hasta) {
       apuntar(
         'aviso',
         ciudad.nombre,
         'Sin fecha de caducidad',
-        'No tiene `vigencia_hasta`, así que nunca se marcará sola como desactualizada: ' +
-          'seguirá mostrando esta rotación como si fuera de hoy, para siempre.',
+        'No tiene `vigencia_hasta` ni está marcada como `vigencia_indefinida`, así que no sabemos ' +
+          'si el decreto caduca. Nunca se marcará sola como desactualizada: seguirá mostrando esta ' +
+          'rotación como si fuera de hoy, para siempre.',
       );
     } else if (ciudad.vigencia_hasta < hoyISO) {
       apuntar(

@@ -6,12 +6,15 @@
   "autoridad": "Instituto de Movilidad de Pereira",
   "autoridad_web": "https://www.movilidadpereira.gov.co",
   "autoridad_twitter": "MovilidadPereir",
-  "decreto_actual": "Instituto de Movilidad de Pereira (vigente 2026)",
-  "fecha_ultima_actualizacion": "2026-06-09",
+  "decreto_actual": "Decreto 000540 del 26 de febrero de 2024",
+  "fecha_ultima_actualizacion": "2026-08-04",
+  "vigencia_indefinida": true,
   "notas_generales": [
     "La medida aplica de lunes a viernes, en jornada continua de 6:00 a.m. a 8:00 p.m., según el último dígito de la placa para particulares y el primer dígito para motos.",
     "No aplica en días festivos oficiales de Colombia.",
-    "Los taxis tienen un esquema de rotación rodante (un dígito por día en secuencia continua)."
+    "El decreto lo expidió la Alcaldía de Pereira, no el Instituto de Movilidad, y no tiene fecha de terminación: rige desde su publicación hasta que otro lo derogue (artículo octavo). Pereira NO rota por semestres.",
+    "El decreto cubre únicamente los vehículos de servicio particular y oficial: los taxis no están incluidos.",
+    "La Alcaldía confirmó que la medida sigue sin cambios en sus comunicados del 8 de octubre y del 18 de diciembre de 2024."
   ],
   "exenciones_generales": [],
   "vias_exentas": [
@@ -70,18 +73,9 @@
       }
     },
     "taxis": {
-      "aplica": true,
-      "horario": "6:00 a.m. a 8:00 p.m.",
-      "dias_habiles": ["lun", "mar", "mie", "jue", "vie"],
-      "aplica_festivos": false,
-      "restricciones": {
-        "lunes": ["pendiente_verificar"],
-        "martes": ["pendiente_verificar"],
-        "miercoles": ["pendiente_verificar"],
-        "jueves": ["pendiente_verificar"],
-        "viernes": ["pendiente_verificar"]
-      },
-      "notas": "Los taxis SÍ tienen Pico y Placa en Pereira, con un esquema distinto al de particulares: se restringe un único dígito del último número de placa que avanza día a día de forma continua. Consulta el dígito del día con el Instituto de Movilidad de Pereira."
+      "aplica": false,
+      "descripcion": "El Pico y Placa de Pereira no cubre a los taxis.",
+      "nota": "El Decreto 000540 de 2024 limita la restricción, en su artículo primero, a los vehículos de servicio particular y de servicio oficial; la palabra taxi no aparece en el decreto. Tampoco hay resolución del Instituto de Movilidad que los restrinja. Antes aquí decíamos que sí aplicaba, con un esquema rodante que ninguna fuente oficial respalda."
     },
     "transporte_carga": {
       "aplica": false,

@@ -6,11 +6,13 @@
   "autoridad": "Secretaría de Movilidad de Manizales",
   "autoridad_web": "https://manizales.gov.co",
   "autoridad_twitter": "alcaldiamzles",
-  "decreto_actual": "Sin pico y placa para particulares (solo taxis)",
-  "fecha_ultima_actualizacion": "2026-06-09",
+  "decreto_actual": "Sin pico y placa para particulares · Taxis: Resolución 114 del 27 de diciembre de 2024, modificada por las Resoluciones 1359 y 1360 de 2025",
+  "fecha_ultima_actualizacion": "2026-08-04",
   "notas_generales": [
-    "Manizales NO tiene Pico y Placa para vehículos particulares. La medida se justificaba por la obra de Los Cedros, que ya culminó, por lo que perdió su base jurídica.",
-    "Los taxis SÍ tienen Pico y Placa todo el año, de lunes a domingo.",
+    "Manizales NO tiene Pico y Placa para vehículos particulares ni para motos. La medida no fue derogada: decayó. Su base jurídica era la obra del intercambiador de Los Cedros, entregada el 23 de diciembre de 2024, y al desaparecer el supuesto de hecho el acto administrativo perdió efecto.",
+    "El alcalde Jorge Eduardo Rojas Giraldo lo confirmó en enero de 2025: «actualmente en la ciudad no se encuentra vigente la medida de pico y placa».",
+    "Ojo: la Secretaría de Movilidad advirtió que la medida puede volver si una obra nueva la justifica. Conviene reconsultar esta ciudad con frecuencia.",
+    "Los taxis SÍ tienen Pico y Placa todo el año, de lunes a domingo, según el último dígito de la placa.",
     "La Secretaría de Movilidad suele levantar la restricción de taxis durante la Feria de Manizales (enero) y fechas especiales de fin de año."
   ],
   "exenciones_generales": [],
@@ -45,7 +47,7 @@
         "jueves": ["pendiente_verificar"],
         "viernes": ["pendiente_verificar"]
       },
-      "notas": "Los taxis SÍ tienen Pico y Placa en Manizales, todos los días (lunes a domingo), según el último dígito de la placa con un esquema rodante que avanza día a día. La Secretaría de Movilidad publica la programación y suele levantar la medida durante la Feria de Manizales y fechas especiales. Consulta el dígito restringido del día con la Secretaría de Movilidad."
+      "notas": "Los taxis SÍ tienen Pico y Placa en Manizales, todos los días (lunes a domingo), según el último dígito de la placa con un esquema rodante que avanza día a día. El acto base es la Resolución 114 del 27 de diciembre de 2024 de la Secretaría de Movilidad, modificada por las Resoluciones 1359 y 1360 de 2025. No publicamos la tabla de dígitos porque esas resoluciones solo están disponibles como imágenes escaneadas y la Resolución 114 no está publicada en el sitio: preferimos dejarlo pendiente antes que transcribir mal un dato. Consulta el dígito del día con la Secretaría de Movilidad."
     },
     "transporte_carga": {
       "aplica": false,
