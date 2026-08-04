@@ -20,65 +20,86 @@ const { ciudades, altura = 'h-[400px] sm:h-[500px]', id = 'mapa-colombia' } = As
 const datosCliente = JSON.stringify(ciudades);
 ---
 
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-  integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
-
+{/*
+  La hoja de estilos de Leaflet ya NO se enlaza aquí. Un <link> a un servidor
+  ajeno (unpkg) bloquea el primer pintado: el navegador no muestra nada hasta
+  traerla. Ahora se inyecta desde el script, junto con el mapa, y solo cuando
+  el usuario se acerca a él. La respuesta de arriba aparece sin esperar a nada.
+*/}
 <div
   id={id}
-  class={`${altura} w-full rounded-lg border border-gray-200 dark:border-gray-700 z-0`}
+  class={`${altura} flex w-full items-center justify-center rounded-lg border border-gray-200 dark:border-gray-700 z-0`}
   data-ciudades={datosCliente}
   data-map-id={id}
-></div>
+>
+  <span class="text-sm text-gray-400" data-marcador-carga>Cargando mapa…</span>
+</div>
 
 <script>
-  async function inicializarMapaColombia() {
-    const contenedores = document.querySelectorAll('[data-map-id]');
-    if (!contenedores.length) return;
+  import { cargarCssLeaflet, alAcercarse } from '../lib/leaflet-css';
 
-    const L = await import('leaflet');
+  async function inicializarMapaColombia(el: HTMLElement) {
+    if (el.dataset.inicializado) return;
+    el.dataset.inicializado = 'true';
 
-    for (const contenedor of contenedores) {
-      const el = contenedor as HTMLElement;
-      if (el.dataset.inicializado) continue;
-      el.dataset.inicializado = 'true';
+    // Hay que esperar el CSS: si el mapa se crea antes, Leaflet calcula mal el
+    // tamaño de las baldosas y salen descuadradas.
+    const [, L] = await Promise.all([cargarCssLeaflet(), import('leaflet')]);
 
-      const ciudades = JSON.parse(el.dataset.ciudades || '[]');
-      const mapId = el.dataset.mapId || 'mapa-colombia';
+    const ciudades = JSON.parse(el.dataset.ciudades || '[]');
+    const mapId = el.dataset.mapId || 'mapa-colombia';
 
-      const mapa = L.map(mapId, { scrollWheelZoom: false }).setView([4.5, -73.5], 5);
+    // Quitar el "Cargando mapa…" y el centrado que lo sostenía
+    el.querySelector('[data-marcador-carga]')?.remove();
+    el.classList.remove('flex', 'items-center', 'justify-center');
 
-      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OSM</a>',
-        maxZoom: 18,
+    const mapa = L.map(mapId, { scrollWheelZoom: false }).setView([4.5, -73.5], 5);
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OSM</a>',
+      maxZoom: 18,
+    }).addTo(mapa);
+
+    for (const c of ciudades) {
+      const color = c.tieneData ? '#FBBF24' : '#9CA3AF';
+      const marker = L.circleMarker(c.coordenadas, {
+        radius: 7,
+        fillColor: color,
+        color: '#000',
+        weight: 1.5,
+        fillOpacity: 0.9,
       }).addTo(mapa);
 
-      for (const c of ciudades) {
-        const color = c.tieneData ? '#FBBF24' : '#9CA3AF';
-        const marker = L.circleMarker(c.coordenadas, {
-          radius: 7,
-          fillColor: color,
-          color: '#000',
-          weight: 1.5,
-          fillOpacity: 0.9,
-        }).addTo(mapa);
+      const estado = c.tieneData ? 'Datos disponibles' : 'Próximamente';
+      marker.bindTooltip(`<strong>${c.nombre}</strong><br><span style="color:${color}">${estado}</span>`, {
+        direction: 'top',
+        offset: [0, -8],
+      });
 
-        const estado = c.tieneData ? 'Datos disponibles' : 'Próximamente';
-        marker.bindTooltip(`<strong>${c.nombre}</strong><br><span style="color:${color}">${estado}</span>`, {
-          direction: 'top',
-          offset: [0, -8],
-        });
+      marker.on('click', () => { window.location.href = `/${c.slug}`; });
+      // `as` explícito: Leaflet tipa getElement() como Element, que no tiene
+      // .style, pero para un CircleMarker siempre devuelve un SVGElement.
+      (marker.getElement() as SVGElement | undefined)?.style.setProperty('cursor', 'pointer');
+    }
+  }
 
-        marker.on('click', () => { window.location.href = `/${c.slug}`; });
-        // `as` explícito: Leaflet tipa getElement() como Element, que no tiene
-        // .style, pero para un CircleMarker siempre devuelve un SVGElement.
-        (marker.getElement() as SVGElement | undefined)?.style.setProperty('cursor', 'pointer');
-      }
+  /**
+   * Cada mapa se carga solo cuando el usuario se acerca a él. En la portada
+   * está debajo de la respuesta, así que la mayoría de visitas resuelven su
+   * duda sin descargar Leaflet ni una sola baldosa. Ojo: hay dos mapas por
+   * página (el de la portada y el compacto del pie), y cada uno se observa
+   * por separado.
+   */
+  function observarMapas() {
+    const contenedores = document.querySelectorAll<HTMLElement>('[data-map-id]');
+    for (const contenedor of contenedores) {
+      alAcercarse(contenedor, () => inicializarMapaColombia(contenedor));
     }
   }
 
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', inicializarMapaColombia);
+    document.addEventListener('DOMContentLoaded', observarMapas);
   } else {
-    inicializarMapaColombia();
+    observarMapas();
   }
 </script>

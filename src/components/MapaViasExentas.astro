@@ -18,14 +18,8 @@ const tieneGeojson = geojson && typeof geojson === 'object' && 'features' in (ge
 const datosCliente = JSON.stringify({ centro, zoom, geojson: tieneGeojson ? geojson : null });
 ---
 
-<!-- Leaflet CSS -->
-<link
-  rel="stylesheet"
-  href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-  integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
-  crossorigin=""
-/>
-
+{/* La hoja de estilos de Leaflet se carga desde el script, no aquí: ver
+    src/lib/leaflet-css.ts. Un <link> a unpkg bloquearía el primer pintado. */}
 <section class="mb-6">
   <h2 class="text-lg font-bold mb-3 flex items-center gap-2">
     <svg class="w-5 h-5 text-green-600 dark:text-green-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -60,6 +54,8 @@ const datosCliente = JSON.stringify({ centro, zoom, geojson: tieneGeojson ? geoj
 </section>
 
 <script>
+  import { cargarCssLeaflet, alAcercarse } from '../lib/leaflet-css';
+
   async function inicializarMapa() {
     const contenedor = document.getElementById('mapa-vias-exentas');
     if (!contenedor) return;
@@ -67,7 +63,8 @@ const datosCliente = JSON.stringify({ centro, zoom, geojson: tieneGeojson ? geoj
     const datos = JSON.parse(contenedor.dataset.mapa || '{}');
     if (!datos.centro || !datos.geojson) return;
 
-    const L = await import('leaflet');
+    // Esperar el CSS antes de crear el mapa, o las baldosas salen descuadradas.
+    const [, L] = await Promise.all([cargarCssLeaflet(), import('leaflet')]);
 
     // Ojo: no llamar setView() aquí. Si se fija la vista y enseguida se llama
     // fitBounds(), la animación del primer encuadre anula al segundo y el mapa se
@@ -106,9 +103,17 @@ const datosCliente = JSON.stringify({ centro, zoom, geojson: tieneGeojson ? geoj
     }
   }
 
+  // Este mapa está muy abajo en la página de ciudad: se carga solo si el
+  // usuario baja hasta él.
+  function observar() {
+    const contenedor = document.getElementById('mapa-vias-exentas');
+    if (!contenedor) return;
+    alAcercarse(contenedor, inicializarMapa);
+  }
+
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', inicializarMapa);
+    document.addEventListener('DOMContentLoaded', observar);
   } else {
-    inicializarMapa();
+    observar();
   }
 </script>
