@@ -11,7 +11,8 @@
     "preview": "astro preview",
     "check": "astro check",
     "astro": "astro",
-    "fetch-vias": "tsx src/scripts/fetch-vias-exentas.ts"
+    "fetch-vias": "tsx src/scripts/fetch-vias-exentas.ts",
+    "auditar": "tsx src/scripts/auditar-vigencias.ts"
   },
   "dependencies": {
     "@astrojs/cloudflare": "^13.7.0",
