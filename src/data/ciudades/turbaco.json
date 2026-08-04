@@ -6,57 +6,43 @@
   "autoridad": "Secretaría de Tránsito de Turbaco",
   "autoridad_web": "https://www.turbaco-bolivar.gov.co",
   "autoridad_twitter": "",
-  "decreto_actual": "Decreto 035 de 2026",
-  "fecha_ultima_actualizacion": "2026-04-12",
+  "decreto_actual": "Sin pico y placa verificable vigente (el Decreto 000035 de 2017 venció el 1 de marzo de 2018)",
+  "fecha_ultima_actualizacion": "2026-08-04",
   "notas_generales": [
-    "En Turbaco el Pico y Placa aplica SOLO a motos y motocarros (NO a particulares ni taxis).",
-    "Rotación par/impar: en fechas impares no circulan placas impares, en fechas pares no circulan placas pares.",
-    "Segundo y último viernes de cada mes: Día Sin Moto (restricción total para motos)."
+    "No encontramos pico y placa vigente en Turbaco. Hasta el 4 de agosto de 2026 esta página mostraba una restricción de motos par/impar que era doblemente equivocada, y la retiramos.",
+    "El decreto que citábamos como «Decreto 035 de 2026» no es de tránsito: es el decreto del 13 de marzo de 2026 que acepta la renuncia de un concejal del municipio.",
+    "La medida real fue el artículo 5 del Decreto 000035 del 22 de febrero de 2017, un decreto de seguridad y convivencia. Ese mismo artículo la acotó «desde el 1 de marzo de 2017 hasta el 1 de marzo de 2018»: venció hace más de ocho años.",
+    "Además la teníamos al revés. El decreto enumeraba las placas que SÍ circulaban («los días pares circulan las motocicletas con el último dígito par»), no las restringidas, así que en fecha par lo restringido era el dígito IMPAR. Es el mismo error que ya cometimos en Bogotá al copiar una lista de placas permitidas.",
+    "Aunque hubiera seguido vigente, aplicaba solo de lunes a viernes y únicamente en vías internas de la zona conurbana (Rodeo, Villa Cádiz, Villa Grande de Indias I y II, Villa Sol, Villa Andrea, Bosques de la Ceiba y Bosques de la Circunvalar), exceptuando las vías nacionales. Nunca cubrió todo el municipio ni las 24 horas.",
+    "Verificado el 4 de agosto de 2026 barriendo el repositorio normativo del municipio entre 2018 y 2026: ningún decreto renovó la medida. Las únicas páginas que afirman lo contrario son agregadores que no citan número de decreto.",
+    "Turbaco es vecino de Cartagena, que sí tiene Pico y Placa. Si viajas allá, consulta antes."
   ],
   "exenciones_generales": [],
   "vias_exentas": [],
-  "dias_sin_moto": [
-    "Segundo viernes de cada mes",
-    "Último viernes de cada mes"
-  ],
   "sanciones": {
-    "descripcion": "Multa equivalente a 15 SMLDV más inmovilización del vehículo.",
+    "descripcion": "Multa equivalente a 15 SMLDV más inmovilización del vehículo. Aplica a las restricciones de tránsito que sí estén vigentes.",
     "base_legal": "Artículo 131, literal C, numeral 14 de la Ley 769 de 2002",
     "tipo_multa": "Tipo C",
     "valor_smldv": "15 SMLDV",
-    "valor_aproximado_pesos": 711750,
     "incluye_inmovilizacion": true
   },
   "vehiculos": {
     "particulares": {
       "aplica": false,
-      "descripcion": "Los vehículos particulares NO tienen Pico y Placa en Turbaco."
+      "descripcion": "Los vehículos particulares no tienen Pico y Placa en Turbaco."
     },
     "motos": {
-      "aplica": true,
-      "descripcion": "Motos, motocarros, motociclos, ciclomotores, mototriciclos, tricimotos y cuatrimotos — rotación par/impar por fecha",
-      "criterio_placa": "ultimo_digito",
-      "modalidad": "par_impar_por_fecha",
-      "horario_inicio": "00:00",
-      "horario_fin": "23:59",
-      "horario_texto": "Todo el día (24 horas)",
-      "dias_aplicables": ["lunes", "martes", "miercoles", "jueves", "viernes", "sabado", "domingo"],
-      "aplica_festivos": true,
-      "aplica_fines_de_semana": true,
-      "regla_par_impar": {
-        "fecha_impar": [1, 3, 5, 7, 9],
-        "fecha_par": [0, 2, 4, 6, 8]
-      },
-      "nota_especial": "En fechas impares del calendario no circulan placas terminadas en dígito impar (1,3,5,7,9). En fechas pares no circulan placas terminadas en dígito par (0,2,4,6,8).",
-      "aplican_vias_exentas": false
+      "aplica": false,
+      "descripcion": "No hay Pico y Placa vigente para motos en Turbaco.",
+      "nota": "La restricción par/impar del Decreto 000035 de 2017 venció el 1 de marzo de 2018 y ningún decreto posterior la renovó. Verifica con la Secretaría de Tránsito antes de asumir que no hay medida nueva."
     },
     "taxis": {
       "aplica": false,
-      "descripcion": "Los taxis NO tienen Pico y Placa en Turbaco."
+      "descripcion": "Los taxis no tienen Pico y Placa en Turbaco."
     },
     "transporte_carga": {
       "aplica": false,
-      "descripcion": "El transporte de carga NO tiene Pico y Placa en Turbaco."
+      "descripcion": "El transporte de carga no tiene Pico y Placa en Turbaco."
     }
   },
   "contacto_ciudadano": {

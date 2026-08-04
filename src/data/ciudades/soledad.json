@@ -4,33 +4,30 @@
   "departamento": "Atlántico",
   "coordenadas": [10.9172, -74.7664],
   "autoridad": "Instituto Municipal de Tránsito y Transporte de Soledad (IMTTRASOL)",
-  "autoridad_web": "https://www.soledad-atlantico.gov.co",
-  "autoridad_twitter": "",
-  "decreto_actual": "Decreto 288 de 2017",
-  "fecha_ultima_actualizacion": "2026-04-12",
+  "autoridad_web": "https://transitosoledad.gov.co",
+  "autoridad_twitter": "TransitoSoleda1",
+  "decreto_actual": "Decreto 288 del 6 de julio de 2017",
+  "fecha_ultima_actualizacion": "2026-08-04",
+  "vigencia_indefinida": true,
   "notas_generales": [
     "En Soledad el Pico y Placa aplica SOLO a motos y vehículos similares (NO a particulares ni taxis).",
-    "Soledad tiene su propia regulación municipal (no participa del PyP unificado departamental del Atlántico).",
-    "El día 30 de cada mes hay restricción total de motos (Día Sin Moto).",
-    "Existe además un 'Pico y Color' único para motocarros: azules en días impares, naranjas en días pares."
+    "Soledad tiene su propia regulación municipal y está excluida del Pico y Placa unificado departamental del Atlántico.",
+    "El decreto no tiene fecha de terminación (artículo 15). Que sea de 2017 no significa que esté vencido: el Decreto 00054 del 25 de mayo de 2026 confirma que «continúan vigentes las demás disposiciones contenidas en el Decreto N° 288 de 2017».",
+    "Hay además una prohibición nocturna diaria: motos de 10:00 p.m. a 5:00 a.m. y motocarros de 11:00 p.m. a 5:00 a.m. (artículo 8).",
+    "Existe un 'Pico y Color' único para motocarros: azules restringidos en días impares, naranjas en días pares.",
+    "El «Día Sin Moto» del día 30 fue DEROGADO por el Decreto 00021 del 1 de febrero de 2024. Ya no existe."
   ],
   "exenciones_generales": [
-    "Motos con cilindraje igual o superior a 598 cc",
-    "Trabajadores de TransMetro (uniformados y carnetizados)",
-    "Trabajadores del aeropuerto Ernesto Cortissoz (uniformados y carnetizados)",
-    "Trabajadores de la Terminal de Transportes (uniformados y carnetizados)"
+    "Motos con cilindraje igual o superior a 598 cc (artículo 9)"
   ],
   "vias_exentas": [],
-  "dias_sin_moto": [
-    "Día 30 de cada mes: restricción total de motos, motociclos, ciclomotores, mototriciclos, tricimotos y cuatrimotos"
-  ],
   "pico_y_color": {
     "aplica_a": ["motocarros"],
-    "descripcion": "Regulación exclusiva para motocarros según el color del vehículo. En días impares no circulan los motocarros AZULES (placas impares). En días pares no circulan los motocarros NARANJAS (placas pares).",
-    "norma": "Decreto 274 del 1 de junio de 2016",
+    "descripcion": "Regulación exclusiva para motocarros según el color del vehículo. En días impares se restringen los motocarros AZULES. En días pares se restringen los motocarros NARANJAS.",
+    "norma": "Artículo 7 del Decreto 288 del 6 de julio de 2017",
     "colores": [
-      { "color": "Azul", "placas": "Placas impares (1,3,5,7,9) — no circulan en fechas impares" },
-      { "color": "Naranja", "placas": "Placas pares (0,2,4,6,8) — no circulan en fechas pares" }
+      { "color": "Azul", "placas": "Restringidos en fechas impares del calendario" },
+      { "color": "Naranja", "placas": "Restringidos en fechas pares del calendario" }
     ]
   },
   "sanciones": {
@@ -51,21 +48,21 @@
       "descripcion": "Motos, motociclos, ciclomotores, mototriciclos, tricimotos y cuatrimotos",
       "criterio_placa": "ultimo_digito",
       "modalidad": "semanal_por_dia",
-      "horario_inicio": "00:00",
-      "horario_fin": "23:59",
-      "horario_texto": "Todo el día (lunes a viernes)",
+      "horario_inicio": "05:00",
+      "horario_fin": "22:00",
+      "horario_texto": "5:00 a.m. a 10:00 p.m. (lunes a viernes)",
       "dias_aplicables": ["lunes", "martes", "miercoles", "jueves", "viernes"],
       "aplica_festivos": false,
       "aplica_fines_de_semana": false,
       "rotacion": {
-        "lunes": [1, 2],
-        "martes": [3, 4],
-        "miercoles": [5, 6],
-        "jueves": [7, 8],
+        "lunes": [1, 3],
+        "martes": [2, 4],
+        "miercoles": [5, 7],
+        "jueves": [6, 8],
         "viernes": [9, 0]
       },
       "aplican_vias_exentas": false,
-      "nota_especial": "Exentas: motos con cilindraje ≥ 598 cc y trabajadores uniformados de TransMetro, aeropuerto y Terminal."
+      "nota_especial": "Ojo con la rotación: no va en parejas consecutivas. El decreto empareja 1 y 3 el lunes, 2 y 4 el martes, 5 y 7 el miércoles, 6 y 8 el jueves, y 9 y 0 el viernes. Exentas las motos de 598 cc o más. Aparte, el artículo 4 PROHÍBE circular por los alrededores de TransMetro, el aeropuerto Ernesto Cortissoz y la Terminal de Transportes: son sitios restringidos, no exentos."
     },
     "taxis": {
       "aplica": false,
@@ -78,8 +75,8 @@
   },
   "contacto_ciudadano": {
     "sitio_web_general": "https://www.soledad-atlantico.gov.co",
-    "secretaria_movilidad": "https://www.soledad-atlantico.gov.co",
-    "twitter": "",
+    "secretaria_movilidad": "https://transitosoledad.gov.co",
+    "twitter": "https://x.com/TransitoSoleda1",
     "facebook": "",
     "linea_atencion": "pendiente_verificar",
     "linea_movilidad": "pendiente_verificar"

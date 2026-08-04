@@ -6,18 +6,19 @@
   "autoridad": "Secretaría de Tránsito y Transporte de Malambo",
   "autoridad_web": "https://www.malambo-atlantico.gov.co",
   "autoridad_twitter": "",
-  "decreto_actual": "Decreto municipal 079 de 2024 y Decreto departamental 000362 de 2025",
-  "fecha_ultima_actualizacion": "2026-06-09",
+  "decreto_actual": "Decreto departamental 000362 del 7 de octubre de 2025 (el municipal 079 de 2024 venció)",
+  "fecha_ultima_actualizacion": "2026-08-04",
+  "vigencia_indefinida": true,
   "notas_generales": [
-    "En Malambo el Pico y Placa aplica a motocicletas, motociclos, mototriciclos, motocarros y cuatrimotos según el último dígito de la placa, de lunes a viernes.",
-    "El día 30 de cada mes hay restricción total de motos (Día Sin Moto).",
+    "OJO CON EL ALCANCE: la norma que rige hoy es departamental, no municipal, y aplica en vías secundarias, terciarias y carreteras departamentales. Su parágrafo exige que el municipio expida un acto propio para aplicarla dentro del casco urbano, y no encontramos que Malambo lo haya hecho.",
+    "El Decreto municipal 079 del 31 de enero de 2024 tenía vigencia de un año (artículo noveno) y venció el 31 de enero de 2025. Barrimos los 299 documentos del normograma municipal y no hay decreto de pico y placa posterior.",
+    "Mostramos la rotación departamental porque es la que puede aplicarte en las vías de la zona, pero confirma con la Secretaría de Tránsito antes de asumir que rige en una calle urbana concreta.",
+    "El Decreto departamental incluye además una restricción nocturna de 11:00 p.m. a 4:00 a.m. de viernes a domingo y festivos.",
+    "El «Día Sin Moto» del día 30 ya NO existe: primero pasó al día 20 (Decreto 112 del 7 de marzo de 2024) y luego se eliminó (Decreto 268 de agosto de 2024).",
     "Los vehículos particulares, taxis y transporte de carga NO tienen restricción de Pico y Placa en Malambo."
   ],
   "exenciones_generales": [],
   "vias_exentas": [],
-  "dias_sin_moto": [
-    "Día 30 de cada mes: restricción total de motos, motociclos, mototriciclos, motocarros y cuatrimotos"
-  ],
   "sanciones": {
     "descripcion": "Multa equivalente a 15 SMLDV más inmovilización del vehículo.",
     "base_legal": "Artículo 131, literal C, numeral 14 de la Ley 769 de 2002",
@@ -35,9 +36,9 @@
       "descripcion": "Motocicletas, motociclos, mototriciclos, motocarros y cuatrimotos según el último dígito de la placa",
       "criterio_placa": "ultimo_digito",
       "modalidad": "semanal_por_dia",
-      "horario_inicio": "00:00",
+      "horario_inicio": "08:00",
       "horario_fin": "23:59",
-      "horario_texto": "Todo el día (lunes a viernes)",
+      "horario_texto": "8:00 a.m. a 11:59 p.m. (lunes a viernes)",
       "dias_aplicables": ["lunes", "martes", "miercoles", "jueves", "viernes"],
       "aplica_festivos": false,
       "aplica_fines_de_semana": false,
@@ -48,7 +49,7 @@
         "jueves": [7, 8],
         "viernes": [9, 0]
       },
-      "nota_especial": "El día 30 de cada mes hay restricción total de motos (Día Sin Moto)."
+      "nota_especial": "Esta rotación viene del Decreto departamental 000362 de 2025, que rige en vías secundarias, terciarias y departamentales. Para el casco urbano de Malambo hace falta un acto municipal que no encontramos publicado, así que dentro de la ciudad su exigibilidad es dudosa. La mantenemos visible porque equivocarse por precaución es más barato que un comparendo."
     },
     "taxis": {
       "aplica": false,
