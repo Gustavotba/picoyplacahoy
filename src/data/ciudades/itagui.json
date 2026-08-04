@@ -37,7 +37,7 @@
   ],
   "imagenes_oficiales": [
     {
-      "archivo": "/oficial/medellin-rotacion-2026-2.jpg",
+      "archivo": "/oficial/medellin-rotacion-2026-2.webp",
       "titulo": "Rotación oficial de carros particulares y motos — segundo semestre 2026",
       "tipos": [
         "particulares",
@@ -49,7 +49,7 @@
       "alto": 760
     },
     {
-      "archivo": "/oficial/medellin-taxis-2026-2.jpg",
+      "archivo": "/oficial/medellin-taxis-2026-2.webp",
       "titulo": "Calendario oficial de taxis — segundo semestre 2026",
       "tipos": [
         "taxis"
