@@ -17,6 +17,7 @@ import {
   calcularProximosDias,
   fechaColombia,
   formatearFechaColombia,
+  conMayusculaInicial,
   formatearISO,
   DIAS_LEGIBLES,
   CRITERIO_LEGIBLE,
@@ -50,7 +51,7 @@ const esDebug = !!fechaParam;
 const resultado = calcularPicoPlaca(ciudad, tipo, hoy);
 const etiqueta = ETIQUETAS_VEHICULO[tipo];
 const icono = ICONOS_VEHICULO[tipo];
-const fechaFormateada = formatearFechaColombia(hoy);
+const fechaFormateada = conMayusculaInicial(formatearFechaColombia(hoy));
 const proximosDias = calcularProximosDias(ciudad, tipo, hoy, 30);
 
 const tieneViasExentas = ciudad.vias_exentas && ciudad.vias_exentas.length > 0;
@@ -165,7 +166,7 @@ const bloquesJsonLd = [servicioJsonLd, breadcrumb];
         ? <>{etiqueta} en <a href={`/${ciudad.slug}`} class="text-green-500 hover:text-green-400 hover:underline">{ciudad.nombre}</a> sin Pico y Placa</>
         : <>{etiqueta} — <a href={`/${ciudad.slug}`} class="text-yellow-500 hover:text-yellow-400 hover:underline">{ciudad.nombre}</a></>}
     </h1>
-    <p class="mt-1 text-sm text-gray-500 dark:text-gray-400 capitalize">{fechaFormateada}</p>
+    <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">{fechaFormateada}</p>
   </header>
 
   {!tipoSinRestriccion && <section class="mb-6"><Reloj /></section>}

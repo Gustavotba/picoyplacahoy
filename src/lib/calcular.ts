@@ -41,6 +41,17 @@ export function formatearFechaColombia(fecha: Date): string {
   return format(fecha, "EEEE d 'de' MMMM 'de' yyyy", { locale: es });
 }
 
+/**
+ * Pone en mayúscula únicamente la primera letra.
+ *
+ * Hace falta porque `date-fns` en español devuelve "martes 4 de agosto de 2026"
+ * y la clase `capitalize` de Tailwind escribiría "Martes 4 De Agosto De 2026".
+ * Sí sirve `capitalize` para palabras sueltas como "lun" o "ago".
+ */
+export function conMayusculaInicial(texto: string): string {
+  return texto.charAt(0).toUpperCase() + texto.slice(1);
+}
+
 /** Formatea una fecha como ISO: "2026-04-12" */
 export function formatearISO(fecha: Date): string {
   return format(fecha, 'yyyy-MM-dd');

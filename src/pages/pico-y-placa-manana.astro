@@ -5,6 +5,7 @@ import { breadcrumbJsonLd } from '../lib/seo';
 import {
   fechaColombia,
   formatearFechaColombia,
+  conMayusculaInicial,
   calcularPicoPlaca,
 } from '../lib/calcular';
 
@@ -14,7 +15,10 @@ export const prerender = false;
 const hoy = fechaColombia();
 const manana = new Date(hoy);
 manana.setDate(manana.getDate() + 1);
+// `fechaTexto` va dentro de una frase (la meta descripción), así que se queda
+// en minúscula; `fechaTitulo` es la que se muestra suelta bajo el H1.
 const fechaTexto = formatearFechaColombia(manana);
+const fechaTitulo = conMayusculaInicial(fechaTexto);
 
 interface FilaCiudad {
   slug: string;
@@ -58,7 +62,7 @@ const fmtPlacas = (placas: number[]) => placas.join(' y ');
 
   <header class="mb-6">
     <h1 class="text-3xl font-bold sm:text-4xl">Pico y Placa mañana en Colombia</h1>
-    <p class="mt-2 capitalize text-gray-500 dark:text-gray-400">{fechaTexto}</p>
+    <p class="mt-2 text-gray-500 dark:text-gray-400">{fechaTitulo}</p>
     <p class="mt-1 text-gray-500 dark:text-gray-400">
       Estas son las placas que no podrán circular mañana en cada ciudad. Ya
       tenemos en cuenta si mañana es festivo o fin de semana.

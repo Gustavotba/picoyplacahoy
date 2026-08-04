@@ -4,7 +4,7 @@ import Reloj from '../components/Reloj.astro';
 import MapaColombia from '../components/MapaColombia.astro';
 import TarjetaCiudadHoy from '../components/TarjetaCiudadHoy.astro';
 import { ciudades } from '../lib/ciudades';
-import { fechaColombia, formatearFechaColombia } from '../lib/calcular';
+import { fechaColombia, formatearFechaColombia, conMayusculaInicial } from '../lib/calcular';
 import { resumirCiudades, insigniaDe } from '../lib/resumen';
 import { SITE_URL, SITE_NAME } from '../lib/seo';
 
@@ -18,9 +18,7 @@ const fechaParam = Astro.url.searchParams.get('fecha');
 const hoy = fechaParam ? new Date(fechaParam + 'T12:00:00') : fechaColombia();
 const esDebug = !!fechaParam;
 const fechaFormateada = formatearFechaColombia(hoy);
-// Solo la primera letra. La clase `capitalize` de Tailwind no sirve aquí
-// porque en español produciría "Martes 4 De Agosto De 2026".
-const fechaTitulo = fechaFormateada.charAt(0).toUpperCase() + fechaFormateada.slice(1);
+const fechaTitulo = conMayusculaInicial(fechaFormateada);
 
 const resumenes = resumirCiudades(ciudades, hoy);
 const porSlug = new Map(resumenes.map((r) => [r.slug, r]));
