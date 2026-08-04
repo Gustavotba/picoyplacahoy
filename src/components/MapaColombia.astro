@@ -69,7 +69,9 @@ const datosCliente = JSON.stringify(ciudades);
         });
 
         marker.on('click', () => { window.location.href = `/${c.slug}`; });
-        marker.getElement()?.style.setProperty('cursor', 'pointer');
+        // `as` explícito: Leaflet tipa getElement() como Element, que no tiene
+        // .style, pero para un CircleMarker siempre devuelve un SVGElement.
+        (marker.getElement() as SVGElement | undefined)?.style.setProperty('cursor', 'pointer');
       }
     }
   }

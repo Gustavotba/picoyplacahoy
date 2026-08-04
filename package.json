@@ -9,6 +9,7 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
+    "check": "astro check",
     "astro": "astro",
     "fetch-vias": "tsx src/scripts/fetch-vias-exentas.ts"
   },
@@ -23,6 +24,9 @@
     "tailwindcss": "^4.2.2"
   },
   "devDependencies": {
-    "tsx": "^4.21.0"
+    "@astrojs/check": "^0.9.10",
+    "@types/node": "^26.1.2",
+    "tsx": "^4.21.0",
+    "typescript": "^6.0.3"
   }
 }
