@@ -620,6 +620,17 @@ const bloquesJsonLd = [jsonLdBase, breadcrumb, faqSinPyP].filter(Boolean) as Arr
     </div>
   </section>
 
+  {/* Recuerda la ciudad para que la portada ofrezca el atajo en la próxima
+      visita. Va con define:vars, así que es JavaScript plano y en línea: son
+      tres líneas y no vale la pena un archivo aparte. */}
+  <script is:inline define:vars={{ slugRecordado: ciudad.slug }}>
+    try {
+      localStorage.setItem('picoyplaca:ciudad', slugRecordado);
+    } catch (e) {
+      /* navegación privada o almacenamiento bloqueado: no pasa nada */
+    }
+  </script>
+
   <footer class="pt-4 border-t border-gray-200 dark:border-gray-800 text-sm text-gray-500 dark:text-gray-400">
     <p>
       Última actualización: {ciudad.fecha_ultima_actualizacion}

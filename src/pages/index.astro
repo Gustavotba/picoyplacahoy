@@ -31,16 +31,73 @@ const destacadas = SLUGS_DESTACADAS.map((slug) => porSlug.get(slug)).filter(
 
 const cuantasConRestriccion = resumenes.filter((r) => r.algunoAplica).length;
 
+// Sello de confianza: cuántas ciudades tienen decreto verificado y cuándo se
+// revisó por última vez alguna de ellas. Las fechas están en ISO, así que la
+// más reciente es simplemente la mayor en orden alfabético.
+const ciudadesVerificadas = ciudades.filter(
+  (c) => c.decreto_actual !== 'pendiente_verificar',
+).length;
+const ultimaRevisionISO = ciudades
+  .map((c) => c.fecha_ultima_actualizacion)
+  .filter(Boolean)
+  .sort()
+  .at(-1);
+const ultimaRevision = ultimaRevisionISO
+  ? formatearFechaColombia(new Date(ultimaRevisionISO + 'T12:00:00'))
+  : null;
+
 const titulo = 'Pico y Placa Hoy en Colombia — Consulta tu ciudad';
 const descripcion = `Pico y Placa hoy ${fechaFormateada} en Colombia: consulta qué placas no pueden circular en ${ciudades.length} ciudades — Bogotá, Medellín, Cali, Barranquilla, Bucaramanga y más.`;
 
-const jsonLd = {
-  '@context': 'https://schema.org',
-  '@type': 'WebSite',
-  name: SITE_NAME,
-  url: SITE_URL,
-  description: descripcion,
-};
+/**
+ * Preguntas frecuentes. Van en la página Y en el JSON-LD, escritas una sola vez
+ * para que no puedan quedar diciendo cosas distintas.
+ *
+ * Ojo con la multa: no se da una cifra en pesos porque cambia cada año con el
+ * salario mínimo y las fuentes oficiales se contradicen entre sí. Se explica la
+ * base legal y se enlaza a la página de multas.
+ */
+const PREGUNTAS = [
+  {
+    pregunta: '¿Qué es el pico y placa?',
+    respuesta:
+      'Es una restricción de circulación que aplican las ciudades colombianas para reducir la congestión y la contaminación. Según el día, no pueden circular los vehículos cuya placa termina (o empieza) en ciertos dígitos, dentro de un horario y una zona que fija un decreto de la alcaldía. Cada ciudad tiene sus propias reglas: no existe un pico y placa nacional.',
+  },
+  {
+    pregunta: '¿Cómo sé si mi placa tiene restricción hoy?',
+    respuesta:
+      'Busca tu ciudad en esta página y mira el dígito que aparece en el recuadro amarillo. La mayoría de ciudades se fija en el último número de la placa, pero hay excepciones importantes: en Medellín las motos se miran por el PRIMER número, no por el último. En la página de cada ciudad te decimos cuál se usa para cada tipo de vehículo.',
+  },
+  {
+    pregunta: '¿Aplica el pico y placa los fines de semana y festivos?',
+    respuesta:
+      'Por regla general no: casi todos los decretos rigen de lunes a viernes y se levantan en festivos. Pero hay excepciones reales, como los taxis de Buenaventura, que sí rotan sábados, domingos y festivos. Nuestro calculador ya tiene en cuenta los festivos colombianos, así que lo que ves en pantalla corresponde al día que estás consultando.',
+  },
+  {
+    pregunta: '¿Cuánto cuesta la multa por infringir el pico y placa?',
+    respuesta:
+      'Es una infracción tipo C: 15 salarios mínimos diarios legales vigentes, más la inmovilización del vehículo (artículo 131 de la Ley 769 de 2002). El valor en pesos cambia cada año con el salario mínimo, y algunas alcaldías publican cifras que no coinciden entre sí, así que conviene confirmar el monto vigente con la secretaría de movilidad de tu ciudad.',
+  },
+];
+
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: SITE_NAME,
+    url: SITE_URL,
+    description: descripcion,
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: PREGUNTAS.map((p) => ({
+      '@type': 'Question',
+      name: p.pregunta,
+      acceptedAnswer: { '@type': 'Answer', text: p.respuesta },
+    })),
+  },
+];
 
 // Datos para el mapa
 const ciudadesMarkers = ciudades
@@ -89,6 +146,28 @@ const ENLACES_UTILES = [
     <Reloj />
   </section>
 
+  {/*
+    Atajo a la última ciudad consultada. Nace oculto y lo enciende el script
+    del final: la mayoría de la gente consulta la misma ciudad todos los días,
+    así que se ahorra el clic diario. Los datos no se repiten — se copian de la
+    lista de abajo, que ya viene resuelta desde el servidor.
+  */}
+  <section id="tu-ciudad" class="mb-6 hidden">
+    <a
+      id="tu-ciudad-enlace"
+      href="/"
+      class="flex items-center justify-between gap-3 rounded-xl border-2 border-yellow-300 bg-yellow-50 px-4 py-3 transition-colors hover:border-yellow-400 dark:border-yellow-700 dark:bg-yellow-950/20"
+    >
+      <span class="min-w-0">
+        <span class="block text-[11px] uppercase tracking-wide text-gray-500 dark:text-gray-400">
+          Tu ciudad
+        </span>
+        <span id="tu-ciudad-nombre" class="block truncate font-bold"></span>
+      </span>
+      <span id="tu-ciudad-estado" class="flex shrink-0 items-center gap-1.5"></span>
+    </a>
+  </section>
+
   <!-- Respuesta inmediata: qué placas no circulan hoy en las ciudades grandes -->
   <section class="mb-6">
     <h2 class="text-center text-xl font-bold">
@@ -106,6 +185,19 @@ const ENLACES_UTILES = [
       {cuantasConRestriccion > 0
         ? `Hoy hay restricción en ${cuantasConRestriccion} de las ${ciudades.length} ciudades. Toca una ciudad para ver horarios y excepciones.`
         : 'Hoy no hay restricción en ninguna de las ciudades registradas. Verifica siempre con la fuente oficial.'}
+    </p>
+
+    {/* Sello de confianza: es el diferencial frente a los agregadores que
+        reciclan tablas viejas, así que va visible junto a la respuesta. */}
+    <p class="mt-3 flex flex-wrap items-center justify-center gap-x-2 gap-y-1 text-center text-xs text-gray-500 dark:text-gray-400">
+      <span class="inline-flex items-center gap-1 font-medium text-green-700 dark:text-green-400">
+        <svg class="h-3.5 w-3.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7" />
+        </svg>
+        {ciudadesVerificadas} ciudades verificadas en decretos oficiales
+      </span>
+      {ultimaRevision && <span class="text-gray-300 dark:text-gray-600">·</span>}
+      {ultimaRevision && <span>Última revisión: {ultimaRevision}</span>}
     </p>
   </section>
 
@@ -144,10 +236,11 @@ const ENLACES_UTILES = [
         return (
           <a
             href={`/${resumen.slug}`}
+            data-ciudad={resumen.slug}
             class="flex items-center justify-between gap-2 rounded-lg border border-gray-200 px-3 py-2.5 text-sm transition-colors hover:border-yellow-400 hover:bg-yellow-50 dark:border-gray-700 dark:hover:bg-yellow-950/20"
           >
-            <span class="font-medium">{resumen.nombre}</span>
-            <span class="flex shrink-0 items-center gap-1.5">
+            <span class="font-medium" data-nombre>{resumen.nombre}</span>
+            <span class="flex shrink-0 items-center gap-1.5" data-insignia>
               {insignia.etiqueta && (
                 <span class="text-[10px] uppercase tracking-wide text-gray-400">
                   {insignia.etiqueta}
@@ -168,6 +261,29 @@ const ENLACES_UTILES = [
     </div>
   </section>
 
+  <!-- Preguntas frecuentes (también van en el JSON-LD, ver PREGUNTAS arriba) -->
+  <section class="mb-8">
+    <h2 class="mb-3 text-lg font-bold">Preguntas frecuentes sobre el pico y placa</h2>
+    <div class="divide-y divide-gray-200 rounded-lg border border-gray-200 dark:divide-gray-700 dark:border-gray-700">
+      {PREGUNTAS.map((p, indice) => (
+        <details class="group" open={indice === 0}>
+          <summary class="flex cursor-pointer items-center justify-between gap-3 px-4 py-3 text-sm font-semibold hover:bg-yellow-50 dark:hover:bg-yellow-950/20">
+            <span>{p.pregunta}</span>
+            <span class="shrink-0 text-gray-400 transition-transform group-open:rotate-45" aria-hidden="true">+</span>
+          </summary>
+          <p class="px-4 pb-4 text-sm leading-relaxed text-gray-600 dark:text-gray-400">
+            {p.respuesta}
+          </p>
+        </details>
+      ))}
+    </div>
+    <p class="mt-2 text-sm">
+      <a href="/preguntas-frecuentes" class="text-yellow-700 hover:underline dark:text-yellow-500">
+        Ver todas las preguntas frecuentes →
+      </a>
+    </p>
+  </section>
+
   <!-- Por qué confiar en estos datos -->
   <section class="rounded-lg border border-gray-200 bg-gray-50 p-4 text-sm dark:border-gray-700 dark:bg-gray-900">
     <h2 class="mb-1 font-bold">De dónde salen estos datos</h2>
@@ -177,6 +293,53 @@ const ENLACES_UTILES = [
       decreto y el enlace a la fuente. Cuando no tenemos el documento oficial lo
       decimos: verás un <span class="font-mono font-bold">?</span> en vez de un
       dato inventado.
+      {ultimaRevision && <> La última revisión de datos fue el {ultimaRevision}.</>}
     </p>
   </section>
 </Principal>
+
+<script>
+  /**
+   * Enciende el atajo "Tu ciudad" con la última ciudad que visitó el usuario
+   * (la guarda la página de ciudad en localStorage).
+   *
+   * No trae datos nuevos: copia el nombre y la insignia de la lista "Todas las
+   * ciudades hoy", que el servidor ya calculó. Así el atajo no puede decir algo
+   * distinto a lo que muestra la lista.
+   */
+  const CLAVE_CIUDAD = 'picoyplaca:ciudad';
+
+  function mostrarCiudadRecordada() {
+    let slug: string | null = null;
+    try {
+      slug = localStorage.getItem(CLAVE_CIUDAD);
+    } catch {
+      return; // navegación privada o almacenamiento bloqueado
+    }
+
+    // El valor viene de localStorage, que el usuario puede editar: se valida
+    // antes de meterlo en un selector.
+    if (!slug || !/^[a-z0-9-]+$/.test(slug)) return;
+
+    const enLista = document.querySelector<HTMLAnchorElement>(`a[data-ciudad="${slug}"]`);
+    const caja = document.getElementById('tu-ciudad');
+    const enlace = document.getElementById('tu-ciudad-enlace') as HTMLAnchorElement | null;
+    const nombre = document.getElementById('tu-ciudad-nombre');
+    const estado = document.getElementById('tu-ciudad-estado');
+    if (!enLista || !caja || !enlace || !nombre || !estado) return;
+
+    const insignia = enLista.querySelector('[data-insignia]');
+    if (!insignia) return;
+
+    enlace.href = enLista.getAttribute('href') ?? `/${slug}`;
+    nombre.textContent = enLista.querySelector('[data-nombre]')?.textContent ?? '';
+    estado.replaceChildren(insignia.cloneNode(true));
+    caja.classList.remove('hidden');
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', mostrarCiudadRecordada);
+  } else {
+    mostrarCiudadRecordada();
+  }
+</script>
