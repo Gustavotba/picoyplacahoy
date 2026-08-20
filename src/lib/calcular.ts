@@ -210,6 +210,29 @@ export function calcularPicoPlaca(
     };
   }
 
+  // Suspensión temporal decretada: la medida existe pero no se está aplicando
+  // (ej. Quibdó tras el sismo del 10 de agosto de 2026). Se explica el motivo
+  // para que la página no diga "no aplica" a secas.
+  if (ciudad.suspension_temporal) {
+    const s = ciudad.suspension_temporal;
+    const fechaISO = formatearISO(fecha);
+    if (fechaISO >= s.desde && fechaISO <= s.hasta) {
+      return {
+        aplica: false,
+        esFestivo: festivo,
+        esDiaHabil: true,
+        esPendiente: false,
+        datosDesactualizados: false,
+        esSuspendido: true,
+        placasRestringidas: [],
+        horarioTexto: vehiculoActivo.horario_texto,
+        criterioPlaca: vehiculoActivo.criterio_placa as ResultadoPicoPlaca['criterioPlaca'],
+        descripcionVehiculo: vehiculoActivo.descripcion,
+        mensaje: `El Pico y Placa está suspendido temporalmente por ${s.motivo} (${s.decreto}). Hoy puedes circular; la medida se retoma al terminar el ${s.hasta}.`,
+      };
+    }
+  }
+
   // Verificar vigencia (solo para días hábiles, donde sí importa qué decreto rige)
   if (!dentroDeVigencia(ciudad, fecha)) {
     return {
@@ -235,6 +258,8 @@ export function calcularPicoPlaca(
       datosDesactualizados: false,
       placasRestringidas: placas,
       horarioTexto: vehiculo.horario_texto,
+      horarioInicio: vehiculo.horario_inicio,
+      horarioFin: vehiculo.horario_fin,
       criterioPlaca: vehiculo.criterio_placa,
       descripcionVehiculo: vehiculo.descripcion,
       mensaje: placas.length > 0
@@ -261,6 +286,8 @@ export function calcularPicoPlaca(
       datosDesactualizados: false,
       placasRestringidas: placasHoy,
       horarioTexto: vehiculo.horario_texto,
+      horarioInicio: vehiculo.horario_inicio,
+      horarioFin: vehiculo.horario_fin,
       criterioPlaca: vehiculo.criterio_placa,
       descripcionVehiculo: vehiculo.descripcion,
       mensaje: placasHoy.length > 0
@@ -283,6 +310,8 @@ export function calcularPicoPlaca(
       datosDesactualizados: false,
       placasRestringidas: placas,
       horarioTexto: vehiculo.horario_texto,
+      horarioInicio: vehiculo.horario_inicio,
+      horarioFin: vehiculo.horario_fin,
       criterioPlaca: vehiculo.criterio_placa,
       descripcionVehiculo: vehiculo.descripcion,
       mensaje: placas.length > 0

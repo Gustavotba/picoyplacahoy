@@ -6,7 +6,7 @@ import MapaViasExentas from '../../components/MapaViasExentas.astro';
 import PicoYPlacaSolidarioComp from '../../components/PicoYPlacaSolidario.astro';
 import ImagenesOficiales from '../../components/ImagenesOficiales.astro';
 import { obtenerCiudad, tiposVehiculo, ciudades } from '../../lib/ciudades';
-import { calcularPicoPlaca, fechaColombia, formatearFechaColombia, conMayusculaInicial } from '../../lib/calcular';
+import { calcularPicoPlaca, fechaColombia, formatearFechaColombia, conMayusculaInicial, formatearISO } from '../../lib/calcular';
 import { ETIQUETAS_VEHICULO, ICONOS_VEHICULO } from '../../lib/tipos';
 import type { TipoVehiculo, PicoYPlacaSolidario } from '../../lib/tipos';
 import { breadcrumbJsonLd } from '../../lib/seo';
@@ -405,7 +405,7 @@ const bloquesJsonLd = [jsonLdBase, breadcrumb, faqSinPyP].filter(Boolean) as Arr
 
       <section class="grid grid-cols-1 gap-4 sm:grid-cols-2 mb-8">
         {resultados.map(({ tipo, resultado }) => (
-          <TarjetaVehiculo slugCiudad={ciudad.slug} tipo={tipo as TipoVehiculo} resultado={resultado} />
+          <TarjetaVehiculo slugCiudad={ciudad.slug} tipo={tipo as TipoVehiculo} resultado={resultado} fechaISO={formatearISO(hoy)} esSimulacion={esDebug} />
         ))}
       </section>
 

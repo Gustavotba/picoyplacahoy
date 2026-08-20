@@ -4,6 +4,7 @@ import Reloj from '../../components/Reloj.astro';
 import MapaViasExentas from '../../components/MapaViasExentas.astro';
 import ImagenesOficiales from '../../components/ImagenesOficiales.astro';
 import DescargarCalendario from '../../components/DescargarCalendario.astro';
+import ConteoRegresivo from '../../components/ConteoRegresivo.astro';
 import { obtenerCiudad, obtenerSlugs, tiposVehiculo, ciudades } from '../../lib/ciudades';
 
 // GeoJSON de vías exentas por ciudad
@@ -233,6 +234,7 @@ const bloquesJsonLd = [servicioJsonLd, breadcrumb];
         ]}>
           {resultado.datosDesactualizados ? 'Datos desactualizados'
             : resultado.esPendiente ? 'Pendiente de verificar'
+            : resultado.esSuspendido ? 'Suspendido temporalmente — No aplica'
             : resultado.aplica ? 'Hoy aplica Pico y Placa'
             : resultado.esFestivo ? 'Hoy es festivo — No aplica'
             : !resultado.esDiaHabil && resultado.horarioTexto ? 'Hoy no aplica (fin de semana)'
@@ -257,6 +259,9 @@ const bloquesJsonLd = [servicioJsonLd, breadcrumb];
             {placaTexto}
           </p>
         </div>
+
+        {/* Conteo regresivo de la jornada de hoy */}
+        <ConteoRegresivo resultado={resultado} tipo={tipo} fechaISO={formatearISO(hoy)} esSimulacion={esDebug} tamano="grande" />
 
         {resultado.horarioTexto && !resultado.esPendiente && !resultado.datosDesactualizados && (
           <p class="mt-4 text-sm text-gray-500 dark:text-gray-400">

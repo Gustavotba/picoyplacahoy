@@ -1,0 +1,302 @@
+---
+// "La carretera del día": conteo regresivo de la restricción de HOY.
+//
+// El vehículo (el mismo ícono de la tarjeta) avanza por una carretera desde la
+// hora de inicio hasta la meta (fin de la restricción), con el tiempo restante
+// corriendo en vivo. Tres estados: antes de la franja ("Empieza en"), dentro
+// ("Termina en") y después ("Terminó por hoy").
+//
+// Reglas importantes:
+// - Solo se muestra para el día REAL (nunca con ?fecha=, porque el conteo
+//   diría una mentira sobre una fecha simulada).
+// - Usa el horario envolvente (horario_inicio → horario_fin). En ciudades con
+//   varias franjas (ej. Cúcuta) marca el inicio y el fin de la jornada; el
+//   detalle de franjas ya lo dice el texto de horario que acompaña la tarjeta.
+// - La hora se calcula SIEMPRE en zona America/Bogota (Colombia no cambia de
+//   hora), sin importar la zona horaria del visitante.
+// - Si el visitante deja la página abierta y en Colombia cambia el día, el
+//   conteo deja de afirmar cosas y pide actualizar.
+import type { TipoVehiculo, ResultadoPicoPlaca } from '../lib/tipos';
+import { ICONOS_VEHICULO } from '../lib/tipos';
+
+interface Props {
+  resultado: ResultadoPicoPlaca;
+  tipo: TipoVehiculo;
+  /** Fecha (YYYY-MM-DD) con la que el servidor pintó la página */
+  fechaISO: string;
+  /** true cuando la página se está viendo con ?fecha= (fecha simulada) */
+  esSimulacion?: boolean;
+  tamano?: 'compacto' | 'grande';
+}
+
+const { resultado, tipo, fechaISO, esSimulacion = false, tamano = 'compacto' } = Astro.props;
+const icono = ICONOS_VEHICULO[tipo];
+const esGrande = tamano === 'grande';
+
+/** "05:00" → minutos desde medianoche; null si el dato no viene en HH:MM */
+function aMinutos(hora?: string): number | null {
+  if (!hora) return null;
+  const m = /^(\d{1,2}):(\d{2})$/.exec(hora);
+  if (!m) return null;
+  return Number(m[1]) * 60 + Number(m[2]);
+}
+
+const inicioMin = aMinutos(resultado.horarioInicio);
+const finMin = aMinutos(resultado.horarioFin);
+
+const mostrar = !esSimulacion && resultado.aplica && inicioMin !== null && finMin !== null;
+// Copias sin null para que TypeScript no proteste dentro del marcado
+const ini = inicioMin ?? 0;
+const fin = finMin ?? 0;
+// Una franja que "termina" antes de empezar cruza la medianoche (ej. 22:00 → 06:00)
+const cruzaMedianoche = fin <= ini;
+
+function horaLegible(min: number): string {
+  const h24 = Math.floor(min / 60) % 24;
+  const m = min % 60;
+  const sufijo = h24 < 12 ? 'a. m.' : 'p. m.';
+  const h12 = h24 % 12 === 0 ? 12 : h24 % 12;
+  return m === 0 ? `${h12} ${sufijo}` : `${h12}:${String(m).padStart(2, '0')} ${sufijo}`;
+}
+---
+
+{mostrar && (
+  <div
+    class:list={['w-full', esGrande ? 'mt-5 max-w-[340px]' : 'mt-3 max-w-[230px]']}
+    data-conteo
+    data-inicio={String(ini)}
+    data-fin={String(fin)}
+    data-fecha={fechaISO}
+  >
+    {/* Frase fija para lectores de pantalla; los números que corren son visuales */}
+    <p class="sr-only">
+      La restricción de hoy va de {horaLegible(ini)} a {horaLegible(fin)}{cruzaMedianoche ? ' del día siguiente' : ''}.
+    </p>
+
+    {/* Estado + tiempo restante */}
+    <div class="flex items-center justify-between gap-2" aria-hidden="true">
+      <span class="flex min-w-0 items-center gap-1.5">
+        <span
+          data-rol="punto"
+          class:list={['inline-block shrink-0 rounded-full bg-gray-300 dark:bg-gray-600', esGrande ? 'h-2.5 w-2.5' : 'h-2 w-2']}
+        ></span>
+        <span
+          data-rol="etiqueta"
+          class:list={['truncate font-semibold text-gray-500 dark:text-gray-400', esGrande ? 'text-sm' : 'text-xs']}
+        >Hoy</span>
+      </span>
+      <span
+        data-rol="tiempo"
+        class:list={['font-mono font-bold tabular-nums leading-none text-gray-400 dark:text-gray-500', esGrande ? 'text-2xl' : 'text-base']}
+      >0:00:00</span>
+    </div>
+
+    {/* La carretera: asfalto, tramo rojo restante, línea discontinua y el vehículo */}
+    <div
+      aria-hidden="true"
+      class:list={['relative mt-2 rounded-full bg-gray-700 ring-1 ring-gray-300 dark:bg-gray-950 dark:ring-gray-700', esGrande ? 'h-3.5' : 'h-2.5']}
+    >
+      <div data-rol="restante" class="absolute inset-y-0 right-0 rounded-full bg-red-600/90" style="left:0%"></div>
+      <div class="linea-carretera absolute inset-x-1.5 top-1/2 -translate-y-1/2"></div>
+      <div
+        data-rol="vehiculo"
+        class:list={['absolute top-1/2 z-10 flex -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-white shadow-md ring-2 ring-gray-400 dark:ring-gray-500', esGrande ? 'h-8 w-8' : 'h-6 w-6']}
+        style="left:0%"
+      >
+        <img src={icono} alt="" class={esGrande ? 'h-5 w-5' : 'h-4 w-4'} />
+      </div>
+      <span class:list={['absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/2 select-none leading-none', esGrande ? 'text-base' : 'text-sm']}>🏁</span>
+    </div>
+
+    {/* Horas de inicio y fin de la jornada */}
+    <div class="mt-1.5 flex justify-between font-mono text-[10px] text-gray-400 dark:text-gray-500" aria-hidden="true">
+      <span>{horaLegible(ini)}</span>
+      <span>{horaLegible(fin)}{cruzaMedianoche ? ' (día sig.)' : ''}</span>
+    </div>
+  </div>
+)}
+
+<style>
+  /* Línea central discontinua de la carretera, como la pintura vial */
+  .linea-carretera {
+    height: 2px;
+    border-radius: 1px;
+    background-image: repeating-linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0.7) 0 6px,
+      transparent 6px 14px
+    );
+  }
+</style>
+
+<script>
+  // Un solo reloj mueve TODOS los conteos de la página (en la página de ciudad
+  // hay hasta 4 tarjetas a la vez). Astro incluye este script una sola vez.
+  const raices = document.querySelectorAll<HTMLElement>('[data-conteo]');
+
+  if (raices.length > 0) {
+    // Hora de Colombia sin depender de la zona del visitante.
+    // 'en-CA' porque su formato de fecha ya es YYYY-MM-DD.
+    const formatoBogota = new Intl.DateTimeFormat('en-CA', {
+      timeZone: 'America/Bogota',
+      year: 'numeric', month: '2-digit', day: '2-digit',
+      hour: '2-digit', minute: '2-digit', second: '2-digit',
+      hour12: false,
+    });
+
+    const ETIQUETAS: Record<string, string> = {
+      antes: 'Empieza en',
+      durante: 'Termina en',
+      despues: 'Terminó por hoy',
+      otro_dia: 'Ya es otro día — actualiza',
+    };
+    const CLASE_TIEMPO: Record<string, string> = {
+      antes: 'text-amber-600 dark:text-amber-400',
+      durante: 'text-red-600 dark:text-red-400',
+      despues: 'text-green-600 dark:text-green-500',
+      otro_dia: 'text-gray-400 dark:text-gray-500',
+    };
+    const CLASE_PUNTO: Record<string, string> = {
+      antes: 'bg-amber-400 animate-pulse motion-reduce:animate-none',
+      durante: 'bg-red-500 animate-pulse motion-reduce:animate-none',
+      despues: 'bg-green-500',
+      otro_dia: 'bg-gray-400 dark:bg-gray-600',
+    };
+    const CLASE_ETIQUETA: Record<string, string> = {
+      antes: 'text-amber-700 dark:text-amber-400',
+      durante: 'text-red-700 dark:text-red-400',
+      despues: 'text-green-700 dark:text-green-500',
+      otro_dia: 'text-gray-500 dark:text-gray-400',
+    };
+
+    interface Conteo {
+      inicio: number; // segundos desde medianoche
+      fin: number;
+      cruzaMedianoche: boolean;
+      fecha: string; // YYYY-MM-DD con la que el servidor pintó la página
+      estado: string;
+      punto: HTMLElement;
+      etiqueta: HTMLElement;
+      tiempo: HTMLElement;
+      restante: HTMLElement;
+      vehiculo: HTMLElement;
+      basePunto: string;
+      baseEtiqueta: string;
+      baseTiempo: string;
+    }
+
+    // Las clases de color se apartan de la base para poder intercambiarlas por estado
+    const sinColor = (el: HTMLElement) =>
+      el.className
+        .split(' ')
+        .filter((c) => !c.includes('text-gray') && !c.includes('bg-gray'))
+        .join(' ');
+
+    const conteos: Conteo[] = [];
+    for (const raiz of raices) {
+      const punto = raiz.querySelector<HTMLElement>('[data-rol="punto"]');
+      const etiqueta = raiz.querySelector<HTMLElement>('[data-rol="etiqueta"]');
+      const tiempo = raiz.querySelector<HTMLElement>('[data-rol="tiempo"]');
+      const restante = raiz.querySelector<HTMLElement>('[data-rol="restante"]');
+      const vehiculo = raiz.querySelector<HTMLElement>('[data-rol="vehiculo"]');
+      if (!punto || !etiqueta || !tiempo || !restante || !vehiculo) continue;
+
+      const inicio = Number(raiz.dataset.inicio) * 60;
+      const fin = Number(raiz.dataset.fin) * 60;
+
+      conteos.push({
+        inicio,
+        fin,
+        cruzaMedianoche: fin <= inicio,
+        fecha: raiz.dataset.fecha ?? '',
+        estado: '',
+        punto, etiqueta, tiempo, restante, vehiculo,
+        basePunto: sinColor(punto),
+        baseEtiqueta: sinColor(etiqueta),
+        baseTiempo: sinColor(tiempo),
+      });
+    }
+
+    const DIA = 86400;
+
+    function formatearRestante(segundos: number): string {
+      const h = Math.floor(segundos / 3600);
+      const m = Math.floor((segundos % 3600) / 60);
+      const s = Math.floor(segundos % 60);
+      return `${h}:${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
+    }
+
+    function tic() {
+      const partes: Record<string, string> = {};
+      for (const p of formatoBogota.formatToParts(new Date())) partes[p.type] = p.value;
+      const fechaHoy = `${partes.year}-${partes.month}-${partes.day}`;
+      // (hora % 24) porque algunos navegadores devuelven "24" a medianoche
+      const seg = (Number(partes.hour) % 24) * 3600 + Number(partes.minute) * 60 + Number(partes.second);
+
+      for (const c of conteos) {
+        let estado: string;
+        let faltan = 0;
+        let progreso = 0;
+
+        if (fechaHoy !== c.fecha) {
+          // La página quedó abierta y en Colombia ya es otro día: dejar de contar
+          estado = 'otro_dia';
+          progreso = 1;
+        } else if (c.cruzaMedianoche) {
+          // Franja tipo 10 p. m. → 6 a. m.: la madrugada pertenece a la
+          // jornada que empezó ayer; la de hoy arranca en la noche.
+          const duracion = c.fin + DIA - c.inicio;
+          if (seg < c.fin) {
+            estado = 'durante';
+            faltan = c.fin - seg;
+            progreso = (seg + DIA - c.inicio) / duracion;
+          } else if (seg < c.inicio) {
+            estado = 'antes';
+            faltan = c.inicio - seg;
+          } else {
+            estado = 'durante';
+            faltan = c.fin + DIA - seg;
+            progreso = (seg - c.inicio) / duracion;
+          }
+        } else if (seg < c.inicio) {
+          estado = 'antes';
+          faltan = c.inicio - seg;
+        } else if (seg < c.fin) {
+          estado = 'durante';
+          faltan = c.fin - seg;
+          progreso = (seg - c.inicio) / (c.fin - c.inicio);
+        } else {
+          estado = 'despues';
+          progreso = 1;
+        }
+
+        // Texto del contador
+        if (estado === 'durante' || estado === 'antes') {
+          c.tiempo.textContent = formatearRestante(faltan);
+        } else if (estado === 'despues') {
+          c.tiempo.textContent = '✓';
+        } else {
+          c.tiempo.textContent = '—';
+        }
+
+        // Posición del vehículo y del tramo rojo que falta por recorrer
+        const pct = Math.min(100, Math.max(0, progreso * 100));
+        c.vehiculo.style.left = `${pct}%`;
+        c.restante.style.left = `${pct}%`;
+        c.restante.style.display = estado === 'despues' || estado === 'otro_dia' ? 'none' : '';
+
+        // Colores y textos de estado, solo cuando el estado cambia
+        if (estado !== c.estado) {
+          c.estado = estado;
+          c.etiqueta.textContent = ETIQUETAS[estado];
+          c.punto.className = `${c.basePunto} ${CLASE_PUNTO[estado]}`;
+          c.etiqueta.className = `${c.baseEtiqueta} ${CLASE_ETIQUETA[estado]}`;
+          c.tiempo.className = `${c.baseTiempo} ${CLASE_TIEMPO[estado]}`;
+        }
+      }
+    }
+
+    tic();
+    setInterval(tic, 1000);
+  }
+</script>

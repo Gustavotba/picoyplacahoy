@@ -2,14 +2,19 @@
 import type { TipoVehiculo, ResultadoPicoPlaca } from '../lib/tipos';
 import { ETIQUETAS_VEHICULO, ICONOS_VEHICULO } from '../lib/tipos';
 import { CRITERIO_LEGIBLE, placaDestacada } from '../lib/calcular';
+import ConteoRegresivo from './ConteoRegresivo.astro';
 
 interface Props {
   slugCiudad: string;
   tipo: TipoVehiculo;
   resultado: ResultadoPicoPlaca;
+  /** Fecha (YYYY-MM-DD) que pintó el servidor, para el conteo regresivo */
+  fechaISO: string;
+  /** true cuando la página se ve con ?fecha= (fecha simulada) */
+  esSimulacion?: boolean;
 }
 
-const { slugCiudad, tipo, resultado } = Astro.props;
+const { slugCiudad, tipo, resultado, fechaISO, esSimulacion = false } = Astro.props;
 const etiqueta = ETIQUETAS_VEHICULO[tipo];
 const icono = ICONOS_VEHICULO[tipo];
 const criterioTexto = resultado.criterioPlaca ? CRITERIO_LEGIBLE[resultado.criterioPlaca] : '';
@@ -86,6 +91,8 @@ const tamanoPlaca = cuantasPlacas >= 3 && cuantasPlacas < 10 ? 'text-3xl' : 'tex
         ? 'Datos desactualizados'
         : resultado.esPendiente
           ? 'Pendiente de verificar'
+          : resultado.esSuspendido
+          ? 'Suspendido temporalmente — No aplica'
           : resultado.aplica
             ? 'Hoy aplica Pico y Placa'
             : resultado.esFestivo
@@ -114,6 +121,9 @@ const tamanoPlaca = cuantasPlacas >= 3 && cuantasPlacas < 10 ? 'text-3xl' : 'tex
         {placaTexto}
       </p>
     </div>
+
+    {/* Conteo regresivo de la jornada de hoy */}
+    <ConteoRegresivo resultado={resultado} tipo={tipo} fechaISO={fechaISO} esSimulacion={esSimulacion} />
 
     {/* Horario */}
     {resultado.horarioTexto && !resultado.esPendiente && !resultado.datosDesactualizados && (

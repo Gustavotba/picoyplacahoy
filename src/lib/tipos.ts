@@ -267,6 +267,17 @@ export interface Ciudad {
    * dato incompleto. Pereira y Dosquebradas son así; Medellín o Cali, no.
    */
   vigencia_indefinida?: boolean;
+  /**
+   * Suspensión temporal decretada de TODA la medida (ej. Quibdó tras el sismo
+   * del 10 de agosto de 2026). Mientras la fecha esté dentro del rango, el
+   * motor responde "no aplica" explicando el motivo. Fechas inclusive, en ISO.
+   */
+  suspension_temporal?: {
+    desde: string;
+    hasta: string;
+    motivo: string;
+    decreto: string;
+  };
   notas_generales?: string[];
   exenciones_generales?: string[];
   vias_exentas?: string[];
@@ -299,9 +310,14 @@ export interface ResultadoPicoPlaca {
   esDiaHabil: boolean;
   esPendiente: boolean;
   datosDesactualizados: boolean;
+  /** La medida existe pero está suspendida por decreto en esta fecha */
+  esSuspendido?: boolean;
   placasRestringidas: number[];
   horarioTexto: string;
   criterioPlaca?: CriterioPlaca;
+  /** Horas de inicio y fin de la jornada de hoy (HH:MM), para el conteo regresivo */
+  horarioInicio?: string;
+  horarioFin?: string;
   descripcionVehiculo?: string;
   mensaje: string;
 }
