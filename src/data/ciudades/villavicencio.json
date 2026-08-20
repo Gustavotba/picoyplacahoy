@@ -7,8 +7,8 @@
   "autoridad_web": "https://www.villavicencio.gov.co",
   "autoridad_twitter": "AlcaldiaVillavo",
   "decreto_actual": "Decreto 015 de 2026",
-  "fecha_ultima_actualizacion": "2026-06-09",
-  "vigencia_desde": "2026-01-26",
+  "fecha_ultima_actualizacion": "2026-08-19",
+  "vigencia_desde": "2026-01-21",
   "vigencia_hasta": "2026-12-22",
   "notas_generales": [
     "La medida para particulares aplica de lunes a viernes en dos franjas: 6:30 a 9:30 a.m. y 5:00 a 8:00 p.m., según el último dígito de la placa.",
@@ -62,7 +62,7 @@
         "jueves": ["pendiente_verificar"],
         "viernes": ["pendiente_verificar"]
       },
-      "notas": "Los taxis SÍ tienen Pico y Placa en Villavicencio: aplica de lunes a domingo entre las 6:00 a.m. y la medianoche, según el último dígito de la placa nacional. El decreto autoriza la circulación solo para mantenimiento entre 6:30-8:30 a.m., 1:00-2:00 p.m. y 3:00-5:00 p.m., con aviso visible de 'Fuera de servicio' y sin pasajeros. Consulta el dígito restringido del día con la Secretaría de Movilidad."
+      "notas": "Los taxis SÍ tienen Pico y Placa en Villavicencio (artículo 3 del Decreto 015 de 2026): un dígito por día, de lunes a domingo (festivos incluidos) entre las 6:00 a.m. y la medianoche, en TODA el área urbana, según el último dígito de la placa y el día calendario del mes (tablas mensuales impresas en el decreto; el ciclo avanza un dígito por día, con el 3 de junio y el 31 de octubre exentos). Del 21 de enero al 22 de diciembre de 2026. POR QUÉ NO MOSTRAMOS EL DÍGITO: la tabla oficial del decreto y los dígitos que publica la prensa en agosto de 2026 difieren en un dígito y ninguna fuente oficial diaria nos permitió desempatar; antes que arriesgarte a una multa, consulta el turno del día en las redes oficiales de la Alcaldía (@villavioalcaldia). Mantenimiento: solo 6:30-8:30 a.m., 1:00-2:00 p.m. y 3:00-5:00 p.m., con aviso de 'Fuera de servicio' y únicamente el conductor. Sanción C.14 más inmovilización."
     },
     "transporte_carga": {
       "aplica": false,

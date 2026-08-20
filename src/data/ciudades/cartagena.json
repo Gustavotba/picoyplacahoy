@@ -40,7 +40,7 @@
       "criterio_placa": "ultimo_digito",
       "modalidad": "semanal_por_dia",
       "horario_inicio": "07:00",
-      "horario_fin": "09:00",
+      "horario_fin": "20:00",
       "horario_texto": "7:00-9:00 a.m. y 6:00-8:00 p.m. (dos franjas)",
       "dias_aplicables": [
         "lunes",

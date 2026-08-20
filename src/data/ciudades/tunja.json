@@ -6,44 +6,44 @@
   "autoridad": "Secretaría de Movilidad y Vida Territorial de Tunja",
   "autoridad_web": "https://www.tunja-boyaca.gov.co",
   "autoridad_twitter": "",
-  "decreto_actual": "Decreto 0399 de 2024",
-  "fecha_ultima_actualizacion": "2026-04-12",
-  "vigencia_desde": "2024-09-19",
-  "vigencia_hasta": "2026-12-31",
+  "decreto_actual": "Decreto 0399 del 19 de septiembre de 2024 (vigencia indefinida)",
+  "fecha_ultima_actualizacion": "2026-08-19",
+  "vigencia_desde": "2024-09-30",
+  "vigencia_indefinida": true,
   "notas_generales": [
-    "El Pico y Placa en Tunja aplica SOLO a vehículos particulares (NO a motos ni taxis).",
-    "Opera en 3 franjas horarias con hora valle libre entre ellas.",
-    "Turistas exentos para ingreso a hospedaje presentando comprobante de reserva.",
-    "Vehículos de paso: mostrar recibo del peaje más reciente.",
-    "Se suspende del 15 de diciembre al 12 de enero (vacaciones de fin de año)."
+    "El horario depende de DÓNDE estés: DENTRO del anillo vial del Centro Histórico la restricción es CORRIDA, de 6:00 a.m. a 8:00 p.m.; en el resto del perímetro urbano rige solo en 3 franjas (6:00-9:00 a.m., 12:00 m-2:00 p.m. y 5:00-8:00 p.m.). Un error común es entrar al centro en hora valle creyendo que está libre: NO lo está.",
+    "La 'hora valle' libre (9:01-11:59 a.m. y 2:01-4:59 p.m., fuera del anillo) nació como prueba piloto de 6 meses en el decreto. No encontramos acto que la termine y los medios regionales la siguen publicando en 2026, pero verifica en los canales oficiales si vas a depender de ella.",
+    "El anillo del Centro Histórico está delimitado por la Calle 29, Av. Maldonado, Av. Colón, Calle 22, Transversal 15, Carrera 15, Calle 17, Carrera 14, Cra 11, Calle 11, Carrera 10, Calle 9C, Carrera 6A y Av. Oriental, entre otras (poligonal completa en el decreto). Las vías que LIMITAN el anillo quedan excluidas de la restricción corrida.",
+    "Si vienes del norte en día y hora de restricción, evita el Viaducto Juan Nepomuceno Niño: la restricción lo cubre desde la Calle 24 (sector Facultad de Medicina de la UPTC).",
+    "La rotación puede cambiar CADA AÑO ('La rotación se aplicará anualmente con las evaluaciones técnicas y jurídicas', art. 2): re-verificar cada enero.",
+    "Cada diciembre la Alcaldía suele suspender la medida por vacaciones (en 2024 con el Decreto 0483; en 2025 del 15 de diciembre al 12 de enero de 2026). Espera un anuncio similar hacia el 15 de diciembre.",
+    "Turistas: con comprobante de reserva de hospedaje y recibo de peaje pueden llegar y salir del hospedaje por la malla vial local (art. 4).",
+    "El registro de excepciones se hace en el portal oficial picoyplaca.tunja.gov.co (citado en el propio decreto)."
   ],
   "exenciones_generales": [
-    "Turistas con comprobante de reserva de hospedaje",
-    "Vehículos de paso con recibo de peaje reciente",
-    "Vehículos eléctricos e híbridos",
-    "Vehículos de emergencia"
+    "16 categorías de excepción en el artículo 3 del decreto (emergencias, salud, servicios públicos, personas con discapacidad, eléctricos e híbridos, entre otras) — se registran en picoyplaca.tunja.gov.co",
+    "Turistas con comprobante de reserva de hospedaje y recibo de peaje reciente (art. 4)"
   ],
   "vias_exentas": [],
   "suspensiones_anuales": [
-    "15 de diciembre al 12 de enero (vacaciones de fin de año)"
+    "Mediados de diciembre a mediados de enero (vacaciones de fin de año; en 2025-2026 fue del 15-dic 6:00 a.m. al 12-ene 8:00 p.m.)"
   ],
   "sanciones": {
-    "descripcion": "Multa equivalente a 15 SMLDV (~$650.000 COP) más inmovilización del vehículo.",
-    "base_legal": "Artículo 131, literal C, numeral 14 de la Ley 769 de 2002",
-    "tipo_multa": "Tipo C",
+    "descripcion": "Multa equivalente a 15 salarios mínimos diarios legales vigentes (SMLDV) más inmovilización del vehículo (infracción C.14: transitar por sitios restringidos o en horas prohibidas).",
+    "base_legal": "Artículo 7 del Decreto 0399 de 2024; artículo 131 de la Ley 769 de 2002 (mod. Ley 1383 de 2010)",
+    "tipo_multa": "Tipo C (C.14)",
     "valor_smldv": "15 SMLDV",
-    "valor_aproximado_pesos": 650000,
     "incluye_inmovilizacion": true
   },
   "vehiculos": {
     "particulares": {
       "aplica": true,
-      "descripcion": "Vehículos particulares — 3 franjas horarias con hora valle libre entre ellas",
+      "descripcion": "Vehículos de servicio particular (automóvil, camioneta, campero) según el último dígito de la placa — horario corrido en el Centro Histórico y 3 franjas en el resto de la ciudad",
       "criterio_placa": "ultimo_digito",
       "modalidad": "semanal_por_dia",
       "horario_inicio": "06:00",
       "horario_fin": "20:00",
-      "horario_texto": "6:00-9:00 a.m. / 12:00-2:00 p.m. / 5:00-8:00 p.m. (3 franjas)",
+      "horario_texto": "Centro Histórico (dentro del anillo): 6:00 a.m. a 8:00 p.m. corrido. Resto de la ciudad: 3 franjas, 6:00-9:00 a.m., 12:00 m-2:00 p.m. y 5:00-8:00 p.m.",
       "dias_aplicables": ["lunes", "martes", "miercoles", "jueves", "viernes"],
       "aplica_festivos": false,
       "aplica_fines_de_semana": false,
@@ -55,26 +55,53 @@
         "viernes": [1, 2]
       },
       "aplican_vias_exentas": false,
-      "nota_especial": "Hora valle sin restricción: 9:00 a.m. a 12:00 m. y 2:00 p.m. a 5:00 p.m. En esas ventanas puedes circular libremente."
+      "nota_especial": "La hora valle libre (9:01-11:59 a.m. y 2:01-4:59 p.m.) aplica SOLO fuera del anillo del Centro Histórico; dentro del anillo la restricción es corrida de 6:00 a.m. a 8:00 p.m."
     },
     "motos": {
       "aplica": false,
-      "descripcion": "Las motocicletas NO tienen Pico y Placa en Tunja."
+      "descripcion": "Las motocicletas NO tienen Pico y Placa en Tunja. Es textual del decreto: «se excluye de ésta restricción los vehículos clase motocicleta» (art. 1, parágrafo primero)."
     },
     "taxis": {
-      "aplica": false,
-      "descripcion": "Los taxis NO tienen Pico y Placa en Tunja."
+      "aplica": true,
+      "horario": "pendiente_verificar",
+      "dias_habiles": ["lun", "mar", "mie", "jue", "vie"],
+      "aplica_festivos": false,
+      "restricciones": {
+        "lunes": ["pendiente_verificar"],
+        "martes": ["pendiente_verificar"],
+        "miercoles": ["pendiente_verificar"],
+        "jueves": ["pendiente_verificar"],
+        "viernes": ["pendiente_verificar"]
+      },
+      "notas": "El servicio público individual (taxi) en Tunja tiene su propia restricción, distinta del Decreto 0399 (que solo regula particulares): viene de la cadena Decreto 0109 de 2013, modificado por el 0150 de 2015. En 2026 los medios regionales publican una rotación de dos dígitos por día para servicio público, pero no hemos encontrado el decreto que la fija, así que no la mostramos (regla del sitio: sin decreto no se carga el dato). Consulta el turno del día con la Secretaría de Movilidad y Vida Territorial."
     },
     "transporte_carga": {
-      "aplica": false,
-      "descripcion": "El transporte de carga NO tiene Pico y Placa en Tunja."
+      "aplica": true,
+      "descripcion": "La carga de SERVICIO PARTICULAR (camioneta, camión y volqueta) está incluida textualmente en la restricción de particulares (art. 1, parágrafo primero) — misma rotación y horarios. Para la carga de servicio público no se encontró restricción.",
+      "criterio_placa": "ultimo_digito",
+      "modalidad": "semanal_por_dia",
+      "horario_inicio": "06:00",
+      "horario_fin": "20:00",
+      "horario_texto": "Centro Histórico (dentro del anillo): 6:00 a.m. a 8:00 p.m. corrido. Resto de la ciudad: 3 franjas, 6:00-9:00 a.m., 12:00 m-2:00 p.m. y 5:00-8:00 p.m.",
+      "dias_aplicables": ["lunes", "martes", "miercoles", "jueves", "viernes"],
+      "aplica_festivos": false,
+      "aplica_fines_de_semana": false,
+      "rotacion": {
+        "lunes": [3, 4],
+        "martes": [5, 6],
+        "miercoles": [7, 8],
+        "jueves": [9, 0],
+        "viernes": [1, 2]
+      },
+      "aplican_vias_exentas": false,
+      "nota_especial": "Aplica a la carga de servicio PARTICULAR. En 2024 desaparecieron las excepciones de alimentos perecederos y materiales de construcción que traía el decreto anterior."
     }
   },
   "contacto_ciudadano": {
     "sitio_web_general": "https://www.tunja-boyaca.gov.co",
-    "secretaria_movilidad": "https://www.tunja-boyaca.gov.co",
+    "secretaria_movilidad": "https://picoyplaca.tunja.gov.co",
     "twitter": "",
-    "facebook": "",
+    "facebook": "https://www.facebook.com/MovilidadyVidaTunja",
     "linea_atencion": "pendiente_verificar",
     "linea_movilidad": "pendiente_verificar"
   }

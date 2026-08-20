@@ -2,46 +2,102 @@
   "slug": "quibdo",
   "nombre": "Quibdó",
   "departamento": "Chocó",
-  "coordenadas": [
-    5.6947,
-    -76.6583
-  ],
-  "autoridad": "Secretaría de Tránsito de Quibdó",
+  "coordenadas": [5.6947, -76.6583],
+  "autoridad": "Secretaría de Movilidad de Quibdó",
   "autoridad_web": "https://www.quibdo-choco.gov.co",
-  "decreto_actual": "No aplica",
-  "fecha_ultima_actualizacion": "2026-04-12",
+  "decreto_actual": "Decreto 0245 del 2 de julio de 2026 (segundo semestre)",
+  "fecha_ultima_actualizacion": "2026-08-19",
+  "vigencia_desde": "2026-07-06",
+  "vigencia_hasta": "2026-12-31",
+  "suspension_temporal": {
+    "desde": "2026-08-19",
+    "hasta": "2026-08-28",
+    "motivo": "la emergencia del sismo del 10 de agosto de 2026",
+    "decreto": "Decreto 0299 del 18 de agosto de 2026"
+  },
   "notas_generales": [
-    "Quibdó no tiene pico y placa vigente."
+    "SUSPENSIÓN TEMPORAL: por la emergencia del sismo del 10 de agosto de 2026, el Decreto 0299 del 18 de agosto suspendió la rotación del 19 al 28 de agosto de 2026, ambas fechas incluidas. En esos días se puede circular. La rotación se retoma el 29 de agosto (en la práctica, el lunes 31, porque el 29 y 30 son fin de semana).",
+    "La medida aplica de lunes a viernes, de 7:00 a.m. a 8:00 p.m., en el centro de Quibdó: de la calle 20 a la calle 31 y de la carrera 1ª a la carrera 10ª (Decreto 0245 de 2026, con mapa en el PDF oficial).",
+    "Los dígitos de la rotación son los que NO pueden circular (verificado en el texto del decreto: es una \"medida restrictiva de circulación\").",
+    "El decreto establece la medida de lunes a viernes; no menciona expresamente los festivos. Ante la duda, en festivo consulta a la Secretaría de Movilidad antes de salir.",
+    "Los vehículos matriculados en Quibdó (o trasladados a su organismo de tránsito) desde el 2 de enero de 2026 quedan exentos (Parágrafo Segundo del artículo 5).",
+    "Quibdó renueva su decreto cada SEMESTRE (hubo decretos en 2024, 036 y 202 de 2025, 0008 de enero de 2026 y 0245 de julio de 2026): hay que re-verificar en enero de 2027.",
+    "Además rigen medidas que no son pico y placa y NO se suspendieron: rutas obligatorias para volquetas con prohibición del centro de 6:00 a.m. a 8:00 p.m. (art. 7), ventanas horarias de carga en las rutas Huapango y Los Álamos de 9:00-11:00 a.m. y 2:30-5:00 p.m. (art. 8), y prohibición de estacionar en vía pública salvo bahías (art. 6)."
   ],
-  "exenciones_generales": [],
+  "exenciones_generales": [
+    "Vehículos de emergencia y atención en salud (incluida la salud domiciliaria)",
+    "Vehículos a gas, eléctricos e híbridos",
+    "Transporte terrestre automotor de servicio público (taxis y buses)",
+    "Transporte de alimentos perecederos y vehículos de carga",
+    "Servicios públicos domiciliarios, prensa y seguridad nacional",
+    "Personas con movilidad reducida o en tratamientos médicos",
+    "Transporte de valores, vigilancia, funerarios, oficiales y diplomáticos",
+    "Escuelas de conducción y autorizados temporales de la Secretaría de Movilidad",
+    "Las exenciones requieren trámite ante la Secretaría de Movilidad y paz y salvo de multas"
+  ],
   "vias_exentas": [],
   "sanciones": {
-    "descripcion": "Quibdó no tiene pico y placa vigente.",
-    "base_legal": "Artículo 131, literal C, numeral 14 de la Ley 769 de 2002"
+    "tipo_multa": "Tipo C (C.02 y C.14)",
+    "base_legal": "Artículo 9 del Decreto 0245 de 2026; artículo 21 de la Ley 1383 de 2010",
+    "valor_smldv": "15 SMLDV",
+    "incluye_inmovilizacion": true,
+    "descripcion": "Inmovilización inmediata del vehículo por 24 horas más la multa de los códigos de infracción C.02 y C.14."
   },
   "vehiculos": {
     "particulares": {
-      "aplica": false,
-      "descripcion": "Quibdó no tiene pico y placa para vehículos particulares."
+      "aplica": true,
+      "descripcion": "Automóviles, camionetas, camperos y motocarros con placa de carro, de servicio particular y oficial — dos dígitos por día, según el último dígito de la placa",
+      "criterio_placa": "ultimo_digito",
+      "modalidad": "semanal_por_dia",
+      "horario_inicio": "07:00",
+      "horario_fin": "20:00",
+      "horario_texto": "7:00 a.m. a 8:00 p.m. (lunes a viernes, en el centro de Quibdó)",
+      "dias_aplicables": ["lunes", "martes", "miercoles", "jueves", "viernes"],
+      "aplica_festivos": false,
+      "aplica_fines_de_semana": false,
+      "rotacion": {
+        "lunes": [1, 8],
+        "martes": [0, 4],
+        "miercoles": [3, 6],
+        "jueves": [2, 7],
+        "viernes": [5, 9]
+      }
     },
     "motos": {
-      "aplica": false,
-      "descripcion": "No hay pico y placa para motos en Quibdó."
+      "aplica": true,
+      "descripcion": "Motocicletas, motocarros con placa de moto, mototriciclos, tricimotos, ciclomotores y cuatriciclos — cuatro dígitos por día, según el último dígito de la placa",
+      "criterio_placa": "ultimo_digito",
+      "modalidad": "semanal_por_dia",
+      "horario_inicio": "07:00",
+      "horario_fin": "20:00",
+      "horario_texto": "7:00 a.m. a 8:00 p.m. (lunes a viernes, en el centro de Quibdó)",
+      "dias_aplicables": ["lunes", "martes", "miercoles", "jueves", "viernes"],
+      "aplica_festivos": false,
+      "aplica_fines_de_semana": false,
+      "rotacion": {
+        "lunes": [2, 5, 8, 9],
+        "martes": [3, 4, 6, 7],
+        "miercoles": [0, 1, 5, 9],
+        "jueves": [2, 4, 6, 8],
+        "viernes": [0, 1, 3, 7]
+      }
     },
     "taxis": {
       "aplica": false,
-      "descripcion": "Los taxis NO tienen Pico y Placa en Quibdó."
+      "descripcion": "Los taxis no tienen Pico y Placa en Quibdó: el Decreto 0245 de 2026 solo cubre vehículos de servicio particular y oficial, y exime expresamente al transporte terrestre automotor de servicio público (artículo 4, numeral 4).",
+      "nota": "Esta situación puede cambiar con el decreto de cada semestre. Verifica siempre con la Secretaría de Movilidad de Quibdó."
     },
     "transporte_carga": {
       "aplica": false,
-      "descripcion": "El transporte de carga NO tiene Pico y Placa en Quibdó."
+      "descripcion": "Los vehículos de carga están exentos de la rotación (artículo 4, numeral 6 del Decreto 0245 de 2026).",
+      "nota": "Ojo: sí rigen medidas especiales que no son pico y placa: las volquetas tienen dos rutas obligatorias y prohibición del centro de 6:00 a.m. a 8:00 p.m. (art. 7), y la carga por las rutas Huapango y Los Álamos solo puede entrar y salir de 9:00-11:00 a.m. y 2:30-5:00 p.m. (art. 8). Estas medidas NO se suspendieron con el sismo."
     }
   },
   "contacto_ciudadano": {
     "sitio_web_general": "https://www.quibdo-choco.gov.co",
     "secretaria_movilidad": "https://www.quibdo-choco.gov.co",
     "twitter": "",
-    "facebook": "",
+    "facebook": "https://www.facebook.com/AlcaldiadeQuibdo",
     "linea_atencion": "pendiente_verificar",
     "linea_movilidad": "pendiente_verificar"
   }

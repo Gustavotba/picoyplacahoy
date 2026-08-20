@@ -3,24 +3,27 @@
   "nombre": "Armenia",
   "departamento": "Quindío",
   "coordenadas": [4.5339, -75.6811],
-  "autoridad": "Secretaría de Tránsito y Transporte de Armenia",
+  "autoridad": "Secretaría de Tránsito y Transporte de Armenia (SETTA)",
   "autoridad_web": "https://www.armenia.gov.co",
   "autoridad_twitter": "AlcaldiaArmenia",
-  "decreto_actual": "Decreto 350 de 2020 (prorrogado hasta noviembre de 2026)",
-  "fecha_ultima_actualizacion": "2026-06-09",
+  "decreto_actual": "Decretos 327 y 350 de 2020, prorrogados hasta noviembre de 2026",
+  "fecha_ultima_actualizacion": "2026-08-19",
   "vigencia_desde": "2025-12-01",
   "vigencia_hasta": "2026-11-30",
   "notas_generales": [
-    "La medida aplica en todo el perímetro urbano de Armenia, de 7:00 a.m. a 7:00 p.m., para particulares y motos.",
-    "IMPORTANTE: Armenia usa una rotación rodante en ciclo, no fija por día de la semana. Los dos dígitos restringidos se mantienen dos días seguidos y van avanzando (1-2, luego 3-4, 5-6, 7-8, 9-0). Por eso un mismo día de la semana puede tener distintos dígitos según el ciclo. Consulta siempre el dígito del día con la Secretaría de Tránsito.",
-    "No aplica en días festivos oficiales de Colombia.",
-    "La medida fue prorrogada por la Alcaldía hasta noviembre de 2026."
+    "La medida aplica en todo el perímetro urbano de Armenia, de 7:00 a.m. a 7:00 p.m., para particulares y motos (incluye motocarros, mototriciclos y cuatrimotos).",
+    "Desde el 1 de diciembre de 2025 la rotación es una tabla fija por día de la semana (el esquema anterior de ciclo rodante ya no rige). Rotación verificada día por día contra los banners oficiales que publica la Alcaldía en armenia.gov.co (agosto de 2026) y la prensa regional.",
+    "No aplica los fines de semana ni en días festivos oficiales de Colombia.",
+    "En mayo de 2026 la Alcaldía prorrogó la medida por seis meses más, hasta noviembre de 2026 (la prensa regional cita el Decreto 135 de 2026; el PDF de la prórroga no está publicado en el portal).",
+    "Los taxis tienen su propia restricción de casi 24 horas que rota por el número interno del vehículo, no por la placa (ver la tarjeta de taxis)."
   ],
   "exenciones_generales": [
     "Vehículos de asistencia médica y ambulancias",
-    "Vehículos de las Fuerzas Armadas y Policía Nacional",
-    "Carrozas fúnebres y vehículos de emergencia",
-    "Vehículos adaptados para personas con discapacidad"
+    "Fuerzas Armadas, Policía Nacional y agentes de tránsito en horario laboral",
+    "Carrozas fúnebres, bomberos, Cruz Roja y Defensa Civil",
+    "Vehículos adaptados para personas con discapacidad (con certificado)",
+    "Operativos de servicios públicos y mensajería/domicilios registrados ante la SETTA",
+    "Grúas, escoltas de la UNP, transporte escolar y transporte de valores"
   ],
   "vias_exentas": [],
   "sanciones": {
@@ -33,41 +36,62 @@
   "vehiculos": {
     "particulares": {
       "aplica": true,
-      "horario": "7:00 a.m. a 7:00 p.m. (continuo)",
-      "dias_habiles": ["lun", "mar", "mie", "jue", "vie", "sab", "dom"],
+      "descripcion": "Vehículos particulares según el último dígito de la placa — tabla fija por día de la semana, en todo el perímetro urbano",
+      "criterio_placa": "ultimo_digito",
+      "modalidad": "semanal_por_dia",
+      "horario_inicio": "07:00",
+      "horario_fin": "19:00",
+      "horario_texto": "7:00 a.m. a 7:00 p.m. (continuo)",
+      "dias_aplicables": ["lunes", "martes", "miercoles", "jueves", "viernes"],
       "aplica_festivos": false,
-      "restricciones": {
-        "lunes": ["pendiente_verificar"],
-        "martes": ["pendiente_verificar"],
-        "miercoles": ["pendiente_verificar"],
-        "jueves": ["pendiente_verificar"],
-        "viernes": ["pendiente_verificar"]
-      },
-      "notas": "Armenia tiene Pico y Placa para particulares de 7:00 a.m. a 7:00 p.m. con una rotación rodante: dos dígitos se restringen durante dos días seguidos y luego avanzan (1-2, 3-4, 5-6, 7-8, 9-0). Como la asignación no es fija por día de la semana, consulta el dígito vigente de hoy con la Secretaría de Tránsito de Armenia."
+      "aplica_fines_de_semana": false,
+      "rotacion": {
+        "lunes": [5, 6],
+        "martes": [7, 8],
+        "miercoles": [9, 0],
+        "jueves": [1, 2],
+        "viernes": [3, 4]
+      }
     },
     "motos": {
       "aplica": true,
-      "horario": "7:00 a.m. a 7:00 p.m. (continuo)",
-      "dias_habiles": ["lun", "mar", "mie", "jue", "vie", "sab", "dom"],
+      "descripcion": "Motocicletas, motocarros, mototriciclos y cuatrimotos según el último dígito de la placa — misma tabla que los particulares",
+      "criterio_placa": "ultimo_digito",
+      "modalidad": "semanal_por_dia",
+      "horario_inicio": "07:00",
+      "horario_fin": "19:00",
+      "horario_texto": "7:00 a.m. a 7:00 p.m. (continuo)",
+      "dias_aplicables": ["lunes", "martes", "miercoles", "jueves", "viernes"],
       "aplica_festivos": false,
+      "aplica_fines_de_semana": false,
+      "rotacion": {
+        "lunes": [5, 6],
+        "martes": [7, 8],
+        "miercoles": [9, 0],
+        "jueves": [1, 2],
+        "viernes": [3, 4]
+      }
+    },
+    "taxis": {
+      "aplica": true,
+      "horario": "5:00 a.m. a 4:59 a.m. del día siguiente (todos los días, incluidos domingos y festivos)",
+      "dias_habiles": ["lun", "mar", "mie", "jue", "vie", "sab", "dom"],
+      "aplica_festivos": true,
       "restricciones": {
         "lunes": ["pendiente_verificar"],
         "martes": ["pendiente_verificar"],
         "miercoles": ["pendiente_verificar"],
         "jueves": ["pendiente_verificar"],
-        "viernes": ["pendiente_verificar"]
+        "viernes": ["pendiente_verificar"],
+        "sabado": ["pendiente_verificar"],
+        "domingo": ["pendiente_verificar"]
       },
-      "notas": "Las motos en Armenia siguen la misma rotación rodante que los particulares, de 7:00 a.m. a 7:00 p.m. Consulta el dígito vigente del día con la Secretaría de Tránsito de Armenia."
-    },
-    "taxis": {
-      "aplica": false,
-      "descripcion": "El Decreto 350 de 2020 regula el Pico y Placa para particulares y motos en Armenia; no establece restricción equivalente para taxis.",
-      "nota": "Esta situación puede cambiar. Verifica siempre con la Secretaría de Tránsito de Armenia."
+      "notas": "OJO: la restricción de taxis en Armenia NO va por la placa sino por el ÚLTIMO DÍGITO DEL NÚMERO INTERNO del vehículo (el número pintado en la puerta). Rota un dígito por día calendario y los domingos descansan dos dígitos a la vez (Decreto 169 de 2025). Como no es por placa, esta página no puede calcularla: consulta el número del día en el banner semanal que publica la Alcaldía en armenia.gov.co."
     },
     "transporte_carga": {
       "aplica": false,
-      "descripcion": "En Armenia no aplica Pico y Placa para transporte de carga.",
-      "nota": "Esta situación puede cambiar. Verifica siempre con la Secretaría de Tránsito de Armenia."
+      "descripcion": "Ni los decretos del Pico y Placa general (327 y 350 de 2020 y sus prórrogas) ni la restricción de taxis (Decreto 169 de 2025) establecen Pico y Placa para el transporte de carga en Armenia.",
+      "nota": "Esta situación puede cambiar. Verifica siempre con la Secretaría de Tránsito y Transporte de Armenia."
     }
   },
   "contacto_ciudadano": {
