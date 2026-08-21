@@ -1,0 +1,168 @@
+---
+// Widget embebible: la mini-tarjeta que otros sitios pegan en un <iframe>.
+//
+// Reglas de diseño:
+// - Autocontenido: cero Tailwind, cero fuentes externas, cero JavaScript.
+//   Todo el estilo va inline en <style> para que pese unos pocos KB y no
+//   dependa de nada del sitio principal.
+// - Altura FIJA (siempre 4 filas), para que el iframe del que lo pega nunca
+//   se desborde ni deje huecos.
+// - noindex: es contenido resumido de la página de ciudad; no debe competir
+//   con ella en Google. El backlink lo aporta el snippet que acompaña al
+//   iframe, no esta página.
+// - Los datos salen del MISMO motor que la página de ciudad, así que no
+//   pueden discrepar.
+import { obtenerCiudad, tiposVehiculo } from '../../lib/ciudades';
+import { calcularPicoPlaca, fechaColombia, placaDestacada } from '../../lib/calcular';
+import { ETIQUETAS_VEHICULO, ICONOS_VEHICULO } from '../../lib/tipos';
+import type { TipoVehiculo } from '../../lib/tipos';
+import { format } from 'date-fns';
+import { es } from 'date-fns/locale';
+
+export const prerender = false;
+
+const { ciudad: slugCiudad } = Astro.params;
+const ciudad = obtenerCiudad(slugCiudad ?? '');
+if (!ciudad) {
+  return new Response('Ciudad no encontrada', { status: 404 });
+}
+
+const hoy = fechaColombia();
+const fechaCorta = format(hoy, "EEEE d 'de' MMMM", { locale: es });
+
+const ETIQUETAS_CORTAS: Record<TipoVehiculo, string> = {
+  particulares: 'Particulares',
+  motos: 'Motos',
+  taxis: 'Taxis',
+  transporte_carga: 'Carga',
+};
+
+const filas = tiposVehiculo.map((tipo) => {
+  const r = calcularPicoPlaca(ciudad, tipo, hoy);
+  let chip: string;
+  let clase: string;
+  if (r.datosDesactualizados) {
+    chip = 'Ver fuente';
+    clase = 'gris';
+  } else if (r.esPendiente) {
+    chip = 'Ver fuente';
+    clase = 'gris';
+  } else if (r.esSuspendido) {
+    chip = 'Suspendido';
+    clase = 'verde';
+  } else if (r.aplica && r.placasRestringidas.length > 0) {
+    chip = placaDestacada(r.placasRestringidas);
+    clase = 'amarillo';
+  } else {
+    chip = 'LIBRE';
+    clase = 'verde';
+  }
+  return { tipo, etiqueta: ETIQUETAS_CORTAS[tipo], icono: ICONOS_VEHICULO[tipo], chip, clase };
+});
+
+const urlCiudad = `https://picoyplacahoy.co/${ciudad.slug}?utm_source=widget&utm_medium=iframe`;
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex" />
+    <title>Pico y placa hoy en {ciudad.nombre}</title>
+    <style>
+      :root {
+        --amarillo: #fbbf24;
+        --negro: #111111;
+        --verde: #16a34a;
+        --gris: #6b7280;
+        --fondo: #ffffff;
+        --texto: #111111;
+        --texto-suave: #6b7280;
+        --borde: #e5e7eb;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --fondo: #0a0a0a;
+          --texto: #fef3c7;
+          --texto-suave: #9ca3af;
+          --borde: #374151;
+        }
+      }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { background: var(--fondo); }
+      body {
+        font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+        color: var(--texto);
+      }
+      .tarjeta {
+        display: flex;
+        flex-direction: column;
+        height: 100vh;
+        border: 1px solid var(--borde);
+        border-radius: 10px;
+        overflow: hidden;
+      }
+      .cabecera {
+        background: var(--amarillo);
+        color: var(--negro);
+        padding: 8px 12px;
+        line-height: 1.25;
+      }
+      .cabecera strong { font-size: 14px; display: block; }
+      .cabecera span { font-size: 11px; text-transform: capitalize; }
+      .filas { flex: 1; display: flex; flex-direction: column; justify-content: space-around; padding: 4px 12px; }
+      .fila {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 13px;
+        font-weight: 600;
+      }
+      .fila img { width: 20px; height: 20px; }
+      .fila .nombre { flex: 1; }
+      .chip {
+        font-family: ui-monospace, 'Cascadia Mono', Consolas, monospace;
+        font-weight: 800;
+        font-size: 13px;
+        padding: 2px 10px;
+        border-radius: 6px;
+        white-space: nowrap;
+      }
+      .chip.amarillo { background: var(--amarillo); color: var(--negro); border: 2px solid var(--negro); }
+      .chip.verde { background: var(--verde); color: #ffffff; }
+      .chip.gris { background: var(--borde); color: var(--texto-suave); font-size: 11px; }
+      .pie {
+        border-top: 1px solid var(--borde);
+        padding: 6px 12px;
+        font-size: 11px;
+        text-align: center;
+      }
+      .pie a { color: #b45309; font-weight: 700; text-decoration: none; }
+      .pie a:hover { text-decoration: underline; }
+      @media (prefers-color-scheme: dark) {
+        .pie a { color: var(--amarillo); }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="tarjeta">
+      <div class="cabecera">
+        <strong>Pico y Placa hoy · {ciudad.nombre}</strong>
+        <span>{fechaCorta}</span>
+      </div>
+      <div class="filas">
+        {filas.map((f) => (
+          <div class="fila">
+            <img src={f.icono} alt="" width="20" height="20" />
+            <span class="nombre">{f.etiqueta}</span>
+            <span class={`chip ${f.clase}`}>{f.chip}</span>
+          </div>
+        ))}
+      </div>
+      <div class="pie">
+        <a href={urlCiudad} target="_blank" rel="noopener">Ver detalle en picoyplacahoy.co →</a>
+      </div>
+    </div>
+  </body>
+</html>

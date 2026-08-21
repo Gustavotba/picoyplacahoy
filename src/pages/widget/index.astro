@@ -1,0 +1,144 @@
+---
+// Página generadora del widget: el visitante (un blog, una emisora, un
+// portal local) elige su ciudad, ve el widget en vivo y copia el código
+// listo para pegar. El código incluye el iframe Y un enlace de atribución
+// visible: ese enlace es el backlink que hace crecer la autoridad del sitio.
+import Principal from '../../layouts/Principal.astro';
+import { ciudades } from '../../lib/ciudades';
+import { SITE_URL } from '../../lib/seo';
+
+const titulo = 'Widget gratis de Pico y Placa para tu sitio web';
+const descripcion =
+  'Pega el pico y placa de hoy en tu página web, blog o portal de noticias con 3 líneas de código. Gratis, se actualiza solo y funciona en las 39 ciudades de Colombia.';
+
+// Medellín de ejemplo inicial: es la plantilla de referencia del proyecto
+const ciudadInicial = 'medellin';
+---
+
+<Principal titulo={titulo} descripcion={descripcion}>
+  <div class="mx-auto max-w-3xl px-4 py-8" data-generador data-base={SITE_URL}>
+    <h1 class="text-3xl sm:text-4xl font-black mb-2">
+      Widget de Pico y Placa <span class="text-yellow-500">para tu sitio</span>
+    </h1>
+    <p class="text-gray-600 dark:text-gray-400 mb-6">
+      ¿Tienes un blog, una emisora, un portal de noticias o el sitio de tu negocio?
+      Pega el pico y placa de hoy con 3 líneas de código. Es <strong>gratis</strong>,
+      se actualiza solo todos los días y muestra los 4 tipos de vehículo con los
+      mismos datos verificados de picoyplacahoy.co.
+    </p>
+
+    {/* Paso 1: elegir ciudad */}
+    <label for="ciudad-widget" class="block font-bold mb-2">1. Elige la ciudad</label>
+    <select
+      id="ciudad-widget"
+      class="w-full sm:w-72 rounded-lg border-2 border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 px-3 py-2.5 font-semibold mb-6"
+    >
+      {ciudades.map((c) => (
+        <option value={c.slug} selected={c.slug === ciudadInicial}>{c.nombre}</option>
+      ))}
+    </select>
+
+    {/* Paso 2: vista previa */}
+    <p class="font-bold mb-2">2. Así se ve en tu página</p>
+    <div class="mb-6 rounded-xl border border-dashed border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-900 p-5">
+      <iframe
+        id="vista-previa"
+        src={`/widget/${ciudadInicial}`}
+        style="width:100%;max-width:320px;height:236px;border:0;border-radius:12px;box-shadow:0 1px 4px rgba(0,0,0,.12)"
+        loading="lazy"
+        title="Vista previa del widget"
+      ></iframe>
+      <p class="mt-1.5 text-xs" id="vista-previa-enlace">
+        <a href={`/${ciudadInicial}`} class="font-semibold text-yellow-700 dark:text-yellow-500 hover:underline">Pico y placa hoy en Medellín</a>
+        <span class="text-gray-500"> · datos de </span>
+        <a href="/" class="font-semibold text-yellow-700 dark:text-yellow-500 hover:underline">picoyplacahoy.co</a>
+      </p>
+    </div>
+
+    {/* Paso 3: copiar el código */}
+    <p class="font-bold mb-2">3. Copia el código y pégalo en tu sitio</p>
+    <textarea
+      id="codigo-widget"
+      readonly
+      rows="8"
+      class="w-full rounded-lg border-2 border-gray-300 dark:border-gray-600 bg-gray-900 text-green-300 font-mono text-xs p-3 leading-relaxed"
+      aria-label="Código del widget para copiar"
+    ></textarea>
+    <button
+      id="boton-copiar"
+      class="mt-2 rounded-lg bg-yellow-400 px-5 py-2.5 font-bold text-black hover:bg-yellow-300 transition-colors"
+    >
+      Copiar código
+    </button>
+
+    <div class="mt-8 rounded-lg border border-yellow-300 dark:border-yellow-700 bg-yellow-50 dark:bg-yellow-950/20 p-4 text-sm">
+      <h2 class="font-bold mb-1">Única condición</h2>
+      <p>
+        El widget es gratuito para cualquier sitio. Solo te pedimos <strong>conservar el
+        enlace de atribución</strong> que viene con el código ("datos de picoyplacahoy.co"):
+        es lo que nos permite mantener el servicio verificando los decretos oficiales.
+      </p>
+    </div>
+
+    <div class="mt-6 text-sm text-gray-600 dark:text-gray-400 space-y-2">
+      <h2 class="font-bold text-gray-900 dark:text-gray-100">Preguntas rápidas</h2>
+      <p><strong>¿Se actualiza solo?</strong> Sí. El widget consulta nuestros datos cada vez que alguien abre tu página: siempre muestra el día vigente, festivos y suspensiones incluidos.</p>
+      <p><strong>¿Frena mi página?</strong> No. Pesa unos pocos KB, carga en diferido (<code>loading="lazy"</code>) y no ejecuta JavaScript en tu sitio.</p>
+      <p><strong>¿Funciona en WordPress, Blogger o Wix?</strong> Sí: pega el código en un bloque HTML personalizado.</p>
+      <p><strong>¿Puedo ponerlo en varias ciudades?</strong> Claro, pega un widget por ciudad.</p>
+    </div>
+  </div>
+
+  <script>
+    // Generador: al cambiar la ciudad se rehace el código, la vista previa y
+    // el enlace de muestra. Sin dependencias.
+    const contenedor = document.querySelector<HTMLElement>('[data-generador]');
+    const selector = document.getElementById('ciudad-widget') as HTMLSelectElement | null;
+    const codigo = document.getElementById('codigo-widget') as HTMLTextAreaElement | null;
+    const vistaPrevia = document.getElementById('vista-previa') as HTMLIFrameElement | null;
+    const enlaceMuestra = document.getElementById('vista-previa-enlace');
+    const botonCopiar = document.getElementById('boton-copiar');
+
+    if (contenedor && selector && codigo && vistaPrevia && botonCopiar) {
+      const base = contenedor.dataset.base ?? 'https://picoyplacahoy.co';
+
+      function armarCodigo(slug: string, nombre: string): string {
+        return [
+          '<!-- Widget Pico y Placa Hoy — picoyplacahoy.co -->',
+          `<iframe src="${base}/widget/${slug}" style="width:100%;max-width:320px;height:236px;border:0;border-radius:12px;box-shadow:0 1px 4px rgba(0,0,0,.12)" loading="lazy" title="Pico y placa hoy en ${nombre}"></iframe>`,
+          `<p style="margin:6px 0 0;font:12px system-ui"><a href="${base}/${slug}">Pico y placa hoy en ${nombre}</a> · datos de <a href="${base}/">picoyplacahoy.co</a></p>`,
+        ].join('\n');
+      }
+
+      function actualizar() {
+        const slug = selector!.value;
+        const nombre = selector!.options[selector!.selectedIndex].text;
+        codigo!.value = armarCodigo(slug, nombre);
+        vistaPrevia!.src = `/widget/${slug}`;
+        if (enlaceMuestra) {
+          const enlaces = enlaceMuestra.querySelectorAll('a');
+          if (enlaces[0]) {
+            enlaces[0].setAttribute('href', `/${slug}`);
+            enlaces[0].textContent = `Pico y placa hoy en ${nombre}`;
+          }
+        }
+      }
+
+      selector.addEventListener('change', actualizar);
+      actualizar();
+
+      botonCopiar.addEventListener('click', async () => {
+        codigo!.select();
+        try {
+          await navigator.clipboard.writeText(codigo!.value);
+          botonCopiar!.textContent = '¡Copiado! ✓';
+        } catch {
+          // Si el portapapeles falla (http, permisos), el texto queda
+          // seleccionado y el usuario copia con Ctrl+C.
+          botonCopiar!.textContent = 'Presiona Ctrl+C para copiar';
+        }
+        setTimeout(() => { botonCopiar!.textContent = 'Copiar código'; }, 2500);
+      });
+    }
+  </script>
+</Principal>
