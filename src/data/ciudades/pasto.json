@@ -11,6 +11,7 @@
   "decreto_actual": "Decreto 0122 del 24 de julio de 2026",
   "fecha_ultima_actualizacion": "2026-08-03",
   "notas_generales": [
+    "OJO con el jueves 24 de septiembre de 2026: es jornada de Día sin carro y sin moto (Decreto 0084 del 20 de mayo de 2026). Entre 8:00 a.m. y 6:00 p.m. no circulan los vehículos particulares ni las motos, sin importar el dígito de la placa. Es además el último día de vigencia del Decreto 0122: la rotación del periodo siguiente se anunciará por esos días y la publicaremos apenas salga.",
     "Pasto SÍ tiene Pico y Placa: aplica a carros particulares, motos y taxis por el último dígito de la placa, de lunes a viernes entre las 7:30 a.m. y las 7:00 p.m., en el perímetro urbano.",
     "La rotación funciona por CICLOS SEMANALES: hay 5 ciclos y cada semana calendario avanza al siguiente. Por eso los dígitos de cada día cambian de una semana a otra.",
     "OJO: el decreto se renueva aproximadamente cada DOS MESES (no por semestres). El actual rige hasta el 24 de septiembre de 2026; consulta la rotación nueva cuando la Secretaría expida el siguiente decreto.",
@@ -47,6 +48,18 @@
     "incluye_inmovilizacion": true,
     "descripcion": "Multa equivalente a 15 salarios mínimos diarios legales vigentes (SMLDV) más inmovilización del vehículo. El decreto no fija cifra en pesos: consulta el monto vigente con la Secretaría de Tránsito."
   },
+  "jornadas_especiales": [
+    {
+      "fecha": "2026-09-24",
+      "nombre": "Día sin carro y sin moto",
+      "descripcion": "8:00 a.m. a 6:00 p.m. en el perímetro urbano (Decreto 0084 del 20 de mayo de 2026). No circulan vehículos particulares ni motos sin importar el dígito."
+    },
+    {
+      "fecha": "2026-12-28",
+      "nombre": "Día sin carro y sin moto",
+      "descripcion": "Tercera jornada del año según el Decreto 0084 del 20 de mayo de 2026."
+    }
+  ],
   "vehiculos": {
     "particulares": {
       "aplica": true,
@@ -75,7 +88,8 @@
           "2026-09-04",
           "2026-09-10",
           "2026-09-16",
-          "2026-09-22"
+          "2026-09-22",
+          "2026-09-24"
         ],
         "1": [
           "2026-07-31",
@@ -86,7 +100,8 @@
           "2026-09-04",
           "2026-09-10",
           "2026-09-16",
-          "2026-09-22"
+          "2026-09-22",
+          "2026-09-24"
         ],
         "2": [
           "2026-08-13",
@@ -95,7 +110,8 @@
           "2026-08-31",
           "2026-09-11",
           "2026-09-17",
-          "2026-09-23"
+          "2026-09-23",
+          "2026-09-24"
         ],
         "3": [
           "2026-08-13",
@@ -104,7 +120,8 @@
           "2026-08-31",
           "2026-09-11",
           "2026-09-17",
-          "2026-09-23"
+          "2026-09-23",
+          "2026-09-24"
         ],
         "4": [
           "2026-07-28",
@@ -136,7 +153,8 @@
           "2026-08-27",
           "2026-09-02",
           "2026-09-08",
-          "2026-09-14"
+          "2026-09-14",
+          "2026-09-24"
         ],
         "7": [
           "2026-07-29",
@@ -146,7 +164,8 @@
           "2026-08-27",
           "2026-09-02",
           "2026-09-08",
-          "2026-09-14"
+          "2026-09-14",
+          "2026-09-24"
         ],
         "8": [
           "2026-07-30",
@@ -156,7 +175,8 @@
           "2026-09-03",
           "2026-09-09",
           "2026-09-15",
-          "2026-09-21"
+          "2026-09-21",
+          "2026-09-24"
         ],
         "9": [
           "2026-07-30",
@@ -166,7 +186,8 @@
           "2026-09-03",
           "2026-09-09",
           "2026-09-15",
-          "2026-09-21"
+          "2026-09-21",
+          "2026-09-24"
         ]
       },
       "descripcion": "Vehículos automotores de servicio particular según el último dígito de la placa",
@@ -199,7 +220,8 @@
           "2026-09-04",
           "2026-09-10",
           "2026-09-16",
-          "2026-09-22"
+          "2026-09-22",
+          "2026-09-24"
         ],
         "1": [
           "2026-07-31",
@@ -210,7 +232,8 @@
           "2026-09-04",
           "2026-09-10",
           "2026-09-16",
-          "2026-09-22"
+          "2026-09-22",
+          "2026-09-24"
         ],
         "2": [
           "2026-08-13",
@@ -219,7 +242,8 @@
           "2026-08-31",
           "2026-09-11",
           "2026-09-17",
-          "2026-09-23"
+          "2026-09-23",
+          "2026-09-24"
         ],
         "3": [
           "2026-08-13",
@@ -228,7 +252,8 @@
           "2026-08-31",
           "2026-09-11",
           "2026-09-17",
-          "2026-09-23"
+          "2026-09-23",
+          "2026-09-24"
         ],
         "4": [
           "2026-07-28",
@@ -260,7 +285,8 @@
           "2026-08-27",
           "2026-09-02",
           "2026-09-08",
-          "2026-09-14"
+          "2026-09-14",
+          "2026-09-24"
         ],
         "7": [
           "2026-07-29",
@@ -270,7 +296,8 @@
           "2026-08-27",
           "2026-09-02",
           "2026-09-08",
-          "2026-09-14"
+          "2026-09-14",
+          "2026-09-24"
         ],
         "8": [
           "2026-07-30",
@@ -280,7 +307,8 @@
           "2026-09-03",
           "2026-09-09",
           "2026-09-15",
-          "2026-09-21"
+          "2026-09-21",
+          "2026-09-24"
         ],
         "9": [
           "2026-07-30",
@@ -290,7 +318,8 @@
           "2026-09-03",
           "2026-09-09",
           "2026-09-15",
-          "2026-09-21"
+          "2026-09-21",
+          "2026-09-24"
         ]
       },
       "descripcion": "Motocicletas según el último dígito numérico de la placa",

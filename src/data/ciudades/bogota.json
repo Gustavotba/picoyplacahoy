@@ -89,18 +89,93 @@
     },
     "taxis": {
       "aplica": true,
-      "horario": "5:30 a.m. a 9:00 p.m.",
-      "dias_habiles": ["lun", "mar", "mie", "jue", "vie", "sab"],
+      "descripcion": "Taxis (transporte público individual) según el último dígito de la placa — dos dígitos por día, con el calendario mensual oficial de la Secretaría Distrital de Movilidad",
+      "criterio_placa": "ultimo_digito",
+      "modalidad": "quincenal_por_fecha",
+      "horario_inicio": "05:30",
+      "horario_fin": "21:00",
+      "horario_texto": "5:30 a.m. a 9:00 p.m. (lunes a sábado; domingos y festivos no aplica)",
+      "dias_aplicables": [
+        "lunes",
+        "martes",
+        "miercoles",
+        "jueves",
+        "viernes",
+        "sabado"
+      ],
       "aplica_festivos": false,
-      "restricciones": {
-        "lunes": ["pendiente_verificar"],
-        "martes": ["pendiente_verificar"],
-        "miercoles": ["pendiente_verificar"],
-        "jueves": ["pendiente_verificar"],
-        "viernes": ["pendiente_verificar"],
-        "sabado": ["pendiente_verificar"]
-      },
-      "notas": "Los taxis SÍ tienen Pico y Placa en Bogotá: de lunes a SÁBADO, de 5:30 a.m. a 9:00 p.m., con dos dígitos restringidos por día en un ciclo rodante (1-2, 3-4, 5-6, 7-8, 9-0). No aplica domingos ni festivos. La Secretaría Distrital de Movilidad publica el calendario mes a mes, y los festivos consumen turno del ciclo, así que la secuencia no es predecible con certeza. Consulta el calendario del mes en movilidadbogota.gov.co antes de salir."
+      "aplica_fines_de_semana": true,
+      "nota_especial": "Base legal: Decreto Distrital 652 de 2025, artículos 260 a 264 (compila el Decreto 660 de 2001, modificado por el 475 de 2019). El ciclo avanza una pareja de dígitos por día de operación (1-2 → 3-4 → 5-6 → 7-8 → 9-0) y los festivos, aunque son libres, SÍ consumen turno. Exentos: taxis eléctricos o a gas natural registrados en el RDA que operen con plataforma tecnológica y estén en el SIRC. También aplica el Pico y Placa Solidario. Calendario cargado hasta el 31 de agosto de 2026: la Secretaría publica la tabla de cada mes en los primeros días del mes en movilidadbogota.gov.co/pico-y-placa.",
+      "fechas_restriccion": {
+        "0": [
+          "2026-08-06",
+          "2026-08-12",
+          "2026-08-18",
+          "2026-08-24",
+          "2026-08-29"
+        ],
+        "1": [
+          "2026-08-01",
+          "2026-08-13",
+          "2026-08-19",
+          "2026-08-25",
+          "2026-08-31"
+        ],
+        "2": [
+          "2026-08-01",
+          "2026-08-13",
+          "2026-08-19",
+          "2026-08-25",
+          "2026-08-31"
+        ],
+        "3": [
+          "2026-08-03",
+          "2026-08-08",
+          "2026-08-14",
+          "2026-08-20",
+          "2026-08-26"
+        ],
+        "4": [
+          "2026-08-03",
+          "2026-08-08",
+          "2026-08-14",
+          "2026-08-20",
+          "2026-08-26"
+        ],
+        "5": [
+          "2026-08-04",
+          "2026-08-10",
+          "2026-08-15",
+          "2026-08-21",
+          "2026-08-27"
+        ],
+        "6": [
+          "2026-08-04",
+          "2026-08-10",
+          "2026-08-15",
+          "2026-08-21",
+          "2026-08-27"
+        ],
+        "7": [
+          "2026-08-05",
+          "2026-08-11",
+          "2026-08-22",
+          "2026-08-28"
+        ],
+        "8": [
+          "2026-08-05",
+          "2026-08-11",
+          "2026-08-22",
+          "2026-08-28"
+        ],
+        "9": [
+          "2026-08-06",
+          "2026-08-12",
+          "2026-08-18",
+          "2026-08-24",
+          "2026-08-29"
+        ]
+      }
     },
     "transporte_carga": {
       "aplica": true,
