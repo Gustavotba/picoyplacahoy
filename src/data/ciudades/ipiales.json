@@ -2,7 +2,10 @@
   "slug": "ipiales",
   "nombre": "Ipiales",
   "departamento": "Nariño",
-  "coordenadas": [0.8278, -77.6386],
+  "coordenadas": [
+    0.8278,
+    -77.6386
+  ],
   "autoridad": "Secretaría de Tránsito y Transporte de Ipiales",
   "autoridad_web": "https://www.ipiales-narino.gov.co",
   "autoridad_twitter": "",
@@ -52,5 +55,14 @@
     "facebook": "https://www.facebook.com/AlcaldiaDeIpiales",
     "linea_atencion": "(602) 773 4044",
     "linea_movilidad": "(602) 773 4044"
+  },
+  "contenido_local": {
+    "titulo": "Pico y placa en Ipiales: libre desde que terminaron las obras",
+    "parrafos": [
+      "Ipiales no tiene pico y placa vigente. La medida que muchos recuerdan existió durante las obras de pavimentación de años anteriores y se levantó al terminar la coyuntura: lo verificamos barriendo casi la totalidad del repositorio normativo del municipio.",
+      "Lo que sí rige — y no es pico y placa — es una restricción para motociclistas sobre el parrillero, que no depende de la placa. Revisa las notas de esta página para el detalle vigente.",
+      "La ciudad fronteriza vive del paso hacia Ecuador por Rumichaca y del turismo del Santuario de Las Lajas; ninguno de los dos requiere hoy pensar en dígitos de placa.",
+      "El matiz importante para los viajeros: Pasto, a un par de horas por la Panamericana, sí tiene pico y placa — y de los más cambiantes del país. Si subes a la capital de Nariño, consulta su página antes de salir."
+    ]
   }
 }

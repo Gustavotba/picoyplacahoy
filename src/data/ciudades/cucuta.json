@@ -2,7 +2,10 @@
   "slug": "cucuta",
   "nombre": "Cúcuta",
   "departamento": "Norte de Santander",
-  "coordenadas": [7.8939, -72.5078],
+  "coordenadas": [
+    7.8939,
+    -72.5078
+  ],
   "autoridad": "Secretaría de Tránsito y Movilidad de Cúcuta",
   "autoridad_web": "https://cucuta.gov.co",
   "autoridad_twitter": "alcaldiacucuta",
@@ -36,15 +39,36 @@
       "horario_inicio": "07:00",
       "horario_fin": "19:30",
       "horario_texto": "Tres franjas: 7:00 a 8:30 a.m., 11:30 a.m. a 2:30 p.m. y 5:30 a 7:30 p.m.",
-      "dias_aplicables": ["lunes", "martes", "miercoles", "jueves", "viernes"],
+      "dias_aplicables": [
+        "lunes",
+        "martes",
+        "miercoles",
+        "jueves",
+        "viernes"
+      ],
       "aplica_festivos": false,
       "aplica_fines_de_semana": false,
       "rotacion": {
-        "lunes": [1, 2],
-        "martes": [3, 4],
-        "miercoles": [5, 6],
-        "jueves": [7, 8],
-        "viernes": [9, 0]
+        "lunes": [
+          1,
+          2
+        ],
+        "martes": [
+          3,
+          4
+        ],
+        "miercoles": [
+          5,
+          6
+        ],
+        "jueves": [
+          7,
+          8
+        ],
+        "viernes": [
+          9,
+          0
+        ]
       }
     },
     "motos": {
@@ -55,15 +79,36 @@
       "horario_inicio": "07:00",
       "horario_fin": "19:30",
       "horario_texto": "Tres franjas: 7:00 a 8:30 a.m., 11:30 a.m. a 2:30 p.m. y 5:30 a 7:30 p.m.",
-      "dias_aplicables": ["lunes", "martes", "miercoles", "jueves", "viernes"],
+      "dias_aplicables": [
+        "lunes",
+        "martes",
+        "miercoles",
+        "jueves",
+        "viernes"
+      ],
       "aplica_festivos": false,
       "aplica_fines_de_semana": false,
       "rotacion": {
-        "lunes": [1, 2],
-        "martes": [3, 4],
-        "miercoles": [5, 6],
-        "jueves": [7, 8],
-        "viernes": [9, 0]
+        "lunes": [
+          1,
+          2
+        ],
+        "martes": [
+          3,
+          4
+        ],
+        "miercoles": [
+          5,
+          6
+        ],
+        "jueves": [
+          7,
+          8
+        ],
+        "viernes": [
+          9,
+          0
+        ]
       }
     },
     "taxis": {
@@ -74,15 +119,36 @@
       "horario_inicio": "07:00",
       "horario_fin": "20:00",
       "horario_texto": "7:00 a.m. a 8:00 p.m. (Placa Día, continuo)",
-      "dias_aplicables": ["lunes", "martes", "miercoles", "jueves", "viernes"],
+      "dias_aplicables": [
+        "lunes",
+        "martes",
+        "miercoles",
+        "jueves",
+        "viernes"
+      ],
       "aplica_festivos": false,
       "aplica_fines_de_semana": false,
       "rotacion": {
-        "lunes": [1, 2],
-        "martes": [3, 4],
-        "miercoles": [5, 6],
-        "jueves": [7, 8],
-        "viernes": [9, 0]
+        "lunes": [
+          1,
+          2
+        ],
+        "martes": [
+          3,
+          4
+        ],
+        "miercoles": [
+          5,
+          6
+        ],
+        "jueves": [
+          7,
+          8
+        ],
+        "viernes": [
+          9,
+          0
+        ]
       }
     },
     "transporte_carga": {
@@ -98,5 +164,14 @@
     "facebook": "",
     "linea_atencion": "pendiente_verificar",
     "linea_movilidad": "pendiente_verificar"
+  },
+  "contenido_local": {
+    "titulo": "Pico y placa en Cúcuta: fronteriza y metropolitana",
+    "parrafos": [
+      "El pico y placa de Cúcuta no se queda en la ciudad: el esquema cubre también a Los Patios, Villa del Rosario y El Zulia, los municipios de su área metropolitana. La misma regla rige en todo ese territorio, así que un solo chequeo resuelve el recorrido completo.",
+      "La medida cucuteña tiene una arquitectura particular: para las placas locales rige por franjas horarias en momentos pico del día, mientras que las placas de otras ciudades del país tienen una regla más estricta y continua. Si tu carro está matriculado fuera del área metropolitana, revisa las notas de esta página antes de viajar.",
+      "Carros, motos y taxis están cubiertos, cada uno con su tarjeta arriba. El transporte de carga no tiene restricción por placa en el esquema vigente.",
+      "Como ciudad de frontera con Venezuela, Cúcuta mueve un volumen alto de tráfico binacional y comercial: las autoridades ajustan la medida con cierta frecuencia, y esta página se actualiza con cada decreto verificado."
+    ]
   }
 }

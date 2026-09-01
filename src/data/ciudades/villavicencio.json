@@ -2,7 +2,10 @@
   "slug": "villavicencio",
   "nombre": "Villavicencio",
   "departamento": "Meta",
-  "coordenadas": [4.142, -73.6266],
+  "coordenadas": [
+    4.142,
+    -73.6266
+  ],
   "autoridad": "Secretaría de Movilidad de Villavicencio",
   "autoridad_web": "https://www.villavicencio.gov.co",
   "autoridad_twitter": "AlcaldiaVillavo",
@@ -34,15 +37,36 @@
       "horario_inicio": "06:30",
       "horario_fin": "20:00",
       "horario_texto": "Dos franjas: 6:30 a 9:30 a.m. y 5:00 a 8:00 p.m.",
-      "dias_aplicables": ["lunes", "martes", "miercoles", "jueves", "viernes"],
+      "dias_aplicables": [
+        "lunes",
+        "martes",
+        "miercoles",
+        "jueves",
+        "viernes"
+      ],
       "aplica_festivos": false,
       "aplica_fines_de_semana": false,
       "rotacion": {
-        "lunes": [5, 6],
-        "martes": [7, 8],
-        "miercoles": [9, 0],
-        "jueves": [1, 2],
-        "viernes": [3, 4]
+        "lunes": [
+          5,
+          6
+        ],
+        "martes": [
+          7,
+          8
+        ],
+        "miercoles": [
+          9,
+          0
+        ],
+        "jueves": [
+          1,
+          2
+        ],
+        "viernes": [
+          3,
+          4
+        ]
       }
     },
     "motos": {
@@ -53,14 +77,32 @@
     "taxis": {
       "aplica": true,
       "horario": "6:00 a.m. a medianoche (lunes a domingo)",
-      "dias_habiles": ["lun", "mar", "mie", "jue", "vie", "sab", "dom"],
+      "dias_habiles": [
+        "lun",
+        "mar",
+        "mie",
+        "jue",
+        "vie",
+        "sab",
+        "dom"
+      ],
       "aplica_festivos": true,
       "restricciones": {
-        "lunes": ["pendiente_verificar"],
-        "martes": ["pendiente_verificar"],
-        "miercoles": ["pendiente_verificar"],
-        "jueves": ["pendiente_verificar"],
-        "viernes": ["pendiente_verificar"]
+        "lunes": [
+          "pendiente_verificar"
+        ],
+        "martes": [
+          "pendiente_verificar"
+        ],
+        "miercoles": [
+          "pendiente_verificar"
+        ],
+        "jueves": [
+          "pendiente_verificar"
+        ],
+        "viernes": [
+          "pendiente_verificar"
+        ]
       },
       "notas": "Los taxis SÍ tienen Pico y Placa en Villavicencio (artículo 3 del Decreto 015 de 2026): un dígito por día, de lunes a domingo (festivos incluidos) entre las 6:00 a.m. y la medianoche, en TODA el área urbana, según el último dígito de la placa y el día calendario del mes (tablas mensuales impresas en el decreto; el ciclo avanza un dígito por día, con el 3 de junio y el 31 de octubre exentos). Del 21 de enero al 22 de diciembre de 2026. POR QUÉ NO MOSTRAMOS EL DÍGITO: la tabla oficial del decreto y los dígitos que publica la prensa en agosto de 2026 difieren en un dígito y ninguna fuente oficial diaria nos permitió desempatar; antes que arriesgarte a una multa, consulta el turno del día en las redes oficiales de la Alcaldía (@villavioalcaldia). Mantenimiento: solo 6:30-8:30 a.m., 1:00-2:00 p.m. y 3:00-5:00 p.m., con aviso de 'Fuera de servicio' y únicamente el conductor. Sanción C.14 más inmovilización."
     },
@@ -71,8 +113,16 @@
     }
   },
   "jornadas_especiales": [
-    { "fecha": "2026-06-03", "nombre": "Día de la Bicicleta", "descripcion": "Sin restricción de Pico y Placa." },
-    { "fecha": "2026-10-31", "nombre": "Día de los Niños", "descripcion": "Sin restricción de Pico y Placa." }
+    {
+      "fecha": "2026-06-03",
+      "nombre": "Día de la Bicicleta",
+      "descripcion": "Sin restricción de Pico y Placa."
+    },
+    {
+      "fecha": "2026-10-31",
+      "nombre": "Día de los Niños",
+      "descripcion": "Sin restricción de Pico y Placa."
+    }
   ],
   "contacto_ciudadano": {
     "sitio_web_general": "https://www.villavicencio.gov.co",
@@ -81,5 +131,14 @@
     "facebook": "",
     "linea_atencion": "pendiente_verificar",
     "linea_movilidad": "pendiente_verificar"
+  },
+  "contenido_local": {
+    "titulo": "Pico y placa en Villavicencio: la puerta del Llano",
+    "parrafos": [
+      "Villavicencio es el cruce de caminos entre el centro del país y los Llanos Orientales, y buena parte de su tráfico es de paso: gente que sube o baja de Bogotá por la vía al Llano. El pico y placa local aplica a los vehículos particulares con rotación de lunes a viernes dentro del área urbana.",
+      "Las motos — el vehículo rey del Llano — no tienen restricción por placa en el esquema vigente, y el transporte de carga tampoco.",
+      "Los taxis sí tienen una medida propia con un calendario que avanza por fechas, pero encontramos inconsistencias entre el decreto y lo que publican otras fuentes, así que preferimos marcarla como pendiente antes que mostrar un dígito que pueda estar corrido. Consulta el canal oficial de la alcaldía para el dígito del día.",
+      "Si tu viaje sigue hacia Bogotá, recuerda que allá rige un esquema completamente distinto (por fecha par o impar): revisa la página de Bogotá antes de subir."
+    ]
   }
 }

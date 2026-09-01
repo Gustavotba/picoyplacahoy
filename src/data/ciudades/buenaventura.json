@@ -516,5 +516,14 @@
     "facebook": "https://www.facebook.com/AlcaldiaBuenaventura",
     "linea_atencion": "(602) 240 5400",
     "linea_movilidad": "(602) 240 5401"
+  },
+  "contenido_local": {
+    "titulo": "Pico y placa en Buenaventura: el puerto también tiene reglas",
+    "parrafos": [
+      "Buenaventura, el principal puerto de Colombia sobre el Pacífico, aplica pico y placa a los vehículos particulares con rotación de lunes a viernes en el área urbana. Las motos — mayoría absoluta en las calles bonaverenses — no tienen restricción por placa, y el transporte de carga que alimenta el puerto tampoco.",
+      "Los taxis y el servicio público colectivo tienen un esquema aparte y más exigente: un ciclo que avanza por fechas y que, a diferencia del de los particulares, incluye sábados, domingos y festivos. Si manejas servicio público, tu tarjeta de arriba es la que debes mirar — y todos los días.",
+      "Un detalle útil para quien viaja entre el puerto y Cali: las dos ciudades han coordinado sus rotaciones en los últimos esquemas, pero cada una tiene su propio decreto. Verifica ambas páginas antes de un viaje por la vía al mar.",
+      "Esta página carga el calendario oficial del decreto vigente con fechas exactas y se actualiza en cada renovación."
+    ]
   }
 }

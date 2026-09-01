@@ -53,5 +53,14 @@
     "facebook": "https://www.facebook.com/movilidadrionegro",
     "linea_atencion": "(604) 520 4060",
     "linea_movilidad": "123"
+  },
+  "contenido_local": {
+    "titulo": "Pico y placa en Rionegro: libre, aunque las redes digan otra cosa",
+    "parrafos": [
+      "Rionegro no tiene pico y placa: carros, motos, taxis y carga circulan libres cualquier día. Y vale aclararlo con énfasis porque han circulado imágenes falsas en redes sociales anunciando restricciones que la propia alcaldía ha tenido que desmentir. Esta página solo publica lo que esté respaldado por decreto verificado.",
+      "La confusión tiene una raíz geográfica: Rionegro es Oriente antioqueño, no Valle de Aburrá. El esquema metropolitano de Medellín y sus municipios no llega hasta acá — son territorios y autoridades distintas.",
+      "El dato clave para los rionegreros: el aeropuerto José María Córdova — el aeropuerto de Medellín — está en territorio de Rionegro. Puedes ir y volver del aeropuerto sin pensar en placas; el pico y placa solo aparece si bajas al Valle de Aburrá por el túnel o la autopista.",
+      "Y ese es el consejo práctico: si tu rutina incluye Medellín, la página que debes consultar es la de Medellín — la rotación metropolitana te recibe apenas entras al valle."
+    ]
   }
 }

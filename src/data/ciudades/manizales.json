@@ -189,5 +189,14 @@
     "facebook": "",
     "linea_atencion": "pendiente_verificar",
     "linea_movilidad": "pendiente_verificar"
+  },
+  "contenido_local": {
+    "titulo": "Pico y placa en Manizales: normalmente libre, pero no siempre",
+    "parrafos": [
+      "Manizales es un caso especial entre las capitales: no tiene un pico y placa permanente para vehículos particulares. La medida que existió perdió su vigencia cuando terminó la obra que la justificaba, y desde entonces los carros circulan libres — en condiciones normales.",
+      "La palabra clave es \"normales\": la ciudad ha demostrado que puede activar restricciones temporales y excepcionales cuando una emergencia lo exige, con decreto extraordinario y por semanas. Por eso la tarjeta de arriba manda sobre cualquier costumbre: refleja lo que rige hoy, incluidas las medidas temporales.",
+      "Los taxis son la otra historia: ellos sí tienen pico y placa todo el año, todos los días, con un esquema rodante propio. La autoridad publica esa programación en formatos que no permiten verificarla con confianza, así que esta página la marca como pendiente en lugar de arriesgar un dígito equivocado.",
+      "El día que no puedas usar el vehículo, Manizales tiene un sistema de cable aéreo integrado al transporte público — de los pocos del país — además de las rutas urbanas que suben y bajan por las laderas de la ciudad."
+    ]
   }
 }

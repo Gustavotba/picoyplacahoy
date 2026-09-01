@@ -2,7 +2,10 @@
   "slug": "soacha",
   "nombre": "Soacha",
   "departamento": "Cundinamarca",
-  "coordenadas": [4.5875, -74.2142],
+  "coordenadas": [
+    4.5875,
+    -74.2142
+  ],
   "autoridad": "Secretaría de Movilidad de Soacha",
   "autoridad_web": "https://www.alcaldiasoacha.gov.co",
   "autoridad_twitter": "alcaldia_soacha",
@@ -59,5 +62,14 @@
     "facebook": "",
     "linea_atencion": "(601) 730 5500",
     "linea_movilidad": "(601) 840 0223"
+  },
+  "contenido_local": {
+    "titulo": "Pico y placa en Soacha: libre en el municipio, con truco hacia Bogotá",
+    "parrafos": [
+      "Soacha no tiene pico y placa municipal: dentro del municipio puedes circular cualquier día con cualquier placa. Pero la vida soachuna está pegada a Bogotá, y ahí está el truco.",
+      "Apenas cruzas el límite hacia Bogotá te recibe el esquema bogotano — que depende de si la fecha es par o impar — y en los regresos de puentes festivos rige además una medida regional de ingreso por la Autopista Sur. Si te mueves a diario hacia la capital, la página de Bogotá es la que tienes que consultar.",
+      "En redes circula cada tanto el rumor de restricciones nuevas para Soacha; varias medidas anunciadas nunca entraron en vigencia. Esta página solo publica lo que esté respaldado por decreto verificado.",
+      "La ventaja soachuna para los días de restricción bogotana: TransMilenio llega hasta el municipio, así que dejar el carro y entrar a Bogotá en transporte masivo es una opción real."
+    ]
   }
 }

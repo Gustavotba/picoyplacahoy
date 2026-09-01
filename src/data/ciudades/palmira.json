@@ -2,7 +2,10 @@
   "slug": "palmira",
   "nombre": "Palmira",
   "departamento": "Valle del Cauca",
-  "coordenadas": [3.5394, -76.3036],
+  "coordenadas": [
+    3.5394,
+    -76.3036
+  ],
   "autoridad": "Secretaría de Movilidad de Palmira",
   "autoridad_web": "https://www.palmira.gov.co",
   "decreto_actual": "Sin pico y placa vigente (verificado el 19 de agosto de 2026)",
@@ -52,5 +55,14 @@
     "facebook": "",
     "linea_atencion": "pendiente_verificar",
     "linea_movilidad": "pendiente_verificar"
+  },
+  "contenido_local": {
+    "titulo": "Pico y placa en Palmira: libre, con matices de movilidad",
+    "parrafos": [
+      "Palmira no tiene pico y placa: ni carros, ni motos, ni taxis tienen restricción por placa. Lo verificamos barriendo el repositorio normativo oficial completo del municipio, no solo preguntando.",
+      "Eso no significa ausencia de reglas: en Palmira rigen otras normas de movilidad — como restricciones al parrillero en moto — que no dependen de la placa. Revisa las notas de esta página para el detalle vigente.",
+      "El dato curioso que muchos olvidan: el aeropuerto internacional de Cali (Alfonso Bonilla Aragón) queda en territorio palmirano. Si vas o vienes del aeropuerto en carro, la restricción que te importa no es la de Palmira sino la de Cali, apenas cruces hacia la capital del Valle.",
+      "Y ese es el patrón general para los palmiranos: el pico y placa que afecta sus vidas es el de Cali, a media hora por la recta. Antes de viajar a la capital del departamento, consulta la página de Cali."
+    ]
   }
 }

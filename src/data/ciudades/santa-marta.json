@@ -2,7 +2,10 @@
   "slug": "santa-marta",
   "nombre": "Santa Marta",
   "departamento": "Magdalena",
-  "coordenadas": [11.2408, -74.199],
+  "coordenadas": [
+    11.2408,
+    -74.199
+  ],
   "autoridad": "Secretaría Distrital de Movilidad de Santa Marta",
   "autoridad_web": "https://www.santamarta.gov.co",
   "autoridad_twitter": "AlcaldiaSantaMarta",
@@ -36,15 +39,36 @@
       "horario_inicio": "07:00",
       "horario_fin": "20:00",
       "horario_texto": "Matriculados fuera de Santa Marta: 7:00 a.m. a 8:00 p.m. continuo. Matriculados en Santa Marta: tres franjas (7-9 a.m., 11:30 a.m.-2 p.m. y 5-8 p.m.)",
-      "dias_aplicables": ["lunes", "martes", "miercoles", "jueves", "viernes"],
+      "dias_aplicables": [
+        "lunes",
+        "martes",
+        "miercoles",
+        "jueves",
+        "viernes"
+      ],
       "aplica_festivos": false,
       "aplica_fines_de_semana": false,
       "rotacion": {
-        "lunes": [1, 2],
-        "martes": [3, 4],
-        "miercoles": [5, 6],
-        "jueves": [7, 8],
-        "viernes": [9, 0]
+        "lunes": [
+          1,
+          2
+        ],
+        "martes": [
+          3,
+          4
+        ],
+        "miercoles": [
+          5,
+          6
+        ],
+        "jueves": [
+          7,
+          8
+        ],
+        "viernes": [
+          9,
+          0
+        ]
       }
     },
     "motos": {
@@ -55,15 +79,36 @@
       "horario_inicio": "07:00",
       "horario_fin": "19:00",
       "horario_texto": "7:00 a.m. a 7:00 p.m. (continuo)",
-      "dias_aplicables": ["lunes", "martes", "miercoles", "jueves", "viernes"],
+      "dias_aplicables": [
+        "lunes",
+        "martes",
+        "miercoles",
+        "jueves",
+        "viernes"
+      ],
       "aplica_festivos": false,
       "aplica_fines_de_semana": false,
       "rotacion": {
-        "lunes": [1, 2],
-        "martes": [3, 4],
-        "miercoles": [5, 6],
-        "jueves": [7, 8],
-        "viernes": [9, 0]
+        "lunes": [
+          1,
+          2
+        ],
+        "martes": [
+          3,
+          4
+        ],
+        "miercoles": [
+          5,
+          6
+        ],
+        "jueves": [
+          7,
+          8
+        ],
+        "viernes": [
+          9,
+          0
+        ]
       }
     },
     "taxis": {
@@ -84,5 +129,14 @@
     "facebook": "",
     "linea_atencion": "pendiente_verificar",
     "linea_movilidad": "pendiente_verificar"
+  },
+  "contenido_local": {
+    "titulo": "Pico y placa en Santa Marta: carros, motos y reglas extra",
+    "parrafos": [
+      "Santa Marta aplica pico y placa a carros particulares y motos con rotación semanal. Pero el dígito del día es solo la mitad de la historia: las motos tienen además restricciones adicionales por zonas y horarios — incluida una nocturna — que no dependen de la placa. Revisa las notas de esta página antes de rodar en dos ruedas.",
+      "Los taxis y el transporte de carga no tienen restricción por placa en el esquema vigente.",
+      "Si vienes de turismo en carro, planea con el dígito del día: la medida aplica también a placas de otras ciudades, y las zonas más turísticas — el Centro Histórico y El Rodadero — son precisamente las de reglas más estrictas para las motos.",
+      "La ciudad se mueve en busetas y taxis colectivos; para el turista, buena parte del centro histórico y la bahía se recorren mejor a pie."
+    ]
   }
 }

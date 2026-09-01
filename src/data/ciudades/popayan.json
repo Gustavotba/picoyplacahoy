@@ -2,7 +2,10 @@
   "slug": "popayan",
   "nombre": "Popayán",
   "departamento": "Cauca",
-  "coordenadas": [2.4448, -76.6147],
+  "coordenadas": [
+    2.4448,
+    -76.6147
+  ],
   "autoridad": "Secretaría de Tránsito y Transporte de Popayán",
   "autoridad_web": "https://www.popayan.gov.co",
   "autoridad_twitter": "AlcaldiaPopayan",
@@ -52,15 +55,36 @@
       "horario_inicio": "07:00",
       "horario_fin": "20:00",
       "horario_texto": "7:00 a.m. a 8:00 p.m. (continuo)",
-      "dias_aplicables": ["lunes", "martes", "miercoles", "jueves", "viernes"],
+      "dias_aplicables": [
+        "lunes",
+        "martes",
+        "miercoles",
+        "jueves",
+        "viernes"
+      ],
       "aplica_festivos": false,
       "aplica_fines_de_semana": false,
       "rotacion": {
-        "lunes": [9, 0],
-        "martes": [1, 2],
-        "miercoles": [3, 4],
-        "jueves": [5, 6],
-        "viernes": [7, 8]
+        "lunes": [
+          9,
+          0
+        ],
+        "martes": [
+          1,
+          2
+        ],
+        "miercoles": [
+          3,
+          4
+        ],
+        "jueves": [
+          5,
+          6
+        ],
+        "viernes": [
+          7,
+          8
+        ]
       }
     },
     "motos": {
@@ -71,15 +95,36 @@
       "horario_inicio": "07:00",
       "horario_fin": "20:00",
       "horario_texto": "7:00 a.m. a 8:00 p.m. (continuo)",
-      "dias_aplicables": ["lunes", "martes", "miercoles", "jueves", "viernes"],
+      "dias_aplicables": [
+        "lunes",
+        "martes",
+        "miercoles",
+        "jueves",
+        "viernes"
+      ],
       "aplica_festivos": false,
       "aplica_fines_de_semana": false,
       "rotacion": {
-        "lunes": [9, 0],
-        "martes": [1, 2],
-        "miercoles": [3, 4],
-        "jueves": [5, 6],
-        "viernes": [7, 8]
+        "lunes": [
+          9,
+          0
+        ],
+        "martes": [
+          1,
+          2
+        ],
+        "miercoles": [
+          3,
+          4
+        ],
+        "jueves": [
+          5,
+          6
+        ],
+        "viernes": [
+          7,
+          8
+        ]
       }
     },
     "taxis": {
@@ -100,5 +145,14 @@
     "facebook": "",
     "linea_atencion": "321 496 5013",
     "linea_movilidad": "321 496 5013"
+  },
+  "contenido_local": {
+    "titulo": "Pico y placa en Popayán: una sola tabla para carros y motos",
+    "parrafos": [
+      "En Popayán la regla es pareja: carros particulares y motos comparten exactamente la misma tabla de rotación, de lunes a viernes. Si en tu casa hay carro y moto con dígitos distintos, revisa las dos tarjetas de arriba — el día de cada uno depende de su propia placa.",
+      "Los taxis y el transporte de carga no tienen restricción por placa en el esquema vigente.",
+      "La rotación payanesa se define por periodos y va cambiando — cuando la alcaldía publica la tabla nueva, esta página se actualiza con el decreto verificado. Ojo especialmente en Semana Santa: la ciudad multiplica visitantes y las autoridades pueden tomar medidas especiales de movilidad esos días.",
+      "El día de tu restricción, las rutas del sistema estratégico de transporte cubren los corredores principales, y el centro histórico — patrimonio de la humanidad — se disfruta más caminando."
+    ]
   }
 }

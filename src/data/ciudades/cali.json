@@ -59,11 +59,26 @@
       "aplica_festivos": false,
       "aplica_fines_de_semana": false,
       "rotacion": {
-        "lunes": [9, 0],
-        "martes": [1, 2],
-        "miercoles": [3, 4],
-        "jueves": [5, 6],
-        "viernes": [7, 8]
+        "lunes": [
+          9,
+          0
+        ],
+        "martes": [
+          1,
+          2
+        ],
+        "miercoles": [
+          3,
+          4
+        ],
+        "jueves": [
+          5,
+          6
+        ],
+        "viernes": [
+          7,
+          8
+        ]
       },
       "aplican_vias_exentas": false
     },
@@ -88,5 +103,14 @@
     "facebook": "https://www.facebook.com/AlcaldiaDeCali",
     "linea_atencion": "(602) 418 4242",
     "linea_movilidad": "195"
+  },
+  "contenido_local": {
+    "titulo": "Pico y placa en Cali: carros sí, motos no",
+    "parrafos": [
+      "La capital del Valle del Cauca mantiene su pico y placa para vehículos particulares con rotación de lunes a viernes, pero con una particularidad que la distingue de Bogotá o Medellín: las motos no tienen restricción por placa, y los taxis tampoco están cubiertos por el esquema actual.",
+      "La rotación caleña cambia por semestres, así que el dígito que te toca hoy no es necesariamente el del próximo año: cuando la alcaldía publica el decreto nuevo, esta página se actualiza con la tabla verificada.",
+      "Un detalle que sorprende a muchos: en el esquema vigente, cierta carga particular liviana también entra en la restricción. Si manejas camioneta o furgón de trabajo, revisa la tarjeta de transporte de carga de arriba antes de asumir que estás libre.",
+      "El día de tu restricción, el MIO cubre los principales corredores de la ciudad, y para trayectos cortos Cali es una ciudad de topografía amable para la bicicleta."
+    ]
   }
 }

@@ -2,7 +2,10 @@
   "slug": "turbaco",
   "nombre": "Turbaco",
   "departamento": "Bolívar",
-  "coordenadas": [10.3311, -75.4122],
+  "coordenadas": [
+    10.3311,
+    -75.4122
+  ],
   "autoridad": "Secretaría de Tránsito de Turbaco",
   "autoridad_web": "https://www.turbaco-bolivar.gov.co",
   "autoridad_twitter": "",
@@ -52,5 +55,14 @@
     "facebook": "",
     "linea_atencion": "pendiente_verificar",
     "linea_movilidad": "pendiente_verificar"
+  },
+  "contenido_local": {
+    "titulo": "Pico y placa en Turbaco: libre, pegado a una ciudad que no lo es",
+    "parrafos": [
+      "Turbaco no tiene pico y placa vigente: la medida que existió venció hace años y no ha sido reemplazada por ningún acto administrativo verificable. Carros, motos y taxis circulan libres.",
+      "La aclaración vale porque en internet sobreviven referencias a restricciones viejas de Turbaco — incluso con las placas al revés de como eran. Esta página solo publica lo que esté respaldado por decreto verificado, y hoy ese respaldo dice: sin restricción.",
+      "El matiz que sí importa está a quince minutos: Cartagena, donde trabaja y estudia buena parte de Turbaco, tiene pico y placa completo para carros, motos y taxis. Si tu rutina cruza a la Heroica, la página de Cartagena es tu consulta diaria — la restricción te recibe al entrar.",
+      "Esta página vigila la normativa municipal y se actualizará si Turbaco vuelve a decretar la medida."
+    ]
   }
 }

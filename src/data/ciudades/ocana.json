@@ -2,7 +2,10 @@
   "slug": "ocana",
   "nombre": "Ocaña",
   "departamento": "Norte de Santander",
-  "coordenadas": [8.2369, -73.3581],
+  "coordenadas": [
+    8.2369,
+    -73.3581
+  ],
   "autoridad": "Secretaría de Movilidad y Tránsito de Ocaña",
   "autoridad_web": "https://www.ocana-nortedesantander.gov.co",
   "autoridad_twitter": "",
@@ -24,11 +27,17 @@
   "vias_exentas": [],
   "restriccion_por_matricula": {
     "local": {
-      "franjas_horarias": ["7:30-8:30 a.m.", "11:30 a.m.-2:30 p.m.", "5:30-7:00 p.m."],
+      "franjas_horarias": [
+        "7:30-8:30 a.m.",
+        "11:30 a.m.-2:30 p.m.",
+        "5:30-7:00 p.m."
+      ],
       "nota": "Vehículos matriculados en Ocaña: aplica solo en estas 3 franjas horarias"
     },
     "foranea": {
-      "franjas_horarias": ["7:00 a.m.-7:00 p.m. (continuo)"],
+      "franjas_horarias": [
+        "7:00 a.m.-7:00 p.m. (continuo)"
+      ],
       "nota": "Vehículos con matrícula de otra ciudad (nacionales y extranjeros): restricción continua todo el día hábil"
     }
   },
@@ -49,15 +58,36 @@
       "horario_inicio": "07:00",
       "horario_fin": "19:00",
       "horario_texto": "3 franjas (matrícula Ocaña) o 7am-7pm continuo (matrícula foránea)",
-      "dias_aplicables": ["lunes", "martes", "miercoles", "jueves", "viernes"],
+      "dias_aplicables": [
+        "lunes",
+        "martes",
+        "miercoles",
+        "jueves",
+        "viernes"
+      ],
       "aplica_festivos": false,
       "aplica_fines_de_semana": false,
       "rotacion": {
-        "lunes": [1, 2],
-        "martes": [3, 4],
-        "miercoles": [5, 6],
-        "jueves": [7, 8],
-        "viernes": [9, 0]
+        "lunes": [
+          1,
+          2
+        ],
+        "martes": [
+          3,
+          4
+        ],
+        "miercoles": [
+          5,
+          6
+        ],
+        "jueves": [
+          7,
+          8
+        ],
+        "viernes": [
+          9,
+          0
+        ]
       },
       "aplican_vias_exentas": false,
       "nota_especial": "Matrícula de Ocaña: 3 franjas (7:30-8:30, 11:30-14:30, 17:30-19:00). Matrícula foránea: continuo 7am-7pm."
@@ -70,15 +100,36 @@
       "horario_inicio": "07:00",
       "horario_fin": "19:00",
       "horario_texto": "3 franjas (matrícula Ocaña) o 7am-7pm continuo (matrícula foránea)",
-      "dias_aplicables": ["lunes", "martes", "miercoles", "jueves", "viernes"],
+      "dias_aplicables": [
+        "lunes",
+        "martes",
+        "miercoles",
+        "jueves",
+        "viernes"
+      ],
       "aplica_festivos": false,
       "aplica_fines_de_semana": false,
       "rotacion": {
-        "lunes": [1, 2],
-        "martes": [3, 4],
-        "miercoles": [5, 6],
-        "jueves": [7, 8],
-        "viernes": [9, 0]
+        "lunes": [
+          1,
+          2
+        ],
+        "martes": [
+          3,
+          4
+        ],
+        "miercoles": [
+          5,
+          6
+        ],
+        "jueves": [
+          7,
+          8
+        ],
+        "viernes": [
+          9,
+          0
+        ]
       },
       "aplican_vias_exentas": false,
       "nota_especial": "Aplica con la misma rotación y franjas diferenciadas por tipo de matrícula que los particulares."
@@ -99,5 +150,14 @@
     "facebook": "",
     "linea_atencion": "pendiente_verificar",
     "linea_movilidad": "pendiente_verificar"
+  },
+  "contenido_local": {
+    "titulo": "Pico y placa en Ocaña: tu matrícula decide tu regla",
+    "parrafos": [
+      "El pico y placa de Ocaña tiene una arquitectura poco común en Colombia: la restricción es diferente según dónde esté matriculado el vehículo. Las placas ocañeras tienen franjas horarias específicas del día; las placas de otras ciudades enfrentan una restricción continua mucho más larga, conocida como \"Placa Día\".",
+      "Eso convierte a esta página en lectura obligada para el visitante: si llegas a Ocaña con matrícula de otra ciudad, tu regla es más dura que la de los locales — no asumas que el dígito te libera igual que a ellos.",
+      "La medida cubre a carros particulares y motos; los taxis están por fuera. Y el dato local que lo explica todo: la gran mayoría de los vehículos que ruedan por Ocaña son motocicletas.",
+      "Esta página muestra las dos variantes de la regla — matrícula local y foránea — con sus franjas, tal como las define el decreto vigente."
+    ]
   }
 }

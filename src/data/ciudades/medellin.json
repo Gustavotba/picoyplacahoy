@@ -339,5 +339,14 @@
     "facebook": "https://www.facebook.com/sttmed",
     "linea_atencion": "(604) 385 55 55",
     "linea_movilidad": "123"
+  },
+  "contenido_local": {
+    "titulo": "Pico y placa en Medellín: una sola regla para todo el Valle de Aburrá",
+    "parrafos": [
+      "El pico y placa de Medellín no es solo de Medellín: la rotación se acuerda para los diez municipios del Valle de Aburrá, de Barbosa a Caldas. Eso significa que el dígito que rige hoy aquí es el mismo en Bello, Envigado, Itagüí y el resto del valle — consultas una sola vez y tienes resuelto cualquier recorrido metropolitano.",
+      "La ciudad tiene un as bajo la manga que pocos conocen: las vías exentas. Algunos corredores principales quedan por fuera de la restricción, y en esta página está el mapa exacto de cuáles son. Para muchos recorridos, conocerlas es la diferencia entre dejar el carro o poder usarlo por la ruta correcta.",
+      "El día que tu placa descansa, Medellín es probablemente la ciudad mejor equipada del país para moverse sin carro: Metro, tranvía, cables aéreos, Metroplús y EnCicla cubren buena parte del valle.",
+      "Ojo con los taxis: no siguen la rotación semanal de los particulares sino un calendario propio que avanza por fechas. Y recuerda que la rotación de todo el valle cambia por semestres: cuando eso pasa, esta página se actualiza con el decreto nuevo."
+    ]
   }
 }

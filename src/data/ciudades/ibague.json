@@ -2,7 +2,10 @@
   "slug": "ibague",
   "nombre": "Ibagué",
   "departamento": "Tolima",
-  "coordenadas": [4.4389, -75.2322],
+  "coordenadas": [
+    4.4389,
+    -75.2322
+  ],
   "autoridad": "Secretaría de Movilidad de Ibagué",
   "autoridad_web": "https://www.ibague.gov.co",
   "autoridad_twitter": "alcaldiaibague",
@@ -54,15 +57,36 @@
       "horario_inicio": "06:00",
       "horario_fin": "21:00",
       "horario_texto": "6:00 a.m. a 9:00 p.m. (continuo)",
-      "dias_aplicables": ["lunes", "martes", "miercoles", "jueves", "viernes"],
+      "dias_aplicables": [
+        "lunes",
+        "martes",
+        "miercoles",
+        "jueves",
+        "viernes"
+      ],
       "aplica_festivos": false,
       "aplica_fines_de_semana": false,
       "rotacion": {
-        "lunes": [6, 7],
-        "martes": [8, 9],
-        "miercoles": [0, 1],
-        "jueves": [2, 3],
-        "viernes": [4, 5]
+        "lunes": [
+          6,
+          7
+        ],
+        "martes": [
+          8,
+          9
+        ],
+        "miercoles": [
+          0,
+          1
+        ],
+        "jueves": [
+          2,
+          3
+        ],
+        "viernes": [
+          4,
+          5
+        ]
       }
     },
     "motos": {
@@ -73,16 +97,38 @@
     "taxis": {
       "aplica": true,
       "horario": "6:00 a.m. a 8:00 p.m.",
-      "dias_habiles": ["lun", "mar", "mie", "jue", "vie", "sab", "dom"],
+      "dias_habiles": [
+        "lun",
+        "mar",
+        "mie",
+        "jue",
+        "vie",
+        "sab",
+        "dom"
+      ],
       "aplica_festivos": true,
       "restricciones": {
-        "lunes": ["pendiente_verificar"],
-        "martes": ["pendiente_verificar"],
-        "miercoles": ["pendiente_verificar"],
-        "jueves": ["pendiente_verificar"],
-        "viernes": ["pendiente_verificar"],
-        "sabado": ["pendiente_verificar"],
-        "domingo": ["pendiente_verificar"]
+        "lunes": [
+          "pendiente_verificar"
+        ],
+        "martes": [
+          "pendiente_verificar"
+        ],
+        "miercoles": [
+          "pendiente_verificar"
+        ],
+        "jueves": [
+          "pendiente_verificar"
+        ],
+        "viernes": [
+          "pendiente_verificar"
+        ],
+        "sabado": [
+          "pendiente_verificar"
+        ],
+        "domingo": [
+          "pendiente_verificar"
+        ]
       },
       "notas": "Los taxis SÍ tienen Pico y Placa en Ibagué, con un esquema distinto al de particulares. Desde el Decreto 0085 del 13 de febrero de 2026, el horario es de 6:00 a.m. a 8:00 p.m. (antes era restricción continua de 24 horas) y aplica de domingo a domingo, incluidos festivos. Se restringe un único dígito del último número de placa, que avanza día a día de forma continua (0, 1, 2… y vuelve a empezar), independiente del día de la semana. Como esa secuencia se pausa cada vez que la medida se suspende, no publicamos una tabla fija: consulta el dígito del día directamente con la Secretaría de Movilidad de Ibagué."
     },
@@ -99,5 +145,14 @@
     "facebook": "https://www.facebook.com/alcaldiaibague",
     "linea_atencion": "(608) 277 0788",
     "linea_movilidad": "(608) 277 0788"
+  },
+  "contenido_local": {
+    "titulo": "Pico y placa en Ibagué: sectorizado y con hora valle",
+    "parrafos": [
+      "El pico y placa de Ibagué tiene dos particularidades que lo hacen distinto al de casi todas las capitales: no cubre toda la ciudad sino sectores y corredores definidos por el decreto, y contempla una \"hora valle\" — ventanas del día en que las placas matriculadas en Ibagué pueden circular aunque estén en restricción.",
+      "Esa segunda regla tiene truco: la hora valle beneficia solo a las placas locales. Si tu carro está matriculado en otra ciudad, la restricción te aplica de corrido, sin ventanas. Revisa las notas de esta página para el detalle.",
+      "Las motos no tienen restricción por placa en el esquema vigente. Los taxis sí tienen su propia medida, pero con un calendario que la autoridad no publica de forma estable — por eso esta página lo marca como pendiente en lugar de arriesgar una tabla incorrecta.",
+      "La capital musical se mueve el día de la restricción en las busetas urbanas y, cada vez más, en bicicleta: el clima templado y el tamaño de la ciudad lo permiten."
+    ]
   }
 }

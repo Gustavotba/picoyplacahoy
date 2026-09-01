@@ -2,7 +2,10 @@
   "slug": "dosquebradas",
   "nombre": "Dosquebradas",
   "departamento": "Risaralda",
-  "coordenadas": [4.8333, -75.6667],
+  "coordenadas": [
+    4.8333,
+    -75.6667
+  ],
   "autoridad": "Secretaría de Tránsito y Movilidad de Dosquebradas",
   "autoridad_web": "https://www.dosquebradas.gov.co",
   "autoridad_twitter": "",
@@ -43,15 +46,36 @@
       "horario_inicio": "06:00",
       "horario_fin": "20:00",
       "horario_texto": "6:00 a.m. a 8:00 p.m.",
-      "dias_aplicables": ["lunes", "martes", "miercoles", "jueves", "viernes"],
+      "dias_aplicables": [
+        "lunes",
+        "martes",
+        "miercoles",
+        "jueves",
+        "viernes"
+      ],
       "aplica_festivos": false,
       "aplica_fines_de_semana": false,
       "rotacion": {
-        "lunes": [0, 1],
-        "martes": [2, 3],
-        "miercoles": [4, 5],
-        "jueves": [6, 7],
-        "viernes": [8, 9]
+        "lunes": [
+          0,
+          1
+        ],
+        "martes": [
+          2,
+          3
+        ],
+        "miercoles": [
+          4,
+          5
+        ],
+        "jueves": [
+          6,
+          7
+        ],
+        "viernes": [
+          8,
+          9
+        ]
       },
       "aplican_vias_exentas": true
     },
@@ -63,15 +87,36 @@
       "horario_inicio": "06:00",
       "horario_fin": "20:00",
       "horario_texto": "6:00 a.m. a 8:00 p.m.",
-      "dias_aplicables": ["lunes", "martes", "miercoles", "jueves", "viernes"],
+      "dias_aplicables": [
+        "lunes",
+        "martes",
+        "miercoles",
+        "jueves",
+        "viernes"
+      ],
       "aplica_festivos": false,
       "aplica_fines_de_semana": false,
       "rotacion": {
-        "lunes": [0, 1],
-        "martes": [2, 3],
-        "miercoles": [4, 5],
-        "jueves": [6, 7],
-        "viernes": [8, 9]
+        "lunes": [
+          0,
+          1
+        ],
+        "martes": [
+          2,
+          3
+        ],
+        "miercoles": [
+          4,
+          5
+        ],
+        "jueves": [
+          6,
+          7
+        ],
+        "viernes": [
+          8,
+          9
+        ]
       },
       "aplican_vias_exentas": true,
       "nota_especial": "En Dosquebradas las motos se rigen por el PRIMER dígito de la placa (no el último como en otras ciudades)."
@@ -94,5 +139,14 @@
     "facebook": "",
     "linea_atencion": "(606) 351 5333",
     "linea_movilidad": "(606) 351 5333"
+  },
+  "contenido_local": {
+    "titulo": "Pico y placa en Dosquebradas: conurbada pero con reglas propias",
+    "parrafos": [
+      "Dosquebradas y Pereira funcionan como una sola ciudad partida por el Viaducto, pero en pico y placa son dos mundos: cada una tiene su propio decreto, su propia tabla y sus propias vías exentas. Vivir en una y trabajar en la otra exige revisar las dos páginas.",
+      "La medida dosquebradense cubre a carros particulares y motos — incluidos los motocarros, que siguen la regla por su último dígito. Taxis y transporte de carga están exentos por el decreto vigente.",
+      "Cuidado con un mito local: las vías exentas son pocas y puntuales — tramos específicos del corredor de las Autopistas del Café — y varias avenidas que la gente cree exentas expresamente no lo están. Revisa la lista exacta en esta página antes de confiar tu ruta a un rumor.",
+      "Como en Pereira, la medida es de vigencia indefinida: la tabla no rota por semestres sino que rige hasta que un decreto nuevo la cambie. El Megabús conecta los dos lados del Viaducto el día que tu placa descansa."
+    ]
   }
 }

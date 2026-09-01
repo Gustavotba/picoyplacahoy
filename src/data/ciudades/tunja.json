@@ -2,7 +2,10 @@
   "slug": "tunja",
   "nombre": "Tunja",
   "departamento": "Boyacá",
-  "coordenadas": [5.5353, -73.3678],
+  "coordenadas": [
+    5.5353,
+    -73.3678
+  ],
   "autoridad": "Secretaría de Movilidad y Vida Territorial de Tunja",
   "autoridad_web": "https://www.tunja-boyaca.gov.co",
   "autoridad_twitter": "",
@@ -44,15 +47,36 @@
       "horario_inicio": "06:00",
       "horario_fin": "20:00",
       "horario_texto": "Centro Histórico (dentro del anillo): 6:00 a.m. a 8:00 p.m. corrido. Resto de la ciudad: 3 franjas, 6:00-9:00 a.m., 12:00 m-2:00 p.m. y 5:00-8:00 p.m.",
-      "dias_aplicables": ["lunes", "martes", "miercoles", "jueves", "viernes"],
+      "dias_aplicables": [
+        "lunes",
+        "martes",
+        "miercoles",
+        "jueves",
+        "viernes"
+      ],
       "aplica_festivos": false,
       "aplica_fines_de_semana": false,
       "rotacion": {
-        "lunes": [3, 4],
-        "martes": [5, 6],
-        "miercoles": [7, 8],
-        "jueves": [9, 0],
-        "viernes": [1, 2]
+        "lunes": [
+          3,
+          4
+        ],
+        "martes": [
+          5,
+          6
+        ],
+        "miercoles": [
+          7,
+          8
+        ],
+        "jueves": [
+          9,
+          0
+        ],
+        "viernes": [
+          1,
+          2
+        ]
       },
       "aplican_vias_exentas": false,
       "nota_especial": "La hora valle libre (9:01-11:59 a.m. y 2:01-4:59 p.m.) aplica SOLO fuera del anillo del Centro Histórico; dentro del anillo la restricción es corrida de 6:00 a.m. a 8:00 p.m."
@@ -64,14 +88,30 @@
     "taxis": {
       "aplica": true,
       "horario": "pendiente_verificar",
-      "dias_habiles": ["lun", "mar", "mie", "jue", "vie"],
+      "dias_habiles": [
+        "lun",
+        "mar",
+        "mie",
+        "jue",
+        "vie"
+      ],
       "aplica_festivos": false,
       "restricciones": {
-        "lunes": ["pendiente_verificar"],
-        "martes": ["pendiente_verificar"],
-        "miercoles": ["pendiente_verificar"],
-        "jueves": ["pendiente_verificar"],
-        "viernes": ["pendiente_verificar"]
+        "lunes": [
+          "pendiente_verificar"
+        ],
+        "martes": [
+          "pendiente_verificar"
+        ],
+        "miercoles": [
+          "pendiente_verificar"
+        ],
+        "jueves": [
+          "pendiente_verificar"
+        ],
+        "viernes": [
+          "pendiente_verificar"
+        ]
       },
       "notas": "El servicio público individual (taxi) en Tunja tiene su propia restricción, distinta del Decreto 0399 (que solo regula particulares): viene de la cadena Decreto 0109 de 2013, modificado por el 0150 de 2015. En 2026 los medios regionales publican una rotación de dos dígitos por día para servicio público, pero no hemos encontrado el decreto que la fija, así que no la mostramos (regla del sitio: sin decreto no se carga el dato). Consulta el turno del día con la Secretaría de Movilidad y Vida Territorial."
     },
@@ -83,15 +123,36 @@
       "horario_inicio": "06:00",
       "horario_fin": "20:00",
       "horario_texto": "Centro Histórico (dentro del anillo): 6:00 a.m. a 8:00 p.m. corrido. Resto de la ciudad: 3 franjas, 6:00-9:00 a.m., 12:00 m-2:00 p.m. y 5:00-8:00 p.m.",
-      "dias_aplicables": ["lunes", "martes", "miercoles", "jueves", "viernes"],
+      "dias_aplicables": [
+        "lunes",
+        "martes",
+        "miercoles",
+        "jueves",
+        "viernes"
+      ],
       "aplica_festivos": false,
       "aplica_fines_de_semana": false,
       "rotacion": {
-        "lunes": [3, 4],
-        "martes": [5, 6],
-        "miercoles": [7, 8],
-        "jueves": [9, 0],
-        "viernes": [1, 2]
+        "lunes": [
+          3,
+          4
+        ],
+        "martes": [
+          5,
+          6
+        ],
+        "miercoles": [
+          7,
+          8
+        ],
+        "jueves": [
+          9,
+          0
+        ],
+        "viernes": [
+          1,
+          2
+        ]
       },
       "aplican_vias_exentas": false,
       "nota_especial": "Aplica a la carga de servicio PARTICULAR. En 2024 desaparecieron las excepciones de alimentos perecederos y materiales de construcción que traía el decreto anterior."
@@ -104,5 +165,14 @@
     "facebook": "https://www.facebook.com/MovilidadyVidaTunja",
     "linea_atencion": "pendiente_verificar",
     "linea_movilidad": "pendiente_verificar"
+  },
+  "contenido_local": {
+    "titulo": "Pico y placa en Tunja: más duro dentro del centro histórico",
+    "parrafos": [
+      "El pico y placa de Tunja tiene una geografía propia: dentro del anillo del centro histórico la restricción rige de corrido durante todo el horario, mientras que por fuera existen ventanas de \"hora valle\" en las que puedes circular aunque tu placa esté restringida. El mismo dígito, dos realidades según dónde estés parado.",
+      "Otra particularidad boyacense: la medida cubre también la carga de servicio particular — camionetas, camiones y volquetas particulares siguen la misma tabla. Las motos, en cambio, están excluidas expresamente.",
+      "Los taxis muy probablemente tienen su propia rotación, pero no hemos encontrado el decreto vigente que la respalde — por eso esta página los marca como pendientes en lugar de copiar tablas de dudosa procedencia.",
+      "Dos costumbres locales que conviene conocer: la rotación puede cambiar cada año, y en diciembre la alcaldía suele suspender la medida por la temporada navideña. Esta página se actualiza cuando cualquiera de las dos cosas se confirma en la fuente oficial."
+    ]
   }
 }

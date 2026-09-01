@@ -361,5 +361,14 @@
       "El único sitio oficial para tramitarlo es movilidadbogota.gov.co. Desconfía de intermediarios.",
       "Las tarifas se actualizan cada año según el IPC (Índice de Precios al Consumidor)."
     ]
+  },
+  "contenido_local": {
+    "titulo": "Pico y placa en Bogotá: el único que depende de la fecha, no del día",
+    "parrafos": [
+      "Bogotá usa un esquema distinto al de todas las demás capitales del país: la restricción no depende del día de la semana sino de si la FECHA del calendario es par o impar. Por eso aquí no sirve memorizar \"los lunes me toca\": el mismo miércoles puede ser libre una semana y restringido la siguiente.",
+      "Dos particularidades más completan el panorama: las motos están exentas de la medida general, y los taxis tienen su propio calendario que la Secretaría de Movilidad publica mes a mes — esta página lo carga apenas sale.",
+      "Bogotá también inventó una válvula de escape: el Pico y Placa Solidario, un permiso pagado que te deja circular en día restringido. En esta página encuentras las tarifas vigentes y el enlace oficial para tramitarlo.",
+      "Y si el carro se queda en casa, TransMilenio y el SITP mueven millones de personas al día; para trayectos al centro, la red de ciclorrutas de Bogotá es de las más extensas de América Latina."
+    ]
   }
 }

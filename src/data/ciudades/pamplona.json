@@ -2,7 +2,10 @@
   "slug": "pamplona",
   "nombre": "Pamplona",
   "departamento": "Norte de Santander",
-  "coordenadas": [7.3753, -72.6477],
+  "coordenadas": [
+    7.3753,
+    -72.6477
+  ],
   "autoridad": "Secretaría de Tránsito y Transporte de Pamplona",
   "autoridad_web": "https://pamplona-nortedesantander.gov.co",
   "autoridad_twitter": "",
@@ -37,14 +40,30 @@
     "particulares": {
       "aplica": true,
       "horario": "8:00 a.m. a 6:00 p.m.",
-      "dias_habiles": ["lun", "mar", "mie", "jue", "vie"],
+      "dias_habiles": [
+        "lun",
+        "mar",
+        "mie",
+        "jue",
+        "vie"
+      ],
       "aplica_festivos": false,
       "restricciones": {
-        "lunes": ["pendiente_verificar"],
-        "martes": ["pendiente_verificar"],
-        "miercoles": ["pendiente_verificar"],
-        "jueves": ["pendiente_verificar"],
-        "viernes": ["pendiente_verificar"]
+        "lunes": [
+          "pendiente_verificar"
+        ],
+        "martes": [
+          "pendiente_verificar"
+        ],
+        "miercoles": [
+          "pendiente_verificar"
+        ],
+        "jueves": [
+          "pendiente_verificar"
+        ],
+        "viernes": [
+          "pendiente_verificar"
+        ]
       },
       "notas": "Pamplona SÍ tiene Pico y Placa para particulares en el centro histórico (Decreto 067 de 2018), de lunes a viernes de 8:00 a.m. a 6:00 p.m., según el último dígito de la placa. La tabla oficial de dígitos por día no está publicada en línea; consulta el dígito vigente del día con la Secretaría de Tránsito de Pamplona."
     },
@@ -70,5 +89,14 @@
     "facebook": "",
     "linea_atencion": "pendiente_verificar",
     "linea_movilidad": "pendiente_verificar"
+  },
+  "contenido_local": {
+    "titulo": "Pico y placa en Pamplona: solo en el centro histórico",
+    "parrafos": [
+      "El pico y placa de Pamplona es de alcance quirúrgico: restringe la circulación — y también el parqueo — dentro del centro histórico, de lunes a viernes. Fuera de ese perímetro, la ciudad se mueve libre.",
+      "Hay un problema de transparencia que preferimos confesar antes que disimular: la asignación exacta de dígitos por día no está publicada oficialmente en línea. Por eso esta página marca la tabla como pendiente y te remite a las autoridades locales para el dígito del día — mostrar una tabla sin respaldo sería mentirte.",
+      "Las motos y los taxis no tienen restricción por placa en la información disponible.",
+      "La \"ciudad mitrada\", universitaria y religiosa, concentra su vida justamente en el centro histórico que la medida protege: si tu destino es la zona central en día hábil, confirma el dígito antes de entrar o parquea por fuera del perímetro."
+    ]
   }
 }

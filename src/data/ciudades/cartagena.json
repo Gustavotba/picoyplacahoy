@@ -172,5 +172,14 @@
     "facebook": "https://www.facebook.com/DattCartagena",
     "linea_atencion": "(605) 660 0977",
     "linea_movilidad": "(605) 660 0977"
+  },
+  "contenido_local": {
+    "titulo": "Pico y placa en Cartagena: reglas propias para carros, motos y taxis",
+    "parrafos": [
+      "Cartagena aplica pico y placa a tres frentes a la vez — particulares, motos y taxis — cada uno con su propia tabla y su propio horario. Si te mueves en más de un tipo de vehículo, revisa cada tarjeta de arriba por separado: las reglas no coinciden entre sí.",
+      "Una rareza cartagenera que confunde a muchos: la franja de los taxis cruza la medianoche, así que la restricción de un día puede terminar en la madrugada del siguiente. El conteo regresivo de esta página ya lo tiene en cuenta.",
+      "Si vienes de visita en carro desde otra ciudad, la placa foránea no te exime: la medida aplica por igual. Planea la llegada revisando el dígito del día, especialmente en temporada alta.",
+      "Para moverse sin carro, Transcaribe conecta el corredor principal con el Centro Histórico, y dentro de la ciudad amurallada la mejor manera de moverse siempre ha sido a pie."
+    ]
   }
 }

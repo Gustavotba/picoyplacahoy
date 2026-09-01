@@ -490,5 +490,14 @@
   },
   "autoridad_twitter": "STTMPASTO",
   "vigencia_desde": "2026-07-28",
-  "vigencia_hasta": "2026-09-24"
+  "vigencia_hasta": "2026-09-24",
+  "contenido_local": {
+    "titulo": "Pico y placa en Pasto: el que rota cada semana",
+    "parrafos": [
+      "El pico y placa de Pasto funciona distinto al del resto del país: en lugar de una tabla fija por día de la semana, usa ciclos que van rotando semana a semana. El dígito que te tocó el lunes pasado casi nunca es el del próximo lunes — por eso aquí, más que en ninguna otra ciudad, conviene consultar todos los días.",
+      "La medida cubre a carros particulares, motos y taxis dentro del perímetro urbano, cada uno con su tarjeta arriba. Para el transporte de carga el decreto no define una categoría clara, así que esta página lo deja marcado como pendiente.",
+      "Otra particularidad pastusa: la alcaldía renueva la medida con mucha más frecuencia que otras ciudades — cada pocos meses sale decreto nuevo. Esta página carga las fechas exactas del decreto vigente y se actualiza con cada renovación.",
+      "El día que no puedes sacar el vehículo, el sistema estratégico de transporte público y las busetas urbanas cubren los corredores principales de la ciudad."
+    ]
+  }
 }

@@ -44,5 +44,14 @@
     "facebook": "",
     "linea_atencion": "pendiente_verificar",
     "linea_movilidad": "pendiente_verificar"
+  },
+  "contenido_local": {
+    "titulo": "Pico y placa en Lorica: sin restricción por placa",
+    "parrafos": [
+      "Santa Cruz de Lorica no tiene pico y placa vigente: carros, motos y taxis circulan libres cualquier día de la semana.",
+      "La perla del bajo Sinú — famosa por su mercado público a orillas del río y su herencia siriolibanesa — se mueve principalmente en moto y mototaxi, y hasta ahora sus autoridades han manejado la movilidad sin restricciones por placa.",
+      "Si tu viaje sigue hacia la costa, ten presente que ciudades cercanas como Cartagena sí tienen esquemas completos de pico y placa: consulta la página del destino antes de salir.",
+      "Esta página vigila la normativa local y se actualizará si el municipio expide alguna restricción verificable."
+    ]
   }
 }

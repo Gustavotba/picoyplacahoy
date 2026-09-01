@@ -143,5 +143,14 @@
     "facebook": "https://www.facebook.com/TransitoBucaramanga",
     "linea_atencion": "317 434 7156",
     "linea_movilidad": "317 434 7156"
+  },
+  "contenido_local": {
+    "titulo": "Pico y placa en Bucaramanga: carros y motos bajo la misma lupa",
+    "parrafos": [
+      "En Bucaramanga el pico y placa cubre tanto a los carros particulares como a las motos, con rotación de lunes a viernes. Los taxis y el transporte de carga, en cambio, no tienen restricción por placa en el esquema vigente.",
+      "Un detalle clave para quien se mueve por el área metropolitana: Floridablanca, Girón y Piedecuesta son municipios aparte y toman sus propias decisiones de movilidad. Si tu ruta diaria cruza esas fronteras, verifica las reglas de cada municipio y no asumas que la de Bucaramanga aplica en todos.",
+      "La rotación bumanguesa se ajusta periódicamente por resolución, y esta página se actualiza con cada cambio verificado en la fuente oficial.",
+      "El día de tu restricción, Metrolínea y las rutas urbanas cubren los principales corredores de la meseta; para trayectos al centro, la escala compacta de la ciudad juega a favor."
+    ]
   }
 }

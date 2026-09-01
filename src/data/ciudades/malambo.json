@@ -2,7 +2,10 @@
   "slug": "malambo",
   "nombre": "Malambo",
   "departamento": "Atlántico",
-  "coordenadas": [10.8689, -74.7733],
+  "coordenadas": [
+    10.8689,
+    -74.7733
+  ],
   "autoridad": "Secretaría de Tránsito y Transporte de Malambo",
   "autoridad_web": "https://www.malambo-atlantico.gov.co",
   "autoridad_twitter": "",
@@ -39,15 +42,36 @@
       "horario_inicio": "08:00",
       "horario_fin": "23:59",
       "horario_texto": "8:00 a.m. a 11:59 p.m. (lunes a viernes)",
-      "dias_aplicables": ["lunes", "martes", "miercoles", "jueves", "viernes"],
+      "dias_aplicables": [
+        "lunes",
+        "martes",
+        "miercoles",
+        "jueves",
+        "viernes"
+      ],
       "aplica_festivos": false,
       "aplica_fines_de_semana": false,
       "rotacion": {
-        "lunes": [1, 2],
-        "martes": [3, 4],
-        "miercoles": [5, 6],
-        "jueves": [7, 8],
-        "viernes": [9, 0]
+        "lunes": [
+          1,
+          2
+        ],
+        "martes": [
+          3,
+          4
+        ],
+        "miercoles": [
+          5,
+          6
+        ],
+        "jueves": [
+          7,
+          8
+        ],
+        "viernes": [
+          9,
+          0
+        ]
       },
       "nota_especial": "Esta rotación viene del Decreto departamental 000362 de 2025, que rige en vías secundarias, terciarias y departamentales. Para el casco urbano de Malambo hace falta un acto municipal que no encontramos publicado, así que dentro de la ciudad su exigibilidad es dudosa. La mantenemos visible porque equivocarse por precaución es más barato que un comparendo."
     },
@@ -67,5 +91,14 @@
     "facebook": "",
     "linea_atencion": "pendiente_verificar",
     "linea_movilidad": "pendiente_verificar"
+  },
+  "contenido_local": {
+    "titulo": "Pico y placa en Malambo: la regla vigente es departamental",
+    "parrafos": [
+      "El caso de Malambo es de letra pequeña: la medida municipal que existió venció, y la que rige hoy para las motos es una norma departamental del Atlántico que aplica en cierto tipo de vías — secundarias, terciarias y carreteras departamentales — no en todo el casco urbano por igual.",
+      "Por eso esta página muestra la rotación de motos con su alcance explicado: es la que puede aplicarte en las vías de la zona, pero el detalle de dónde exactamente conviene confirmarlo con las autoridades de tránsito.",
+      "Los carros particulares, taxis y carga no tienen restricción por placa vigente. Y el famoso \"día sin moto\" mensual que muchos recuerdan ya no existe: fue eliminado formalmente.",
+      "La norma departamental incluye además una restricción nocturna de fin de semana para motos que no depende de la placa — revisa las notas de esta página antes de rodar de noche."
+    ]
   }
 }

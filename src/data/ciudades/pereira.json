@@ -2,7 +2,10 @@
   "slug": "pereira",
   "nombre": "Pereira",
   "departamento": "Risaralda",
-  "coordenadas": [4.8143, -75.6946],
+  "coordenadas": [
+    4.8143,
+    -75.6946
+  ],
   "autoridad": "Instituto de Movilidad de Pereira",
   "autoridad_web": "https://www.movilidadpereira.gov.co",
   "autoridad_twitter": "MovilidadPereir",
@@ -42,15 +45,36 @@
       "horario_inicio": "06:00",
       "horario_fin": "20:00",
       "horario_texto": "6:00 a.m. a 8:00 p.m. (continuo)",
-      "dias_aplicables": ["lunes", "martes", "miercoles", "jueves", "viernes"],
+      "dias_aplicables": [
+        "lunes",
+        "martes",
+        "miercoles",
+        "jueves",
+        "viernes"
+      ],
       "aplica_festivos": false,
       "aplica_fines_de_semana": false,
       "rotacion": {
-        "lunes": [0, 1],
-        "martes": [2, 3],
-        "miercoles": [4, 5],
-        "jueves": [6, 7],
-        "viernes": [8, 9]
+        "lunes": [
+          0,
+          1
+        ],
+        "martes": [
+          2,
+          3
+        ],
+        "miercoles": [
+          4,
+          5
+        ],
+        "jueves": [
+          6,
+          7
+        ],
+        "viernes": [
+          8,
+          9
+        ]
       }
     },
     "motos": {
@@ -61,15 +85,36 @@
       "horario_inicio": "06:00",
       "horario_fin": "20:00",
       "horario_texto": "6:00 a.m. a 8:00 p.m. (continuo)",
-      "dias_aplicables": ["lunes", "martes", "miercoles", "jueves", "viernes"],
+      "dias_aplicables": [
+        "lunes",
+        "martes",
+        "miercoles",
+        "jueves",
+        "viernes"
+      ],
       "aplica_festivos": false,
       "aplica_fines_de_semana": false,
       "rotacion": {
-        "lunes": [0, 1],
-        "martes": [2, 3],
-        "miercoles": [4, 5],
-        "jueves": [6, 7],
-        "viernes": [8, 9]
+        "lunes": [
+          0,
+          1
+        ],
+        "martes": [
+          2,
+          3
+        ],
+        "miercoles": [
+          4,
+          5
+        ],
+        "jueves": [
+          6,
+          7
+        ],
+        "viernes": [
+          8,
+          9
+        ]
       }
     },
     "taxis": {
@@ -90,5 +135,14 @@
     "facebook": "",
     "linea_atencion": "pendiente_verificar",
     "linea_movilidad": "pendiente_verificar"
+  },
+  "contenido_local": {
+    "titulo": "Pico y placa en Pereira: la tabla que no rota por semestres",
+    "parrafos": [
+      "A diferencia de Medellín o Cali, donde la rotación cambia cada semestre, el pico y placa de Pereira es de vigencia indefinida: la misma tabla rige hasta que un decreto nuevo la modifique. Eso da estabilidad — memorizar tu día sí sirve — pero también obliga a estar atento cuando la alcaldía anuncia cambios.",
+      "La medida cubre a carros particulares y motos de lunes a viernes. Los taxis quedaron por fuera del decreto vigente, igual que el transporte de carga: sin restricción por placa.",
+      "Ojo si tu ruta diaria cruza a Dosquebradas: aunque son ciudades conurbadas y comparten el corredor del Viaducto, cada una tiene su propio decreto y sus propias vías exentas. Revisa las dos páginas si vives en una y trabajas en la otra.",
+      "El día de tu restricción, el Megabús conecta a Pereira con Dosquebradas por los corredores principales, y el centro pereirano se camina bien."
+    ]
   }
 }

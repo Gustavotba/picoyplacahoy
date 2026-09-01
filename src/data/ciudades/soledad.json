@@ -2,7 +2,10 @@
   "slug": "soledad",
   "nombre": "Soledad",
   "departamento": "Atlántico",
-  "coordenadas": [10.9172, -74.7664],
+  "coordenadas": [
+    10.9172,
+    -74.7664
+  ],
   "autoridad": "Instituto Municipal de Tránsito y Transporte de Soledad (IMTTRASOL)",
   "autoridad_web": "https://transitosoledad.gov.co",
   "autoridad_twitter": "TransitoSoleda1",
@@ -22,12 +25,20 @@
   ],
   "vias_exentas": [],
   "pico_y_color": {
-    "aplica_a": ["motocarros"],
+    "aplica_a": [
+      "motocarros"
+    ],
     "descripcion": "Regulación exclusiva para motocarros según el color del vehículo. En días impares se restringen los motocarros AZULES. En días pares se restringen los motocarros NARANJAS.",
     "norma": "Artículo 7 del Decreto 288 del 6 de julio de 2017",
     "colores": [
-      { "color": "Azul", "placas": "Restringidos en fechas impares del calendario" },
-      { "color": "Naranja", "placas": "Restringidos en fechas pares del calendario" }
+      {
+        "color": "Azul",
+        "placas": "Restringidos en fechas impares del calendario"
+      },
+      {
+        "color": "Naranja",
+        "placas": "Restringidos en fechas pares del calendario"
+      }
     ]
   },
   "sanciones": {
@@ -51,15 +62,36 @@
       "horario_inicio": "05:00",
       "horario_fin": "22:00",
       "horario_texto": "5:00 a.m. a 10:00 p.m. (lunes a viernes)",
-      "dias_aplicables": ["lunes", "martes", "miercoles", "jueves", "viernes"],
+      "dias_aplicables": [
+        "lunes",
+        "martes",
+        "miercoles",
+        "jueves",
+        "viernes"
+      ],
       "aplica_festivos": false,
       "aplica_fines_de_semana": false,
       "rotacion": {
-        "lunes": [1, 3],
-        "martes": [2, 4],
-        "miercoles": [5, 7],
-        "jueves": [6, 8],
-        "viernes": [9, 0]
+        "lunes": [
+          1,
+          3
+        ],
+        "martes": [
+          2,
+          4
+        ],
+        "miercoles": [
+          5,
+          7
+        ],
+        "jueves": [
+          6,
+          8
+        ],
+        "viernes": [
+          9,
+          0
+        ]
       },
       "aplican_vias_exentas": false,
       "nota_especial": "Ojo con la rotación: no va en parejas consecutivas. El decreto empareja 1 y 3 el lunes, 2 y 4 el martes, 5 y 7 el miércoles, 6 y 8 el jueves, y 9 y 0 el viernes. Exentas las motos de 598 cc o más. Aparte, el artículo 4 PROHÍBE circular por los alrededores de TransMetro, el aeropuerto Ernesto Cortissoz y la Terminal de Transportes: son sitios restringidos, no exentos."
@@ -80,5 +112,14 @@
     "facebook": "",
     "linea_atencion": "pendiente_verificar",
     "linea_movilidad": "pendiente_verificar"
+  },
+  "contenido_local": {
+    "titulo": "Pico y placa en Soledad: solo para motos, con reglas propias",
+    "parrafos": [
+      "En Soledad el pico y placa aplica únicamente a las motos y vehículos similares: los carros particulares y los taxis circulan libres. El municipio tiene su propia regulación y está por fuera del esquema unificado del departamento.",
+      "La rotación soledeña tiene una particularidad que confunde: las parejas de dígitos de cada día no son consecutivas — no es \"1 y 2\" — así que memorizar mal es fácil. Revisa la tarjeta de arriba, que trae la tabla exacta del decreto.",
+      "Además del dígito, hay capas extra: una prohibición nocturna diaria para motos y motocarros, sitios específicos donde las motos no pueden circular nunca, y un \"Pico y Color\" único en el país para los motocarros — el color del vehículo define su día. Todo está en las notas de esta página.",
+      "Soledad alberga el aeropuerto Ernesto Cortissoz y comparte con Barranquilla el corredor del Transmetro: para los soledeños en moto, el transporte masivo es la alternativa los días de restricción."
+    ]
   }
 }

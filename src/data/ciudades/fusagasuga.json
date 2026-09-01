@@ -2,7 +2,10 @@
   "slug": "fusagasuga",
   "nombre": "Fusagasugá",
   "departamento": "Cundinamarca",
-  "coordenadas": [4.3437, -74.3652],
+  "coordenadas": [
+    4.3437,
+    -74.3652
+  ],
   "autoridad": "Secretaría de Movilidad de Fusagasugá",
   "autoridad_web": "https://www.fusagasuga.gov.co",
   "autoridad_twitter": "AlcFusagasuga",
@@ -53,5 +56,14 @@
     "facebook": "https://www.facebook.com/alcaldiafusagasugaoficial",
     "linea_atencion": "(601) 886 8181",
     "linea_movilidad": "(601) 867 5858"
+  },
+  "contenido_local": {
+    "titulo": "Pico y placa en Fusagasugá: libre en el municipio",
+    "parrafos": [
+      "Fusagasugá no tiene pico y placa: carros, motos, taxis y carga circulan libres cualquier día de la semana. Lo verificamos revisando el repositorio completo de decretos del municipio — cientos de documentos de varios años — y no existe acto administrativo que establezca la medida.",
+      "La capital del Sumapaz vive orientada hacia Bogotá, y ahí sí hay reglas: el esquema bogotano por fecha par o impar te recibe al llegar a la capital, y en los regresos de puentes festivos rigen además medidas regionales de ingreso. Si viajas seguido a Bogotá, esa es la página que debes tener a mano.",
+      "Dentro del municipio, la movilidad tiene los retos típicos de una ciudad intermedia en crecimiento — congestión en el centro y en la variante — pero las autoridades los han manejado hasta ahora sin restricción por placa.",
+      "Esta página seguirá vigilando la normativa local: si algún día Fusagasugá decreta la medida, aquí aparecerá con su tabla verificada."
+    ]
   }
 }

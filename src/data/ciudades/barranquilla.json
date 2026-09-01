@@ -55,5 +55,14 @@
     "facebook": "https://www.facebook.com/alcaldiabquilla",
     "linea_atencion": "195",
     "linea_movilidad": "(605) 401 0205"
+  },
+  "contenido_local": {
+    "titulo": "Pico y placa en Barranquilla: la gran capital sin restricción",
+    "parrafos": [
+      "Barranquilla es hoy la excepción entre las grandes ciudades colombianas: no tiene pico y placa para particulares, motos, taxis ni carga. Puedes circular cualquier día con cualquier placa.",
+      "No siempre fue así ni tiene por qué ser para siempre: la ciudad ha usado esquemas puntuales en el pasado — el más reciente cubría a los taxis — y conserva la potestad de decretar restricciones por eventos especiales o coyunturas de movilidad. Por eso vale la pena consultar antes de fechas grandes como el Carnaval.",
+      "Ojo si sales del área metropolitana: municipios vecinos como Soledad y Malambo sí tienen restricciones activas para algunos vehículos, y ciudades cercanas como Cartagena o Santa Marta manejan sus propios esquemas completos.",
+      "Para moverse sin carro, Transmetro conecta el corredor principal de la ciudad con Soledad, y la red de buses urbanos cubre el resto."
+    ]
   }
 }

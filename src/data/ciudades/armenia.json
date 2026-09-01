@@ -2,7 +2,10 @@
   "slug": "armenia",
   "nombre": "Armenia",
   "departamento": "Quindío",
-  "coordenadas": [4.5339, -75.6811],
+  "coordenadas": [
+    4.5339,
+    -75.6811
+  ],
   "autoridad": "Secretaría de Tránsito y Transporte de Armenia (SETTA)",
   "autoridad_web": "https://www.armenia.gov.co",
   "autoridad_twitter": "AlcaldiaArmenia",
@@ -42,15 +45,36 @@
       "horario_inicio": "07:00",
       "horario_fin": "19:00",
       "horario_texto": "7:00 a.m. a 7:00 p.m. (continuo)",
-      "dias_aplicables": ["lunes", "martes", "miercoles", "jueves", "viernes"],
+      "dias_aplicables": [
+        "lunes",
+        "martes",
+        "miercoles",
+        "jueves",
+        "viernes"
+      ],
       "aplica_festivos": false,
       "aplica_fines_de_semana": false,
       "rotacion": {
-        "lunes": [5, 6],
-        "martes": [7, 8],
-        "miercoles": [9, 0],
-        "jueves": [1, 2],
-        "viernes": [3, 4]
+        "lunes": [
+          5,
+          6
+        ],
+        "martes": [
+          7,
+          8
+        ],
+        "miercoles": [
+          9,
+          0
+        ],
+        "jueves": [
+          1,
+          2
+        ],
+        "viernes": [
+          3,
+          4
+        ]
       }
     },
     "motos": {
@@ -61,30 +85,73 @@
       "horario_inicio": "07:00",
       "horario_fin": "19:00",
       "horario_texto": "7:00 a.m. a 7:00 p.m. (continuo)",
-      "dias_aplicables": ["lunes", "martes", "miercoles", "jueves", "viernes"],
+      "dias_aplicables": [
+        "lunes",
+        "martes",
+        "miercoles",
+        "jueves",
+        "viernes"
+      ],
       "aplica_festivos": false,
       "aplica_fines_de_semana": false,
       "rotacion": {
-        "lunes": [5, 6],
-        "martes": [7, 8],
-        "miercoles": [9, 0],
-        "jueves": [1, 2],
-        "viernes": [3, 4]
+        "lunes": [
+          5,
+          6
+        ],
+        "martes": [
+          7,
+          8
+        ],
+        "miercoles": [
+          9,
+          0
+        ],
+        "jueves": [
+          1,
+          2
+        ],
+        "viernes": [
+          3,
+          4
+        ]
       }
     },
     "taxis": {
       "aplica": true,
       "horario": "5:00 a.m. a 4:59 a.m. del día siguiente (todos los días, incluidos domingos y festivos)",
-      "dias_habiles": ["lun", "mar", "mie", "jue", "vie", "sab", "dom"],
+      "dias_habiles": [
+        "lun",
+        "mar",
+        "mie",
+        "jue",
+        "vie",
+        "sab",
+        "dom"
+      ],
       "aplica_festivos": true,
       "restricciones": {
-        "lunes": ["pendiente_verificar"],
-        "martes": ["pendiente_verificar"],
-        "miercoles": ["pendiente_verificar"],
-        "jueves": ["pendiente_verificar"],
-        "viernes": ["pendiente_verificar"],
-        "sabado": ["pendiente_verificar"],
-        "domingo": ["pendiente_verificar"]
+        "lunes": [
+          "pendiente_verificar"
+        ],
+        "martes": [
+          "pendiente_verificar"
+        ],
+        "miercoles": [
+          "pendiente_verificar"
+        ],
+        "jueves": [
+          "pendiente_verificar"
+        ],
+        "viernes": [
+          "pendiente_verificar"
+        ],
+        "sabado": [
+          "pendiente_verificar"
+        ],
+        "domingo": [
+          "pendiente_verificar"
+        ]
       },
       "notas": "OJO: la restricción de taxis en Armenia NO va por la placa sino por el ÚLTIMO DÍGITO DEL NÚMERO INTERNO del vehículo (el número pintado en la puerta). Rota un dígito por día calendario y los domingos descansan dos dígitos a la vez (Decreto 169 de 2025). Como no es por placa, esta página no puede calcularla: consulta el número del día en el banner semanal que publica la Alcaldía en armenia.gov.co."
     },
@@ -101,5 +168,14 @@
     "facebook": "",
     "linea_atencion": "pendiente_verificar",
     "linea_movilidad": "pendiente_verificar"
+  },
+  "contenido_local": {
+    "titulo": "Pico y placa en Armenia: tabla fija y motos incluidas",
+    "parrafos": [
+      "El pico y placa de Armenia usa una tabla fija por día de la semana — cada día tiene sus dígitos y no van rotando por ciclos, como sí pasa en otras ciudades del Eje Cafetero. Rige de lunes a viernes en todo el perímetro urbano, sin restricción en fines de semana ni festivos.",
+      "Las motos no se salvan: siguen exactamente la misma tabla que los carros, y la medida incluye también motocarros y cuatrimotos. Si tu vehículo tiene placa, revisa el dígito del día.",
+      "Los taxis armenios tienen una particularidad única en el país: su restricción no va por el último dígito de la placa sino por el número interno del vehículo. Como nuestro modelo calcula por placa, esta página marca los taxis como pendientes y te remite a la programación oficial.",
+      "El transporte de carga no tiene restricción propia en el esquema vigente. Y para moverse el día restringido, las busetas urbanas cubren una ciudad que, además, es de las más compactas y caminables del Eje Cafetero."
+    ]
   }
 }

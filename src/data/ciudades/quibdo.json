@@ -2,7 +2,10 @@
   "slug": "quibdo",
   "nombre": "Quibdó",
   "departamento": "Chocó",
-  "coordenadas": [5.6947, -76.6583],
+  "coordenadas": [
+    5.6947,
+    -76.6583
+  ],
   "autoridad": "Secretaría de Movilidad de Quibdó",
   "autoridad_web": "https://www.quibdo-choco.gov.co",
   "decreto_actual": "Decreto 0245 del 2 de julio de 2026 (segundo semestre)",
@@ -52,15 +55,36 @@
       "horario_inicio": "07:00",
       "horario_fin": "20:00",
       "horario_texto": "7:00 a.m. a 8:00 p.m. (lunes a viernes, en el centro de Quibdó)",
-      "dias_aplicables": ["lunes", "martes", "miercoles", "jueves", "viernes"],
+      "dias_aplicables": [
+        "lunes",
+        "martes",
+        "miercoles",
+        "jueves",
+        "viernes"
+      ],
       "aplica_festivos": false,
       "aplica_fines_de_semana": false,
       "rotacion": {
-        "lunes": [1, 8],
-        "martes": [0, 4],
-        "miercoles": [3, 6],
-        "jueves": [2, 7],
-        "viernes": [5, 9]
+        "lunes": [
+          1,
+          8
+        ],
+        "martes": [
+          0,
+          4
+        ],
+        "miercoles": [
+          3,
+          6
+        ],
+        "jueves": [
+          2,
+          7
+        ],
+        "viernes": [
+          5,
+          9
+        ]
       }
     },
     "motos": {
@@ -71,15 +95,46 @@
       "horario_inicio": "07:00",
       "horario_fin": "20:00",
       "horario_texto": "7:00 a.m. a 8:00 p.m. (lunes a viernes, en el centro de Quibdó)",
-      "dias_aplicables": ["lunes", "martes", "miercoles", "jueves", "viernes"],
+      "dias_aplicables": [
+        "lunes",
+        "martes",
+        "miercoles",
+        "jueves",
+        "viernes"
+      ],
       "aplica_festivos": false,
       "aplica_fines_de_semana": false,
       "rotacion": {
-        "lunes": [2, 5, 8, 9],
-        "martes": [3, 4, 6, 7],
-        "miercoles": [0, 1, 5, 9],
-        "jueves": [2, 4, 6, 8],
-        "viernes": [0, 1, 3, 7]
+        "lunes": [
+          2,
+          5,
+          8,
+          9
+        ],
+        "martes": [
+          3,
+          4,
+          6,
+          7
+        ],
+        "miercoles": [
+          0,
+          1,
+          5,
+          9
+        ],
+        "jueves": [
+          2,
+          4,
+          6,
+          8
+        ],
+        "viernes": [
+          0,
+          1,
+          3,
+          7
+        ]
       }
     },
     "taxis": {
@@ -100,5 +155,14 @@
     "facebook": "https://www.facebook.com/AlcaldiadeQuibdo",
     "linea_atencion": "pendiente_verificar",
     "linea_movilidad": "pendiente_verificar"
+  },
+  "contenido_local": {
+    "titulo": "Pico y placa en Quibdó: solo el centro, y por semestres",
+    "parrafos": [
+      "El pico y placa de Quibdó no cubre toda la ciudad: rige únicamente en el centro, dentro de un perímetro de calles y carreras definido por el decreto. Fuera de esa zona puedes circular con cualquier placa; adentro, carros particulares y motos tienen cada uno su tabla por día.",
+      "Los taxis y el transporte de carga están exentos de la medida — aunque para las volquetas y la carga rigen rutas y horarios especiales que no dependen de la placa; revisa las notas.",
+      "Una costumbre local que conviene conocer: la alcaldía quibdoseña renueva su decreto cada semestre, así que las tablas cambian con más frecuencia que en otras capitales. Esta página se actualiza con cada renovación verificada — y también refleja las suspensiones temporales cuando la ciudad las decreta.",
+      "Los vehículos matriculados recientemente en Quibdó gozan de una exención especial que el decreto define con fechas precisas: si acabas de matricular o trasladar tu vehículo, revisa las notas de esta página."
+    ]
   }
 }
