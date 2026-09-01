@@ -10,7 +10,7 @@
   "autoridad_web": "https://www.movilidadbogota.gov.co",
   "autoridad_twitter": "MovilidadBogota",
   "decreto_actual": "Decreto Distrital 003 de 2023",
-  "fecha_ultima_actualizacion": "2026-04-12",
+  "fecha_ultima_actualizacion": "2026-08-31",
   "vigencia_desde": "2023-01-17",
   "vigencia_hasta": "2026-12-31",
   "notas_generales": [
@@ -105,75 +105,127 @@
       ],
       "aplica_festivos": false,
       "aplica_fines_de_semana": true,
-      "nota_especial": "Base legal: Decreto Distrital 652 de 2025, artículos 260 a 264 (compila el Decreto 660 de 2001, modificado por el 475 de 2019). El ciclo avanza una pareja de dígitos por día de operación (1-2 → 3-4 → 5-6 → 7-8 → 9-0) y los festivos, aunque son libres, SÍ consumen turno. Exentos: taxis eléctricos o a gas natural registrados en el RDA que operen con plataforma tecnológica y estén en el SIRC. También aplica el Pico y Placa Solidario. Calendario cargado hasta el 31 de agosto de 2026: la Secretaría publica la tabla de cada mes en los primeros días del mes en movilidadbogota.gov.co/pico-y-placa.",
+      "nota_especial": "Base legal: Decreto Distrital 652 de 2025, artículos 260 a 264 (compila el Decreto 660 de 2001, modificado por el 475 de 2019). El ciclo avanza una pareja de dígitos por día de operación (1-2 → 3-4 → 5-6 → 7-8 → 9-0) y los festivos, aunque son libres, SÍ consumen turno. Exentos: taxis eléctricos o a gas natural registrados en el RDA que operen con plataforma tecnológica y estén en el SIRC. También aplica el Pico y Placa Solidario. Calendario cargado hasta el 30 de septiembre de 2026 (PDF oficial de la SDM publicado el 31 de agosto): la Secretaría publica la tabla de cada mes en los primeros días del mes en movilidadbogota.gov.co/pico-y-placa.",
       "fechas_restriccion": {
         "0": [
           "2026-08-06",
           "2026-08-12",
           "2026-08-18",
           "2026-08-24",
-          "2026-08-29"
+          "2026-08-29",
+          "2026-09-04",
+          "2026-09-10",
+          "2026-09-16",
+          "2026-09-22",
+          "2026-09-28"
         ],
         "1": [
           "2026-08-01",
           "2026-08-13",
           "2026-08-19",
           "2026-08-25",
-          "2026-08-31"
+          "2026-08-31",
+          "2026-09-05",
+          "2026-09-11",
+          "2026-09-17",
+          "2026-09-23",
+          "2026-09-29"
         ],
         "2": [
           "2026-08-01",
           "2026-08-13",
           "2026-08-19",
           "2026-08-25",
-          "2026-08-31"
+          "2026-08-31",
+          "2026-09-05",
+          "2026-09-11",
+          "2026-09-17",
+          "2026-09-23",
+          "2026-09-29"
         ],
         "3": [
           "2026-08-03",
           "2026-08-08",
           "2026-08-14",
           "2026-08-20",
-          "2026-08-26"
+          "2026-08-26",
+          "2026-09-01",
+          "2026-09-07",
+          "2026-09-12",
+          "2026-09-18",
+          "2026-09-24",
+          "2026-09-30"
         ],
         "4": [
           "2026-08-03",
           "2026-08-08",
           "2026-08-14",
           "2026-08-20",
-          "2026-08-26"
+          "2026-08-26",
+          "2026-09-01",
+          "2026-09-07",
+          "2026-09-12",
+          "2026-09-18",
+          "2026-09-24",
+          "2026-09-30"
         ],
         "5": [
           "2026-08-04",
           "2026-08-10",
           "2026-08-15",
           "2026-08-21",
-          "2026-08-27"
+          "2026-08-27",
+          "2026-09-02",
+          "2026-09-08",
+          "2026-09-14",
+          "2026-09-19",
+          "2026-09-25"
         ],
         "6": [
           "2026-08-04",
           "2026-08-10",
           "2026-08-15",
           "2026-08-21",
-          "2026-08-27"
+          "2026-08-27",
+          "2026-09-02",
+          "2026-09-08",
+          "2026-09-14",
+          "2026-09-19",
+          "2026-09-25"
         ],
         "7": [
           "2026-08-05",
           "2026-08-11",
           "2026-08-22",
-          "2026-08-28"
+          "2026-08-28",
+          "2026-09-03",
+          "2026-09-09",
+          "2026-09-15",
+          "2026-09-21",
+          "2026-09-26"
         ],
         "8": [
           "2026-08-05",
           "2026-08-11",
           "2026-08-22",
-          "2026-08-28"
+          "2026-08-28",
+          "2026-09-03",
+          "2026-09-09",
+          "2026-09-15",
+          "2026-09-21",
+          "2026-09-26"
         ],
         "9": [
           "2026-08-06",
           "2026-08-12",
           "2026-08-18",
           "2026-08-24",
-          "2026-08-29"
+          "2026-08-29",
+          "2026-09-04",
+          "2026-09-10",
+          "2026-09-16",
+          "2026-09-22",
+          "2026-09-28"
         ]
       }
     },

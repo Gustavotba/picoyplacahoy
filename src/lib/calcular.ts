@@ -291,8 +291,8 @@ export function calcularPicoPlaca(
       criterioPlaca: vehiculo.criterio_placa,
       descripcionVehiculo: vehiculo.descripcion,
       mensaje: placasHoy.length > 0
-        ? `Hoy aplica Pico y Placa para taxis con ${CRITERIO_LEGIBLE[vehiculo.criterio_placa]} ${listarPlacas(placasHoy)}.`
-        : 'Hoy no hay restricción de Pico y Placa para taxis.',
+        ? `Hoy aplica Pico y Placa para ${describirPlacas(vehiculo.criterio_placa, placasHoy)}.`
+        : 'Hoy no hay restricción de Pico y Placa para este tipo de vehículo.',
     };
   }
 
