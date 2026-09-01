@@ -2,6 +2,7 @@
 import '../styles/global.css';
 import Cabecera from '../components/Cabecera.astro';
 import PieDePagina from '../components/PieDePagina.astro';
+import Analytics from '../components/Analytics.astro';
 import { SITE_URL, SITE_NAME, OG_IMAGEN_DEFECTO, canonicalDe } from '../lib/seo';
 
 interface Props {
@@ -52,6 +53,9 @@ const bloquesJsonLd = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
     <!-- PWA -->
     <link rel="manifest" href="/manifest.json" />
     <meta name="theme-color" content="#FBBF24" />
+
+    <!-- Google Analytics (no imprime nada hasta que se configure el ID) -->
+    <Analytics />
 
     <!-- Fuente Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />

@@ -1,0 +1,25 @@
+---
+// Google Analytics 4 — desactivado hasta que el dueño pegue su ID de medición.
+//
+// Cómo se activa: crear la propiedad en analytics.google.com, copiar el
+// "ID de medición" (empieza por "G-") y ponerlo en ID_MEDICION. Nada más.
+// Mientras esté vacío, este componente no imprime ni un byte de JavaScript,
+// igual que AdSense.astro: preparado pero apagado.
+const ID_MEDICION: string = '';
+---
+
+{
+  ID_MEDICION && (
+    <>
+      <script is:inline async src={`https://www.googletagmanager.com/gtag/js?id=${ID_MEDICION}`} />
+      <script is:inline define:vars={{ ID_MEDICION }}>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() {
+          dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+        gtag('config', ID_MEDICION);
+      </script>
+    </>
+  )
+}
