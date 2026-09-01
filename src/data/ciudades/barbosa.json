@@ -10,7 +10,7 @@
   "autoridad_web": "https://www.medellin.gov.co/es/secretaria-de-movilidad/",
   "autoridad_twitter": "sttmed",
   "decreto_actual": "Rotación metropolitana segundo semestre 2026",
-  "fecha_ultima_actualizacion": "2026-08-02",
+  "fecha_ultima_actualizacion": "2026-08-31",
   "vigencia_desde": "2026-08-03",
   "vigencia_hasta": "2027-01-29",
   "notas_generales": [
@@ -326,5 +326,14 @@
     "facebook": "https://www.facebook.com/sttmed",
     "linea_atencion": "(604) 385 55 55",
     "linea_movilidad": "123"
+  },
+  "contenido_local": {
+    "titulo": "Pico y placa en Barbosa: el límite norte de la medida",
+    "parrafos": [
+      "Barbosa es el municipio más al norte del Valle de Aburrá y el último del área metropolitana sobre la autopista Medellín–Bogotá: pasando Barbosa, el corredor sigue hacia el Nordeste antioqueño y el Magdalena Medio, ya fuera del valle. Eso lo convierte en el límite norte del pico y placa metropolitano.",
+      "Dentro de Barbosa rige la misma rotación que en los otros nueve municipios del valle: idéntico dígito restringido e idéntico horario que en Medellín. Si tu recorrido diario es Barbosa–Girardota–Medellín, con consultar una sola vez el dígito del día tienes resuelto todo el trayecto.",
+      "Para quien sale del valle por la autopista, el dato práctico es el mismo que en Caldas pero en espejo: al dejar atrás el área metropolitana esta restricción ya no aplica, aunque conviene verificar las reglas del municipio de destino.",
+      "Barbosa no tiene estación de Metro; las rutas intermunicipales de buses por la autopista norte son la conexión con Girardota, Copacabana, Bello y el resto del valle. Y como en todo el esquema metropolitano, el decreto que adopta la medida es municipal: ante dudas, consulta a la Secretaría de Movilidad de Barbosa."
+    ]
   }
 }

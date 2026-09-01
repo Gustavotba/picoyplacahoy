@@ -10,7 +10,7 @@
   "autoridad_web": "https://www.medellin.gov.co/es/secretaria-de-movilidad/",
   "autoridad_twitter": "sttmed",
   "decreto_actual": "Rotación metropolitana segundo semestre 2026",
-  "fecha_ultima_actualizacion": "2026-08-02",
+  "fecha_ultima_actualizacion": "2026-08-31",
   "vigencia_desde": "2026-08-03",
   "vigencia_hasta": "2027-01-29",
   "notas_generales": [
@@ -326,5 +326,14 @@
     "facebook": "https://www.facebook.com/sttmed",
     "linea_atencion": "(604) 385 55 55",
     "linea_movilidad": "123"
+  },
+  "contenido_local": {
+    "titulo": "Pico y placa en La Estrella: el punto de partida del sur",
+    "parrafos": [
+      "La Estrella marca el extremo sur del sistema Metro: la estación La Estrella es la terminal de la línea A, y eso convierte al municipio en punto de entrada al transporte masivo para buena parte del sur del Valle de Aburrá e incluso para viajeros que llegan desde Caldas y el Suroeste antioqueño.",
+      "En materia de pico y placa, La Estrella aplica la misma rotación metropolitana que Medellín y los demás municipios del valle: mismo dígito, mismo horario, mismas exenciones generales. Si tu placa está restringida hoy aquí, lo está en todo el valle.",
+      "Ese detalle importa especialmente para quienes dejan el carro y toman el Metro: el día de tu restricción puedes planear el viaje completo en transporte público desde la terminal sur, sin preocuparte por el dígito en el resto del recorrido.",
+      "Como los demás municipios, La Estrella adopta la medida con decreto propio. Para el texto oficial o dudas sobre vías específicas del municipio, consulta a su Secretaría de Movilidad; y para saber si hoy puedes circular, la tarjeta de arriba ya hizo el cálculo por ti."
+    ]
   }
 }

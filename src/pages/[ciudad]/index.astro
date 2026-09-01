@@ -318,6 +318,18 @@ const bloquesJsonLd = [jsonLdBase, breadcrumb, faqSinPyP].filter(Boolean) as Arr
         </section>
       )}
 
+      {/* Contenido local propio de la ciudad (texto corrido, indexable) */}
+      {ciudad.contenido_local && (
+        <section class="mb-8">
+          <h2 class="text-lg font-bold mb-3">{ciudad.contenido_local.titulo}</h2>
+          <div class="space-y-3">
+            {ciudad.contenido_local.parrafos.map((parrafo) => (
+              <p class="text-sm text-gray-700 dark:text-gray-300 leading-relaxed">{parrafo}</p>
+            ))}
+          </div>
+        </section>
+      )}
+
       {/* 4. Ciudades cercanas CON PyP */}
       {ciudadesCercanas.length > 0 && (
         <section class="mb-6">
@@ -432,6 +444,18 @@ const bloquesJsonLd = [jsonLdBase, breadcrumb, faqSinPyP].filter(Boolean) as Arr
               </li>
             ))}
           </ul>
+        </section>
+      )}
+
+      {/* Contenido local propio de la ciudad (texto corrido, indexable) */}
+      {ciudad.contenido_local && (
+        <section class="mb-6">
+          <h2 class="text-lg font-bold mb-3">{ciudad.contenido_local.titulo}</h2>
+          <div class="space-y-3">
+            {ciudad.contenido_local.parrafos.map((parrafo) => (
+              <p class="text-sm text-gray-700 dark:text-gray-300 leading-relaxed">{parrafo}</p>
+            ))}
+          </div>
         </section>
       )}
 

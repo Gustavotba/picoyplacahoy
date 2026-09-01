@@ -10,7 +10,7 @@
   "autoridad_web": "https://www.medellin.gov.co/es/secretaria-de-movilidad/",
   "autoridad_twitter": "sttmed",
   "decreto_actual": "Rotación metropolitana segundo semestre 2026",
-  "fecha_ultima_actualizacion": "2026-08-02",
+  "fecha_ultima_actualizacion": "2026-08-31",
   "vigencia_desde": "2026-08-03",
   "vigencia_hasta": "2027-01-29",
   "notas_generales": [
@@ -326,5 +326,14 @@
     "facebook": "https://www.facebook.com/sttmed",
     "linea_atencion": "(604) 385 55 55",
     "linea_movilidad": "123"
+  },
+  "contenido_local": {
+    "titulo": "Pico y placa en Girardota: lo que deben saber locales y visitantes",
+    "parrafos": [
+      "Girardota, en el corredor norte del Valle de Aburrá, es conocida en toda Antioquia por la Basílica del Señor Caído, que atrae visitantes de todo el departamento, especialmente los fines de semana. Un dato que les sirve a esos visitantes: el pico y placa metropolitano no rige sábados, domingos ni festivos, así que los días de mayor peregrinación no hay restricción por placa.",
+      "De lunes a viernes, en cambio, aplica la misma rotación del resto del valle: el mismo dígito y el mismo horario que en Medellín, Bello o Copacabana. Si vienes desde fuera del Valle de Aburrá un día hábil, revisa la tarjeta de arriba antes de entrar al valle.",
+      "Girardota no cuenta con estación de Metro; las rutas de buses intermunicipales por la autopista norte conectan con Bello (estación Niquía) y Medellín, y son la alternativa el día de la restricción.",
+      "La medida se acuerda metropolitanamente y se adopta por decreto municipal. Para el texto oficial de Girardota o casos particulares, la fuente es la Secretaría de Movilidad del municipio."
+    ]
   }
 }

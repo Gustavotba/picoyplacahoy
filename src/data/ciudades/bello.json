@@ -10,7 +10,7 @@
   "autoridad_web": "https://www.medellin.gov.co/es/secretaria-de-movilidad/",
   "autoridad_twitter": "sttmed",
   "decreto_actual": "Rotación metropolitana segundo semestre 2026",
-  "fecha_ultima_actualizacion": "2026-08-02",
+  "fecha_ultima_actualizacion": "2026-08-31",
   "vigencia_desde": "2026-08-03",
   "vigencia_hasta": "2027-01-29",
   "notas_generales": [
@@ -326,5 +326,14 @@
     "facebook": "https://www.facebook.com/sttmed",
     "linea_atencion": "(604) 385 55 55",
     "linea_movilidad": "123"
+  },
+  "contenido_local": {
+    "titulo": "Pico y placa en Bello: lo que cambia si vives aquí",
+    "parrafos": [
+      "Bello es el segundo municipio más poblado del Valle de Aburrá y comparte frontera directa con Medellín por el corredor de la Autopista Norte. Para efectos del pico y placa eso tiene una ventaja práctica: la rotación, el horario y las exenciones son las mismas en ambos lados de la frontera, así que si tu placa está libre en Bello también lo está al entrar a Medellín, sin cálculos adicionales.",
+      "El día que a tu carro le toca la restricción, Bello es de los municipios mejor servidos por transporte público del norte del valle: la línea A del Metro de Medellín termina en la estación Niquía, dentro del municipio, y conecta directo con el centro de Medellín y el sur del valle.",
+      "Recuerda que aunque la rotación se acuerda para toda el área metropolitana, cada municipio la adopta con su propio decreto local. Si necesitas el documento oficial de Bello, consúltalo con la Secretaría de Movilidad del municipio antes de tomar decisiones que dependan del detalle fino, como las vías exentas de tu recorrido.",
+      "Si te mueves a diario entre Bello, Copacabana y Medellín, el dato clave es uno solo: el último dígito de tu placa. La tarjeta de arriba te dice si hoy puedes circular, y el calendario de próximos días te sirve para planear la semana completa."
+    ]
   }
 }

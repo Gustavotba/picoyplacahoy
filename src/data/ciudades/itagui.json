@@ -10,7 +10,7 @@
   "autoridad_web": "https://www.medellin.gov.co/es/secretaria-de-movilidad/",
   "autoridad_twitter": "sttmed",
   "decreto_actual": "Rotación metropolitana segundo semestre 2026",
-  "fecha_ultima_actualizacion": "2026-08-02",
+  "fecha_ultima_actualizacion": "2026-08-31",
   "vigencia_desde": "2026-08-03",
   "vigencia_hasta": "2027-01-29",
   "notas_generales": [
@@ -326,5 +326,14 @@
     "facebook": "https://www.facebook.com/sttmed",
     "linea_atencion": "(604) 385 55 55",
     "linea_movilidad": "123"
+  },
+  "contenido_local": {
+    "titulo": "Pico y placa en Itagüí: comercio, industria y placa al día",
+    "parrafos": [
+      "Itagüí concentra una de las actividades comerciales e industriales más intensas del sur del Valle de Aburrá — ahí está, por ejemplo, la Central Mayorista de Antioquia — y eso significa miles de viajes diarios de carros particulares, motos y vehículos de carga. Para todos ellos rige el mismo pico y placa metropolitano: idéntica rotación e idéntico horario que en Medellín y los demás municipios del valle.",
+      "Si trabajas en Itagüí y vives en otro municipio del valle (o al revés), no tienes que consultar dos reglas: con revisar una sola vez el dígito del día es suficiente para todo el recorrido metropolitano.",
+      "El día de la restricción, la línea A del Metro pasa por la estación Itagüí y las rutas de buses del corredor de la Avenida Guayabal conectan con Medellín en pocos minutos. Para los vehículos de carga y los taxis, revisa las tarjetas de arriba: cada tipo de vehículo tiene su propia regla dentro del esquema.",
+      "Como en todo el valle, la rotación se acuerda metropolitanamente pero Itagüí la expide en decreto propio. Ante dudas puntuales — por ejemplo sobre vías exentas dentro del municipio — la palabra final la tiene la Secretaría de Movilidad de Itagüí."
+    ]
   }
 }

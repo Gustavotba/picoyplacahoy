@@ -10,7 +10,7 @@
   "autoridad_web": "https://www.medellin.gov.co/es/secretaria-de-movilidad/",
   "autoridad_twitter": "sttmed",
   "decreto_actual": "Rotación metropolitana segundo semestre 2026",
-  "fecha_ultima_actualizacion": "2026-08-02",
+  "fecha_ultima_actualizacion": "2026-08-31",
   "vigencia_desde": "2026-08-03",
   "vigencia_hasta": "2027-01-29",
   "notas_generales": [
@@ -326,5 +326,14 @@
     "facebook": "https://www.facebook.com/sttmed",
     "linea_atencion": "(604) 385 55 55",
     "linea_movilidad": "123"
+  },
+  "contenido_local": {
+    "titulo": "Pico y placa en Envigado: la misma regla del valle, sin sorpresas",
+    "parrafos": [
+      "Envigado limita con Medellín, Itagüí y Sabaneta, y buena parte de su gente cruza esas fronteras varias veces al día por corredores como la Avenida Las Vegas y la Avenida El Poblado. La buena noticia del pico y placa metropolitano es que no hay que pensar en fronteras: el dígito restringido y el horario son los mismos en Envigado que en el resto del Valle de Aburrá.",
+      "El día de tu restricción tienes alternativas de sobra: la estación Envigado de la línea A del Metro conecta el municipio con todo el eje del río, y las rutas de buses hacia el centro de Medellín y el sur del valle son de las más frecuentes del área metropolitana.",
+      "La rotación se acuerda entre los diez municipios del valle, pero Envigado la adopta mediante decreto propio. Para trámites o dudas sobre el texto oficial del municipio, la fuente es la Secretaría de Movilidad de Envigado.",
+      "Un error común es asumir que la restricción rige también el fin de semana: en el esquema vigente del Valle de Aburrá aplica de lunes a viernes, y los sábados, domingos y festivos quedan libres. Aun así, verifica la tarjeta de arriba antes de salir: es la misma información del decreto, calculada para hoy."
+    ]
   }
 }

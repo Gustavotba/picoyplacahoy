@@ -279,6 +279,16 @@ export interface Ciudad {
     decreto: string;
   };
   notas_generales?: string[];
+  /**
+   * Texto propio de la ciudad, en párrafos corridos (no viñetas). Nació para
+   * diferenciar los 9 municipios del Valle de Aburrá, cuyas páginas eran
+   * idénticas entre sí y Google las trataba como copias. Contenido descriptivo
+   * y de contexto local; los datos regulatorios siguen viviendo en `vehiculos`.
+   */
+  contenido_local?: {
+    titulo: string;
+    parrafos: string[];
+  };
   exenciones_generales?: string[];
   vias_exentas?: string[];
   imagenes_oficiales?: ImagenOficial[];

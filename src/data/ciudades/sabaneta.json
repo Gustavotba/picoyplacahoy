@@ -10,7 +10,7 @@
   "autoridad_web": "https://www.medellin.gov.co/es/secretaria-de-movilidad/",
   "autoridad_twitter": "sttmed",
   "decreto_actual": "Rotación metropolitana segundo semestre 2026",
-  "fecha_ultima_actualizacion": "2026-08-02",
+  "fecha_ultima_actualizacion": "2026-08-31",
   "vigencia_desde": "2026-08-03",
   "vigencia_hasta": "2027-01-29",
   "notas_generales": [
@@ -326,5 +326,14 @@
     "facebook": "https://www.facebook.com/sttmed",
     "linea_atencion": "(604) 385 55 55",
     "linea_movilidad": "123"
+  },
+  "contenido_local": {
+    "titulo": "Pico y placa en Sabaneta: municipio pequeño, misma regla metropolitana",
+    "parrafos": [
+      "Sabaneta es famosa por ser el municipio más pequeño de Colombia, pero su crecimiento urbano de los últimos años la volvió una de las zonas de mayor movimiento vehicular del sur del Valle de Aburrá. Aquí el pico y placa no tiene reglas propias: aplica exactamente la misma rotación y el mismo horario acordados para los diez municipios del valle.",
+      "Eso simplifica la vida de quien vive en Sabaneta y trabaja en Medellín, Envigado o Itagüí: un solo dígito que consultar, sin importar cuántas fronteras municipales cruce tu ruta diaria.",
+      "El día que tu placa tiene restricción, la estación Sabaneta de la línea A del Metro y las rutas alimentadoras del municipio son la alternativa natural; en hora pico suelen ser incluso más rápidas que el carro.",
+      "Aunque la medida es metropolitana, el decreto que la adopta en Sabaneta es municipal. Si necesitas el documento o tienes un caso particular (vehículo exento, trámite de excepción), la fuente oficial es la Secretaría de Movilidad de Sabaneta."
+    ]
   }
 }

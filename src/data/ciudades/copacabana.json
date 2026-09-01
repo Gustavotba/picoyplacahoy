@@ -10,7 +10,7 @@
   "autoridad_web": "https://www.medellin.gov.co/es/secretaria-de-movilidad/",
   "autoridad_twitter": "sttmed",
   "decreto_actual": "Rotación metropolitana segundo semestre 2026",
-  "fecha_ultima_actualizacion": "2026-08-02",
+  "fecha_ultima_actualizacion": "2026-08-31",
   "vigencia_desde": "2026-08-03",
   "vigencia_hasta": "2027-01-29",
   "notas_generales": [
@@ -326,5 +326,14 @@
     "facebook": "https://www.facebook.com/sttmed",
     "linea_atencion": "(604) 385 55 55",
     "linea_movilidad": "123"
+  },
+  "contenido_local": {
+    "titulo": "Pico y placa en Copacabana: en el corredor norte del valle",
+    "parrafos": [
+      "Copacabana está en el corredor norte del Valle de Aburrá, entre Bello y Girardota, sobre el eje que conecta a Medellín con la autopista hacia el Magdalena Medio y Bogotá. Miles de sus habitantes trabajan o estudian en Medellín, y para todos ellos rige una sola regla de pico y placa: la rotación metropolitana, idéntica en los diez municipios del valle.",
+      "Eso significa que no importa dónde te agarre el reloj — en Copacabana, en Bello o en el centro de Medellín —: el dígito restringido del día es el mismo y el horario también.",
+      "Copacabana no tiene estación de Metro propia, así que el día de tu restricción la jugada habitual es el bus intermunicipal hasta la estación Niquía, en Bello, y de ahí la línea A hacia el resto del valle.",
+      "Como en los demás municipios, la medida se adopta con decreto local. Si necesitas el documento oficial de Copacabana o tienes dudas sobre una vía específica, consulta a la Secretaría de Movilidad del municipio; para el día a día, la tarjeta de arriba te dice si hoy puedes sacar el carro."
+    ]
   }
 }

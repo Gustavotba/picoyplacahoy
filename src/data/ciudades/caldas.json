@@ -10,7 +10,7 @@
   "autoridad_web": "https://www.medellin.gov.co/es/secretaria-de-movilidad/",
   "autoridad_twitter": "sttmed",
   "decreto_actual": "Rotación metropolitana segundo semestre 2026",
-  "fecha_ultima_actualizacion": "2026-08-02",
+  "fecha_ultima_actualizacion": "2026-08-31",
   "vigencia_desde": "2026-08-03",
   "vigencia_hasta": "2027-01-29",
   "notas_generales": [
@@ -326,5 +326,14 @@
     "facebook": "https://www.facebook.com/sttmed",
     "linea_atencion": "(604) 385 55 55",
     "linea_movilidad": "123"
+  },
+  "contenido_local": {
+    "titulo": "Pico y placa en Caldas (Antioquia): la puerta del Suroeste",
+    "parrafos": [
+      "Caldas es el municipio más al sur del Valle de Aburrá y la salida natural hacia el Suroeste antioqueño y la vía a La Pintada. Dentro del casco urbano y las vías municipales rige el mismo pico y placa metropolitano del resto del valle: idéntica rotación, idéntico horario.",
+      "El dato útil para los viajeros: la medida metropolitana rige dentro del Valle de Aburrá. Si sales del valle hacia el Suroeste, esta restricción queda atrás — pero verifica siempre las reglas del municipio de destino, porque cada ciudad del país maneja su propio esquema.",
+      "Caldas no tiene estación de Metro, así que el día de la restricción las alternativas son las rutas de buses intermunicipales hacia La Estrella, Sabaneta e Itagüí, donde puedes conectar con la línea A.",
+      "La rotación se acuerda para toda el área metropolitana, pero el decreto que la adopta en Caldas es municipal. Ante cualquier duda con el documento oficial o con vías exentas del municipio, la fuente es la Secretaría de Tránsito de Caldas."
+    ]
   }
 }
