@@ -156,7 +156,7 @@ const ENLACES_UTILES = [
     <a
       id="tu-ciudad-enlace"
       href="/"
-      class="flex items-center justify-between gap-3 rounded-xl border-2 border-yellow-300 bg-yellow-50 px-4 py-3 transition-colors hover:border-yellow-400 dark:border-yellow-700 dark:bg-yellow-950/20"
+      class="flex flex-wrap items-center justify-between gap-x-3 gap-y-1 rounded-xl border-2 border-yellow-300 bg-yellow-50 px-4 py-3 transition-colors hover:border-yellow-400 dark:border-yellow-700 dark:bg-yellow-950/20"
     >
       <span class="min-w-0">
         <span class="block text-[11px] uppercase tracking-wide text-gray-500 dark:text-gray-400">
@@ -165,6 +165,9 @@ const ENLACES_UTILES = [
         <span id="tu-ciudad-nombre" class="block truncate font-bold"></span>
       </span>
       <span id="tu-ciudad-estado" class="flex shrink-0 items-center gap-1.5"></span>
+      {/* Línea "Mi placa": la enciende el script si hay dígito guardado
+          (se guarda en las páginas de ciudad, ver MiPlaca.astro). */}
+      <span id="tu-placa-linea" class="hidden w-full text-sm font-bold"></span>
     </a>
   </section>
 
@@ -233,10 +236,26 @@ const ENLACES_UTILES = [
     <div class="grid grid-cols-1 gap-2 sm:grid-cols-2 lg:grid-cols-3">
       {resumenes.map((resumen) => {
         const insignia = insigniaDe(resumen);
+        // Estado de PARTICULARES para la línea "Mi placa" del atajo de arriba.
+        // La insignia no sirve para esto: a veces habla de otro tipo de vehículo.
+        const part = resumen.tipos.particulares;
+        const partEstado = resumen.sinPicoYPlaca
+          ? 'sin_pyp'
+          : part.desactualizado
+            ? 'desactualizado'
+            : part.pendiente
+              ? 'pendiente'
+              : part.aplica
+                ? 'aplica'
+                : 'libre';
         return (
           <a
             href={`/${resumen.slug}`}
             data-ciudad={resumen.slug}
+            data-part-estado={partEstado}
+            data-part-digitos={part.digitos.join(',')}
+            data-part-criterio={part.criterio ?? ''}
+            data-part-horario={part.horario}
             class="flex items-center justify-between gap-2 rounded-lg border border-gray-200 px-3 py-2.5 text-sm transition-colors hover:border-yellow-400 hover:bg-yellow-50 dark:border-gray-700 dark:hover:bg-yellow-950/20"
           >
             <span class="font-medium" data-nombre>{resumen.nombre}</span>
@@ -335,6 +354,53 @@ const ENLACES_UTILES = [
     nombre.textContent = enLista.querySelector('[data-nombre]')?.textContent ?? '';
     estado.replaceChildren(insignia.cloneNode(true));
     caja.classList.remove('hidden');
+
+    mostrarPlacaRecordada(enLista, slug);
+  }
+
+  /**
+   * Línea "Mi placa" dentro del atajo: si el usuario guardó el último número
+   * de su placa (lo hace en las páginas de ciudad, ver MiPlaca.astro), se le
+   * responde directo si su carro circula hoy en su ciudad.
+   *
+   * Mismo principio que el atajo: no calcula nada nuevo, lee los atributos
+   * data-part-* que el servidor dejó en la lista de ciudades. Y nunca se
+   * muestra con ?fecha= (fecha simulada), porque el "hoy" mentiría.
+   */
+  function mostrarPlacaRecordada(enLista: HTMLAnchorElement, slug: string) {
+    const linea = document.getElementById('tu-placa-linea');
+    if (!linea || new URLSearchParams(location.search).has('fecha')) return;
+
+    let digito: string | null = null;
+    try {
+      digito = localStorage.getItem('picoyplaca:placa');
+    } catch {
+      return;
+    }
+    if (!digito || !/^[0-9]$/.test(digito)) return;
+
+    const estadoPart = enLista.dataset.partEstado;
+    // "pendiente" y "desactualizado" no se personalizan (no sabemos la verdad),
+    // y el criterio distinto de último dígito tampoco (el número guardado es
+    // el ÚLTIMO de la placa).
+    if (estadoPart === 'aplica' && enLista.dataset.partCriterio !== 'ultimo_digito') return;
+    if (estadoPart !== 'aplica' && estadoPart !== 'libre' && estadoPart !== 'sin_pyp') return;
+
+    const digitos = (enLista.dataset.partDigitos ?? '').split(',').filter(Boolean);
+    const restringido = estadoPart === 'aplica' && digitos.includes(digito);
+    const horario = enLista.dataset.partHorario ?? '';
+
+    linea.textContent = restringido
+      ? `Tu placa termina en ${digito}: hoy NO circulas en carro${horario ? ` · ${horario}` : ''}`
+      : `Tu placa termina en ${digito}: hoy puedes circular en carro`;
+    linea.className = restringido
+      ? 'w-full text-sm font-bold text-red-600 dark:text-red-400'
+      : 'w-full text-sm font-bold text-green-600 dark:text-green-400';
+
+    const w = window as unknown as { gtag?: (...args: unknown[]) => void };
+    if (typeof w.gtag === 'function') {
+      w.gtag('event', 'placa_recordada', { digito, ciudad: slug, tipo: 'particulares', origen: 'portada' });
+    }
   }
 
   if (document.readyState === 'loading') {

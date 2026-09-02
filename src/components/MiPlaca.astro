@@ -1,0 +1,262 @@
+---
+// "Mi placa": el sitio recuerda el último número de la placa del visitante.
+//
+// El usuario toca un dígito (0-9) una sola vez y queda guardado en su navegador
+// (localStorage, clave 'picoyplaca:placa' — mismo patrón del atajo "Tu ciudad").
+// Desde entonces cada visita le responde de primero: si HOY circula o no, y su
+// semana completa en verde/rojo para planear.
+//
+// Reglas importantes:
+// - Los datos NO se calculan en el navegador: los 7 días salen de
+//   calcularPicoPlaca(), el mismo motor que pinta las tarjetas, serializados
+//   como atributos data-. El script solo elige qué dígito mirar.
+// - Solo se muestra para el día REAL (nunca con ?fecha=, porque el "hoy"
+//   personalizado mentiría sobre una fecha simulada).
+// - Solo aplica al criterio de ÚLTIMO dígito. Donde se mira el primer dígito
+//   (las motos de Medellín) el componente no se muestra: un número guardado
+//   como "último" daría la respuesta equivocada.
+// - Un día fuera de vigencia se pinta gris con "?" — nunca en verde, porque
+//   "libre" sería un invento.
+import type { Ciudad, TipoVehiculo } from '../lib/tipos';
+import { ETIQUETAS_VEHICULO } from '../lib/tipos';
+import { calcularProximosDias, conMayusculaInicial } from '../lib/calcular';
+
+interface Props {
+  ciudad: Ciudad;
+  tipo: TipoVehiculo;
+  /** Fecha con la que el servidor pintó la página */
+  fechaInicio: Date;
+  /** true cuando la página se está viendo con ?fecha= (fecha simulada) */
+  esSimulacion?: boolean;
+}
+
+const { ciudad, tipo, fechaInicio, esSimulacion = false } = Astro.props;
+
+const dias = calcularProximosDias(ciudad, tipo, fechaInicio, 7);
+const hoyResultado = dias[0].resultado;
+
+// El criterio puede faltar en el resultado de un día suelto (ej. festivo);
+// se toma del primer día que lo traiga.
+const criterio = dias.map((d) => d.resultado.criterioPlaca).find(Boolean);
+
+const mostrar =
+  !esSimulacion &&
+  ciudad.vehiculos[tipo].aplica &&
+  !hoyResultado.esPendiente &&
+  !hoyResultado.datosDesactualizados &&
+  criterio === 'ultimo_digito';
+
+const DIGITOS = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+
+const celdas = dias.map((d) => {
+  const r = d.resultado;
+  const motivo = r.esSuspendido
+    ? 'suspendido'
+    : r.esFestivo && !r.aplica
+      ? 'festivo'
+      : !r.esDiaHabil && !r.esFestivo && !r.aplica && !r.datosDesactualizados
+        ? 'finde'
+        : '';
+  return {
+    diaCorto: d.diaCorto,
+    numeroDia: d.numeroDia,
+    esHoy: d.esHoy,
+    estado: r.datosDesactualizados ? 'verificar' : 'ok',
+    digitos: r.placasRestringidas.join(','),
+    motivo,
+    titulo: conMayusculaInicial(d.fechaTexto),
+  };
+});
+---
+
+{mostrar && (
+  <section
+    class="mb-6 rounded-xl border-2 border-gray-200 bg-white p-4 shadow-sm dark:border-gray-700 dark:bg-gray-900"
+    data-mi-placa
+    data-ciudad={ciudad.slug}
+    data-tipo={tipo}
+    data-horario={hoyResultado.horarioTexto}
+  >
+    <h2 class="font-bold">¿En qué número termina tu placa?</h2>
+    <p class="mt-0.5 text-xs text-gray-500 dark:text-gray-400">
+      Tócalo una vez y te respondemos de primero en cada visita. Aplica para
+      {' '}{ETIQUETAS_VEHICULO[tipo].toLowerCase()} en {ciudad.nombre}; el número
+      solo queda guardado en tu navegador.
+    </p>
+
+    <div class="mt-3 grid grid-cols-10 gap-1 sm:gap-1.5" role="group" aria-label="Último número de tu placa">
+      {DIGITOS.map((d) => (
+        <button
+          type="button"
+          data-digito={d}
+          aria-pressed="false"
+          class="rounded-lg border-2 py-2 font-mono text-base font-bold transition-colors sm:text-lg border-gray-300 hover:border-yellow-400 dark:border-gray-600"
+        >{d}</button>
+      ))}
+    </div>
+
+    {/* Respuesta personalizada: la enciende el script cuando hay dígito guardado */}
+    <div data-rol="respuesta" class="mt-4 hidden border-t border-gray-200 pt-4 dark:border-gray-700">
+      <p data-rol="titular" class="text-xl font-black sm:text-2xl"></p>
+      <p data-rol="detalle" class="mt-0.5 text-sm text-gray-600 dark:text-gray-400"></p>
+
+      <div class="mt-3 grid grid-cols-7 gap-1 sm:gap-1.5">
+        {celdas.map((c) => (
+          <div
+            data-dia
+            data-estado={c.estado}
+            data-digitos={c.digitos}
+            data-motivo={c.motivo}
+            data-hoy={c.esHoy ? '1' : undefined}
+            title={c.titulo}
+            class:list={[
+              'rounded-lg border-2 p-1 text-center border-gray-200 dark:border-gray-700',
+              c.esHoy && 'ring-2 ring-yellow-400',
+            ]}
+          >
+            <span class="block text-[10px] uppercase tracking-wide capitalize">{c.esHoy ? 'Hoy' : c.diaCorto}</span>
+            <span class="block font-mono text-sm font-bold">{c.numeroDia}</span>
+            <span data-rol="marca" class="block text-xs font-bold leading-tight" aria-hidden="true">·</span>
+          </div>
+        ))}
+      </div>
+
+      <p class="mt-2 flex items-center justify-between gap-2 text-[11px] text-gray-400 dark:text-gray-500">
+        <span>✕ no circulas ese día · ✓ libre</span>
+        <button type="button" data-rol="olvidar" class="shrink-0 underline hover:text-gray-600 dark:hover:text-gray-300">
+          Olvidar mi placa
+        </button>
+      </p>
+    </div>
+  </section>
+)}
+
+<script>
+  const CLAVE_PLACA = 'picoyplaca:placa';
+
+  function leerPlaca(): string | null {
+    try {
+      const valor = localStorage.getItem(CLAVE_PLACA);
+      return valor && /^[0-9]$/.test(valor) ? valor : null;
+    } catch {
+      return null; // navegación privada o almacenamiento bloqueado
+    }
+  }
+
+  function escribirPlaca(digito: string | null): void {
+    try {
+      if (digito === null) localStorage.removeItem(CLAVE_PLACA);
+      else localStorage.setItem(CLAVE_PLACA, digito);
+    } catch {
+      // sin almacenamiento el selector funciona igual, solo no recuerda
+    }
+  }
+
+  function eventoAnalytics(nombre: string, datos: Record<string, string>): void {
+    const w = window as unknown as { gtag?: (...args: unknown[]) => void };
+    if (typeof w.gtag === 'function') w.gtag('event', nombre, datos);
+  }
+
+  const CLASE_CELDA_BASE = 'rounded-lg border-2 p-1 text-center';
+  const CLASES_CELDA: Record<string, string> = {
+    rojo: 'border-red-300 bg-red-50 text-red-700 dark:border-red-800 dark:bg-red-950/30 dark:text-red-300',
+    verde: 'border-green-300 bg-green-50 text-green-700 dark:border-green-800 dark:bg-green-950/30 dark:text-green-300',
+    gris: 'border-gray-200 bg-gray-50 text-gray-400 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-500',
+  };
+  const CLASE_BOTON = 'rounded-lg border-2 py-2 font-mono text-base font-bold transition-colors sm:text-lg';
+  const CLASE_BOTON_NORMAL = 'border-gray-300 hover:border-yellow-400 dark:border-gray-600';
+  const CLASE_BOTON_ACTIVO = 'border-black bg-yellow-400 text-black dark:border-yellow-300';
+  const CLASE_TITULAR = 'text-xl font-black sm:text-2xl';
+
+  function pintar(caja: HTMLElement, digito: string | null): void {
+    caja.querySelectorAll<HTMLButtonElement>('[data-digito]').forEach((boton) => {
+      const activo = boton.dataset.digito === digito;
+      boton.className = `${CLASE_BOTON} ${activo ? CLASE_BOTON_ACTIVO : CLASE_BOTON_NORMAL}`;
+      boton.setAttribute('aria-pressed', activo ? 'true' : 'false');
+    });
+
+    const respuesta = caja.querySelector<HTMLElement>('[data-rol="respuesta"]');
+    if (!respuesta) return;
+    if (digito === null) {
+      respuesta.classList.add('hidden');
+      return;
+    }
+    respuesta.classList.remove('hidden');
+
+    const celdas = caja.querySelectorAll<HTMLElement>('[data-dia]');
+    celdas.forEach((celda) => {
+      const marca = celda.querySelector<HTMLElement>('[data-rol="marca"]');
+      const extraHoy = celda.dataset.hoy ? ' ring-2 ring-yellow-400' : '';
+      if (celda.dataset.estado === 'verificar') {
+        celda.className = `${CLASE_CELDA_BASE} ${CLASES_CELDA.gris}${extraHoy}`;
+        if (marca) marca.textContent = '?';
+        return;
+      }
+      const restringido = (celda.dataset.digitos ?? '').split(',').filter(Boolean).includes(digito);
+      celda.className = `${CLASE_CELDA_BASE} ${restringido ? CLASES_CELDA.rojo : CLASES_CELDA.verde}${extraHoy}`;
+      if (marca) marca.textContent = restringido ? '✕' : '✓';
+    });
+
+    const titular = respuesta.querySelector<HTMLElement>('[data-rol="titular"]');
+    const detalle = respuesta.querySelector<HTMLElement>('[data-rol="detalle"]');
+    const celdaHoy = celdas[0];
+    if (!titular || !detalle || !celdaHoy) return;
+
+    const digitosHoy = (celdaHoy.dataset.digitos ?? '').split(',').filter(Boolean);
+    const restringidoHoy = celdaHoy.dataset.estado !== 'verificar' && digitosHoy.includes(digito);
+    const horario = caja.dataset.horario ?? '';
+
+    if (restringidoHoy) {
+      titular.textContent = `Tu placa termina en ${digito}: hoy NO circulas`;
+      titular.className = `${CLASE_TITULAR} text-red-600 dark:text-red-400`;
+      detalle.textContent = horario ? `Restricción de hoy: ${horario}` : '';
+    } else {
+      titular.textContent = `Tu placa termina en ${digito}: hoy puedes circular`;
+      titular.className = `${CLASE_TITULAR} text-green-600 dark:text-green-400`;
+      const motivo = celdaHoy.dataset.motivo;
+      detalle.textContent =
+        motivo === 'festivo'
+          ? 'Hoy es festivo: no aplica la restricción.'
+          : motivo === 'finde'
+            ? 'Hoy es fin de semana: no aplica la restricción.'
+            : motivo === 'suspendido'
+              ? 'La medida está suspendida temporalmente por decreto.'
+              : digitosHoy.length > 0
+                ? 'Hoy la restricción no cubre tu número.'
+                : 'Hoy no hay restricción para este tipo de vehículo.';
+    }
+  }
+
+  document.querySelectorAll<HTMLElement>('[data-mi-placa]').forEach((caja) => {
+    const guardado = leerPlaca();
+    pintar(caja, guardado);
+    if (guardado !== null) {
+      eventoAnalytics('placa_recordada', {
+        digito: guardado,
+        ciudad: caja.dataset.ciudad ?? '',
+        tipo: caja.dataset.tipo ?? '',
+      });
+    }
+
+    caja.querySelectorAll<HTMLButtonElement>('[data-digito]').forEach((boton) => {
+      boton.addEventListener('click', () => {
+        const digito = boton.dataset.digito ?? null;
+        escribirPlaca(digito);
+        pintar(caja, digito);
+        if (digito !== null) {
+          eventoAnalytics('guardar_placa', {
+            digito,
+            ciudad: caja.dataset.ciudad ?? '',
+            tipo: caja.dataset.tipo ?? '',
+          });
+        }
+      });
+    });
+
+    caja.querySelector<HTMLButtonElement>('[data-rol="olvidar"]')?.addEventListener('click', () => {
+      escribirPlaca(null);
+      pintar(caja, null);
+      eventoAnalytics('olvidar_placa', { ciudad: caja.dataset.ciudad ?? '' });
+    });
+  });
+</script>

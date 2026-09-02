@@ -5,6 +5,7 @@ import Reloj from '../../components/Reloj.astro';
 import MapaViasExentas from '../../components/MapaViasExentas.astro';
 import PicoYPlacaSolidarioComp from '../../components/PicoYPlacaSolidario.astro';
 import ImagenesOficiales from '../../components/ImagenesOficiales.astro';
+import MiPlaca from '../../components/MiPlaca.astro';
 import { obtenerCiudad, tiposVehiculo, ciudades } from '../../lib/ciudades';
 import { calcularPicoPlaca, fechaColombia, formatearFechaColombia, conMayusculaInicial, formatearISO } from '../../lib/calcular';
 import { ETIQUETAS_VEHICULO, ICONOS_VEHICULO } from '../../lib/tipos';
@@ -414,6 +415,11 @@ const bloquesJsonLd = [jsonLdBase, breadcrumb, faqSinPyP].filter(Boolean) as Arr
       )}
 
       <section class="mb-6"><Reloj /></section>
+
+      {/* Mi placa: respuesta personalizada con el dígito guardado del visitante.
+          Solo va en la rama CON pico y placa: en las ciudades sin restricción no
+          hay nada que personalizar. */}
+      <MiPlaca ciudad={ciudad} tipo="particulares" fechaInicio={hoy} esSimulacion={esDebug} />
 
       <section class="grid grid-cols-1 gap-4 sm:grid-cols-2 mb-8">
         {resultados.map(({ tipo, resultado }) => (

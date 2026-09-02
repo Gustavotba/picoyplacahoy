@@ -5,6 +5,7 @@ import MapaViasExentas from '../../components/MapaViasExentas.astro';
 import ImagenesOficiales from '../../components/ImagenesOficiales.astro';
 import DescargarCalendario from '../../components/DescargarCalendario.astro';
 import ConteoRegresivo from '../../components/ConteoRegresivo.astro';
+import MiPlaca from '../../components/MiPlaca.astro';
 import { obtenerCiudad, obtenerSlugs, tiposVehiculo, ciudades } from '../../lib/ciudades';
 
 // GeoJSON de vías exentas por ciudad
@@ -284,6 +285,9 @@ const bloquesJsonLd = [servicioJsonLd, breadcrumb];
       </a>
     </div>
   </section>
+
+  {/* Mi placa: respuesta personalizada con el dígito guardado del visitante */}
+  <MiPlaca ciudad={ciudad} tipo={tipo} fechaInicio={hoy} esSimulacion={esDebug} />
 
   {/* Secciones detalladas solo si hay datos reales */}
   {!esVehiculoInactivo && !esVehiculoPlaceholder && (
