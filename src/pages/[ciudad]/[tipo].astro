@@ -42,7 +42,7 @@ const ciudad = obtenerCiudad(slugCiudad!);
 const tipo = tipoParam as TipoVehiculo;
 
 if (!ciudad || !tiposVehiculo.includes(tipo)) {
-  return Astro.redirect('/');
+  return Astro.rewrite('/404');
 }
 
 const vehiculo = ciudad.vehiculos[tipo];

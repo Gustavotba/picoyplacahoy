@@ -11,9 +11,11 @@ interface Props {
   urlCanonica?: string;
   imagen?: string;
   jsonLd?: Record<string, unknown> | Array<Record<string, unknown>>;
+  /** true en páginas que no deben indexarse (ej. la 404). */
+  noindex?: boolean;
 }
 
-const { titulo, descripcion, urlCanonica, imagen, jsonLd } = Astro.props;
+const { titulo, descripcion, urlCanonica, imagen, jsonLd, noindex = false } = Astro.props;
 // Canónica limpia: siempre absoluta y SIN query strings (ej. ?fecha=...)
 const urlCompleta = urlCanonica ?? canonicalDe(Astro.url.pathname);
 // Imagen para compartir, siempre como URL absoluta
@@ -32,8 +34,8 @@ const bloquesJsonLd = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
     <!-- SEO -->
     <title>{titulo}</title>
     <meta name="description" content={descripcion} />
-    <meta name="robots" content="index, follow" />
-    <link rel="canonical" href={urlCompleta} />
+    <meta name="robots" content={noindex ? 'noindex' : 'index, follow'} />
+    {!noindex && <link rel="canonical" href={urlCompleta} />}
 
     <!-- Open Graph -->
     <meta property="og:title" content={titulo} />
@@ -43,6 +45,9 @@ const bloquesJsonLd = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
     <meta property="og:locale" content="es_CO" />
     <meta property="og:site_name" content={SITE_NAME} />
     <meta property="og:image" content={imagenAbsoluta} />
+    {!imagen && <meta property="og:image:width" content="1200" />}
+    {!imagen && <meta property="og:image:height" content="630" />}
+    <meta property="og:image:alt" content={titulo} />
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />

@@ -18,7 +18,7 @@ export const prerender = false;
 
 const { ciudad: slugCiudad } = Astro.params;
 const ciudad = obtenerCiudad(slugCiudad!);
-if (!ciudad) return Astro.redirect('/');
+if (!ciudad) return Astro.rewrite('/404');
 
 const fechaParam = Astro.url.searchParams.get('fecha');
 const hoy = fechaParam ? new Date(fechaParam + 'T12:00:00') : fechaColombia();

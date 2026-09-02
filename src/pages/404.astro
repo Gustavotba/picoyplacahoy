@@ -1,0 +1,51 @@
+---
+import Principal from '../layouts/Principal.astro';
+import { obtenerCiudad } from '../lib/ciudades';
+import type { Ciudad } from '../lib/tipos';
+
+// Página de error 404. Se muestra cuando la URL no existe, incluida una
+// ciudad o un tipo de vehículo que no está en el sitio (via Astro.rewrite).
+export const prerender = false;
+
+// Aunque se llegue por rewrite desde otra ruta, la respuesta debe salir con
+// código 404 para que los buscadores no indexen URLs rotas.
+Astro.response.status = 404;
+
+const CIUDADES_SUGERIDAS = ['bogota', 'medellin', 'cali', 'barranquilla', 'cartagena', 'bucaramanga']
+  .map((slug) => obtenerCiudad(slug))
+  .filter((c): c is Ciudad => c !== undefined);
+---
+
+<Principal
+  titulo="Página no encontrada — Pico y Placa Hoy Colombia"
+  descripcion="La página que buscas no existe. Consulta el pico y placa de hoy en las principales ciudades de Colombia."
+  noindex={true}
+>
+  <section class="py-12 text-center">
+    <p class="font-mono text-7xl font-bold text-yellow-400">404</p>
+    <h1 class="mt-4 text-2xl font-bold">Esta página no existe</h1>
+    <p class="mx-auto mt-2 max-w-md text-gray-600 dark:text-gray-400">
+      Puede que la dirección esté mal escrita o que la página ya no esté disponible.
+    </p>
+    <a
+      href="/"
+      class="mt-6 inline-block rounded-lg bg-yellow-400 px-6 py-3 font-bold text-[#111111] transition-colors hover:bg-yellow-300"
+    >
+      Ir a la portada
+    </a>
+
+    <h2 class="mt-12 text-lg font-semibold">Consulta el pico y placa de hoy</h2>
+    <ul class="mt-4 flex flex-wrap justify-center gap-3">
+      {CIUDADES_SUGERIDAS.map((ciudad) => (
+        <li>
+          <a
+            href={`/${ciudad.slug}`}
+            class="inline-block rounded-lg border border-gray-200 px-4 py-2 transition-colors hover:border-yellow-400 hover:bg-yellow-50 dark:border-gray-700 dark:hover:bg-yellow-950/20"
+          >
+            {ciudad.nombre}
+          </a>
+        </li>
+      ))}
+    </ul>
+  </section>
+</Principal>

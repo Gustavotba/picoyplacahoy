@@ -9,6 +9,7 @@ export const prerender = true;
 const RUTAS_FIJAS = [
   '/',
   '/politica-de-privacidad',
+  '/widget',
   '/exenciones-pico-y-placa',
   '/multas-pico-y-placa',
   '/preguntas-frecuentes',
