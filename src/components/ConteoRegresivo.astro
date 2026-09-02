@@ -103,7 +103,7 @@ function horaLegible(min: number): string {
         class:list={['absolute top-1/2 z-10 flex -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-white shadow-md ring-2 ring-gray-400 dark:ring-gray-500', esGrande ? 'h-8 w-8' : 'h-6 w-6']}
         style="left:0%"
       >
-        <img src={icono} alt="" class={esGrande ? 'h-5 w-5' : 'h-4 w-4'} />
+        <img src={icono} alt="" class:list={['-scale-x-100', esGrande ? 'h-5 w-5' : 'h-4 w-4']} />
       </div>
       <span class:list={['absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/2 select-none leading-none', esGrande ? 'text-base' : 'text-sm']}>🏁</span>
     </div>
