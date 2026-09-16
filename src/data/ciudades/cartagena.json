@@ -29,9 +29,8 @@
     "tipo_multa": "Tipo C",
     "base_legal": "Artículo 131, literal C, numeral 14 de la Ley 769 de 2002",
     "valor_smldv": "15 SMLDV",
-    "valor_aproximado_pesos": 633111,
     "incluye_inmovilizacion": true,
-    "descripcion": "Multa de $633.111 COP más inmovilización del vehículo y costos de grúa."
+    "descripcion": "Multa equivalente a 15 salarios mínimos diarios legales vigentes (SMLDV) más inmovilización del vehículo y costos de grúa. El decreto no fija un valor en pesos: consulta el monto vigente con la autoridad de tránsito."
   },
   "vehiculos": {
     "particulares": {

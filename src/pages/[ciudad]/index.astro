@@ -496,7 +496,7 @@ const bloquesJsonLd = [jsonLdBase, breadcrumb, faqSinPyP].filter(Boolean) as Arr
         <PicoYPlacaSolidarioComp datos={ciudad.pico_y_placa_solidario as PicoYPlacaSolidario} nombreCiudad={ciudad.nombre} />
       )}
 
-      <section class="mb-6 rounded-lg border border-red-200 bg-red-50 p-4 dark:bg-red-950/20 dark:border-red-800">
+      <section id="sanciones" class="mb-6 rounded-lg border border-red-200 bg-red-50 p-4 dark:bg-red-950/20 dark:border-red-800">
         <h2 class="text-lg font-bold mb-2">Sanciones</h2>
         <p class="text-sm text-gray-700 dark:text-gray-300">{ciudad.sanciones.descripcion}</p>
         {tieneSancionesDetalladas && (

@@ -32,7 +32,6 @@
     "tipo_multa": "Tipo C",
     "base_legal": "Artículo 131, literal C, numeral 14 de la Ley 769 de 2002",
     "valor_smldv": "15 SMLDV",
-    "valor_aproximado_pesos": 633200,
     "incluye_inmovilizacion": true,
     "descripcion": "Multa equivalente a 15 salarios mínimos diarios legales vigentes (SMLDV) más inmovilización del vehículo."
   },

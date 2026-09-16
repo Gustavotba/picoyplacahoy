@@ -1,48 +1,104 @@
 ---
 import Principal from '../layouts/Principal.astro';
+import { ciudades } from '../lib/ciudades';
 import { breadcrumbJsonLd } from '../lib/seo';
+import type { Ciudad } from '../lib/tipos';
 
 export const prerender = true;
 
-const titulo = 'Multas del Pico y Placa en Colombia — Valor y sanciones 2026';
+const titulo = 'Multas del Pico y Placa en Colombia — Valor, descuentos e inmovilización';
 const descripcion =
-  'Cuánto cuesta la multa por violar el Pico y Placa en Colombia, en qué consiste la infracción C14, la inmovilización del vehículo y la base legal (Ley 769 de 2002).';
+  'Cuánto vale la multa por Pico y Placa (infracción C.14, 15 SMLDV), cómo se calcula, descuentos por pronto pago, fotomultas, inmovilización, prescripción y qué hacer si te llega un comparendo.';
+
+// Escala general del artículo 131 de la Ley 769 de 2002 (texto vigente tras la
+// Ley 1383 de 2010). El Pico y Placa es la C.14: tercer escalón de cuatro.
+const escala = [
+  { tipo: 'A', smldv: 4, nota: 'Conductores de vehículos no automotores (bicicletas, tracción animal).', esPyp: false },
+  { tipo: 'B', smldv: 8, nota: 'Por ejemplo, equipos de sonido a volumen excesivo (B.23).', esPyp: false },
+  { tipo: 'C', smldv: 15, nota: 'Pico y Placa (C.14), estacionar en sitio prohibido (C.2), bloquear una calzada (C.3).', esPyp: true },
+  { tipo: 'D', smldv: 30, nota: 'Las infracciones más graves de la escala general.', esPyp: false },
+];
+
+// Las preguntas se escriben UNA sola vez y alimentan el HTML y el JSON-LD FAQPage,
+// para que no puedan quedar diciendo cosas distintas (mismo patrón de la portada).
+const preguntas = [
+  {
+    pregunta: '¿Cuánto cuesta la multa por Pico y Placa?',
+    respuesta:
+      'Es la infracción C.14 del Código Nacional de Tránsito: 15 salarios mínimos legales diarios vigentes (SMLDV), es decir, la mitad de un salario mínimo mensual. Desde 2024 se liquida en Unidades de Valor Básico (UVB), que el Gobierno actualiza cada año, por eso el valor en pesos cambia cada enero. Además, el vehículo se inmoviliza y la grúa y los patios se pagan aparte.',
+  },
+  {
+    pregunta: '¿Me pueden inmovilizar el carro o la moto por Pico y Placa?',
+    respuesta:
+      'Sí. El propio texto de la infracción C.14 ordena la inmovilización. El vehículo se lleva a los patios autorizados y el propietario paga la grúa y el tiempo de parqueadero, con las tarifas que fija cada autoridad de tránsito local.',
+  },
+  {
+    pregunta: '¿La multa de Pico y Placa tiene descuento por pago pronto?',
+    respuesta:
+      'Sí. Si aceptas la infracción y haces el curso sobre normas de tránsito, pagas el 50 % dentro de los 5 días siguientes al comparendo, o el 75 % dentro de los 20 días siguientes (artículo 136 de la Ley 769 de 2002). Pasado ese plazo se paga el 100 %.',
+  },
+  {
+    pregunta: '¿Me pueden poner la multa de Pico y Placa con cámara (fotomulta)?',
+    respuesta:
+      'Sí. Las cámaras autorizadas por el Ministerio de Transporte pueden detectar el Pico y Placa. El comparendo se envía por correo físico o electrónico dentro de los 3 días hábiles siguientes a su validación, a los datos que figuran en el RUNT (Ley 1843 de 2017). Por eso conviene tener la dirección y el correo actualizados.',
+  },
+  {
+    pregunta: '¿Qué pasa si no pago la multa de Pico y Placa?',
+    respuesta:
+      'El comparendo queda registrado en el SIMIT y no podrás hacer trámites ante los organismos de tránsito hasta estar a paz y salvo. La autoridad puede cobrar por jurisdicción coactiva. La sanción prescribe a los 3 años contados desde la infracción, pero la presentación de la demanda de cobro interrumpe ese plazo.',
+  },
+  {
+    pregunta: '¿La multa de Pico y Placa es igual para motos?',
+    respuesta:
+      'Sí. La infracción C.14 aplica a cualquier vehículo automotor, incluidas las motos, en las ciudades donde ellas tienen Pico y Placa. Lo que cambia por ciudad es si la moto está o no cubierta por la restricción.',
+  },
+  {
+    pregunta: '¿Si mi carro está matriculado en otra ciudad, me aplica el Pico y Placa?',
+    respuesta:
+      'En general sí: la restricción aplica a los vehículos que circulan por la ciudad, sin importar dónde estén matriculados. Algunas ciudades tienen reglas distintas para placas de fuera, como Cúcuta (esquema de placa día) o Ibagué (la hora valle solo beneficia a placas locales). Revisa la página de cada ciudad.',
+  },
+  {
+    pregunta: '¿Puedo pagar para no tener Pico y Placa?',
+    respuesta:
+      'Solo en Bogotá, con el Pico y Placa Solidario: un permiso diario, mensual o semestral que se paga a la Secretaría de Movilidad. En las demás ciudades no existe esa opción y la única forma legal de circular en tu día es estar exento por el decreto.',
+  },
+  {
+    pregunta: '¿Dónde consulto si tengo comparendos?',
+    respuesta:
+      'En el SIMIT, el sistema nacional de la Federación Colombiana de Municipios, con la placa o la cédula; y en la página del organismo de tránsito de la ciudad donde ocurrió la infracción. Desconfía de páginas que cobran por la consulta.',
+  },
+];
+
+// Ciudades con y sin Pico y Placa según los datos del sitio (el mismo JSON que
+// pinta cada página de ciudad). "Con" = al menos un tipo de vehículo aplica.
+const tienePyp = (c: Ciudad): boolean => Object.values(c.vehiculos).some((v) => v.aplica);
+const conPyp = ciudades.filter(tienePyp);
+const sinPyp = ciudades.filter((c) => !tienePyp(c));
+
+// Ciudades cuya sanción tiene un matiz propio. El texto sale del JSON de cada
+// ciudad, así que si el decreto cambia, este bloque cambia solo.
+const slugsConMatices = ['quibdo', 'popayan', 'barranquilla', 'soacha'];
+const conMatices = slugsConMatices
+  .map((slug) => ciudades.find((c) => c.slug === slug))
+  .filter((c): c is Ciudad => c !== undefined);
 
 const faq = {
   '@context': 'https://schema.org',
   '@type': 'FAQPage',
-  mainEntity: [
-    {
-      '@type': 'Question',
-      name: '¿Cuánto cuesta la multa por Pico y Placa?',
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: 'Violar el Pico y Placa corresponde a la infracción C14 del Código Nacional de Tránsito, equivalente a 15 salarios mínimos legales diarios vigentes (SMLDV). El valor en pesos cambia cada año según el salario mínimo. Además puede implicar la inmovilización del vehículo.',
-      },
-    },
-    {
-      '@type': 'Question',
-      name: '¿Me pueden inmovilizar el carro por Pico y Placa?',
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: 'Sí. En la mayoría de ciudades la infracción C14 incluye la inmovilización del vehículo, que se lleva a patios. El costo de grúa y patios es adicional a la multa.',
-      },
-    },
-    {
-      '@type': 'Question',
-      name: '¿La multa de Pico y Placa tiene descuento por pago pronto?',
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: 'En general, pagar dentro de los primeros días y asistir al curso pedagógico puede dar derecho a descuentos sobre el comparendo, según lo establecido en la normativa de tránsito. Consulta el organismo de tránsito de tu ciudad para los plazos exactos.',
-      },
-    },
-  ],
+  mainEntity: preguntas.map((p) => ({
+    '@type': 'Question',
+    name: p.pregunta,
+    acceptedAnswer: { '@type': 'Answer', text: p.respuesta },
+  })),
 };
 
 const breadcrumb = breadcrumbJsonLd([
   { nombre: 'Inicio', ruta: '/' },
   { nombre: 'Multas del Pico y Placa', ruta: '/multas-pico-y-placa' },
 ]);
+
+const enlace = 'text-yellow-700 underline dark:text-yellow-400';
+const tarjeta = 'rounded-lg border border-gray-200 p-4 dark:border-gray-700';
 ---
 
 <Principal titulo={titulo} descripcion={descripcion} jsonLd={[breadcrumb, faq]}>
@@ -57,57 +113,319 @@ const breadcrumb = breadcrumbJsonLd([
       Multas del Pico y Placa en Colombia
     </h1>
     <p class="mt-2 text-gray-500 dark:text-gray-400">
-      Esto es lo que debes saber sobre la sanción por circular en horario
-      restringido de Pico y Placa.
+      Cuánto vale, cómo se calcula, qué descuentos tiene, cómo llega la fotomulta
+      y qué hacer si te ponen el comparendo. Todo con la norma que lo respalda.
     </p>
   </header>
 
-  <div class="mb-6 space-y-4 text-sm leading-relaxed">
-    <section class="rounded-lg border border-gray-200 p-4 dark:border-gray-700">
-      <h2 class="text-lg font-semibold">Infracción C14</h2>
+  <!-- Respuesta corta -->
+  <section class="mb-8 grid grid-cols-2 gap-3 sm:grid-cols-4" aria-label="Resumen de la sanción">
+    <div class={tarjeta}>
+      <p class="text-xs text-gray-500 dark:text-gray-400">Infracción</p>
+      <p class="font-mono text-2xl font-bold">C.14</p>
+      <p class="text-xs text-gray-500 dark:text-gray-400">Código Nacional de Tránsito</p>
+    </div>
+    <div class={tarjeta}>
+      <p class="text-xs text-gray-500 dark:text-gray-400">Multa</p>
+      <p class="font-mono text-2xl font-bold">15 SMLDV</p>
+      <p class="text-xs text-gray-500 dark:text-gray-400">medio salario mínimo mensual</p>
+    </div>
+    <div class={tarjeta}>
+      <p class="text-xs text-gray-500 dark:text-gray-400">Inmovilización</p>
+      <p class="text-2xl font-bold text-red-600 dark:text-red-400">Sí</p>
+      <p class="text-xs text-gray-500 dark:text-gray-400">grúa y patios se pagan aparte</p>
+    </div>
+    <div class={tarjeta}>
+      <p class="text-xs text-gray-500 dark:text-gray-400">Descuento</p>
+      <p class="text-2xl font-bold text-green-600 dark:text-green-400">50 %</p>
+      <p class="text-xs text-gray-500 dark:text-gray-400">si pagas en 5 días y haces el curso</p>
+    </div>
+  </section>
+
+  <div class="mb-8 space-y-4 text-sm leading-relaxed">
+    <section class={tarjeta}>
+      <h2 class="text-lg font-semibold">Infracción C.14: qué dice la ley</h2>
       <p class="mt-1 text-gray-600 dark:text-gray-400">
-        Circular en zona o periodo restringido por Pico y Placa corresponde a la
-        infracción <strong>C14</strong> del Código Nacional de Tránsito. El valor
-        equivale a <strong>15 salarios mínimos legales diarios vigentes
-        (SMLDV)</strong>, por lo que el monto en pesos cambia cada año junto con
-        el salario mínimo.
+        Circular en tu día de Pico y Placa corresponde a la infracción
+        <strong>C.14</strong> del artículo 131 del Código Nacional de Tránsito.
+        El texto legal es corto y no deja dudas:
+      </p>
+      <blockquote class="mt-2 border-l-4 border-yellow-400 pl-3 italic text-gray-700 dark:text-gray-300">
+        «Transitar por sitios restringidos o en horas prohibidas por la autoridad
+        competente. Además, el vehículo será inmovilizado.»
+      </blockquote>
+      <p class="mt-2 text-gray-600 dark:text-gray-400">
+        Toda infracción tipo C vale <strong>15 salarios mínimos legales diarios
+        vigentes (SMLDV)</strong>. Como el salario diario es el mensual dividido
+        entre 30, la multa equivale a <strong>la mitad de un salario mínimo
+        mensual</strong>, y sube cada enero junto con él. Aplica al conductor o
+        al propietario de cualquier vehículo automotor: carro, moto, taxi o camión.
       </p>
     </section>
 
-    <section class="rounded-lg border border-gray-200 p-4 dark:border-gray-700">
-      <h2 class="text-lg font-semibold">Inmovilización del vehículo</h2>
+    <section class={tarjeta}>
+      <h2 class="text-lg font-semibold">¿Cuánto es en pesos? Calcúlalo tú mismo</h2>
       <p class="mt-1 text-gray-600 dark:text-gray-400">
-        Además de la multa, la mayoría de ciudades contempla la
-        <strong>inmovilización</strong> del vehículo, que se traslada a patios. El
-        costo de la grúa y de los patios es <strong>adicional</strong> al valor
-        del comparendo.
+        No publicamos una cifra en pesos, y es a propósito. Desde el 1 de enero de
+        2024 las multas de tránsito se liquidan en <strong>Unidades de Valor
+        Básico (UVB)</strong>, no en salarios mínimos (artículo 313 de la Ley 2294
+        de 2023 y
+        <a href="https://www.alcaldiabogota.gov.co/sisjur/normas/Norma1.jsp?i=181493" target="_blank" rel="noopener" class={enlace}>Circular Externa 20244000000077 de 2024</a>
+        del Ministerio de Transporte). Los 15 SMLDV se convirtieron en poco más
+        de 52 UVB (los decretos de 2026 la escriben como <strong>52,29 UVB</strong>)
+        y el valor de cada UVB lo fija el Ministerio de Hacienda cada año. Por los
+        redondeos entre una unidad y otra, dos fuentes oficiales pueden publicar
+        cifras que difieren en varios miles de pesos, y un número que hoy es
+        correcto en enero ya no lo es.
+      </p>
+      <div class="mt-3 rounded bg-gray-50 p-3 font-mono text-xs text-gray-700 dark:bg-gray-900 dark:text-gray-300">
+        Multa ≈ 52,29 UVB × valor de la UVB del año<br />
+        Multa ≈ 15 × (salario mínimo mensual ÷ 30)
+      </div>
+      <p class="mt-2 text-gray-600 dark:text-gray-400">
+        Para el valor exacto, usa la tabla que publica la autoridad de tu ciudad.
+        Bogotá, por ejemplo, publica su
+        <a href="https://www.movilidadbogota.gov.co/sites/default/files/2026-01-03/tabla_autoliquidacion_2026.pdf" target="_blank" rel="noopener" class={enlace}>tabla de autoliquidación de infracciones</a>
+        cada enero. Y recuerda que la multa es solo una parte: la grúa, los patios
+        y el curso se pagan aparte.
       </p>
     </section>
 
-    <section class="rounded-lg border border-gray-200 p-4 dark:border-gray-700">
+    <section class={tarjeta}>
+      <h2 class="text-lg font-semibold">Dónde queda el Pico y Placa en la escala de multas</h2>
+      <p class="mt-1 text-gray-600 dark:text-gray-400">
+        El artículo 131 ordena las infracciones en cuatro categorías generales. El
+        Pico y Placa está en la tercera, la misma de estacionar en sitio prohibido.
+      </p>
+      <div class="mt-3 overflow-x-auto">
+        <table class="w-full text-left text-xs sm:text-sm">
+          <thead>
+            <tr class="border-b border-gray-200 text-gray-500 dark:border-gray-700 dark:text-gray-400">
+              <th class="py-2 pr-3 font-medium">Tipo</th>
+              <th class="py-2 pr-3 font-medium">Multa</th>
+              <th class="py-2 font-medium">Ejemplos</th>
+            </tr>
+          </thead>
+          <tbody>
+            {escala.map((fila) => (
+              <tr class={`border-b border-gray-100 dark:border-gray-800 ${fila.esPyp ? 'bg-yellow-50 font-semibold dark:bg-yellow-950/20' : ''}`}>
+                <td class="py-2 pr-3 font-mono">{fila.tipo}</td>
+                <td class="py-2 pr-3 whitespace-nowrap font-mono">{fila.smldv} SMLDV</td>
+                <td class="py-2 text-gray-600 dark:text-gray-400">{fila.nota}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <p class="mt-2 text-xs text-gray-500 dark:text-gray-400">
+        Fuera de esta escala hay sanciones especiales con reglas propias, como las
+        de conducir en estado de embriaguez.
+      </p>
+    </section>
+
+    <section class={tarjeta}>
+      <h2 class="text-lg font-semibold">Inmovilización: qué pasa con el vehículo</h2>
+      <p class="mt-1 text-gray-600 dark:text-gray-400">
+        Inmovilizar es suspender temporalmente la circulación del vehículo: se
+        lleva en grúa a un parqueadero autorizado (los «patios») hasta que cese la
+        causa (artículo 125 de la Ley 769 de 2002). En el Pico y Placa la causa
+        cesa cuando termina el horario de restricción de ese día. Tres cosas que
+        conviene saber:
+      </p>
+      <ul class="mt-2 list-disc space-y-1 pl-5 text-gray-600 dark:text-gray-400">
+        <li><strong>La grúa y los patios los paga el propietario</strong>, con las tarifas que fija la autoridad de tránsito de cada ciudad. Son <strong>adicionales</strong> al comparendo.</li>
+        <li>Al entrar y al salir de los patios se hace un <strong>inventario</strong> del vehículo y de lo que lleva dentro. Revísalo y guárdalo: si falta algo, el parqueadero responde.</li>
+        <li>Para retirar el vehículo hay que resolver primero el comparendo (aceptarlo y pagar, o iniciar el trámite) y presentar los documentos del vehículo ante el organismo de tránsito.</li>
+      </ul>
+    </section>
+
+    <section class={tarjeta}>
+      <h2 class="text-lg font-semibold">Descuentos por pronto pago</h2>
+      <p class="mt-1 text-gray-600 dark:text-gray-400">
+        Si aceptas la infracción, el artículo 136 de la Ley 769 de 2002 (modificado
+        por el
+        <a href="https://www.funcionpublica.gov.co/eva/gestornormativo/norma.php?i=103352" target="_blank" rel="noopener" class={enlace}>Decreto 2106 de 2019</a>)
+        te da dos ventanas de descuento. En las dos es obligatorio hacer un
+        <strong>curso sobre normas de tránsito</strong> en un organismo de tránsito,
+        un centro de enseñanza automovilística o un centro integral de atención
+        registrados en el RUNT (también puede ser virtual).
+      </p>
+      <div class="mt-3 grid gap-2 sm:grid-cols-3">
+        <div class="rounded border border-green-300 bg-green-50 p-3 dark:border-green-800 dark:bg-green-950/20">
+          <p class="text-xs text-gray-500 dark:text-gray-400">Dentro de los 5 días</p>
+          <p class="text-xl font-bold text-green-700 dark:text-green-400">Pagas el 50 %</p>
+          <p class="text-xs text-gray-600 dark:text-gray-400">con curso</p>
+        </div>
+        <div class="rounded border border-yellow-300 bg-yellow-50 p-3 dark:border-yellow-800 dark:bg-yellow-950/20">
+          <p class="text-xs text-gray-500 dark:text-gray-400">Dentro de los 20 días</p>
+          <p class="text-xl font-bold text-yellow-700 dark:text-yellow-400">Pagas el 75 %</p>
+          <p class="text-xs text-gray-600 dark:text-gray-400">con curso</p>
+        </div>
+        <div class="rounded border border-red-300 bg-red-50 p-3 dark:border-red-800 dark:bg-red-950/20">
+          <p class="text-xs text-gray-500 dark:text-gray-400">Después, o si pierdes la audiencia</p>
+          <p class="text-xl font-bold text-red-700 dark:text-red-400">Pagas el 100 %</p>
+          <p class="text-xs text-gray-600 dark:text-gray-400">sin descuento</p>
+        </div>
+      </div>
+      <p class="mt-3 text-gray-600 dark:text-gray-400">
+        Los plazos corren desde la orden de comparendo. La Secretaría de Movilidad
+        de Bogotá los cuenta en <strong>días hábiles</strong> y, para los comparendos
+        por cámara, los cuenta desde la notificación: 11 días hábiles para el 50 %
+        y 26 para el 25 % (ver su
+        <a href="https://bogota.gov.co/mi-ciudad/movilidad/bogota-plazos-para-obtener-descuentos-en-los-comparendos-de-transito" target="_blank" rel="noopener" class={enlace}>guía de plazos</a>).
+        Confirma el conteo con el organismo de tránsito de tu ciudad antes de
+        dejar pasar un día.
+      </p>
+    </section>
+
+    <section class={tarjeta}>
+      <h2 class="text-lg font-semibold">Fotomultas: la cámara también ve el Pico y Placa</h2>
+      <p class="mt-1 text-gray-600 dark:text-gray-400">
+        Las cámaras de fotodetección autorizadas por el Ministerio de Transporte
+        pueden registrar la infracción C.14 sin que ningún agente te detenga. La
+        <a href="https://www.alcaldiabogota.gov.co/sisjur/normas/Norma1.jsp?i=69928" target="_blank" rel="noopener" class={enlace}>Ley 1843 de 2017</a>
+        fija las reglas del juego:
+      </p>
+      <ul class="mt-2 list-disc space-y-1 pl-5 text-gray-600 dark:text-gray-400">
+        <li>El comparendo se envía <strong>por correo físico o electrónico</strong> dentro de los <strong>3 días hábiles</strong> siguientes a su validación por la autoridad, a los datos del propietario en el RUNT. Si tu dirección o tu correo están desactualizados, la multa puede llegar tarde o no llegar, y eso no la borra.</li>
+        <li>Si no te notificaron o lo hicieron mal, los plazos de descuento empiezan a correr <strong>desde la notificación efectiva</strong>, no desde la foto.</li>
+        <li>La Corte Constitucional (sentencia C-038 de 2020) tumbó la responsabilidad automática del propietario: la autoridad debe vincular al proceso a quien conducía. En la práctica, el propietario recibe la notificación y puede controvertirla.</li>
+        <li>Con cámara no hay inmovilización en el momento, pero la multa es la misma.</li>
+      </ul>
+    </section>
+
+    <section class={tarjeta}>
+      <h2 class="text-lg font-semibold">Te llegó un comparendo por Pico y Placa: paso a paso</h2>
+      <ol class="mt-2 list-decimal space-y-2 pl-5 text-gray-600 dark:text-gray-400">
+        <li><strong>Revisa los datos.</strong> Código C.14, placa, fecha, hora y lugar. Entra a la página de tu ciudad y comprueba si ese día, a esa hora, la restricción de verdad aplicaba a tu placa y a tu tipo de vehículo.</li>
+        <li><strong>Si estaba bien puesto, acéptalo y paga con descuento.</strong> 50 % dentro de los 5 días o 75 % dentro de los 20, siempre con el curso. Cada día que pasa te acerca al 100 %.</li>
+        <li><strong>Si crees que está mal, no lo aceptes y pide audiencia.</strong> Vehículo exento, vía exenta, medida suspendida ese día o placa mal leída son razones válidas. Lleva pruebas: el decreto, la documentación del vehículo, fotos. Si te declaran responsable, pagas el 100 %.</li>
+        <li><strong>No dejes pasar los plazos.</strong> La ley pide presentarse ante la autoridad dentro de los 3 días hábiles siguientes al comparendo; si no compareces sin justa causa, prevé que la multa aumente hasta el doble (artículo 135).</li>
+        <li><strong>Después de pagar, verifica en el SIMIT</strong> que el comparendo figure saldado. Guarda el recibo y el certificado del curso.</li>
+      </ol>
+    </section>
+
+    <section class={tarjeta}>
+      <h2 class="text-lg font-semibold">¿Y si no pago? Cobro, bloqueo de trámites y prescripción</h2>
+      <ul class="mt-2 list-disc space-y-1 pl-5 text-gray-600 dark:text-gray-400">
+        <li>El comparendo queda registrado en el <strong>SIMIT</strong> y, mientras no estés a paz y salvo, los organismos de tránsito no te hacen trámites: traspasos, licencia de conducción, matrículas (artículo 10 de la Ley 769 de 2002).</li>
+        <li>La autoridad de tránsito de la ciudad donde ocurrió el hecho puede cobrar por <strong>jurisdicción coactiva</strong>, es decir, como se cobra un impuesto.</li>
+        <li>La sanción <strong>prescribe en 3 años</strong> contados desde la infracción, pero la presentación de la demanda de cobro interrumpe ese plazo (artículo 159). No cuentes con que se borre sola.</li>
+      </ul>
+    </section>
+
+    <section class={tarjeta}>
+      <h2 class="text-lg font-semibold">Consulta si tienes comparendos pendientes</h2>
+      <p class="mt-1 text-gray-600 dark:text-gray-400">
+        El
+        <a href="https://www.fcm.org.co/simit/" target="_blank" rel="noopener" class={enlace}>SIMIT</a>
+        (Sistema Integrado de Información sobre Multas y Sanciones por Infracciones
+        de Tránsito), de la Federación Colombiana de Municipios, consolida los
+        comparendos de todo el país. Se consulta gratis con la placa o la cédula.
+        La página del organismo de tránsito de cada ciudad muestra el detalle y
+        permite pagar. Desconfía de sitios que cobran por «consultar» o que piden
+        datos de tarjetas antes de mostrar nada.
+      </p>
+    </section>
+
+    <section class={tarjeta}>
       <h2 class="text-lg font-semibold">Base legal</h2>
-      <p class="mt-1 text-gray-600 dark:text-gray-400">
-        La sanción se fundamenta en la
-        <a
-          href="https://www.funcionpublica.gov.co/eva/gestornormativo/norma.php?i=5557"
-          target="_blank"
-          rel="noopener"
-          class="text-yellow-700 underline dark:text-yellow-400"
-        >
-          Ley 769 de 2002 (Código Nacional de Tránsito)
-        </a>
-        y en los decretos municipales o distritales de cada ciudad, que definen
-        horarios, placas y excepciones.
-      </p>
+      <ul class="mt-2 list-disc space-y-1 pl-5 text-gray-600 dark:text-gray-400">
+        <li>
+          <a href="https://www.funcionpublica.gov.co/eva/gestornormativo/norma.php?i=5557" target="_blank" rel="noopener" class={enlace}>Ley 769 de 2002 (Código Nacional de Tránsito)</a>:
+          artículo 131 C.14 (la infracción), 125 (inmovilización), 135 (procedimiento del comparendo), 136 (descuentos), 159 (prescripción) y 10 (SIMIT). Modificada por la Ley 1383 de 2010 y el Decreto 2106 de 2019.
+        </li>
+        <li>Ley 1843 de 2017: detección de infracciones con cámaras y notificación del comparendo.</li>
+        <li>Ley 2294 de 2023, artículo 313, y Circular Externa 20244000000077 de 2024 del Ministerio de Transporte: liquidación de las multas en UVB.</li>
+        <li>El decreto de Pico y Placa de cada ciudad, que define días, horarios, placas y excepciones. Lo citamos en cada página de ciudad.</li>
+      </ul>
     </section>
 
     <div class="rounded-lg border border-yellow-300 bg-yellow-50 p-4 dark:border-yellow-700 dark:bg-yellow-950/20">
       <strong>Aviso:</strong> esta información es de carácter general e
-      informativo, no es asesoría legal. El valor exacto de la multa, los
-      descuentos y los procedimientos varían por ciudad y por año. Consulta el
+      informativo, no es asesoría legal. El valor exacto de la multa, el conteo de
+      los plazos y los procedimientos varían por ciudad y por año. Consulta el
       organismo de tránsito de tu ciudad para tu caso particular.
     </div>
   </div>
+
+  <section class="mb-8">
+    <h2 class="mb-3 text-xl font-bold">Cómo evitar la multa sin romper la norma</h2>
+    <div class="grid gap-3 sm:grid-cols-2">
+      <a href="/" class={`${tarjeta} block transition-colors hover:border-yellow-400`}>
+        <h3 class="font-semibold">Revisa antes de salir</h3>
+        <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">Guarda el último número de tu placa en la página de tu ciudad y el sitio te dice de primero si hoy circulas. También puedes descargar tus días al calendario del celular, con alarma la noche anterior.</p>
+      </a>
+      <a href="/exenciones-pico-y-placa" class={`${tarjeta} block transition-colors hover:border-yellow-400`}>
+        <h3 class="font-semibold">Verifica si estás exento</h3>
+        <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">Vehículos eléctricos, de personas con discapacidad, de emergencia y otros quedan por fuera en muchas ciudades. Cada decreto trae su propia lista.</p>
+      </a>
+      <a href="/medellin" class={`${tarjeta} block transition-colors hover:border-yellow-400`}>
+        <h3 class="font-semibold">Usa las vías exentas</h3>
+        <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">Algunas ciudades dejan libres corredores concretos. En Medellín y el Valle de Aburrá los mostramos sobre el mapa, tramo por tramo.</p>
+      </a>
+      <a href="/bogota" class={`${tarjeta} block transition-colors hover:border-yellow-400`}>
+        <h3 class="font-semibold">Pico y Placa Solidario (solo Bogotá)</h3>
+        <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">Es la única ciudad donde se puede pagar un permiso diario, mensual o semestral para circular en tu día. En el resto del país no existe.</p>
+      </a>
+    </div>
+  </section>
+
+  {conMatices.length > 0 && (
+    <section class="mb-8">
+      <h2 class="mb-3 text-xl font-bold">Ciudades donde la sanción tiene un matiz propio</h2>
+      <ul class="space-y-2 text-sm">
+        {conMatices.map((c) => (
+          <li class={tarjeta}>
+            <a href={`/${c.slug}#sanciones`} class="font-semibold hover:underline">{c.nombre}</a>
+            <p class="mt-1 text-gray-600 dark:text-gray-400">{c.sanciones.descripcion}</p>
+          </li>
+        ))}
+      </ul>
+    </section>
+  )}
+
+  <section class="mb-8">
+    <h2 class="mb-2 text-xl font-bold">La sanción en tu ciudad</h2>
+    <p class="mb-3 text-sm text-gray-600 dark:text-gray-400">
+      La multa nacional es la misma en todas partes. Lo que cambia es si en tu
+      ciudad hay Pico y Placa, para qué vehículos y en qué horario. Toca tu ciudad
+      para ver su sanción y su decreto.
+    </p>
+    <div class="flex flex-wrap gap-2">
+      {conPyp.map((c) => (
+        <a
+          href={`/${c.slug}#sanciones`}
+          class="rounded-full border border-gray-200 px-3 py-1.5 text-sm transition-colors hover:border-yellow-400 hover:bg-yellow-50 dark:border-gray-700 dark:hover:bg-yellow-950/20"
+        >
+          {c.nombre}
+        </a>
+      ))}
+    </div>
+    {sinPyp.length > 0 && (
+      <p class="mt-4 text-sm text-gray-600 dark:text-gray-400">
+        <strong>Sin Pico y Placa hoy:</strong>{' '}
+        {sinPyp.map((c, i) => (
+          <>
+            <a href={`/${c.slug}`} class="hover:underline">{c.nombre}</a>{i < sinPyp.length - 1 ? ', ' : '.'}
+          </>
+        ))}
+        {' '}Ahí no hay sanción por circular según la placa, pero sí por otras restricciones que estén vigentes.
+      </p>
+    )}
+  </section>
+
+  <section class="mb-8">
+    <h2 class="mb-3 text-xl font-bold">Preguntas frecuentes sobre la multa</h2>
+    <div class="space-y-3">
+      {preguntas.map((p) => (
+        <details class="rounded-lg border border-gray-200 p-4 dark:border-gray-700">
+          <summary class="cursor-pointer font-semibold">{p.pregunta}</summary>
+          <p class="mt-2 text-sm text-gray-600 dark:text-gray-400">{p.respuesta}</p>
+        </details>
+      ))}
+    </div>
+  </section>
 
   <section class="mb-4">
     <h2 class="mb-2 text-lg font-bold">También te puede interesar</h2>
@@ -120,6 +438,11 @@ const breadcrumb = breadcrumbJsonLd([
       <li>
         <a href="/preguntas-frecuentes" class="text-yellow-700 hover:underline dark:text-yellow-400">
           Preguntas frecuentes sobre el Pico y Placa
+        </a>
+      </li>
+      <li>
+        <a href="/pico-y-placa-manana" class="text-yellow-700 hover:underline dark:text-yellow-400">
+          ¿Qué placas tienen Pico y Placa mañana?
         </a>
       </li>
     </ul>
