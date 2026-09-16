@@ -9,14 +9,13 @@
   "autoridad": "Secretaría de Movilidad de Manizales",
   "autoridad_web": "https://manizales.gov.co",
   "autoridad_twitter": "alcaldiamzles",
-  "decreto_actual": "Particulares: pico y placa TEMPORAL por la emergencia del sismo — Decreto Extraordinario 012 del 13 de agosto de 2026, prorrogado por el Decreto 0292 del 31 de agosto de 2026 (hasta el 15 de septiembre) · Taxis: Resolución 114 del 27 de diciembre de 2024, modificada por las Resoluciones 1359 y 1360 de 2025",
-  "fecha_ultima_actualizacion": "2026-08-31",
+  "decreto_actual": "Particulares: sin pico y placa — la medida temporal por el sismo (Decreto Extraordinario 012 del 13 de agosto de 2026, prorrogado por el Decreto 0292 del 31 de agosto) fue levantada a partir del 16 de septiembre de 2026 · Taxis: Resolución 114 del 27 de diciembre de 2024, modificada por las Resoluciones 1359 y 1360 de 2025",
+  "fecha_ultima_actualizacion": "2026-09-16",
   "notas_generales": [
-    "MEDIDA TEMPORAL VIGENTE: por la emergencia del sismo del 10 de agosto de 2026, Manizales tiene pico y placa para vehículos particulares desde el 14 de agosto (Decreto Extraordinario 012 del 13 de agosto de 2026), prorrogado hasta el 15 de septiembre de 2026 por el Decreto 0292 del 31 de agosto. Rige TODOS los días, incluidos sábados, domingos y festivos, de 5:00 a.m. a 10:00 p.m.",
-    "La medida temporal cubre las vías públicas municipales de toda la jurisdicción de Manizales. Las vías nacionales que funcionan como corredores de ingreso, salida o tránsito hacia otros municipios están exceptuadas.",
-    "Los vehículos eléctricos e híbridos SÍ están cubiertos por la medida temporal. Las motos NO están cubiertas.",
-    "La Alcaldía anunció que el 15 de septiembre evaluará de nuevo las condiciones: la medida puede prorrogarse, modificarse o levantarse antes. Verifica siempre antes de salir.",
-    "En condiciones normales Manizales NO tiene pico y placa permanente para particulares ni motos: la medida anterior decayó al entregarse la obra de Los Cedros el 23 de diciembre de 2024.",
+    "Los vehículos particulares NO tienen pico y placa en Manizales. La restricción permanente anterior decayó al entregarse la obra de Los Cedros el 23 de diciembre de 2024.",
+    "MEDIDA TEMPORAL YA LEVANTADA: por la emergencia del sismo del 10 de agosto de 2026 hubo pico y placa para particulares entre el 14 de agosto y el 15 de septiembre de 2026 (Decreto Extraordinario 012 del 13 de agosto, prorrogado por el Decreto 0292 del 31 de agosto). La Alcaldía la levantó a partir del miércoles 16 de septiembre de 2026, tras 33 días de aplicación.",
+    "El levantamiento no significa que la movilidad haya vuelto del todo a la normalidad: en algunos puntos de la ciudad continúan obras, cierres y medidas especiales asociados a la recuperación tras el sismo.",
+    "Manizales puede volver a activar restricciones temporales por decreto extraordinario si una emergencia lo exige, incluso en fines de semana y festivos. Verifica siempre antes de salir.",
     "Los taxis SÍ tienen Pico y Placa todo el año, de lunes a domingo, según el último dígito de la placa.",
     "La Secretaría de Movilidad suele levantar la restricción de taxis durante la Feria de Manizales (enero) y fechas especiales de fin de año."
   ],
@@ -31,117 +30,13 @@
   },
   "vehiculos": {
     "particulares": {
-      "aplica": true,
-      "descripcion": "Pico y placa TEMPORAL por la emergencia del sismo del 10 de agosto de 2026: dos dígitos por día, todos los días de la semana, de 5:00 a.m. a 10:00 p.m., en las vías municipales de Manizales.",
-      "criterio_placa": "ultimo_digito",
-      "modalidad": "quincenal_por_fecha",
-      "horario_inicio": "05:00",
-      "horario_fin": "22:00",
-      "horario_texto": "5:00 a.m. a 10:00 p.m., todos los días (incluidos sábados, domingos y festivos)",
-      "dias_aplicables": [
-        "lunes",
-        "martes",
-        "miercoles",
-        "jueves",
-        "viernes",
-        "sabado",
-        "domingo"
-      ],
-      "aplica_festivos": true,
-      "aplica_fines_de_semana": true,
-      "nota_especial": "MEDIDA TEMPORAL Y EXCEPCIONAL por la emergencia del sismo del 10 de agosto de 2026. Base legal: Decreto Extraordinario 012 del 13 de agosto de 2026, prorrogado hasta el 15 de septiembre por el Decreto 0292 del 31 de agosto de 2026. El ciclo avanza una pareja de dígitos por día calendario (1-2 → 3-4 → 5-6 → 7-8 → 9-0), sin descansar fines de semana ni festivos. Incluye vehículos eléctricos e híbridos. Exentos: motos, transporte público, carga, organismos de emergencia y seguridad, servicios de salud, personas con discapacidad y vehículos de otros municipios en tránsito por vías nacionales. La Alcaldía evaluará las condiciones el 15 de septiembre: la medida puede prorrogarse o levantarse antes — verifica con la fuente oficial.",
-      "fechas_restriccion": {
-        "0": [
-          "2026-08-18",
-          "2026-08-23",
-          "2026-08-28",
-          "2026-09-02",
-          "2026-09-07",
-          "2026-09-12"
-        ],
-        "1": [
-          "2026-08-14",
-          "2026-08-19",
-          "2026-08-24",
-          "2026-08-29",
-          "2026-09-03",
-          "2026-09-08",
-          "2026-09-13"
-        ],
-        "2": [
-          "2026-08-14",
-          "2026-08-19",
-          "2026-08-24",
-          "2026-08-29",
-          "2026-09-03",
-          "2026-09-08",
-          "2026-09-13"
-        ],
-        "3": [
-          "2026-08-15",
-          "2026-08-20",
-          "2026-08-25",
-          "2026-08-30",
-          "2026-09-04",
-          "2026-09-09",
-          "2026-09-14"
-        ],
-        "4": [
-          "2026-08-15",
-          "2026-08-20",
-          "2026-08-25",
-          "2026-08-30",
-          "2026-09-04",
-          "2026-09-09",
-          "2026-09-14"
-        ],
-        "5": [
-          "2026-08-16",
-          "2026-08-21",
-          "2026-08-26",
-          "2026-08-31",
-          "2026-09-05",
-          "2026-09-10",
-          "2026-09-15"
-        ],
-        "6": [
-          "2026-08-16",
-          "2026-08-21",
-          "2026-08-26",
-          "2026-08-31",
-          "2026-09-05",
-          "2026-09-10",
-          "2026-09-15"
-        ],
-        "7": [
-          "2026-08-17",
-          "2026-08-22",
-          "2026-08-27",
-          "2026-09-01",
-          "2026-09-06",
-          "2026-09-11"
-        ],
-        "8": [
-          "2026-08-17",
-          "2026-08-22",
-          "2026-08-27",
-          "2026-09-01",
-          "2026-09-06",
-          "2026-09-11"
-        ],
-        "9": [
-          "2026-08-18",
-          "2026-08-23",
-          "2026-08-28",
-          "2026-09-02",
-          "2026-09-07",
-          "2026-09-12"
-        ]
-      }
+      "aplica": false,
+      "descripcion": "En Manizales no aplica Pico y Placa para vehículos particulares. La medida temporal por la emergencia del sismo del 10 de agosto de 2026 estuvo vigente del 14 de agosto al 15 de septiembre y fue levantada: desde el miércoles 16 de septiembre de 2026 los particulares circulan sin restricción de placa.",
+      "nota": "La restricción permanente anterior decayó al entregarse la obra de Los Cedros el 23 de diciembre de 2024. Esta situación puede cambiar: la ciudad ya activó una medida temporal por decreto extraordinario en agosto de 2026. Verifica siempre con la Secretaría de Movilidad de Manizales."
     },
     "motos": {
       "aplica": false,
-      "descripcion": "En Manizales no aplica Pico y Placa para motocicletas. La medida temporal por el sismo de agosto de 2026 tampoco las cubre: las motos están expresamente exceptuadas.",
+      "descripcion": "En Manizales no aplica Pico y Placa para motocicletas. La medida temporal por el sismo de agosto de 2026 tampoco las cubrió: las motos estuvieron expresamente exceptuadas.",
       "nota": "Esta situación puede cambiar. Verifica siempre con la Secretaría de Movilidad de Manizales."
     },
     "taxis": {
@@ -178,7 +73,7 @@
     },
     "transporte_carga": {
       "aplica": false,
-      "descripcion": "En Manizales no aplica Pico y Placa para transporte de carga. Los vehículos de carga están exceptuados de la medida temporal por el sismo de agosto de 2026.",
+      "descripcion": "En Manizales no aplica Pico y Placa para transporte de carga. Los vehículos de carga estuvieron exceptuados de la medida temporal por el sismo de agosto de 2026.",
       "nota": "Esta situación puede cambiar. Verifica siempre con la Secretaría de Movilidad de Manizales."
     }
   },
