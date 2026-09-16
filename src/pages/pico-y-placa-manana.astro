@@ -1,59 +1,269 @@
 ---
 import Principal from '../layouts/Principal.astro';
-import { ciudades } from '../lib/ciudades';
+import { ciudades, tiposVehiculo } from '../lib/ciudades';
 import { breadcrumbJsonLd } from '../lib/seo';
 import {
   fechaColombia,
   formatearFechaColombia,
   conMayusculaInicial,
-  calcularPicoPlaca,
+  placaDestacada,
 } from '../lib/calcular';
+import { resumirCiudades, ETIQUETA_CORTA } from '../lib/resumen';
+import type { ResumenCiudadHoy, EstadoTipoHoy } from '../lib/resumen';
+import { esFestivo, nombreFestivo, proximoFestivo } from '../lib/festivos';
+import type { TipoVehiculo } from '../lib/tipos';
 
 // Necesita conocer "hoy" en el momento de la visita para calcular "mañana".
+// Si se prerenderizara, quedaría congelada en la fecha del build.
 export const prerender = false;
 
-const hoy = fechaColombia();
+// `?fecha=YYYY-MM-DD` simula otro "hoy" (mismo truco que la portada y las
+// páginas de ciudad); "mañana" se calcula a partir de él.
+const fechaParam = Astro.url.searchParams.get('fecha');
+const hoy = fechaParam ? new Date(fechaParam + 'T12:00:00') : fechaColombia();
 const manana = new Date(hoy);
 manana.setDate(manana.getDate() + 1);
+
 // `fechaTexto` va dentro de una frase (la meta descripción), así que se queda
 // en minúscula; `fechaTitulo` es la que se muestra suelta bajo el H1.
 const fechaTexto = formatearFechaColombia(manana);
 const fechaTitulo = conMayusculaInicial(fechaTexto);
+const hoyTexto = formatearFechaColombia(hoy);
 
-interface FilaCiudad {
+// ---------- Qué clase de día es mañana ----------
+const festivoManana = esFestivo(manana);
+const nombreDelFestivo = nombreFestivo(manana);
+const esSabado = manana.getDay() === 6;
+const esDomingo = manana.getDay() === 0;
+const esDiaEspecial = festivoManana || esSabado || esDomingo;
+const tipoDeDia = festivoManana
+  ? `festivo${nombreDelFestivo ? ` (${nombreDelFestivo})` : ''}`
+  : esSabado
+    ? 'sábado'
+    : esDomingo
+      ? 'domingo'
+      : 'día hábil';
+
+// ---------- Estado de las 39 ciudades, hoy y mañana ----------
+// Los datos NO se recalculan aquí: salen de `calcularPicoPlaca()` a través de
+// `resumirCiudades()`, el mismo motor que pinta las páginas de ciudad.
+const resumenManana = resumirCiudades(ciudades, manana);
+const resumenHoy = resumirCiudades(ciudades, hoy);
+const hoyPorSlug = new Map(resumenHoy.map((r) => [r.slug, r]));
+
+const tienePendientes = (r: ResumenCiudadHoy) =>
+  tiposVehiculo.some((t) => r.tipos[t].pendiente || r.tipos[t].desactualizado);
+
+const porNombre = (a: ResumenCiudadHoy, b: ResumenCiudadHoy) =>
+  a.nombre.localeCompare(b.nombre, 'es');
+
+// "Sin Pico y Placa" se decide mirando el JSON: ningún tipo de vehículo tiene
+// `aplica: true`. No sirve `resumen.sinPicoYPlaca`, que solo reconoce el texto
+// literal "No aplica" en `decreto_actual` y deja por fuera a Barranquilla,
+// Ipiales, Palmira o Turbaco, cuyo decreto_actual explica por qué no hay medida.
+const slugsSinPyp = new Set(
+  ciudades
+    .filter((c) => !Object.values(c.vehiculos).some((v) => v.aplica))
+    .map((c) => c.slug),
+);
+const esSinPyp = (r: ResumenCiudadHoy) => slugsSinPyp.has(r.slug);
+
+const conRestriccion = resumenManana.filter((r) => r.algunoAplica).sort(porNombre);
+const sinPicoYPlaca = resumenManana.filter(esSinPyp).sort(porNombre);
+const pendientes = resumenManana
+  .filter((r) => !r.algunoAplica && !esSinPyp(r) && tienePendientes(r))
+  .sort(porNombre);
+const libres = resumenManana
+  .filter((r) => !r.algunoAplica && !esSinPyp(r) && !tienePendientes(r))
+  .sort(porNombre);
+
+// Solo se pintan las columnas de vehículo que tienen algo que decir mañana:
+// la carga, por ejemplo, casi nunca aparece y ensancharía la tabla en vano.
+const columnas: TipoVehiculo[] = tiposVehiculo.filter((t) =>
+  conRestriccion.some((r) => r.tipos[t].aplica || r.tipos[t].pendiente),
+);
+
+// ---------- Filas de la tabla, ya resueltas para que el HTML sea simple ----------
+type EstadoCelda = 'aplica' | 'pendiente' | 'desactualizado' | 'libre';
+
+interface Celda {
+  estado: EstadoCelda;
+  texto: string;
+  /** true cuando la ciudad mira el PRIMER dígito (motos del Valle de Aburrá) */
+  primerDigito: boolean;
+}
+
+interface Fila {
   slug: string;
   nombre: string;
-  particulares: number[];
-  motos: number[];
+  horario: string;
+  celdas: Celda[];
 }
 
-const filas: FilaCiudad[] = [];
-for (const ciudad of ciudades) {
-  const rp = calcularPicoPlaca(ciudad, 'particulares', manana);
-  const rm = calcularPicoPlaca(ciudad, 'motos', manana);
-  if (rp.placasRestringidas.length > 0 || rm.placasRestringidas.length > 0) {
-    filas.push({
-      slug: ciudad.slug,
-      nombre: ciudad.nombre,
-      particulares: rp.placasRestringidas,
-      motos: rm.placasRestringidas,
-    });
+function aCelda(e: EstadoTipoHoy): Celda {
+  if (e.aplica && e.digitos.length > 0) {
+    return {
+      estado: 'aplica',
+      texto: placaDestacada(e.digitos),
+      primerDigito: e.criterio === 'primer_digito',
+    };
   }
+  if (e.desactualizado) return { estado: 'desactualizado', texto: 'Verificar', primerDigito: false };
+  if (e.pendiente) return { estado: 'pendiente', texto: '?', primerDigito: false };
+  return { estado: 'libre', texto: '—', primerDigito: false };
 }
-filas.sort((a, b) => a.nombre.localeCompare(b.nombre, 'es'));
 
-const titulo = 'Pico y Placa mañana en Colombia — Placas restringidas';
-const descripcion = `Consulta el Pico y Placa de mañana (${fechaTexto}) en las ciudades de Colombia: qué placas no podrán circular para particulares y motos.`;
+/** Horario que se muestra bajo el nombre: el de carros si aplica, si no el del primer tipo con turno */
+function horarioDe(r: ResumenCiudadHoy): string {
+  const orden: TipoVehiculo[] = ['particulares', 'motos', 'taxis', 'transporte_carga'];
+  const tipo = orden.find((t) => r.tipos[t].aplica && r.tipos[t].horario);
+  return tipo ? `${ETIQUETA_CORTA[tipo]}: ${r.tipos[tipo].horario}` : '';
+}
 
-const breadcrumb = breadcrumbJsonLd([
-  { nombre: 'Inicio', ruta: '/' },
-  { nombre: 'Pico y Placa mañana', ruta: '/pico-y-placa-manana' },
-]);
+const filas: Fila[] = conRestriccion.map((r) => ({
+  slug: r.slug,
+  nombre: r.nombre,
+  horario: horarioDe(r),
+  celdas: columnas.map((t) => aCelda(r.tipos[t])),
+}));
 
-const fmtPlacas = (placas: number[]) => placas.join(' y ');
+// ---------- Lo que cambia respecto de hoy, en las ciudades más consultadas ----------
+const SLUGS_DESTACADAS = ['bogota', 'medellin', 'cali', 'barranquilla', 'cartagena', 'bucaramanga'];
+
+function textoParticulares(r: ResumenCiudadHoy): string {
+  const p = r.tipos.particulares;
+  if (p.aplica && p.digitos.length > 0) return placaDestacada(p.digitos);
+  if (p.desactualizado) return 'Verificar';
+  if (p.pendiente) return '?';
+  return 'Libre';
+}
+
+interface Cambio {
+  slug: string;
+  nombre: string;
+  hoy: string;
+  manana: string;
+  mananaAplica: boolean;
+}
+
+const cambios: Cambio[] = SLUGS_DESTACADAS.flatMap((slug) => {
+  const h = hoyPorSlug.get(slug);
+  const m = resumenManana.find((r) => r.slug === slug);
+  if (!h || !m || esSinPyp(m)) return [];
+  return [{
+    slug,
+    nombre: m.nombre,
+    hoy: textoParticulares(h),
+    manana: textoParticulares(m),
+    mananaAplica: m.tipos.particulares.aplica,
+  }];
+});
+
+// ---------- Fines de semana y festivos: las excepciones reales, según el motor ----------
+function proximoDia(desde: Date, diaSemana: number): Date {
+  const d = new Date(desde);
+  do {
+    d.setDate(d.getDate() + 1);
+  } while (d.getDay() !== diaSemana);
+  return d;
+}
+
+/** "Bogotá (Taxis 5 y 6), Buenaventura (Taxis 5 y 6)" o cadena vacía si nadie aplica */
+function quienesAplican(fecha: Date): string {
+  return resumirCiudades(ciudades, fecha)
+    .filter((r) => r.algunoAplica)
+    .sort(porNombre)
+    .map((r) => {
+      const tipos = tiposVehiculo
+        .filter((t) => r.tipos[t].aplica)
+        .map((t) => {
+          const e = r.tipos[t];
+          const marca = e.criterio === 'primer_digito' ? ', primer dígito' : '';
+          return `${ETIQUETA_CORTA[t]} ${placaDestacada(e.digitos)}${marca}`;
+        })
+        .join('; ');
+      return `${r.nombre} (${tipos})`;
+    })
+    .join(', ');
+}
+
+const sabado = proximoDia(hoy, 6);
+const domingo = proximoDia(hoy, 0);
+const festivoSiguiente = proximoFestivo(hoy);
+const fechaFestivoSiguiente = festivoSiguiente
+  ? new Date(festivoSiguiente.fechaISO + 'T12:00:00')
+  : null;
+
+const diasEspeciales = [
+  { titulo: `Sábado ${formatearFechaColombia(sabado).replace(/^sábado /, '')}`, quienes: quienesAplican(sabado) },
+  { titulo: `Domingo ${formatearFechaColombia(domingo).replace(/^domingo /, '')}`, quienes: quienesAplican(domingo) },
+  ...(fechaFestivoSiguiente && festivoSiguiente
+    ? [{
+        titulo: `Próximo festivo: ${formatearFechaColombia(fechaFestivoSiguiente)} (${festivoSiguiente.nombre})`,
+        quienes: quienesAplican(fechaFestivoSiguiente),
+      }]
+    : []),
+];
+
+// ---------- Preguntas frecuentes: una sola vez para el HTML y el JSON-LD ----------
+const preguntas = [
+  {
+    pregunta: '¿El Pico y Placa de mañana puede ser distinto al de hoy?',
+    respuesta:
+      'Sí, y casi siempre lo es. La mayoría de ciudades rota los dígitos cada día hábil, cambia la tabla completa una o dos veces al año y, además, suspende la medida en festivos y fines de semana. También hay medidas temporales por obras, emergencias o eventos. Por eso esta página se calcula con la fecha real de Colombia en el momento en que la abres.',
+  },
+  {
+    pregunta: '¿Cómo sé si mañana es festivo?',
+    respuesta:
+      'Esta página lo dice arriba, junto a la fecha. Usamos el calendario oficial de festivos de Colombia, incluidos los que la Ley Emiliani traslada al lunes para formar puente. Si mañana es festivo, en la mayoría de ciudades no hay Pico y Placa, pero no en todas: los taxis de algunas ciudades sí rotan.',
+  },
+  {
+    pregunta: '¿Por qué mi ciudad no aparece en la tabla?',
+    respuesta:
+      'Puede pasar por tres razones: la ciudad no tiene Pico y Placa, mañana no aplica (por ejemplo, porque es festivo) o todavía no tenemos verificado su decreto. Más abajo listamos las ciudades en cada situación, para que nunca quede la duda de si la olvidamos.',
+  },
+  {
+    pregunta: '¿A qué hora empieza el Pico y Placa mañana?',
+    respuesta:
+      'Depende de la ciudad: la mayoría empieza entre las 5 y las 7 de la mañana y termina en la tarde o la noche, y algunas tienen varias franjas al día. En la tabla mostramos el horario de cada ciudad y en la página de cada una está el detalle por tipo de vehículo.',
+  },
+  {
+    pregunta: '¿Los dígitos de la tabla son los que NO pueden circular?',
+    respuesta:
+      'Sí. Los números que ves son las terminaciones de placa que tienen restricción mañana. Casi todas las ciudades miran el último dígito, pero hay excepciones: en Medellín y en otras ciudades marcadas en la tabla, las motos se miran por el primer número de la placa.',
+  },
+  {
+    pregunta: '¿Puedo ver pasado mañana o toda la semana?',
+    respuesta:
+      'Sí. En la página de cada ciudad hay un calendario con los próximos 7 y 30 días, puedes guardar el último número de tu placa para que el sitio te responda de primero y descargar tus días de restricción al calendario del celular con una alarma la noche anterior. También hay páginas por día de la semana.',
+  },
+];
+
+const titulo = 'Pico y Placa mañana en Colombia — Placas restringidas por ciudad';
+const descripcion = `Pico y Placa de mañana, ${fechaTexto}, en ${ciudades.length} ciudades de Colombia: qué placas no podrán circular para carros, motos, taxis y carga, con horarios. Ya tiene en cuenta si es festivo o fin de semana.`;
+
+const jsonLd = [
+  breadcrumbJsonLd([
+    { nombre: 'Inicio', ruta: '/' },
+    { nombre: 'Pico y Placa mañana', ruta: '/pico-y-placa-manana' },
+  ]),
+  {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: preguntas.map((p) => ({
+      '@type': 'Question',
+      name: p.pregunta,
+      acceptedAnswer: { '@type': 'Answer', text: p.respuesta },
+    })),
+  },
+];
+
+const chip =
+  'rounded-full border border-gray-200 px-3 py-1.5 text-sm transition-colors hover:border-yellow-400 hover:bg-yellow-50 dark:border-gray-700 dark:hover:bg-yellow-950/20';
+const tarjeta = 'rounded-lg border border-gray-200 p-4 dark:border-gray-700';
 ---
 
-<Principal titulo={titulo} descripcion={descripcion} jsonLd={breadcrumb}>
+<Principal titulo={titulo} descripcion={descripcion} jsonLd={jsonLd}>
   <nav class="mb-4 text-sm text-gray-500 dark:text-gray-400" aria-label="Ruta de navegación">
     <a href="/" class="hover:underline">Inicio</a>
     <span class="mx-1">/</span>
@@ -62,72 +272,231 @@ const fmtPlacas = (placas: number[]) => placas.join(' y ');
 
   <header class="mb-6">
     <h1 class="text-3xl font-bold sm:text-4xl">Pico y Placa mañana en Colombia</h1>
-    <p class="mt-2 text-gray-500 dark:text-gray-400">{fechaTitulo}</p>
-    <p class="mt-1 text-gray-500 dark:text-gray-400">
-      Estas son las placas que no podrán circular mañana en cada ciudad. Ya
-      tenemos en cuenta si mañana es festivo o fin de semana.
+    <p class="mt-2 text-lg text-gray-700 dark:text-gray-300">
+      {fechaTitulo}
+      <span class={`ml-2 inline-block rounded-full px-2.5 py-0.5 text-xs font-semibold ${esDiaEspecial ? 'bg-green-100 text-green-800 dark:bg-green-900/40 dark:text-green-300' : 'bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-gray-300'}`}>
+        {conMayusculaInicial(tipoDeDia)}
+      </span>
     </p>
+    <p class="mt-1 text-gray-500 dark:text-gray-400">
+      {conRestriccion.length > 0
+        ? `Mañana hay Pico y Placa en ${conRestriccion.length} de las ${ciudades.length} ciudades que seguimos. Estas son las placas que no podrán circular, con su horario.`
+        : `Según nuestros datos, mañana ninguna de las ${ciudades.length} ciudades que seguimos tiene Pico y Placa.`}
+    </p>
+    {fechaParam && (
+      <p class="mt-1 text-xs text-yellow-700 dark:text-yellow-400">
+        Simulando: hoy sería {hoyTexto}.
+      </p>
+    )}
   </header>
 
-  {filas.length === 0 ? (
-    <p class="rounded-lg border border-green-200 bg-green-50 p-4 text-sm dark:border-green-800 dark:bg-green-950/20">
-      Según nuestros datos, mañana no hay Pico y Placa para particulares ni motos
-      en las ciudades registradas (posible festivo o fin de semana). Verifica
-      siempre con la fuente oficial de tu ciudad.
-    </p>
-  ) : (
-    <section class="mb-8 overflow-x-auto">
-      <table class="w-full border-collapse text-sm">
-        <thead>
-          <tr class="border-b border-gray-200 text-left dark:border-gray-700">
-            <th class="py-2 pr-3 font-semibold">Ciudad</th>
-            <th class="py-2 pr-3 font-semibold">Particulares</th>
-            <th class="py-2 font-semibold">Motos</th>
-          </tr>
-        </thead>
-        <tbody>
-          {filas.map((fila) => (
-            <tr class="border-b border-gray-100 dark:border-gray-800">
-              <td class="py-2 pr-3">
-                <a href={`/${fila.slug}`} class="font-medium text-yellow-700 hover:underline dark:text-yellow-400">
-                  {fila.nombre}
-                </a>
-              </td>
-              <td class="py-2 pr-3">
-                {fila.particulares.length > 0 ? (
-                  <span class="font-mono font-bold">{fmtPlacas(fila.particulares)}</span>
-                ) : (
-                  <span class="text-gray-400">—</span>
-                )}
-              </td>
-              <td class="py-2">
-                {fila.motos.length > 0 ? (
-                  <span class="font-mono font-bold">{fmtPlacas(fila.motos)}</span>
-                ) : (
-                  <span class="text-gray-400">—</span>
-                )}
-              </td>
+  {esDiaEspecial && (
+    <div class="mb-6 rounded-lg border border-green-300 bg-green-50 p-4 text-sm dark:border-green-800 dark:bg-green-950/20">
+      <strong>Mañana es {tipoDeDia}.</strong>
+      {' '}En la mayoría de ciudades el Pico y Placa no aplica ese día, pero no en todas:
+      {conRestriccion.length > 0
+        ? ' abajo están las que sí tienen restricción, casi siempre para taxis.'
+        : ' según nuestros datos, mañana ninguna ciudad tiene restricción. Si conduces un taxi o un vehículo de servicio público, confirma igual con tu alcaldía.'}
+    </div>
+  )}
+
+  {cambios.length > 0 && (
+    <section class="mb-8">
+      <h2 class="mb-3 text-xl font-bold">Lo que cambia de hoy a mañana</h2>
+      <p class="mb-3 text-sm text-gray-600 dark:text-gray-400">
+        Carros particulares en las ciudades más consultadas. Hoy es {hoyTexto}.
+      </p>
+      <div class="grid grid-cols-2 gap-3 sm:grid-cols-3">
+        {cambios.map((c) => (
+          <a href={`/${c.slug}`} class={`${tarjeta} block transition-colors hover:border-yellow-400`}>
+            <p class="font-semibold">{c.nombre}</p>
+            <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">Hoy: <span class="font-mono">{c.hoy}</span></p>
+            <p class="text-xs text-gray-500 dark:text-gray-400">
+              Mañana:{' '}
+              <span class={`font-mono text-base font-bold ${c.mananaAplica ? 'text-red-600 dark:text-red-400' : 'text-green-600 dark:text-green-400'}`}>
+                {c.manana}
+              </span>
+            </p>
+          </a>
+        ))}
+      </div>
+    </section>
+  )}
+
+  {filas.length > 0 && (
+    <section class="mb-8">
+      <h2 class="mb-3 text-xl font-bold">Placas que no circulan mañana, ciudad por ciudad</h2>
+      <div class="overflow-x-auto">
+        <table class="w-full border-collapse text-sm">
+          <thead>
+            <tr class="border-b border-gray-200 text-left dark:border-gray-700">
+              <th class="py-2 pr-3 font-semibold">Ciudad y horario</th>
+              {columnas.map((t) => (
+                <th class="py-2 pr-3 font-semibold">{ETIQUETA_CORTA[t]}</th>
+              ))}
             </tr>
-          ))}
-        </tbody>
-      </table>
-      <p class="mt-2 text-xs text-gray-400">
-        Toca una ciudad para ver horarios, excepciones y los próximos días.
+          </thead>
+          <tbody>
+            {filas.map((fila) => (
+              <tr class="border-b border-gray-100 dark:border-gray-800">
+                <td class="max-w-[16rem] py-2 pr-3 align-top">
+                  <a href={`/${fila.slug}`} class="font-medium text-yellow-700 hover:underline dark:text-yellow-400">
+                    {fila.nombre}
+                  </a>
+                  {fila.horario && (
+                    <span class="block text-xs text-gray-500 dark:text-gray-400">{fila.horario}</span>
+                  )}
+                </td>
+                {fila.celdas.map((celda) => (
+                  <td class="py-2 pr-3 align-top">
+                    {celda.estado === 'aplica' && (
+                      <span class="font-mono font-bold">{celda.texto}</span>
+                    )}
+                    {celda.estado === 'aplica' && celda.primerDigito && (
+                      <span class="block text-[10px] font-semibold uppercase text-red-600 dark:text-red-400">primer dígito</span>
+                    )}
+                    {celda.estado === 'pendiente' && (
+                      <a href={`/${fila.slug}`} class="font-mono font-bold text-yellow-700 hover:underline dark:text-yellow-400" title="Datos pendientes de verificar">?</a>
+                    )}
+                    {celda.estado === 'desactualizado' && (
+                      <a href={`/${fila.slug}`} class="text-xs text-yellow-700 hover:underline dark:text-yellow-400">Verificar</a>
+                    )}
+                    {celda.estado === 'libre' && <span class="text-gray-400">—</span>}
+                  </td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <p class="mt-2 text-xs text-gray-500 dark:text-gray-400">
+        Los dígitos son los que <strong>no</strong> circulan. Se mira el último número de la placa,
+        salvo donde dice «primer dígito». «—» es libre; «?» es un dato pendiente de verificar.
+        Toca la ciudad para ver excepciones, vías exentas y los próximos días.
       </p>
     </section>
   )}
 
+  <section class="mb-8 space-y-4 text-sm">
+    {libres.length > 0 && (
+      <div>
+        <h2 class="mb-2 text-lg font-bold">Ciudades libres mañana</h2>
+        <p class="mb-2 text-gray-600 dark:text-gray-400">Tienen Pico y Placa, pero mañana no aplica para ningún tipo de vehículo.</p>
+        <div class="flex flex-wrap gap-2">
+          {libres.map((r) => (
+            <a href={`/${r.slug}`} class={chip}>{r.nombre}</a>
+          ))}
+        </div>
+      </div>
+    )}
+    {pendientes.length > 0 && (
+      <div class="rounded-lg border border-yellow-300 bg-yellow-50 p-4 dark:border-yellow-700 dark:bg-yellow-950/20">
+        <h2 class="mb-1 text-lg font-bold">Ciudades con datos pendientes</h2>
+        <p class="mb-2 text-gray-700 dark:text-gray-300">
+          Aquí no inventamos: todavía no tenemos el decreto vigente verificado, así que consulta la fuente oficial antes de salir.
+        </p>
+        <ul class="list-disc space-y-1 pl-5">
+          {pendientes.map((r) => (
+            <li>
+              <a href={`/${r.slug}`} class="font-medium text-yellow-700 hover:underline dark:text-yellow-400">{r.nombre}</a>
+              {' '}({tiposVehiculo.filter((t) => r.tipos[t].pendiente || r.tipos[t].desactualizado).map((t) => ETIQUETA_CORTA[t].toLowerCase()).join(', ')})
+            </li>
+          ))}
+        </ul>
+      </div>
+    )}
+    {sinPicoYPlaca.length > 0 && (
+      <div>
+        <h2 class="mb-2 text-lg font-bold">Ciudades sin Pico y Placa</h2>
+        <p class="mb-2 text-gray-600 dark:text-gray-400">No tienen la medida vigente. Algunas sí tienen otras restricciones, que explicamos en su página.</p>
+        <div class="flex flex-wrap gap-2">
+          {sinPicoYPlaca.map((r) => (
+            <a href={`/${r.slug}`} class={chip}>{r.nombre}</a>
+          ))}
+        </div>
+      </div>
+    )}
+  </section>
+
+  <section class={`${tarjeta} mb-8 text-sm`}>
+    <h2 class="text-lg font-semibold">Fines de semana y festivos: la regla y sus excepciones</h2>
+    <p class="mt-1 text-gray-600 dark:text-gray-400">
+      La regla general en Colombia es que el Pico y Placa rige de lunes a viernes y se levanta los
+      sábados, domingos y festivos. Pero hay excepciones reales, casi todas para taxis, y por eso
+      preferimos calcularlas con el mismo motor de las páginas de ciudad en vez de dar la regla por
+      sentada. Así quedan los próximos días especiales según nuestros datos:
+    </p>
+    <ul class="mt-3 space-y-2">
+      {diasEspeciales.map((d) => (
+        <li>
+          <span class="font-semibold">{d.titulo}:</span>{' '}
+          {d.quienes
+            ? <span class="text-gray-700 dark:text-gray-300">con restricción en {d.quienes}.</span>
+            : <span class="text-green-700 dark:text-green-400">sin restricción en ninguna ciudad.</span>}
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <section class="mb-8 space-y-4 text-sm leading-relaxed">
+    <div class={tarjeta}>
+      <h2 class="text-lg font-semibold">Por qué conviene mirar el Pico y Placa la noche anterior</h2>
+      <p class="mt-1 text-gray-600 dark:text-gray-400">
+        Casi todas las ciudades rotan los dígitos cada día hábil y cambian la tabla completa una o dos
+        veces al año, normalmente en enero y en julio. A eso se suman los festivos que la ley traslada
+        al lunes, las medidas temporales por obras o emergencias y los calendarios propios de los taxis,
+        que en varias ciudades avanzan incluso los fines de semana. Mirar la noche anterior evita salir
+        al afán y descubrir la restricción en la vía, cuando ya es una multa y una grúa.
+      </p>
+      <p class="mt-2 text-gray-600 dark:text-gray-400">
+        Esta página se arma con la fecha real de Colombia en el momento en que la abres y con el mismo
+        motor que usan las páginas de cada ciudad, así que no puede decir una cosa aquí y otra allá.
+        Si mañana es festivo, ya lo sabe.
+      </p>
+    </div>
+    <div class={tarjeta}>
+      <h2 class="text-lg font-semibold">Tres formas de no volver a preocuparte</h2>
+      <ul class="mt-2 list-disc space-y-1 pl-5 text-gray-600 dark:text-gray-400">
+        <li><strong>Guarda tu placa.</strong> En la página de tu ciudad toca el último número de tu placa una sola vez: desde entonces el sitio te responde de primero si mañana circulas o no.</li>
+        <li><strong>Descarga tus días al calendario.</strong> Cada página de tipo de vehículo tiene un botón por dígito que baja un archivo de calendario con tus días de restricción y una alarma la noche anterior.</li>
+        <li><strong>Instala el sitio en el celular.</strong> Funciona como aplicación y abre en un toque, incluso con mala señal.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="mb-8">
+    <h2 class="mb-3 text-xl font-bold">Preguntas frecuentes sobre el Pico y Placa de mañana</h2>
+    <div class="space-y-3">
+      {preguntas.map((p) => (
+        <details class="rounded-lg border border-gray-200 p-4 dark:border-gray-700">
+          <summary class="cursor-pointer font-semibold">{p.pregunta}</summary>
+          <p class="mt-2 text-sm text-gray-600 dark:text-gray-400">{p.respuesta}</p>
+        </details>
+      ))}
+    </div>
+  </section>
+
   <section class="mb-4">
     <h2 class="mb-3 text-lg font-bold">Pico y Placa por día de la semana</h2>
     <div class="flex flex-wrap gap-2">
+      <a href="/" class={chip}>Hoy</a>
       {['lunes', 'martes', 'miercoles', 'jueves', 'viernes'].map((d) => (
-        <a
-          href={`/pico-y-placa-${d}`}
-          class="rounded-full border border-gray-200 px-3 py-1.5 text-sm capitalize transition-colors hover:border-yellow-400 hover:bg-yellow-50 dark:border-gray-700 dark:hover:bg-yellow-950/20"
-        >
+        <a href={`/pico-y-placa-${d}`} class={`${chip} capitalize`}>
           {d === 'miercoles' ? 'Miércoles' : d}
         </a>
       ))}
     </div>
+    <ul class="mt-4 space-y-1 text-sm">
+      <li>
+        <a href="/multas-pico-y-placa" class="text-yellow-700 hover:underline dark:text-yellow-400">
+          Multas del Pico y Placa: valor, descuentos e inmovilización
+        </a>
+      </li>
+      <li>
+        <a href="/exenciones-pico-y-placa" class="text-yellow-700 hover:underline dark:text-yellow-400">
+          ¿Qué vehículos están exentos del Pico y Placa?
+        </a>
+      </li>
+    </ul>
   </section>
 </Principal>
