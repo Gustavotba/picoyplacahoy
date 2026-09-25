@@ -1,0 +1,65 @@
+{
+  "fecha_ultima_actualizacion": "2026-09-24",
+  "infraccion": "C.14",
+  "texto_infraccion": "Transitar por sitios restringidos o en horas prohibidas por la autoridad competente. Además, el vehículo será inmovilizado.",
+  "nota": "Valores de la infracción tipo C (la del Pico y Placa), aproximados a la centena y copiados de la tabla oficial de autoliquidación que la Secretaría Distrital de Movilidad de Bogotá publica cada enero. Los descuentos (50 % y 75 %) se calculan sobre ese valor aproximado, igual que en la tabla. La Circular Externa 20244000000077 de 2024 del Ministerio de Transporte convirtió la tipo C en 52,28 UVB (Bogotá y los decretos de 2026 usan 52,29): por eso algunas fuentes publican unos $100 menos.",
+  "cantidad_uvb_por_tipo": {
+    "A": 13.95,
+    "B": 27.86,
+    "C": 52.29,
+    "D": 104.55
+  },
+  "cantidad_uvb_c_segun_circular_mintransporte": 52.28,
+  "inmovilizacion_bogota": {
+    "anio": 2026,
+    "grua": { "carro": 268500, "moto": 245200 },
+    "patio_primer_dia": { "carro": 167600, "moto": 54300 },
+    "nota": "Carro = vehículo liviano en la tabla oficial. El parqueadero se cobra por día y es acumulable: cada día adicional en los patios suma según la tabla.",
+    "fuente": "Tarifas de parqueadero y grúa 2026 de Bogotá (Resolución 62 de 2018 de la Secretaría Distrital de Movilidad, modificada por la Resolución 172 de 2019), publicadas en bogota.gov.co el 4 de enero de 2026",
+    "url_fuente": "https://bogota.gov.co/mi-ciudad/movilidad/cuanto-cuestan-las-tarifas-de-patio-y-grua-para-2026-en-bogota"
+  },
+  "anios": [
+    {
+      "anio": 2023,
+      "unidad": "UVT",
+      "valor_unidad": 42412,
+      "cantidad_unidades": 12.33,
+      "multa": 522900,
+      "norma_valor_unidad": "Resolución 1264 de 2022 de la DIAN (valor de la UVT)",
+      "fuente": "Tabla de autoliquidación de infracciones 2024 de la Secretaría Distrital de Movilidad de Bogotá, columna «valor en pesos 2023» (copia archivada)",
+      "url_fuente": "https://web.archive.org/web/20240609023535/https://www.movilidadbogota.gov.co/web/sites/default/files/servicios/23-01-2024/tabla_autoliquidacion_2024.pdf"
+    },
+    {
+      "anio": 2024,
+      "unidad": "UVB",
+      "valor_unidad": 10951,
+      "cantidad_unidades": 52.29,
+      "multa": 572600,
+      "norma_valor_unidad": "Resolución 3268 del 18 de diciembre de 2023 del Ministerio de Hacienda",
+      "fuente": "Tabla de autoliquidación de infracciones 2024 de la Secretaría Distrital de Movilidad de Bogotá (copia archivada)",
+      "url_fuente": "https://web.archive.org/web/20240609023535/https://www.movilidadbogota.gov.co/web/sites/default/files/servicios/23-01-2024/tabla_autoliquidacion_2024.pdf"
+    },
+    {
+      "anio": 2025,
+      "unidad": "UVB",
+      "valor_unidad": 11552,
+      "cantidad_unidades": 52.29,
+      "multa": 604100,
+      "norma_valor_unidad": "Resolución 3914 del 17 de diciembre de 2024 del Ministerio de Hacienda",
+      "url_norma": "https://www.alcaldiabogota.gov.co/sisjur/normas/Norma1.jsp?dt=S&i=173465",
+      "fuente": "Tabla de autoliquidación de infracciones 2025 de la Secretaría Distrital de Movilidad de Bogotá",
+      "url_fuente": "https://www.movilidadbogota.gov.co/sites/default/files/2025-11-25/tabla_autoliquidacion_2025.pdf"
+    },
+    {
+      "anio": 2026,
+      "unidad": "UVB",
+      "valor_unidad": 12110,
+      "cantidad_unidades": 52.29,
+      "multa": 633200,
+      "norma_valor_unidad": "Resolución 3488 del 31 de diciembre de 2025 del Ministerio de Hacienda",
+      "url_norma": "https://www.minhacienda.gov.co/documents/d/portal/resolucion_3488_diciembre_31_2025?download=true",
+      "fuente": "Tabla de autoliquidación de infracciones 2026 de la Secretaría Distrital de Movilidad de Bogotá",
+      "url_fuente": "https://www.movilidadbogota.gov.co/sites/default/files/2026-01-03/tabla_autoliquidacion_2026.pdf"
+    }
+  ]
+}

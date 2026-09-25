@@ -7,6 +7,7 @@ import { ciudades } from '../lib/ciudades';
 import { fechaColombia, formatearFechaColombia, conMayusculaInicial } from '../lib/calcular';
 import { resumirCiudades, insigniaDe } from '../lib/resumen';
 import { SITE_URL, SITE_NAME } from '../lib/seo';
+import { multaVigente, formatearPesos, formatearUnidades } from '../lib/multas';
 
 // La portada muestra el estado de HOY, así que se arma en el momento de la
 // visita. Si se prerenderizara, quedaría congelada en la fecha del build.
@@ -53,10 +54,10 @@ const descripcion = `Pico y Placa hoy ${fechaFormateada} en Colombia: consulta q
  * Preguntas frecuentes. Van en la página Y en el JSON-LD, escritas una sola vez
  * para que no puedan quedar diciendo cosas distintas.
  *
- * Ojo con la multa: no se da una cifra en pesos porque cambia cada año con el
- * salario mínimo y las fuentes oficiales se contradicen entre sí. Se explica la
- * base legal y se enlaza a la página de multas.
+ * La multa en pesos sale de src/lib/multas.ts (tabla oficial de Bogotá, un solo
+ * lugar para todo el sitio): nunca escribirla a mano aquí.
  */
+const multa = multaVigente(hoy);
 const PREGUNTAS = [
   {
     pregunta: '¿Qué es el pico y placa?',
@@ -75,8 +76,7 @@ const PREGUNTAS = [
   },
   {
     pregunta: '¿Cuánto cuesta la multa por infringir el pico y placa?',
-    respuesta:
-      'Es una infracción tipo C: 15 salarios mínimos diarios legales vigentes, más la inmovilización del vehículo (artículo 131 de la Ley 769 de 2002). El valor en pesos cambia cada año con el salario mínimo, y algunas alcaldías publican cifras que no coinciden entre sí, así que conviene confirmar el monto vigente con la secretaría de movilidad de tu ciudad.',
+    respuesta: `En ${multa.anio} es de ${formatearPesos(multa.multa)}, más la inmovilización del vehículo. Es la infracción C.14 del Código Nacional de Tránsito (artículo 131 de la Ley 769 de 2002), que desde 2024 se liquida en ${formatearUnidades(multa.cantidad_unidades)} ${multa.unidad}. Si aceptas la infracción y haces el curso, en los primeros 5 días pagas la mitad: ${formatearPesos(multa.conCurso5Dias)}. El valor cambia cada enero con la UVB, no con el salario mínimo.`,
   },
 ];
 

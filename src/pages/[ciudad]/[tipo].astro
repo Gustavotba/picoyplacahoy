@@ -35,6 +35,7 @@ import {
 } from '../../lib/tipos';
 import type { TipoVehiculo } from '../../lib/tipos';
 import { breadcrumbJsonLd } from '../../lib/seo';
+import { multaVigente, esMultaTipoC, formatearPesos, formatearUnidades } from '../../lib/multas';
 
 export const prerender = false;
 
@@ -64,9 +65,11 @@ const tieneTwitter = !!contacto?.twitter;
 const tieneFacebook = !!contacto?.facebook;
 const tieneTelefono = !!contacto?.linea_atencion && contacto.linea_atencion !== 'pendiente_verificar';
 const tieneContacto = !!contacto && (tieneWeb || tieneTwitter || tieneFacebook || tieneTelefono);
-const tieneSancionesDetalladas = Boolean(
-  ciudad.sanciones.tipo_multa || ciudad.sanciones.valor_smldv || ciudad.sanciones.valor_aproximado_pesos,
-);
+const tieneSancionesDetalladas = Boolean(ciudad.sanciones.tipo_multa || ciudad.sanciones.valor_smldv);
+// El valor en pesos NO sale del JSON de la ciudad: la multa es nacional y vive
+// en src/data/multas.json, para que ninguna página diga una cifra distinta.
+const multa = multaVigente(hoy);
+const multaEnPesos = esMultaTipoC(ciudad.sanciones.valor_smldv);
 const esVehiculoSemanal = esSemanalPorDia(vehiculo);
 const esVehiculoQuincenal = esQuincenalPorFecha(vehiculo);
 const esVehiculoInactivo = esSinRestriccion(vehiculo);
@@ -590,18 +593,23 @@ const bloquesJsonLd = [servicioJsonLd, breadcrumb];
             <p class="font-bold text-red-700 dark:text-red-300">{ciudad.sanciones.tipo_multa}</p>
           </div>
         )}
-        {ciudad.sanciones.valor_smldv && (
+        {multaEnPesos ? (
+          <>
+            <div class="rounded bg-red-100 dark:bg-red-900/40 p-2">
+              <p class="text-xs text-gray-500 dark:text-gray-400">Multa {multa.anio}</p>
+              <p class="font-mono font-bold text-red-700 dark:text-red-300">{formatearPesos(multa.multa)}</p>
+              <p class="text-xs text-gray-500 dark:text-gray-400">{ciudad.sanciones.valor_smldv} · {formatearUnidades(multa.cantidad_unidades)} {multa.unidad}</p>
+            </div>
+            <div class="rounded bg-green-100 dark:bg-green-900/30 p-2">
+              <p class="text-xs text-gray-500 dark:text-gray-400">Con curso, en 5 días</p>
+              <p class="font-mono font-bold text-green-700 dark:text-green-300">{formatearPesos(multa.conCurso5Dias)}</p>
+              <p class="text-xs text-gray-500 dark:text-gray-400">pagas el 50 %</p>
+            </div>
+          </>
+        ) : ciudad.sanciones.valor_smldv && (
           <div class="rounded bg-red-100 dark:bg-red-900/40 p-2">
             <p class="text-xs text-gray-500 dark:text-gray-400">Multa</p>
             <p class="font-bold text-red-700 dark:text-red-300">{ciudad.sanciones.valor_smldv}</p>
-          </div>
-        )}
-        {ciudad.sanciones.valor_aproximado_pesos && (
-          <div class="rounded bg-red-100 dark:bg-red-900/40 p-2">
-            <p class="text-xs text-gray-500 dark:text-gray-400">Aprox.</p>
-            <p class="font-bold text-red-700 dark:text-red-300">
-              ${ciudad.sanciones.valor_aproximado_pesos.toLocaleString('es-CO')}
-            </p>
           </div>
         )}
       </div>
@@ -614,6 +622,13 @@ const bloquesJsonLd = [servicioJsonLd, breadcrumb];
     {ciudad.sanciones.incluye_inmovilizacion && (
       <p class="mt-1 text-xs font-semibold text-red-600 dark:text-red-400">
         + Inmovilización del vehículo
+      </p>
+    )}
+    {multaEnPesos && (
+      <p class="mt-1 text-xs">
+        <a href="/multas-pico-y-placa" class="font-semibold text-red-700 hover:underline dark:text-red-300">
+          Cuánto subió la multa, descuentos y fotomultas →
+        </a>
       </p>
     )}
   </section>

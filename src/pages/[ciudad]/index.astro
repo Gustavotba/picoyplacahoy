@@ -11,6 +11,7 @@ import { calcularPicoPlaca, fechaColombia, formatearFechaColombia, conMayusculaI
 import { ETIQUETAS_VEHICULO, ICONOS_VEHICULO } from '../../lib/tipos';
 import type { TipoVehiculo, PicoYPlacaSolidario } from '../../lib/tipos';
 import { breadcrumbJsonLd } from '../../lib/seo';
+import { multaVigente, esMultaTipoC, formatearPesos, formatearUnidades } from '../../lib/multas';
 
 import medellinGeo from '../../data/ciudades/medellin.geo.json';
 const geodatos: Record<string, unknown> = { medellin: medellinGeo };
@@ -36,9 +37,11 @@ const tieneNotasGenerales = ciudad.notas_generales && ciudad.notas_generales.len
 const tieneExenciones = ciudad.exenciones_generales && ciudad.exenciones_generales.length > 0;
 const tieneViasExentas = ciudad.vias_exentas && ciudad.vias_exentas.length > 0;
 const tieneContacto = !!ciudad.contacto_ciudadano;
-const tieneSancionesDetalladas = Boolean(
-  ciudad.sanciones.tipo_multa || ciudad.sanciones.valor_smldv || ciudad.sanciones.valor_aproximado_pesos,
-);
+const tieneSancionesDetalladas = Boolean(ciudad.sanciones.tipo_multa || ciudad.sanciones.valor_smldv);
+// El valor en pesos NO sale del JSON de la ciudad: la multa es nacional y vive
+// en src/data/multas.json, para que ninguna página diga una cifra distinta.
+const multa = multaVigente(hoy);
+const multaEnPesos = esMultaTipoC(ciudad.sanciones.valor_smldv);
 
 const centrosMapa: Record<string, { centro: [number, number]; zoom: number }> = {
   medellin: { centro: [6.2442, -75.5812], zoom: 13 },
@@ -102,7 +105,7 @@ const faqSinPyP = ciudadSinPyP ? {
     {
       '@type': 'Question',
       name: `¿Qué debo hacer si viajo a ${ciudadCercanaConPyP} desde ${ciudad.nombre}?`,
-      acceptedAnswer: { '@type': 'Answer', text: `Si viajas a ${ciudadCercanaConPyP}, verifica primero si tu placa tiene restricción ese día. Consulta en picoyplacahoy.co la rotación vigente. Infringir el Pico y Placa puede resultar en multas de más de $700.000 COP más inmovilización del vehículo.` },
+      acceptedAnswer: { '@type': 'Answer', text: `Si viajas a ${ciudadCercanaConPyP}, verifica primero si tu placa tiene restricción ese día. Consulta en picoyplacahoy.co la rotación vigente. Infringir el Pico y Placa cuesta una multa de ${formatearPesos(multa.multa)} (valor ${multa.anio}) más la inmovilización del vehículo.` },
     },
     {
       '@type': 'Question',
@@ -368,12 +371,14 @@ const bloquesJsonLd = [jsonLdBase, breadcrumb, faqSinPyP].filter(Boolean) as Arr
         </p>
         <div class="rounded-lg border border-red-200 bg-red-50 p-4 dark:bg-red-950/20 dark:border-red-800 mb-3">
           <p class="text-sm font-semibold text-red-700 dark:text-red-300">Sanción por infringir Pico y Placa en Colombia:</p>
-          <p class="text-2xl font-mono font-bold text-red-600 dark:text-red-400 mt-1">$711.750 COP</p>
+          <p class="text-2xl font-mono font-bold text-red-600 dark:text-red-400 mt-1">{formatearPesos(multa.multa)}</p>
           <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">
-            Multa tipo C (15 SMLDV) + inmovilización del vehículo ·
+            Valor {multa.anio} · infracción C.14 ({formatearUnidades(multa.cantidad_unidades)} {multa.unidad}) + inmovilización del vehículo ·
             <a href={URL_LEY_769} target="_blank" rel="noopener noreferrer" class="text-red-600 dark:text-red-400 hover:underline">
               Art. 131, Ley 769 de 2002
             </a>
+            ·
+            <a href="/multas-pico-y-placa" class="text-red-600 dark:text-red-400 hover:underline">Descuentos y cuánto subió</a>
           </p>
         </div>
         <a href="/" class="inline-flex items-center gap-2 rounded-lg bg-yellow-400 hover:bg-yellow-500 text-black font-bold text-sm px-5 py-3 transition-colors shadow-sm">
@@ -507,21 +512,35 @@ const bloquesJsonLd = [jsonLdBase, breadcrumb, faqSinPyP].filter(Boolean) as Arr
                 <p class="font-bold text-red-700 dark:text-red-300">{ciudad.sanciones.tipo_multa}</p>
               </div>
             )}
-            {ciudad.sanciones.valor_smldv && (
+            {multaEnPesos ? (
+              <>
+                <div class="rounded bg-red-100 dark:bg-red-900/40 p-2">
+                  <p class="text-xs text-gray-500 dark:text-gray-400">Multa {multa.anio}</p>
+                  <p class="font-mono font-bold text-red-700 dark:text-red-300">{formatearPesos(multa.multa)}</p>
+                  <p class="text-xs text-gray-500 dark:text-gray-400">{ciudad.sanciones.valor_smldv} · {formatearUnidades(multa.cantidad_unidades)} {multa.unidad}</p>
+                </div>
+                <div class="rounded bg-green-100 dark:bg-green-900/30 p-2">
+                  <p class="text-xs text-gray-500 dark:text-gray-400">Con curso, en 5 días</p>
+                  <p class="font-mono font-bold text-green-700 dark:text-green-300">{formatearPesos(multa.conCurso5Dias)}</p>
+                  <p class="text-xs text-gray-500 dark:text-gray-400">pagas el 50 %</p>
+                </div>
+              </>
+            ) : ciudad.sanciones.valor_smldv && (
               <div class="rounded bg-red-100 dark:bg-red-900/40 p-2">
                 <p class="text-xs text-gray-500 dark:text-gray-400">Multa</p>
                 <p class="font-bold text-red-700 dark:text-red-300">{ciudad.sanciones.valor_smldv}</p>
               </div>
             )}
-            {ciudad.sanciones.valor_aproximado_pesos && (
-              <div class="rounded bg-red-100 dark:bg-red-900/40 p-2">
-                <p class="text-xs text-gray-500 dark:text-gray-400">Aprox.</p>
-                <p class="font-bold text-red-700 dark:text-red-300">${ciudad.sanciones.valor_aproximado_pesos.toLocaleString('es-CO')}</p>
-              </div>
-            )}
           </div>
         )}
         <p class="mt-2 text-xs text-gray-500 dark:text-gray-400">{ciudad.sanciones.base_legal}</p>
+        {multaEnPesos && (
+          <p class="mt-1 text-xs">
+            <a href="/multas-pico-y-placa" class="font-semibold text-red-700 hover:underline dark:text-red-300">
+              Cuánto subió la multa, descuentos y fotomultas →
+            </a>
+          </p>
+        )}
       </section>
 
       {tieneContacto && ciudad.contacto_ciudadano!.twitter && (

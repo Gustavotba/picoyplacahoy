@@ -17,6 +17,7 @@ import { ciudades } from '../lib/ciudades';
 import { esPlaceholder, esQuincenalPorFecha, esSemanalPorDia, esParImparPorFecha } from '../lib/tipos';
 import type { Ciudad, InfoVehiculo, TipoVehiculo } from '../lib/tipos';
 import { ETIQUETAS_VEHICULO } from '../lib/tipos';
+import { historialMulta, multaCalculada, inmovilizacionBogota } from '../lib/multas';
 
 /**
  * Cuántos días antes queremos que nos avisen. Se puede cambiar por la línea de
@@ -191,6 +192,55 @@ for (const ciudad of ciudades) {
         );
       }
     }
+  }
+}
+
+// ---------- Multa en pesos (src/data/multas.json) ----------
+// Las páginas muestran la multa del año en curso. Si en enero no se carga el año
+// nuevo, siguen mostrando la del anterior CON un aviso visible, así que no es
+// grave, pero hay que cargarla: la tabla de autoliquidación de Bogotá sale en
+// los primeros días de enero.
+const MULTA = 'Multa nacional';
+const ultimaMulta = historialMulta.at(-1);
+if (!ultimaMulta || ultimaMulta.anio < hoy.getFullYear()) {
+  apuntar(
+    'aviso',
+    MULTA,
+    `Falta el valor de ${hoy.getFullYear()}`,
+    'Agregar el año en src/data/multas.json con la tabla de autoliquidación de la Secretaría de Movilidad de Bogotá y la resolución de la UVB de MinHacienda.',
+  );
+} else if (ultimaMulta.anio < limite.getFullYear()) {
+  apuntar(
+    'aviso',
+    MULTA,
+    `El 1 de enero cambia el valor de la multa`,
+    `Cargar el valor de ${limite.getFullYear()} en src/data/multas.json apenas Bogotá publique su tabla de autoliquidación.`,
+  );
+}
+// El ejemplo de grúa y patios de Bogotá se oculta solo cuando la multa ya es de
+// un año nuevo y las tarifas no: hay que cargar las del año para que vuelva.
+if (inmovilizacionBogota.anio < hoy.getFullYear()) {
+  apuntar(
+    'aviso',
+    MULTA,
+    `Faltan las tarifas de grúa y patios de ${hoy.getFullYear()}`,
+    'Actualizar inmovilizacion_bogota en src/data/multas.json (bogota.gov.co publica la tabla a comienzos de enero). Mientras tanto, el ejemplo de la página de multas no se muestra.',
+  );
+}
+// Prueba de consistencia: unidades × valor de la unidad debe dar la cifra
+// copiada de la tabla oficial. Si no cuadra, hay un error de digitación.
+for (const m of historialMulta) {
+  const calculada = multaCalculada(m);
+  if (calculada !== m.multa) {
+    apuntar(
+      'grave',
+      MULTA,
+      `${m.anio}: la cifra no cuadra`,
+      `${m.cantidad_unidades} ${m.unidad} × $${m.valor_unidad} da $${calculada}, pero multas.json dice $${m.multa}.`,
+    );
+  }
+  if (m.unidad !== 'UVT' && m.unidad !== 'UVB') {
+    apuntar('grave', MULTA, `${m.anio}: unidad desconocida`, `"${m.unidad}" debe ser UVT o UVB.`);
   }
 }
 

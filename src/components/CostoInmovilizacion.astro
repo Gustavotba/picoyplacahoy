@@ -1,0 +1,76 @@
+---
+/**
+ * Cuánto cuesta en total un comparendo por Pico y Placa cuando además se llevan
+ * el vehículo: multa + grúa + primer día de patios. Es un EJEMPLO con las
+ * tarifas oficiales de Bogotá (cada ciudad fija las suyas), leído de
+ * src/data/multas.json.
+ *
+ * Solo se muestra si las tarifas son del mismo año que la multa: sumar la multa
+ * de un año con la grúa de otro daría un total que nunca existió.
+ */
+import type { MultaVigente } from '../lib/multas';
+import { inmovilizacionBogota as ejemplo, formatearPesos } from '../lib/multas';
+
+interface Props {
+  multa: MultaVigente;
+}
+
+const { multa } = Astro.props;
+const mismoAnio = ejemplo.anio === multa.anio;
+
+const columnas = [
+  { nombre: 'Carro', grua: ejemplo.grua.carro, patio: ejemplo.patio_primer_dia.carro },
+  { nombre: 'Moto', grua: ejemplo.grua.moto, patio: ejemplo.patio_primer_dia.moto },
+];
+const celda = 'py-2 pr-3 text-right font-mono whitespace-nowrap';
+const enlace = 'underline hover:text-gray-700 dark:hover:text-gray-200';
+---
+
+{mismoAnio && (
+  <section class="rounded-lg border border-gray-200 p-4 dark:border-gray-700" aria-labelledby="costo-total">
+    <h2 id="costo-total" class="text-lg font-semibold">¿Cuánto cuesta en total si te inmovilizan?</h2>
+    <p class="mt-1 text-gray-600 dark:text-gray-400">
+      La multa no es lo único. Si el agente manda el vehículo a los patios, la
+      grúa y el parqueadero se pagan aparte. Así queda la cuenta con las
+      tarifas oficiales de Bogotá {ejemplo.anio}, si sacas el vehículo el
+      primer día:
+    </p>
+    <div class="mt-3 overflow-x-auto">
+      <table class="w-full text-left text-xs sm:text-sm">
+        <thead>
+          <tr class="border-b border-gray-200 text-gray-500 dark:border-gray-700 dark:text-gray-400">
+            <th class="py-2 pr-3 font-medium">Concepto</th>
+            {columnas.map((c) => <th class="py-2 pr-3 text-right font-medium">{c.nombre}</th>)}
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="border-b border-gray-100 dark:border-gray-800">
+            <td class="py-2 pr-3">Multa con curso (50 %)</td>
+            {columnas.map(() => <td class={celda}>{formatearPesos(multa.conCurso5Dias)}</td>)}
+          </tr>
+          <tr class="border-b border-gray-100 dark:border-gray-800">
+            <td class="py-2 pr-3">Grúa</td>
+            {columnas.map((c) => <td class={celda}>{formatearPesos(c.grua)}</td>)}
+          </tr>
+          <tr class="border-b border-gray-100 dark:border-gray-800">
+            <td class="py-2 pr-3">Patios, primer día</td>
+            {columnas.map((c) => <td class={celda}>{formatearPesos(c.patio)}</td>)}
+          </tr>
+          <tr class="border-b border-gray-100 bg-yellow-50 font-semibold dark:border-gray-800 dark:bg-yellow-950/20">
+            <td class="py-2 pr-3">Total, pagando rápido</td>
+            {columnas.map((c) => <td class={celda}>{formatearPesos(multa.conCurso5Dias + c.grua + c.patio)}</td>)}
+          </tr>
+          <tr>
+            <td class="py-2 pr-3">Total sin descuento</td>
+            {columnas.map((c) => <td class={`${celda} text-red-600 dark:text-red-400`}>{formatearPesos(multa.multa + c.grua + c.patio)}</td>)}
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="mt-2 text-xs text-gray-500 dark:text-gray-400">
+      Fuente: <a href={ejemplo.url_fuente} target="_blank" rel="noopener" class={enlace}>{ejemplo.fuente}</a>.
+      {' '}{ejemplo.nota} En otras ciudades las tarifas son distintas: consúltalas
+      con el organismo de tránsito. Con fotomulta no hay grúa ni patios.
+    </p>
+  </section>
+)}

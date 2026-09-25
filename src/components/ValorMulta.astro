@@ -1,0 +1,87 @@
+---
+/**
+ * La respuesta que la gente viene a buscar: cuánto vale la multa este año,
+ * cuánto cambió frente al anterior (con flecha que sube o baja según los datos)
+ * y cuánto se paga con descuento. Todo sale de src/lib/multas.ts.
+ */
+import type { MultaVigente } from '../lib/multas';
+import { formatearPesos, formatearUnidades, describirVariacion, fraseVariacion } from '../lib/multas';
+
+interface Props {
+  multa: MultaVigente;
+}
+
+const { multa } = Astro.props;
+const variacion = multa.variacion !== null ? describirVariacion(multa.variacion) : null;
+const frase = fraseVariacion(multa);
+
+// En una multa, subir es mala noticia para el conductor: rojo si sube, verde si baja.
+const COLOR_VARIACION: Record<'sube' | 'baja' | 'igual', string> = {
+  sube: 'bg-red-100 text-red-700 dark:bg-red-950/50 dark:text-red-300',
+  baja: 'bg-green-100 text-green-700 dark:bg-green-950/50 dark:text-green-300',
+  igual: 'bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-gray-300',
+};
+
+const enlace = 'underline hover:text-gray-700 dark:hover:text-gray-200';
+---
+
+<section class="mb-6 overflow-hidden rounded-xl border-2 border-yellow-400" aria-labelledby="valor-multa">
+  <h2 id="valor-multa" class="bg-yellow-400 px-4 py-2 text-sm font-bold uppercase tracking-wide text-black">
+    Valor de la multa en {multa.anio}
+  </h2>
+
+  <div class="p-4 sm:p-6">
+    {multa.desactualizada && (
+      <p class="mb-3 rounded border border-orange-300 bg-orange-50 p-2 text-sm text-orange-800 dark:border-orange-800 dark:bg-orange-950/30 dark:text-orange-300">
+        Aún no hemos cargado el valor de {multa.anioConsultado}. Te mostramos el
+        de {multa.anio}: cada enero el Gobierno actualiza la UVB y la multa
+        cambia. Confírmalo con la autoridad de tránsito de tu ciudad.
+      </p>
+    )}
+
+    <div class="flex flex-wrap items-center gap-x-4 gap-y-2">
+      <p class="font-mono text-5xl font-bold tracking-tight sm:text-6xl">{formatearPesos(multa.multa)}</p>
+      {variacion && frase && multa.anterior && (
+        <p class={`inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-sm font-semibold ${COLOR_VARIACION[variacion.sentido]}`}>
+          <span aria-hidden="true">{variacion.flecha}</span>
+          <span>
+            {frase}
+            <span class="font-normal"> ({formatearPesos(multa.anterior.multa)})</span>
+          </span>
+        </p>
+      )}
+    </div>
+
+    <p class="mt-2 text-sm text-gray-600 dark:text-gray-400">
+      Infracción <strong>C.14</strong> del Código Nacional de Tránsito ·
+      {formatearUnidades(multa.cantidad_unidades)} {multa.unidad} × {formatearPesos(multa.valor_unidad)} ·
+      <strong class="text-red-600 dark:text-red-400">más la inmovilización del vehículo</strong>
+    </p>
+
+    <div class="mt-4 grid gap-2 sm:grid-cols-3">
+      <div class="rounded-lg border border-green-300 bg-green-50 p-3 dark:border-green-800 dark:bg-green-950/20">
+        <p class="text-xs text-gray-600 dark:text-gray-400">Hasta el día 5 hábil, con curso</p>
+        <p class="font-mono text-2xl font-bold text-green-700 dark:text-green-400">{formatearPesos(multa.conCurso5Dias)}</p>
+        <p class="text-xs text-gray-600 dark:text-gray-400">pagas el 50 %</p>
+      </div>
+      <div class="rounded-lg border border-yellow-300 bg-yellow-50 p-3 dark:border-yellow-800 dark:bg-yellow-950/20">
+        <p class="text-xs text-gray-600 dark:text-gray-400">Del día 6 al 20 hábil, con curso</p>
+        <p class="font-mono text-2xl font-bold text-yellow-700 dark:text-yellow-400">{formatearPesos(multa.conCurso20Dias)}</p>
+        <p class="text-xs text-gray-600 dark:text-gray-400">pagas el 75 %</p>
+      </div>
+      <div class="rounded-lg border border-red-300 bg-red-50 p-3 dark:border-red-800 dark:bg-red-950/20">
+        <p class="text-xs text-gray-600 dark:text-gray-400">Después, o si pierdes la audiencia</p>
+        <p class="font-mono text-2xl font-bold text-red-700 dark:text-red-400">{formatearPesos(multa.multa)}</p>
+        <p class="text-xs text-gray-600 dark:text-gray-400">pagas el 100 %</p>
+      </div>
+    </div>
+
+    <p class="mt-3 text-xs text-gray-500 dark:text-gray-400">
+      Fuente: <a href={multa.url_fuente} target="_blank" rel="noopener" class={enlace}>{multa.fuente}</a>.
+      Valor aproximado a la centena; en otras ciudades puede variar unos $100
+      por redondeo. Tus fechas exactas, en la
+      <a href="#calculadora" class={enlace}>calculadora</a> de abajo (con
+      fotomulta los plazos son otros). La grúa y los patios se pagan aparte.
+    </p>
+  </div>
+</section>

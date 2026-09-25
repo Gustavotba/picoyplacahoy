@@ -2,8 +2,13 @@
 import Principal from '../layouts/Principal.astro';
 import { ciudades } from '../lib/ciudades';
 import { breadcrumbJsonLd } from '../lib/seo';
+import { multaVigente, formatearPesos } from '../lib/multas';
 
 export const prerender = true;
+
+// El valor en pesos sale de src/lib/multas.ts, el mismo de la página de multas.
+// La página es estática: toma el año del último build, y lo dice.
+const multa = multaVigente();
 
 const preguntas = [
   {
@@ -28,8 +33,7 @@ const preguntas = [
   },
   {
     pregunta: '¿Cuánto cuesta la multa por violar el Pico y Placa?',
-    respuesta:
-      'Corresponde a la infracción C14, equivalente a 15 salarios mínimos legales diarios vigentes (SMLDV), y puede incluir la inmovilización del vehículo. Consulta la página de multas para más detalle.',
+    respuesta: `En ${multa.anio} es de ${formatearPesos(multa.multa)}: es la infracción C.14 del Código Nacional de Tránsito, una multa tipo C, e incluye la inmovilización del vehículo. Con curso y pago en los primeros 5 días se paga la mitad (${formatearPesos(multa.conCurso5Dias)}). Consulta la página de multas para ver cuánto subió, los plazos y las fotomultas.`,
   },
   {
     pregunta: '¿Qué vehículos están exentos del Pico y Placa?',

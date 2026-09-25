@@ -1,31 +1,106 @@
 ---
 import Principal from '../layouts/Principal.astro';
+import ValorMulta from '../components/ValorMulta.astro';
+import HistorialMulta from '../components/HistorialMulta.astro';
+import CalculadoraPlazos from '../components/CalculadoraPlazos.astro';
+import CostoInmovilizacion from '../components/CostoInmovilizacion.astro';
 import { ciudades } from '../lib/ciudades';
-import { breadcrumbJsonLd } from '../lib/seo';
+import { fechaColombia } from '../lib/calcular';
+import { breadcrumbJsonLd, SITE_URL } from '../lib/seo';
+import {
+  multaVigente,
+  valoresPorTipo,
+  cantidadUvbPorTipo,
+  cantidadUvbCircular,
+  inmovilizacionBogota,
+  describirVariacion,
+  fraseVariacion,
+  formatearPesos,
+  formatearUnidades,
+} from '../lib/multas';
+import type { MultaDelAnio, TipoInfraccion } from '../lib/multas';
 import type { Ciudad } from '../lib/tipos';
 
-export const prerender = true;
+// Se arma en cada visita: el 1 de enero el valor cambia de año solo (en cuanto
+// el año nuevo esté cargado en src/data/multas.json) y, si todavía no lo está,
+// la página lo dice. Prerenderizada se quedaría con el año del último build.
+export const prerender = false;
 
-const titulo = 'Multas del Pico y Placa en Colombia — Valor, descuentos e inmovilización';
-const descripcion =
-  'Cuánto vale la multa por Pico y Placa (infracción C.14, 15 SMLDV), cómo se calcula, descuentos por pronto pago, fotomultas, inmovilización, prescripción y qué hacer si te llega un comparendo.';
+// ?fecha=YYYY-MM-DD simula otro día, igual que en las páginas de ciudad.
+const fechaParam = Astro.url.searchParams.get('fecha');
+const fechaSimulada = fechaParam ? new Date(fechaParam + 'T12:00:00') : null;
+const simulacionValida = fechaSimulada !== null && !Number.isNaN(fechaSimulada.getTime());
+const fecha = simulacionValida ? fechaSimulada : fechaColombia();
+
+const multa = multaVigente(fecha);
+const valor = formatearPesos(multa.multa);
+const con5 = formatearPesos(multa.conCurso5Dias);
+const con20 = formatearPesos(multa.conCurso20Dias);
+const unidades = `${formatearUnidades(multa.cantidad_unidades)} ${multa.unidad}`;
+const valorUnidad = formatearPesos(multa.valor_unidad);
+const variacion = fraseVariacion(multa);
+const valores = valoresPorTipo(multa);
+
+// Compartir por WhatsApp: es solo un enlace (cero JavaScript). La etiqueta
+// utm_source permite ver en Analytics cuántas visitas llegan por ahí.
+const textoWhatsApp = `Multa por Pico y Placa ${multa.anio}: ${valor}. Con curso en los primeros 5 días hábiles pagas ${con5}. Calcula hasta cuándo tienes descuento: ${SITE_URL}/multas-pico-y-placa?utm_source=whatsapp&utm_medium=compartir#calculadora`;
+const enlaceWhatsApp = `https://wa.me/?text=${encodeURIComponent(textoWhatsApp)}`;
+
+// Ejemplo de Bogotá para la pregunta de los patios (solo si es del mismo año)
+const ej = inmovilizacionBogota;
+const ejemploVigente = ej.anio === multa.anio;
+
+const titulo = `Multa por Pico y Placa ${multa.anio}: ${valor} — descuentos e inmovilización`;
+const descripcion = `La multa por Pico y Placa en ${multa.anio} es de ${valor} (infracción C.14, ${unidades}) más la inmovilización del vehículo. Con curso pagas ${con5} en los primeros 5 días o ${con20} hasta el día 20.${variacion ? ` ${variacion}.` : ''}`;
 
 // Escala general del artículo 131 de la Ley 769 de 2002 (texto vigente tras la
 // Ley 1383 de 2010). El Pico y Placa es la C.14: tercer escalón de cuatro.
-const escala = [
+const escala: Array<{ tipo: TipoInfraccion; smldv: number; nota: string; esPyp: boolean }> = [
   { tipo: 'A', smldv: 4, nota: 'Conductores de vehículos no automotores (bicicletas, tracción animal).', esPyp: false },
   { tipo: 'B', smldv: 8, nota: 'Por ejemplo, equipos de sonido a volumen excesivo (B.23).', esPyp: false },
   { tipo: 'C', smldv: 15, nota: 'Pico y Placa (C.14), estacionar en sitio prohibido (C.2), bloquear una calzada (C.3).', esPyp: true },
   { tipo: 'D', smldv: 30, nota: 'Las infracciones más graves de la escala general.', esPyp: false },
 ];
+// La escala en pesos solo tiene sentido con la UVB (desde 2024)
+const escalaEnPesos = multa.unidad === 'UVB';
+
+/** "el valor de la UVB pasó de $11.552 a $12.110" */
+function explicarCambio(m: MultaDelAnio): string {
+  const a = m.anterior;
+  if (!a) return '';
+  if (a.unidad !== m.unidad) return `ese año la multa dejó de calcularse en ${a.unidad} y pasó a ${m.unidad}`;
+  return `el valor de la ${m.unidad} pasó de ${formatearPesos(a.valor_unidad)} a ${formatearPesos(m.valor_unidad)}`;
+}
+
+// Pregunta sobre el cambio frente al año anterior, redactada según lo que pasó
+const preguntaVariacion = (() => {
+  if (multa.variacion === null || !multa.anterior) return null;
+  const v = describirVariacion(multa.variacion);
+  const ant = multa.anterior;
+  if (v.sentido === 'igual') {
+    return {
+      pregunta: `¿Cambió la multa de Pico y Placa en ${multa.anio}?`,
+      respuesta: `No. En ${multa.anio} sigue en ${valor}, igual que en ${ant.anio}. Desde 2024 la multa se ajusta cada enero con la UVB, que sigue la inflación, y ya no con el salario mínimo.`,
+    };
+  }
+  const verbo = v.sentido === 'sube' ? 'subió' : 'bajó';
+  return {
+    pregunta: `¿Cuánto ${verbo} la multa de Pico y Placa en ${multa.anio}?`,
+    respuesta: `${v.sentido === 'sube' ? 'Subió' : 'Bajó'} ${v.porcentaje}: pasó de ${formatearPesos(ant.multa)} en ${ant.anio} a ${valor} en ${multa.anio}, porque ${explicarCambio(multa)}. Desde 2024 la multa se ajusta cada enero con la UVB, que sigue la inflación, y ya no con el salario mínimo.`,
+  };
+})();
 
 // Las preguntas se escriben UNA sola vez y alimentan el HTML y el JSON-LD FAQPage,
 // para que no puedan quedar diciendo cosas distintas (mismo patrón de la portada).
 const preguntas = [
   {
-    pregunta: '¿Cuánto cuesta la multa por Pico y Placa?',
-    respuesta:
-      'Es la infracción C.14 del Código Nacional de Tránsito: 15 salarios mínimos legales diarios vigentes (SMLDV), es decir, la mitad de un salario mínimo mensual. Desde 2024 se liquida en Unidades de Valor Básico (UVB), que el Gobierno actualiza cada año, por eso el valor en pesos cambia cada enero. Además, el vehículo se inmoviliza y la grúa y los patios se pagan aparte.',
+    pregunta: `¿Cuánto cuesta la multa por Pico y Placa en ${multa.anio}?`,
+    respuesta: `${valor}. Es la infracción C.14 del Código Nacional de Tránsito, una multa tipo C que desde 2024 se liquida en ${unidades} (Unidades de Valor Básico); en ${multa.anio} cada UVB vale ${valorUnidad}. Si aceptas la infracción y haces el curso, pagas ${con5} dentro de los 5 días siguientes al comparendo o ${con20} hasta el día 20. Además, el vehículo se inmoviliza y la grúa y los patios se pagan aparte.`,
+  },
+  ...(preguntaVariacion ? [preguntaVariacion] : []),
+  {
+    pregunta: '¿Por qué veo cifras distintas de la multa de Pico y Placa?',
+    respuesta: `Por tres razones. Redondeo: el Ministerio de Transporte convirtió la multa en ${formatearUnidades(cantidadUvbCircular)} UVB y Bogotá y los decretos de 2026 usan ${formatearUnidades(multa.cantidad_unidades)}, así que hay fuentes con unos $100 de diferencia. Cifras viejas: el valor cambia cada enero y muchas páginas no se actualizan. Y cálculos con el salario mínimo: esa regla dejó de aplicarse en 2020, cuando las multas pasaron a UVT, y desde 2024 se calculan en UVB. El valor de ${multa.anio} es ${valor}.`,
   },
   {
     pregunta: '¿Me pueden inmovilizar el carro o la moto por Pico y Placa?',
@@ -34,9 +109,26 @@ const preguntas = [
   },
   {
     pregunta: '¿La multa de Pico y Placa tiene descuento por pago pronto?',
-    respuesta:
-      'Sí. Si aceptas la infracción y haces el curso sobre normas de tránsito, pagas el 50 % dentro de los 5 días siguientes al comparendo, o el 75 % dentro de los 20 días siguientes (artículo 136 de la Ley 769 de 2002). Pasado ese plazo se paga el 100 %.',
+    respuesta: `Sí. Si aceptas la infracción y haces el curso sobre normas de tránsito, pagas el 50 % (${con5} en ${multa.anio}) dentro de los 5 días siguientes al comparendo, o el 75 % (${con20}) dentro de los 20 días siguientes (artículo 136 de la Ley 769 de 2002). Pasado ese plazo se paga el 100 %: ${valor}.`,
   },
+  {
+    pregunta: '¿Hasta cuándo tengo el descuento en la multa de Pico y Placa?',
+    respuesta:
+      'Si te la puso un agente, tienes 5 días hábiles para pagar el 50 % y hasta el día 20 hábil para pagar el 75 %, siempre con el curso. Si es fotomulta, los plazos corren desde que te llega la notificación: 11 días hábiles para el 50 % y hasta el día 26 para el 75 %. Los días hábiles no cuentan sábados, domingos ni festivos. En esta página hay una calculadora que te da las fechas exactas.',
+  },
+  {
+    pregunta: '¿El curso para el descuento se paga aparte?',
+    respuesta:
+      'No. Según el artículo 136 del Código Nacional de Tránsito, si haces el curso en un Centro Integral de Atención, en una escuela de conducción o en un organismo de tránsito de otra ciudad, ese centro recibe el 25 % de lo que pagas y el resto va al organismo de tránsito donde fue la infracción. En total pagas el 50 % o el 75 % de la multa.',
+  },
+  ...(ejemploVigente
+    ? [
+        {
+          pregunta: '¿Cuánto cuesta sacar el carro de los patios por Pico y Placa?',
+          respuesta: `Depende de la ciudad, y se suma a la multa. En Bogotá, en ${ej.anio}, la grúa cuesta ${formatearPesos(ej.grua.carro)} para un carro y ${formatearPesos(ej.grua.moto)} para una moto, y el primer día de parqueadero ${formatearPesos(ej.patio_primer_dia.carro)} y ${formatearPesos(ej.patio_primer_dia.moto)}. Con el descuento del 50 %, sacar un carro el primer día cuesta en total ${formatearPesos(multa.conCurso5Dias + ej.grua.carro + ej.patio_primer_dia.carro)}; sin descuento, ${formatearPesos(multa.multa + ej.grua.carro + ej.patio_primer_dia.carro)}.`,
+        },
+      ]
+    : []),
   {
     pregunta: '¿Me pueden poner la multa de Pico y Placa con cámara (fotomulta)?',
     respuesta:
@@ -49,8 +141,7 @@ const preguntas = [
   },
   {
     pregunta: '¿La multa de Pico y Placa es igual para motos?',
-    respuesta:
-      'Sí. La infracción C.14 aplica a cualquier vehículo automotor, incluidas las motos, en las ciudades donde ellas tienen Pico y Placa. Lo que cambia por ciudad es si la moto está o no cubierta por la restricción.',
+    respuesta: `Sí: ${valor} en ${multa.anio}. La infracción C.14 aplica a cualquier vehículo automotor, incluidas las motos, en las ciudades donde ellas tienen Pico y Placa. Lo que cambia por ciudad es si la moto está o no cubierta por la restricción.`,
   },
   {
     pregunta: '¿Si mi carro está matriculado en otra ciudad, me aplica el Pico y Placa?',
@@ -110,39 +201,37 @@ const tarjeta = 'rounded-lg border border-gray-200 p-4 dark:border-gray-700';
 
   <header class="mb-6">
     <h1 class="text-3xl font-bold sm:text-4xl">
-      Multas del Pico y Placa en Colombia
+      Multa por Pico y Placa {multa.anio}
     </h1>
     <p class="mt-2 text-gray-500 dark:text-gray-400">
-      Cuánto vale, cómo se calcula, qué descuentos tiene, cómo llega la fotomulta
-      y qué hacer si te ponen el comparendo. Todo con la norma que lo respalda.
+      Cuánto vale en Colombia, cuánto subió, qué descuentos tiene, cómo llega la
+      fotomulta y qué hacer si te ponen el comparendo. Todo con la norma que lo
+      respalda.
     </p>
   </header>
 
-  <!-- Respuesta corta -->
-  <section class="mb-8 grid grid-cols-2 gap-3 sm:grid-cols-4" aria-label="Resumen de la sanción">
-    <div class={tarjeta}>
-      <p class="text-xs text-gray-500 dark:text-gray-400">Infracción</p>
-      <p class="font-mono text-2xl font-bold">C.14</p>
-      <p class="text-xs text-gray-500 dark:text-gray-400">Código Nacional de Tránsito</p>
-    </div>
-    <div class={tarjeta}>
-      <p class="text-xs text-gray-500 dark:text-gray-400">Multa</p>
-      <p class="font-mono text-2xl font-bold">15 SMLDV</p>
-      <p class="text-xs text-gray-500 dark:text-gray-400">medio salario mínimo mensual</p>
-    </div>
-    <div class={tarjeta}>
-      <p class="text-xs text-gray-500 dark:text-gray-400">Inmovilización</p>
-      <p class="text-2xl font-bold text-red-600 dark:text-red-400">Sí</p>
-      <p class="text-xs text-gray-500 dark:text-gray-400">grúa y patios se pagan aparte</p>
-    </div>
-    <div class={tarjeta}>
-      <p class="text-xs text-gray-500 dark:text-gray-400">Descuento</p>
-      <p class="text-2xl font-bold text-green-600 dark:text-green-400">50 %</p>
-      <p class="text-xs text-gray-500 dark:text-gray-400">si pagas en 5 días y haces el curso</p>
-    </div>
-  </section>
+  <!-- Respuesta corta: el valor, cuánto cambió y cuánto se paga con descuento -->
+  <ValorMulta multa={multa} />
+
+  <p class="-mt-3 mb-6">
+    <a
+      href={enlaceWhatsApp}
+      target="_blank"
+      rel="noopener"
+      class="inline-flex items-center gap-2 rounded-lg border border-green-600 px-4 py-2 text-sm font-semibold text-green-700 transition-colors hover:bg-green-50 dark:border-green-500 dark:text-green-400 dark:hover:bg-green-950/30"
+    >
+      <svg class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" aria-hidden="true">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M12 20.25c4.97 0 9-3.694 9-8.25s-4.03-8.25-9-8.25S3 7.444 3 12c0 2.104.859 4.023 2.273 5.48.432.447.74 1.04.586 1.641a4.483 4.483 0 0 1-.923 1.785A5.969 5.969 0 0 0 6 21c1.282 0 2.47-.402 3.445-1.087.81.22 1.668.337 2.555.337Z" />
+      </svg>
+      Compartir por WhatsApp
+    </a>
+  </p>
 
   <div class="mb-8 space-y-4 text-sm leading-relaxed">
+    <CalculadoraPlazos hoy={fecha} fechaSimulada={simulacionValida ? fechaParam : null} />
+    <CostoInmovilizacion multa={multa} />
+    <HistorialMulta multa={multa} />
+
     <section class={tarjeta}>
       <h2 class="text-lg font-semibold">Infracción C.14: qué dice la ley</h2>
       <p class="mt-1 text-gray-600 dark:text-gray-400">
@@ -155,39 +244,47 @@ const tarjeta = 'rounded-lg border border-gray-200 p-4 dark:border-gray-700';
         competente. Además, el vehículo será inmovilizado.»
       </blockquote>
       <p class="mt-2 text-gray-600 dark:text-gray-400">
-        Toda infracción tipo C vale <strong>15 salarios mínimos legales diarios
-        vigentes (SMLDV)</strong>. Como el salario diario es el mensual dividido
-        entre 30, la multa equivale a <strong>la mitad de un salario mínimo
-        mensual</strong>, y sube cada enero junto con él. Aplica al conductor o
-        al propietario de cualquier vehículo automotor: carro, moto, taxi o camión.
+        El Código fijó las infracciones tipo C en <strong>15 salarios mínimos
+        legales diarios vigentes (SMLDV)</strong>, medio salario mínimo mensual.
+        Pero esa cuenta ya no es la que se cobra: desde 2020 la multa se convirtió
+        en Unidades de Valor Tributario (12,33 UVT, artículo 49 de la Ley 1955 de
+        2019) y desde 2024 en <strong>{formatearUnidades(cantidadUvbPorTipo.C)}
+        Unidades de Valor Básico (UVB)</strong>. Por eso ya no sube con el salario
+        mínimo sino con la inflación. Aplica al conductor o al propietario de
+        cualquier vehículo automotor: carro, moto, taxi o camión.
       </p>
     </section>
 
     <section class={tarjeta}>
-      <h2 class="text-lg font-semibold">¿Cuánto es en pesos? Calcúlalo tú mismo</h2>
+      <h2 class="text-lg font-semibold">¿De dónde sale el valor? (y por qué ves otras cifras)</h2>
       <p class="mt-1 text-gray-600 dark:text-gray-400">
-        No publicamos una cifra en pesos, y es a propósito. Desde el 1 de enero de
-        2024 las multas de tránsito se liquidan en <strong>Unidades de Valor
-        Básico (UVB)</strong>, no en salarios mínimos (artículo 313 de la Ley 2294
-        de 2023 y
+        Desde el 1 de enero de 2024 las multas de tránsito se liquidan en
+        <strong>Unidades de Valor Básico (UVB)</strong>, no en salarios mínimos
+        (artículo 313 de la Ley 2294 de 2023 y
         <a href="https://www.alcaldiabogota.gov.co/sisjur/normas/Norma1.jsp?i=181493" target="_blank" rel="noopener" class={enlace}>Circular Externa 20244000000077 de 2024</a>
-        del Ministerio de Transporte). Los 15 SMLDV se convirtieron en poco más
-        de 52 UVB (los decretos de 2026 la escriben como <strong>52,29 UVB</strong>)
-        y el valor de cada UVB lo fija el Ministerio de Hacienda cada año. Por los
-        redondeos entre una unidad y otra, dos fuentes oficiales pueden publicar
-        cifras que difieren en varios miles de pesos, y un número que hoy es
-        correcto en enero ya no lo es.
+        del Ministerio de Transporte). La del Pico y Placa vale
+        {' '}<strong>{unidades}</strong>, y el valor de cada UVB lo fija el
+        Ministerio de Hacienda en diciembre para el año siguiente: para
+        {' '}{multa.anio}, <strong>{valorUnidad}</strong>
+        {' '}({multa.url_norma ? <a href={multa.url_norma} target="_blank" rel="noopener" class={enlace}>{multa.norma_valor_unidad}</a> : multa.norma_valor_unidad}).
       </p>
       <div class="mt-3 rounded bg-gray-50 p-3 font-mono text-xs text-gray-700 dark:bg-gray-900 dark:text-gray-300">
-        Multa ≈ 52,29 UVB × valor de la UVB del año<br />
-        Multa ≈ 15 × (salario mínimo mensual ÷ 30)
+        {unidades} × {valorUnidad} = {formatearPesos(multa.cantidad_unidades * multa.valor_unidad)}<br />
+        Aproximado a la centena = <strong>{valor}</strong>
       </div>
+      <p class="mt-3 text-gray-600 dark:text-gray-400">Si en otro lado ves una cifra distinta, casi siempre es por una de estas razones:</p>
+      <ul class="mt-2 list-disc space-y-1 pl-5 text-gray-600 dark:text-gray-400">
+        <li><strong>Unos $100 de diferencia:</strong> la Circular del Ministerio de Transporte hizo la conversión con {formatearUnidades(cantidadUvbCircular)} UVB; Bogotá y los decretos de 2026 usan {formatearUnidades(multa.cantidad_unidades)}. Con {formatearUnidades(cantidadUvbCircular)} UVB da {formatearPesos(cantidadUvbCircular * multa.valor_unidad)}.</li>
+        <li><strong>Cifras de otros años:</strong> la multa cambia cada enero y muchas páginas no se actualizan. Por ejemplo, $499.999 es lo que daban 15 salarios mínimos diarios de 2022.</li>
+        <li><strong>Cálculos con el salario mínimo:</strong> la regla de los 15 salarios mínimos diarios dejó de usarse en 2020. Un valor calculado con el salario mínimo de este año da más alto y no es el que se cobra.</li>
+      </ul>
       <p class="mt-2 text-gray-600 dark:text-gray-400">
-        Para el valor exacto, usa la tabla que publica la autoridad de tu ciudad.
-        Bogotá, por ejemplo, publica su
-        <a href="https://www.movilidadbogota.gov.co/sites/default/files/2026-01-03/tabla_autoliquidacion_2026.pdf" target="_blank" rel="noopener" class={enlace}>tabla de autoliquidación de infracciones</a>
-        cada enero. Y recuerda que la multa es solo una parte: la grúa, los patios
-        y el curso se pagan aparte.
+        El valor exacto lo cobra el organismo de tránsito de la ciudad donde
+        ocurrió la infracción. Bogotá, por ejemplo, publica su
+        <a href={multa.url_fuente} target="_blank" rel="noopener" class={enlace}>tabla de autoliquidación de infracciones</a>
+        cada enero. Y recuerda que la multa es solo una parte: si te
+        inmovilizan, la grúa y los patios se pagan aparte (mira el ejemplo de
+        Bogotá más arriba).
       </p>
     </section>
 
@@ -202,7 +299,7 @@ const tarjeta = 'rounded-lg border border-gray-200 p-4 dark:border-gray-700';
           <thead>
             <tr class="border-b border-gray-200 text-gray-500 dark:border-gray-700 dark:text-gray-400">
               <th class="py-2 pr-3 font-medium">Tipo</th>
-              <th class="py-2 pr-3 font-medium">Multa</th>
+              <th class="py-2 pr-3 font-medium">{escalaEnPesos ? `Multa ${multa.anio}` : 'Multa'}</th>
               <th class="py-2 font-medium">Ejemplos</th>
             </tr>
           </thead>
@@ -210,7 +307,16 @@ const tarjeta = 'rounded-lg border border-gray-200 p-4 dark:border-gray-700';
             {escala.map((fila) => (
               <tr class={`border-b border-gray-100 dark:border-gray-800 ${fila.esPyp ? 'bg-yellow-50 font-semibold dark:bg-yellow-950/20' : ''}`}>
                 <td class="py-2 pr-3 font-mono">{fila.tipo}</td>
-                <td class="py-2 pr-3 whitespace-nowrap font-mono">{fila.smldv} SMLDV</td>
+                <td class="py-2 pr-3 whitespace-nowrap">
+                  {escalaEnPesos ? (
+                    <>
+                      <span class="font-mono">{formatearPesos(valores[fila.tipo])}</span>
+                      <span class="block text-xs font-normal text-gray-500 dark:text-gray-400">{formatearUnidades(cantidadUvbPorTipo[fila.tipo])} UVB · {fila.smldv} SMLDV</span>
+                    </>
+                  ) : (
+                    <span class="font-mono">{fila.smldv} SMLDV</span>
+                  )}
+                </td>
                 <td class="py-2 text-gray-600 dark:text-gray-400">{fila.nota}</td>
               </tr>
             ))}
@@ -218,8 +324,8 @@ const tarjeta = 'rounded-lg border border-gray-200 p-4 dark:border-gray-700';
         </table>
       </div>
       <p class="mt-2 text-xs text-gray-500 dark:text-gray-400">
-        Fuera de esta escala hay sanciones especiales con reglas propias, como las
-        de conducir en estado de embriaguez.
+        Valores de la tabla oficial de Bogotá. Fuera de esta escala hay sanciones
+        especiales con reglas propias, como las de conducir en estado de embriaguez.
       </p>
     </section>
 
@@ -252,29 +358,40 @@ const tarjeta = 'rounded-lg border border-gray-200 p-4 dark:border-gray-700';
       </p>
       <div class="mt-3 grid gap-2 sm:grid-cols-3">
         <div class="rounded border border-green-300 bg-green-50 p-3 dark:border-green-800 dark:bg-green-950/20">
-          <p class="text-xs text-gray-500 dark:text-gray-400">Dentro de los 5 días</p>
+          <p class="text-xs text-gray-500 dark:text-gray-400">Dentro de los 5 días hábiles</p>
           <p class="text-xl font-bold text-green-700 dark:text-green-400">Pagas el 50 %</p>
-          <p class="text-xs text-gray-600 dark:text-gray-400">con curso</p>
+          <p class="text-xs text-gray-600 dark:text-gray-400">{con5} con curso</p>
         </div>
         <div class="rounded border border-yellow-300 bg-yellow-50 p-3 dark:border-yellow-800 dark:bg-yellow-950/20">
-          <p class="text-xs text-gray-500 dark:text-gray-400">Dentro de los 20 días</p>
+          <p class="text-xs text-gray-500 dark:text-gray-400">Del día 6 al 20 hábil</p>
           <p class="text-xl font-bold text-yellow-700 dark:text-yellow-400">Pagas el 75 %</p>
-          <p class="text-xs text-gray-600 dark:text-gray-400">con curso</p>
+          <p class="text-xs text-gray-600 dark:text-gray-400">{con20} con curso</p>
         </div>
         <div class="rounded border border-red-300 bg-red-50 p-3 dark:border-red-800 dark:bg-red-950/20">
           <p class="text-xs text-gray-500 dark:text-gray-400">Después, o si pierdes la audiencia</p>
           <p class="text-xl font-bold text-red-700 dark:text-red-400">Pagas el 100 %</p>
-          <p class="text-xs text-gray-600 dark:text-gray-400">sin descuento</p>
+          <p class="text-xs text-gray-600 dark:text-gray-400">{valor}, sin descuento</p>
         </div>
       </div>
       <p class="mt-3 text-gray-600 dark:text-gray-400">
-        Los plazos corren desde la orden de comparendo. La Secretaría de Movilidad
-        de Bogotá los cuenta en <strong>días hábiles</strong> y, para los comparendos
-        por cámara, los cuenta desde la notificación: 11 días hábiles para el 50 %
-        y 26 para el 25 % (ver su
-        <a href="https://bogota.gov.co/mi-ciudad/movilidad/bogota-plazos-para-obtener-descuentos-en-los-comparendos-de-transito" target="_blank" rel="noopener" class={enlace}>guía de plazos</a>).
-        Confirma el conteo con el organismo de tránsito de tu ciudad antes de
-        dejar pasar un día.
+        Los plazos se cuentan en <strong>días hábiles</strong> (sin sábados,
+        domingos ni festivos) desde el día siguiente al comparendo. Si es
+        fotomulta, corren desde que te llega la notificación: 11 días hábiles
+        para el 50 % y hasta el día 26 para el 75 %. Así lo explican las guías
+        oficiales de
+        <a href="https://bogota.gov.co/mi-ciudad/movilidad/bogota-plazos-para-obtener-descuentos-en-los-comparendos-de-transito" target="_blank" rel="noopener" class={enlace}>Bogotá</a>
+        y
+        <a href="https://www.medellin.gov.co/es/sala-de-prensa/noticias/conoce-los-descuentos-para-el-pago-de-multas/" target="_blank" rel="noopener" class={enlace}>Medellín</a>.
+        Usa la <a href="#calculadora" class={enlace}>calculadora</a> para ver tus
+        fechas y confirma el conteo con el organismo de tránsito de tu ciudad
+        antes de dejar pasar un día.
+      </p>
+      <p class="mt-2 text-gray-600 dark:text-gray-400">
+        <strong>El curso no se paga aparte.</strong> Si lo haces en un Centro
+        Integral de Atención (CIA), en una escuela de conducción o en un organismo
+        de tránsito de otra ciudad, ese centro recibe el 25 % de lo que pagas y el
+        resto va al organismo de tránsito donde fue la infracción (artículo 136).
+        En total pagas el 50 % o el 75 % de la multa.
       </p>
     </section>
 
@@ -290,7 +407,7 @@ const tarjeta = 'rounded-lg border border-gray-200 p-4 dark:border-gray-700';
         <li>El comparendo se envía <strong>por correo físico o electrónico</strong> dentro de los <strong>3 días hábiles</strong> siguientes a su validación por la autoridad, a los datos del propietario en el RUNT. Si tu dirección o tu correo están desactualizados, la multa puede llegar tarde o no llegar, y eso no la borra.</li>
         <li>Si no te notificaron o lo hicieron mal, los plazos de descuento empiezan a correr <strong>desde la notificación efectiva</strong>, no desde la foto.</li>
         <li>La Corte Constitucional (sentencia C-038 de 2020) tumbó la responsabilidad automática del propietario: la autoridad debe vincular al proceso a quien conducía. En la práctica, el propietario recibe la notificación y puede controvertirla.</li>
-        <li>Con cámara no hay inmovilización en el momento, pero la multa es la misma.</li>
+        <li>Con cámara no hay inmovilización en el momento, pero la multa es la misma: {valor} en {multa.anio}.</li>
       </ul>
     </section>
 
@@ -298,7 +415,7 @@ const tarjeta = 'rounded-lg border border-gray-200 p-4 dark:border-gray-700';
       <h2 class="text-lg font-semibold">Te llegó un comparendo por Pico y Placa: paso a paso</h2>
       <ol class="mt-2 list-decimal space-y-2 pl-5 text-gray-600 dark:text-gray-400">
         <li><strong>Revisa los datos.</strong> Código C.14, placa, fecha, hora y lugar. Entra a la página de tu ciudad y comprueba si ese día, a esa hora, la restricción de verdad aplicaba a tu placa y a tu tipo de vehículo.</li>
-        <li><strong>Si estaba bien puesto, acéptalo y paga con descuento.</strong> 50 % dentro de los 5 días o 75 % dentro de los 20, siempre con el curso. Cada día que pasa te acerca al 100 %.</li>
+        <li><strong>Si estaba bien puesto, acéptalo y paga con descuento.</strong> 50 % dentro de los 5 días hábiles ({con5}) o 75 % hasta el día 20 ({con20}), siempre con el curso. Cada día que pasa te acerca al 100 % ({valor}). La <a href="#calculadora" class={enlace}>calculadora</a> te da tus fechas exactas.</li>
         <li><strong>Si crees que está mal, no lo aceptes y pide audiencia.</strong> Vehículo exento, vía exenta, medida suspendida ese día o placa mal leída son razones válidas. Lleva pruebas: el decreto, la documentación del vehículo, fotos. Si te declaran responsable, pagas el 100 %.</li>
         <li><strong>No dejes pasar los plazos.</strong> La ley pide presentarse ante la autoridad dentro de los 3 días hábiles siguientes al comparendo; si no compareces sin justa causa, prevé que la multa aumente hasta el doble (artículo 135).</li>
         <li><strong>Después de pagar, verifica en el SIMIT</strong> que el comparendo figure saldado. Guarda el recibo y el certificado del curso.</li>
@@ -336,16 +453,22 @@ const tarjeta = 'rounded-lg border border-gray-200 p-4 dark:border-gray-700';
           artículo 131 C.14 (la infracción), 125 (inmovilización), 135 (procedimiento del comparendo), 136 (descuentos), 159 (prescripción) y 10 (SIMIT). Modificada por la Ley 1383 de 2010 y el Decreto 2106 de 2019.
         </li>
         <li>Ley 1843 de 2017: detección de infracciones con cámaras y notificación del comparendo.</li>
+        <li>Ley 1955 de 2019, artículo 49: paso de las multas de salarios mínimos a UVT (2020 a 2023).</li>
         <li>Ley 2294 de 2023, artículo 313, y Circular Externa 20244000000077 de 2024 del Ministerio de Transporte: liquidación de las multas en UVB.</li>
+        <li>{multa.norma_valor_unidad}: valor de la UVB para {multa.anio} ({valorUnidad}).</li>
+        <li>
+          <a href={multa.url_fuente} target="_blank" rel="noopener" class={enlace}>{multa.fuente}</a>: valor en pesos de cada infracción.
+        </li>
         <li>El decreto de Pico y Placa de cada ciudad, que define días, horarios, placas y excepciones. Lo citamos en cada página de ciudad.</li>
       </ul>
     </section>
 
     <div class="rounded-lg border border-yellow-300 bg-yellow-50 p-4 dark:border-yellow-700 dark:bg-yellow-950/20">
       <strong>Aviso:</strong> esta información es de carácter general e
-      informativo, no es asesoría legal. El valor exacto de la multa, el conteo de
-      los plazos y los procedimientos varían por ciudad y por año. Consulta el
-      organismo de tránsito de tu ciudad para tu caso particular.
+      informativo, no es asesoría legal. El valor puede variar unos pesos entre
+      ciudades por redondeo, y el conteo de los plazos y los procedimientos
+      cambian de una ciudad a otra. Consulta el organismo de tránsito de tu
+      ciudad para tu caso particular.
     </div>
   </div>
 
@@ -388,9 +511,10 @@ const tarjeta = 'rounded-lg border border-gray-200 p-4 dark:border-gray-700';
   <section class="mb-8">
     <h2 class="mb-2 text-xl font-bold">La sanción en tu ciudad</h2>
     <p class="mb-3 text-sm text-gray-600 dark:text-gray-400">
-      La multa nacional es la misma en todas partes. Lo que cambia es si en tu
-      ciudad hay Pico y Placa, para qué vehículos y en qué horario. Toca tu ciudad
-      para ver su sanción y su decreto.
+      La multa es nacional: {valor} en {multa.anio} en todas las ciudades con
+      Pico y Placa, salvo diferencias de redondeo de unos pesos. Lo que cambia es
+      si en tu ciudad hay Pico y Placa, para qué vehículos y en qué horario. Toca
+      tu ciudad para ver su sanción y su decreto.
     </p>
     <div class="flex flex-wrap gap-2">
       {conPyp.map((c) => (

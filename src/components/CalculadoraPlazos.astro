@@ -1,0 +1,163 @@
+---
+/**
+ * "¿Hasta cuándo tengo el descuento?": el visitante pone la fecha del
+ * comparendo (o de la notificación, si es fotomulta) y le decimos hasta qué día
+ * paga el 50 % y el 75 %, con sábados, domingos y festivos ya descontados.
+ *
+ * Es un formulario GET: el servidor hace la cuenta y la página vuelve con el
+ * resultado. Cero JavaScript. Las reglas viven en src/lib/plazos.ts y los
+ * valores en src/lib/multas.ts.
+ */
+import { calcularPlazos, ventanaActual, diasHabilesRestantes, esDiaHabil, isoLocal } from '../lib/plazos';
+import type { MedioComparendo } from '../lib/plazos';
+import { format } from 'date-fns';
+import { es } from 'date-fns/locale';
+import { multaVigente, historialMulta, formatearPesos } from '../lib/multas';
+import { formatearFechaColombia } from '../lib/calcular';
+
+interface Props {
+  /** Hoy en Colombia (o el día simulado con ?fecha=) */
+  hoy: Date;
+  /** El ?fecha= de simulación, para no perderlo al enviar el formulario */
+  fechaSimulada: string | null;
+}
+
+const { hoy, fechaSimulada } = Astro.props;
+const parametros = Astro.url.searchParams;
+const medio: MedioComparendo = parametros.get('medio') === 'camara' ? 'camara' : 'agente';
+const desdeParam = parametros.get('desde');
+const hoyISO = isoLocal(hoy);
+
+let error: string | null = null;
+let inicio: Date | null = null;
+if (desdeParam !== null) {
+  const fecha = /^\d{4}-\d{2}-\d{2}$/.test(desdeParam) ? new Date(desdeParam + 'T12:00:00') : null;
+  if (!fecha || Number.isNaN(fecha.getTime())) error = 'Esa fecha no es válida. Escríbela de nuevo.';
+  else if (desdeParam > hoyISO) error = 'La fecha no puede ser posterior a hoy.';
+  else inicio = fecha;
+}
+
+const plazos = inicio ? calcularPlazos(inicio, medio) : null;
+const ventana = plazos ? ventanaActual(plazos, hoy) : null;
+
+// El valor es el del año de esa fecha. Antes del primer año cargado no hay
+// cifra que dar: se muestran solo los plazos.
+const primerAnio = historialMulta[0]?.anio ?? 0;
+const multa = inicio && inicio.getFullYear() >= primerAnio ? multaVigente(inicio) : null;
+
+// En minúscula: las fechas van a mitad de frase ("hasta el martes 29 de…")
+const fechaLarga = (d: Date) => formatearFechaColombia(d);
+/** "del miércoles 30 de septiembre al miércoles 21 de octubre de 2026" */
+function rango(desde: Date, hasta: Date): string {
+  const inicio = desde.getFullYear() === hasta.getFullYear()
+    ? format(desde, "EEEE d 'de' MMMM", { locale: es })
+    : fechaLarga(desde);
+  return `del ${inicio} al ${fechaLarga(hasta)}`;
+}
+
+/** "te quedan 3 días hábiles, contando hoy" / "hoy es el último día" */
+function frasePlazo(limite: Date): string {
+  if (isoLocal(limite) === hoyISO) return 'hoy es el último día';
+  const n = diasHabilesRestantes(hoy, limite);
+  const cuenta = n === 1 ? 'te queda 1 día hábil' : `te quedan ${n} días hábiles`;
+  return esDiaHabil(hoy) ? `${cuenta}, contando hoy` : cuenta;
+}
+
+const ESTILO_VENTANA = {
+  cincuenta: 'border-green-300 bg-green-50 text-green-800 dark:border-green-800 dark:bg-green-950/30 dark:text-green-300',
+  setenta_y_cinco: 'border-yellow-300 bg-yellow-50 text-yellow-800 dark:border-yellow-800 dark:bg-yellow-950/30 dark:text-yellow-300',
+  vencido: 'border-red-300 bg-red-50 text-red-800 dark:border-red-800 dark:bg-red-950/30 dark:text-red-300',
+};
+
+const campo = 'rounded-lg border border-gray-300 bg-white px-3 py-2 text-base dark:border-gray-600 dark:bg-gray-900';
+---
+
+<section id="calculadora" class="scroll-mt-4 rounded-lg border-2 border-gray-200 p-4 dark:border-gray-700" aria-labelledby="titulo-calculadora">
+  <h2 id="titulo-calculadora" class="text-lg font-semibold">¿Te pusieron un comparendo? Calcula hasta cuándo tienes descuento</h2>
+  <p class="mt-1 text-gray-600 dark:text-gray-400">
+    Pon la fecha y te decimos el último día para pagar el 50 % y el 75 %, ya
+    sin contar sábados, domingos ni festivos.
+  </p>
+
+  <form method="get" action="/multas-pico-y-placa#calculadora" class="mt-3 space-y-3">
+    {fechaSimulada && <input type="hidden" name="fecha" value={fechaSimulada} />}
+    <fieldset>
+      <legend class="mb-1 text-sm font-medium">¿Cómo te llegó?</legend>
+      <div class="flex flex-col gap-2 sm:flex-row sm:gap-4">
+        <label class="flex items-center gap-2">
+          <input type="radio" name="medio" value="agente" checked={medio === 'agente'} class="h-4 w-4 accent-yellow-500" />
+          <span>Me lo puso un agente, en la vía</span>
+        </label>
+        <label class="flex items-center gap-2">
+          <input type="radio" name="medio" value="camara" checked={medio === 'camara'} class="h-4 w-4 accent-yellow-500" />
+          <span>Fotomulta (cámara)</span>
+        </label>
+      </div>
+    </fieldset>
+    <label class="block">
+      <span class="mb-1 block text-sm font-medium">
+        Fecha del comparendo <span class="font-normal text-gray-500 dark:text-gray-400">(si es fotomulta: el día en que te llegó la notificación)</span>
+      </span>
+      <input type="date" name="desde" required max={hoyISO} value={inicio ? isoLocal(inicio) : undefined} class={campo} />
+    </label>
+    <button type="submit" class="rounded-lg bg-yellow-400 px-5 py-2.5 font-bold text-black shadow-sm transition-colors hover:bg-yellow-500">
+      Calcular mis plazos
+    </button>
+  </form>
+
+  {error && (
+    <p class="mt-3 rounded border border-red-300 bg-red-50 p-2 text-red-800 dark:border-red-800 dark:bg-red-950/30 dark:text-red-300" role="alert">{error}</p>
+  )}
+
+  {plazos && ventana && (
+    <div class="mt-4 space-y-3" role="status">
+      <p class={`rounded-lg border p-3 font-semibold ${ESTILO_VENTANA[ventana]}`}>
+        {ventana === 'cincuenta' && <>Todavía tienes el 50 % de descuento: {frasePlazo(plazos.limite50)} (hasta el {fechaLarga(plazos.limite50)}).</>}
+        {ventana === 'setenta_y_cinco' && <>Ya pasó el plazo del 50 %, pero todavía pagas el 75 %: {frasePlazo(plazos.limite75)} (hasta el {fechaLarga(plazos.limite75)}).</>}
+        {ventana === 'vencido' && <>Ya pasaron los plazos del descuento: ahora se paga el 100 %{multa ? ` (${formatearPesos(multa.multa)})` : ''}.</>}
+      </p>
+
+      <ol class="space-y-2">
+        <li class="rounded border border-gray-200 p-3 dark:border-gray-700">
+          <p class="text-xs text-gray-500 dark:text-gray-400">
+            {medio === 'agente' ? 'Comparendo' : 'Notificación recibida'}: {fechaLarga(plazos.inicio)}
+          </p>
+        </li>
+        <li class="rounded border border-gray-200 p-3 dark:border-gray-700">
+          <p class="font-semibold">Hasta el {fechaLarga(plazos.limiteAudiencia)}</p>
+          <p class="text-gray-600 dark:text-gray-400">
+            Si no estás de acuerdo, preséntate ante la autoridad de tránsito a pedir audiencia
+            {medio === 'agente'
+              ? ' (artículo 135: si no te presentas sin justa causa, la multa puede aumentar hasta el doble).'
+              : ' (Ley 1843 de 2017, artículo 8).'}
+          </p>
+        </li>
+        <li class="rounded border border-green-300 bg-green-50 p-3 dark:border-green-800 dark:bg-green-950/20">
+          <p class="font-semibold">Hasta el {fechaLarga(plazos.limite50)}</p>
+          <p class="text-gray-700 dark:text-gray-300">Pagas el 50 %{multa ? <>: <strong class="font-mono">{formatearPesos(multa.conCurso5Dias)}</strong></> : ''}, con curso.</p>
+        </li>
+        <li class="rounded border border-yellow-300 bg-yellow-50 p-3 dark:border-yellow-800 dark:bg-yellow-950/20">
+          <p class="font-semibold first-letter:uppercase">{rango(plazos.desde75, plazos.limite75)}</p>
+          <p class="text-gray-700 dark:text-gray-300">Pagas el 75 %{multa ? <>: <strong class="font-mono">{formatearPesos(multa.conCurso20Dias)}</strong></> : ''}, con curso.</p>
+        </li>
+        <li class="rounded border border-red-300 bg-red-50 p-3 dark:border-red-800 dark:bg-red-950/20">
+          <p class="font-semibold">Después</p>
+          <p class="text-gray-700 dark:text-gray-300">Pagas el 100 %{multa ? <>: <strong class="font-mono">{formatearPesos(multa.multa)}</strong></> : ''}.</p>
+        </li>
+      </ol>
+
+      <p class="text-xs text-gray-500 dark:text-gray-400">
+        {plazos.festivos.length > 0 && (
+          <>Ya descontamos {plazos.festivos.length === 1 ? 'el festivo' : 'los festivos'}: {plazos.festivos.map((f) => `${f.nombre} (${formatearFechaColombia(f.fecha)})`).join(', ')}. </>
+        )}
+        Días hábiles contados desde el día siguiente, como lo hacen Bogotá y
+        Medellín. {multa && <>Valores de {multa.anio}{multa.desactualizada ? ` (el de ${multa.anioConsultado} aún no está cargado)` : ''}; si la infracción fue en otro año, se liquida con el valor de ese año. </>}
+        El curso y el pago deben quedar hechos dentro del plazo: confírmalo con el
+        organismo de tránsito de tu ciudad y no lo dejes para el último día.
+      </p>
+      <p class="text-sm">
+        <a href="/multas-pico-y-placa#calculadora" class="text-yellow-700 underline dark:text-yellow-400">Calcular con otra fecha</a>
+      </p>
+    </div>
+  )}
+</section>

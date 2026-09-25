@@ -138,6 +138,11 @@ export interface Sanciones {
   tipo_multa?: string;
   valor_smldv?: string;
   valor_uvb?: string;
+  /**
+   * NO USAR. El valor en pesos de la multa es nacional y vive en un solo lugar,
+   * src/data/multas.json, para que ninguna ciudad pueda decir una cifra distinta.
+   * Ya no se muestra; se deja el campo para no romper JSON viejos.
+   */
   valor_aproximado_pesos?: number;
   incluye_inmovilizacion?: boolean;
 }

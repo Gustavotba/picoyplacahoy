@@ -10,7 +10,7 @@
   "autoridad_web": "https://www.movilidadbogota.gov.co",
   "autoridad_twitter": "MovilidadBogota",
   "decreto_actual": "Decreto Distrital 003 de 2023",
-  "fecha_ultima_actualizacion": "2026-08-31",
+  "fecha_ultima_actualizacion": "2026-09-24",
   "vigencia_desde": "2023-01-17",
   "vigencia_hasta": "2026-12-31",
   "notas_generales": [
@@ -43,7 +43,7 @@
     "base_legal": "Artículo 131, literal C, numeral 14 de la Ley 769 de 2002, modificado por el artículo 21 de la Ley 1383 de 2010",
     "valor_smldv": "15 SMLDV",
     "incluye_inmovilizacion": true,
-    "descripcion": "Multa equivalente a 15 salarios mínimos diarios legales vigentes (SMLDV) más inmovilización del vehículo. Las fuentes oficiales no coinciden en el valor en pesos: consulta el monto vigente con la Secretaría Distrital de Movilidad."
+    "descripcion": "Multa tipo C (infracción C.14) más inmovilización del vehículo. La Secretaría Distrital de Movilidad publica cada enero el valor exacto de cada infracción en su tabla de autoliquidación."
   },
   "vehiculos": {
     "particulares": {
