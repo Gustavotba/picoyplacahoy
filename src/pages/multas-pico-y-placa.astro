@@ -50,8 +50,8 @@ const enlaceWhatsApp = `https://wa.me/?text=${encodeURIComponent(textoWhatsApp)}
 const ej = inmovilizacionBogota;
 const ejemploVigente = ej.anio === multa.anio;
 
-const titulo = `Multa por Pico y Placa ${multa.anio}: ${valor} — descuentos e inmovilización`;
-const descripcion = `La multa por Pico y Placa en ${multa.anio} es de ${valor} (infracción C.14, ${unidades}) más la inmovilización del vehículo. Con curso pagas ${con5} en los primeros 5 días o ${con20} hasta el día 20.${variacion ? ` ${variacion}.` : ''}`;
+const titulo = `Multa por Pico y Placa ${multa.anio}: ${valor} y descuentos`;
+const descripcion = `Multa por Pico y Placa en ${multa.anio}: ${valor} (infracción C.14) más inmovilización. Con curso pagas ${con5} en 5 días o ${con20} hasta el día 20.`;
 
 // Escala general del artículo 131 de la Ley 769 de 2002 (texto vigente tras la
 // Ley 1383 de 2010). El Pico y Placa es la C.14: tercer escalón de cuatro.

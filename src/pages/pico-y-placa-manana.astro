@@ -70,8 +70,11 @@ const esSinPyp = (r: ResumenCiudadHoy) => slugsSinPyp.has(r.slug);
 
 const conRestriccion = resumenManana.filter((r) => r.algunoAplica).sort(porNombre);
 const sinPicoYPlaca = resumenManana.filter(esSinPyp).sort(porNombre);
+// TODAS las ciudades con algún dato pendiente, también las que salen en la
+// tabla (ahí solo se ve un "?"). Antes la lista dejaba por fuera a Armenia,
+// Ibagué, Pasto, Tunja y Villavicencio y parecía que solo faltaban 3.
 const pendientes = resumenManana
-  .filter((r) => !r.algunoAplica && !esSinPyp(r) && tienePendientes(r))
+  .filter((r) => !esSinPyp(r) && tienePendientes(r))
   .sort(porNombre);
 const libres = resumenManana
   .filter((r) => !r.algunoAplica && !esSinPyp(r) && !tienePendientes(r))
@@ -239,8 +242,8 @@ const preguntas = [
   },
 ];
 
-const titulo = 'Pico y Placa mañana en Colombia — Placas restringidas por ciudad';
-const descripcion = `Pico y Placa de mañana, ${fechaTexto}, en ${ciudades.length} ciudades de Colombia: qué placas no podrán circular para carros, motos, taxis y carga, con horarios. Ya tiene en cuenta si es festivo o fin de semana.`;
+const titulo = 'Pico y Placa mañana en Colombia: placas por ciudad';
+const descripcion = `Pico y Placa mañana, ${fechaTexto}: qué placas no circulan en ${ciudades.length} ciudades de Colombia, para carros, motos, taxis y carga.`;
 
 const jsonLd = [
   breadcrumbJsonLd([
@@ -393,7 +396,7 @@ const tarjeta = 'rounded-lg border border-gray-200 p-4 dark:border-gray-700';
       <div class="rounded-lg border border-yellow-300 bg-yellow-50 p-4 dark:border-yellow-700 dark:bg-yellow-950/20">
         <h2 class="mb-1 text-lg font-bold">Ciudades con datos pendientes</h2>
         <p class="mb-2 text-gray-700 dark:text-gray-300">
-          Aquí no inventamos: todavía no tenemos el decreto vigente verificado, así que consulta la fuente oficial antes de salir.
+          Aquí no inventamos: para estos vehículos todavía no tenemos el dato vigente verificado, así que consulta la fuente oficial antes de salir.
         </p>
         <ul class="list-disc space-y-1 pl-5">
           {pendientes.map((r) => (

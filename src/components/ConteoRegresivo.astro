@@ -70,7 +70,8 @@ function horaLegible(min: number): string {
   >
     {/* Frase fija para lectores de pantalla; los números que corren son visuales */}
     <p class="sr-only">
-      La restricción de hoy va de {horaLegible(ini)} a {horaLegible(fin)}{cruzaMedianoche ? ' del día siguiente' : ''}.
+      {/* La hora termina en "p. m.": no se le agrega otro punto (salía "p. m.."). */}
+      {`La restricción de hoy va de ${horaLegible(ini)} a ${horaLegible(fin)}${cruzaMedianoche ? ' del día siguiente' : ''}.`.replace(/\.\.$/, '.')}
     </p>
 
     {/* Estado + tiempo restante */}

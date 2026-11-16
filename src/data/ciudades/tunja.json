@@ -32,7 +32,7 @@
     "Mediados de diciembre a mediados de enero (vacaciones de fin de año; en 2025-2026 fue del 15-dic 6:00 a.m. al 12-ene 8:00 p.m.)"
   ],
   "sanciones": {
-    "descripcion": "Multa equivalente a 15 salarios mínimos diarios legales vigentes (SMLDV) más inmovilización del vehículo (infracción C.14: transitar por sitios restringidos o en horas prohibidas).",
+    "descripcion": "Multa tipo C (infracción C.14 del Código Nacional de Tránsito) más inmovilización del vehículo. La infracción C.14 es transitar por sitios restringidos o en horas prohibidas.",
     "base_legal": "Artículo 7 del Decreto 0399 de 2024; artículo 131 de la Ley 769 de 2002 (mod. Ley 1383 de 2010)",
     "tipo_multa": "Tipo C (C.14)",
     "valor_smldv": "15 SMLDV",

@@ -2,13 +2,14 @@
 import Principal from '../layouts/Principal.astro';
 import { ciudades } from '../lib/ciudades';
 import { breadcrumbJsonLd } from '../lib/seo';
-import { DIAS_LEGIBLES, CRITERIO_LEGIBLE } from '../lib/calcular';
+import { DIAS_LEGIBLES, CRITERIO_LEGIBLE, fechaColombia, formatearISO, placaDestacada } from '../lib/calcular';
 import { esSemanalPorDia } from '../lib/tipos';
 import type { DiaSemana } from '../lib/tipos';
 
-// Página estática: una por cada día hábil. La rotación por día de la semana
-// es fija, así que no necesita conocer la fecha de hoy.
-export const prerender = true;
+// Se arma en cada visita (antes era estática): así una ciudad cuyo decreto
+// venció deja de salir con su rotación vieja el mismo día que vence, sin
+// esperar a un despliegue. Pasó con Santa Marta en noviembre de 2026.
+export const prerender = false;
 
 const DIAS_HABILES: DiaSemana[] = [
   'lunes',
@@ -18,22 +19,16 @@ const DIAS_HABILES: DiaSemana[] = [
   'viernes',
 ];
 
-export function getStaticPaths() {
-  return [
-    'lunes',
-    'martes',
-    'miercoles',
-    'jueves',
-    'viernes',
-  ].map((dia) => ({ params: { dia } }));
-}
-
 const { dia } = Astro.params;
 const diaSemana = dia as DiaSemana;
 
 if (!DIAS_HABILES.includes(diaSemana)) {
-  return Astro.redirect('/');
+  return Astro.rewrite('/404');
 }
+
+const hoyISO = formatearISO(fechaColombia());
+/** Ciudades con decreto vencido: no se muestra su rotación, se avisa aparte */
+const vencidas: { slug: string; nombre: string }[] = [];
 
 const diaLegible = DIAS_LEGIBLES[diaSemana];
 
@@ -58,7 +53,9 @@ for (const ciudad of ciudades) {
   const aplicaAlgo =
     (particulares && particulares.placas.length > 0) ||
     (motos && motos.placas.length > 0);
-  if (aplicaAlgo) {
+  if (aplicaAlgo && ciudad.vigencia_hasta && ciudad.vigencia_hasta < hoyISO) {
+    vencidas.push({ slug: ciudad.slug, nombre: ciudad.nombre });
+  } else if (aplicaAlgo) {
     filas.push({ slug: ciudad.slug, nombre: ciudad.nombre, particulares, motos });
   }
 }
@@ -77,7 +74,8 @@ const diaAnterior = indiceDia > 0 ? DIAS_HABILES[indiceDia - 1] : null;
 const diaSiguiente =
   indiceDia < DIAS_HABILES.length - 1 ? DIAS_HABILES[indiceDia + 1] : null;
 
-const fmtPlacas = (placas: number[]) => placas.join(' y ');
+// "5 y 8" con dos dígitos; "2·5·8·9" con más (antes salía "2 y 5 y 8 y 9").
+const fmtPlacas = (placas: number[]) => placaDestacada(placas);
 ---
 
 <Principal titulo={titulo} descripcion={descripcion} jsonLd={breadcrumb}>
@@ -129,7 +127,17 @@ const fmtPlacas = (placas: number[]) => placas.join(' y ');
               </td>
               <td class="py-2">
                 {fila.motos && fila.motos.placas.length > 0 ? (
-                  <span class="font-mono font-bold">{fmtPlacas(fila.motos.placas)}</span>
+                  <span>
+                    <span class="font-mono font-bold">{fmtPlacas(fila.motos.placas)}</span>
+                    {/* En Medellín y el Valle de Aburrá las motos van por el PRIMER
+                        dígito: callarlo haría que el motociclista mire el número
+                        equivocado (ver LECCIONES.md). */}
+                    {fila.motos.criterio === 'primer_digito' && (
+                      <span class="ml-1 text-[11px] font-bold uppercase text-red-600 dark:text-red-400">
+                        {CRITERIO_LEGIBLE.primer_digito}
+                      </span>
+                    )}
+                  </span>
                 ) : (
                   <span class="text-gray-400">—</span>
                 )}
@@ -141,8 +149,20 @@ const fmtPlacas = (placas: number[]) => placas.join(' y ');
       <p class="mt-2 text-xs text-gray-400">
         Las placas indican el dígito (último o primer dígito según la ciudad) que
         no puede circular ese día. Toca una ciudad para ver horarios y excepciones.
+        Bogotá no aparece porque allá la restricción depende de si la FECHA es par
+        o impar, no del día de la semana: <a href="/bogota" class="underline">consúltala aquí</a>.
       </p>
     </section>
+  )}
+
+  {vencidas.length > 0 && (
+    <p class="mb-8 rounded-lg border border-orange-300 bg-orange-50 p-3 text-sm text-orange-800 dark:border-orange-800 dark:bg-orange-950/30 dark:text-orange-300">
+      Por verificar: el decreto que teníamos de{' '}
+      {vencidas.map((c, i) => (
+        <>{i > 0 && ', '}<a href={`/${c.slug}`} class="font-semibold underline">{c.nombre}</a></>
+      ))}{' '}
+      ya venció y no mostramos su rotación hasta confirmar la nueva en la fuente oficial.
+    </p>
   )}
 
   <section class="mb-4">

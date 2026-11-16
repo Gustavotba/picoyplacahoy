@@ -129,6 +129,32 @@ export function calcularPicoPlaca(
       (placas) => placas && placas.some((p) => p !== 'pendiente_verificar'),
     );
     if (!tieneDatos) {
+      // Aunque no tengamos los dígitos, SÍ sabemos que en festivo (o en un día
+      // fuera de los días hábiles del decreto) la medida no rige. Antes la
+      // página mostraba "?" un festivo, cuando la respuesta honesta es "libre".
+      const festivoSinDatos = esFestivo(fecha);
+      const diaSinDatos = DIAS_SEMANA[fecha.getDay()];
+      const diasHabiles = vehiculo.dias_habiles ?? [];
+      // Los JSON viejos guardan los días abreviados ("lun", "mie"); se aceptan
+      // también completos. Las 3 primeras letras de DIAS_SEMANA coinciden.
+      const fueraDeDias =
+        diasHabiles.length > 0 &&
+        !diasHabiles.includes(diaSinDatos) &&
+        !diasHabiles.includes(diaSinDatos.slice(0, 3));
+      if ((festivoSinDatos && !vehiculo.aplica_festivos) || fueraDeDias) {
+        return {
+          aplica: false,
+          esFestivo: festivoSinDatos,
+          esDiaHabil: false,
+          esPendiente: false,
+          datosDesactualizados: false,
+          placasRestringidas: [],
+          horarioTexto: vehiculo.horario,
+          mensaje: festivoSinDatos
+            ? 'Hoy es festivo. No aplica Pico y Placa.'
+            : 'Hoy no aplica Pico y Placa.',
+        };
+      }
       return {
         aplica: false,
         esFestivo: esFestivo(fecha),
@@ -271,6 +297,27 @@ export function calcularPicoPlaca(
   // Modalidad quincenal por fecha
   if (esQuincenalPorFecha(vehiculo)) {
     const fechaISO = formatearISO(fecha);
+    // Seguro contra el calendario agotado (LECCIONES.md): si la fecha cae
+    // DESPUÉS de la última cargada, no sabemos qué toca. Antes la página decía
+    // "libre" con toda confianza (taxis de Bogotá, octubre y noviembre de 2026).
+    const ultimaCargada = Object.values(vehiculo.fechas_restriccion).flat().sort().at(-1);
+    // Solo en días en que la medida opera (un domingo de los taxis de Bogotá
+    // sigue siendo libre aunque el calendario se haya acabado).
+    const diaOpera = !vehiculo.dias_aplicables?.length || vehiculo.dias_aplicables.includes(diaSemana);
+    if (vehiculo.aplica && diaOpera && ultimaCargada && fechaISO > ultimaCargada) {
+      return {
+        aplica: false,
+        esFestivo: festivo,
+        esDiaHabil: true,
+        esPendiente: false,
+        datosDesactualizados: true,
+        placasRestringidas: [],
+        horarioTexto: vehiculo.horario_texto,
+        criterioPlaca: vehiculo.criterio_placa,
+        descripcionVehiculo: vehiculo.descripcion,
+        mensaje: 'Todavía no tenemos el calendario oficial de esta fecha. Verifica con la fuente oficial.',
+      };
+    }
     const placasHoy: number[] = [];
     for (const [digito, fechas] of Object.entries(vehiculo.fechas_restriccion)) {
       if (fechas.includes(fechaISO)) {

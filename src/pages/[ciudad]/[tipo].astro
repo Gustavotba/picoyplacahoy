@@ -34,7 +34,7 @@ import {
   esSinRestriccion,
 } from '../../lib/tipos';
 import type { TipoVehiculo } from '../../lib/tipos';
-import { breadcrumbJsonLd } from '../../lib/seo';
+import { breadcrumbJsonLd, tituloQueCabe } from '../../lib/seo';
 import { multaVigente, esMultaTipoC, formatearPesos, formatearUnidades } from '../../lib/multas';
 
 export const prerender = false;
@@ -123,9 +123,10 @@ const estilosPlaca: Record<string, { fondo: string; texto: string; borde: string
 };
 const ep = estilosPlaca[placaEstilo];
 
+// Google corta el título hacia los 60 caracteres: el remate solo va si cabe.
 const titulo = tipoSinRestriccion
-  ? `${etiqueta} en ${ciudad.nombre} sin Pico y Placa | Puedes circular cualquier día`
-  : `Pico y Placa ${etiqueta} hoy en ${ciudad.nombre} — Horarios y Placas`;
+  ? tituloQueCabe(`${etiqueta} sin Pico y Placa en ${ciudad.nombre}`, ' | Circula cualquier día')
+  : tituloQueCabe(`Pico y Placa ${etiqueta} hoy en ${ciudad.nombre}`, ' — Horarios y Placas');
 const descripcion = tipoSinRestriccion
   ? `En ${ciudad.nombre} no hay Pico y Placa para ${etiqueta.toLowerCase()}. Puedes circular cualquier día sin restricción.`
   : `Pico y Placa para ${etiqueta.toLowerCase()} en ${ciudad.nombre}: horarios, placas restringidas, sanciones y canales oficiales.`;

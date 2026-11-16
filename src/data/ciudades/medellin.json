@@ -6,22 +6,21 @@
   "autoridad_web": "https://www.medellin.gov.co/es/secretaria-de-movilidad/",
   "autoridad_twitter": "sttmed",
   "autoridad_facebook": "sttmed",
-  "decreto_actual": "Decreto de 2026 (Radicado 1720211767) — segundo semestre",
+  "decreto_actual": "Decreto 1490 del 30 de julio de 2026 — segundo semestre",
   "coordenadas": [
     6.2442,
     -75.5812
   ],
-  "fecha_ultima_actualizacion": "2026-08-02",
+  "fecha_ultima_actualizacion": "2026-11-16",
   "vigencia_desde": "2026-08-03",
   "vigencia_hasta": "2027-01-29",
   "notas_generales": [
-    "Nueva rotación vigente desde el lunes 3 de agosto de 2026.",
-    "Del 3 al 6 de agosto de 2026 la sanción es pedagógica (no hay multa). Desde el lunes 10 de agosto la sanción es económica.",
-    "La fase pedagógica NO aplica a taxis: a ellos se les sanciona desde el primer día.",
+    "Rotación del segundo semestre: rige desde el lunes 3 de agosto de 2026. La prensa anunció el cambio para el 29 de enero de 2027 (el decreto no escribe una fecha final).",
+    "La fase pedagógica fue del 3 al 6 de agosto de 2026 (a los taxis se les sancionó desde el primer día). Desde el 10 de agosto la sanción es económica.",
     "La medida aplica en Medellín y los 9 municipios del Valle de Aburrá, pero cada municipio expide su propio decreto para su territorio.",
     "No aplica en días festivos oficiales de Colombia ni los fines de semana.",
     "No aplica en los 5 corregimientos de Medellín.",
-    "El número definitivo del decreto aún no se publica en la Gaceta Oficial. Se cita el radicado provisional 1720211767 de 2026 para trazabilidad.",
+    "El Decreto 1490 del 30 de julio de 2026 fija la rotación desde el lunes 3 de agosto de 2026 (antes se conocía por su radicado provisional, 1720211767).",
     "Deroga el Decreto 0141 del 30 de enero de 2026, que rigió el primer semestre."
   ],
   "exenciones_generales": [
@@ -29,7 +28,8 @@
     "Vehículos híbridos registrados en RUNT",
     "Vehículos a gas natural vehicular registrados en RUNT",
     "Motos, mototriciclos, tricimotos y ciclomotores destinados a domicilios o mensajería (particulares y oficiales)",
-    "Vehículos oficiales"
+    "Vehículos oficiales",
+    "Miembros de las Juntas Administradoras Locales (JAL), en los términos del Decreto 2347 del 5 de octubre de 2026"
   ],
   "vias_exentas": [
     "Sistema Vial del Río: Autopista Sur, Avenida Regional y Avenida Regional occidental (paralela), con sus vías distribuidoras, entre los límites con Bello, Itagüí y Envigado",
@@ -78,7 +78,7 @@
     "valor_smldv": "15 SMLDV",
     "valor_uvb": "52,29 UVB",
     "incluye_inmovilizacion": true,
-    "descripcion": "Multa equivalente a 15 salarios mínimos diarios legales vigentes (SMLDV) más inmovilización del vehículo. El decreto no fija un valor en pesos: consulta el monto vigente con la Secretaría de Movilidad."
+    "descripcion": "Multa tipo C (infracción C.14 del Código Nacional de Tránsito) más inmovilización del vehículo."
   },
   "vehiculos": {
     "particulares": {
@@ -344,7 +344,7 @@
     "titulo": "Pico y placa en Medellín: una sola regla para todo el Valle de Aburrá",
     "parrafos": [
       "El pico y placa de Medellín no es solo de Medellín: la rotación se acuerda para los diez municipios del Valle de Aburrá, de Barbosa a Caldas. Eso significa que el dígito que rige hoy aquí es el mismo en Bello, Envigado, Itagüí y el resto del valle — consultas una sola vez y tienes resuelto cualquier recorrido metropolitano.",
-      "La ciudad tiene un as bajo la manga que pocos conocen: las vías exentas. Algunos corredores principales quedan por fuera de la restricción, y en esta página está el mapa exacto de cuáles son. Para muchos recorridos, conocerlas es la diferencia entre dejar el carro o poder usarlo por la ruta correcta.",
+      "La ciudad tiene un as bajo la manga que pocos conocen: las vías exentas. Algunos corredores principales quedan por fuera de la restricción, y en esta página está el mapa de los corredores principales, con la lista completa debajo. Para muchos recorridos, conocerlas es la diferencia entre dejar el carro o poder usarlo por la ruta correcta.",
       "El día que tu placa descansa, Medellín es probablemente la ciudad mejor equipada del país para moverse sin carro: Metro, tranvía, cables aéreos, Metroplús y EnCicla cubren buena parte del valle.",
       "Ojo con los taxis: no siguen la rotación semanal de los particulares sino un calendario propio que avanza por fechas. Y recuerda que la rotación de todo el valle cambia por semestres: cuando eso pasa, esta página se actualiza con el decreto nuevo."
     ]

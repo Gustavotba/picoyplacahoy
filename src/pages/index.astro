@@ -4,7 +4,9 @@ import Reloj from '../components/Reloj.astro';
 import MapaColombia from '../components/MapaColombia.astro';
 import TarjetaCiudadHoy from '../components/TarjetaCiudadHoy.astro';
 import { ciudades } from '../lib/ciudades';
-import { fechaColombia, formatearFechaColombia, conMayusculaInicial } from '../lib/calcular';
+import { fechaColombia, formatearFechaColombia, conMayusculaInicial, formatearISO } from '../lib/calcular';
+import { nombreFestivo } from '../lib/festivos';
+import { esPlaceholder, esQuincenalPorFecha } from '../lib/tipos';
 import { resumirCiudades, insigniaDe } from '../lib/resumen';
 import { SITE_URL, SITE_NAME } from '../lib/seo';
 import { multaVigente, formatearPesos, formatearUnidades } from '../lib/multas';
@@ -35,9 +37,32 @@ const cuantasConRestriccion = resumenes.filter((r) => r.algunoAplica).length;
 // Sello de confianza: cuántas ciudades tienen decreto verificado y cuándo se
 // revisó por última vez alguna de ellas. Las fechas están en ISO, así que la
 // más reciente es simplemente la mayor en orden alfabético.
-const ciudadesVerificadas = ciudades.filter(
-  (c) => c.decreto_actual !== 'pendiente_verificar',
-).length;
+//
+// "Verificada" quiere decir TODO verificado: ningún tipo de vehículo pendiente,
+// el decreto no vencido y ningún calendario de fechas agotado. Antes se contaban
+// las 39 aunque varias tuvieran un "?" o el decreto vencido, y el sello mentía.
+const hoyISO = formatearISO(hoy);
+function ciudadCompleta(c: (typeof ciudades)[number]): boolean {
+  if (c.decreto_actual === 'pendiente_verificar') return false;
+  if (c.vigencia_hasta && c.vigencia_hasta < hoyISO) return false;
+  return Object.values(c.vehiculos).every((v) => {
+    if (esPlaceholder(v)) {
+      return Object.values(v.restricciones).some(
+        (p) => p && p.some((x) => x !== 'pendiente_verificar'),
+      );
+    }
+    if (esQuincenalPorFecha(v) && v.aplica) {
+      const ultima = Object.values(v.fechas_restriccion).flat().sort().at(-1);
+      return !!ultima && ultima >= hoyISO;
+    }
+    return true;
+  });
+}
+const ciudadesVerificadas = ciudades.filter(ciudadCompleta).length;
+
+// En festivo casi todo el país queda libre: se dice arriba y con el nombre del
+// festivo, para que nadie crea que la página se equivocó al ver todo en verde.
+const festivoHoy = nombreFestivo(hoy);
 const ultimaRevisionISO = ciudades
   .map((c) => c.fecha_ultima_actualizacion)
   .filter(Boolean)
@@ -48,7 +73,7 @@ const ultimaRevision = ultimaRevisionISO
   : null;
 
 const titulo = 'Pico y Placa Hoy en Colombia — Consulta tu ciudad';
-const descripcion = `Pico y Placa hoy ${fechaFormateada} en Colombia: consulta qué placas no pueden circular en ${ciudades.length} ciudades — Bogotá, Medellín, Cali, Barranquilla, Bucaramanga y más.`;
+const descripcion = `Pico y Placa hoy ${fechaFormateada}: qué placas no circulan en ${ciudades.length} ciudades de Colombia, como Bogotá, Medellín, Cali y Barranquilla.`;
 
 /**
  * Preguntas frecuentes. Van en la página Y en el JSON-LD, escritas una sola vez
@@ -180,6 +205,12 @@ const ENLACES_UTILES = [
       {fechaTitulo}
     </p>
 
+    {festivoHoy && (
+      <p class="mb-4 rounded-lg border-2 border-green-300 bg-green-50 px-4 py-2 text-center text-sm font-medium text-green-800 dark:border-green-800 dark:bg-green-950/30 dark:text-green-300">
+        🎉 Hoy es festivo ({festivoHoy}): en casi todas las ciudades no hay Pico y Placa. Ojo con las excepciones, como los taxis de algunas ciudades.
+      </p>
+    )}
+
     <div class="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
       {destacadas.map((resumen) => <TarjetaCiudadHoy resumen={resumen} />)}
     </div>
@@ -197,7 +228,9 @@ const ENLACES_UTILES = [
         <svg class="h-3.5 w-3.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7" />
         </svg>
-        {ciudadesVerificadas} ciudades verificadas en decretos oficiales
+        {ciudadesVerificadas === ciudades.length
+          ? `Las ${ciudades.length} ciudades verificadas en decretos oficiales`
+          : `${ciudadesVerificadas} de ${ciudades.length} ciudades con todos sus datos verificados en decretos oficiales`}
       </span>
       {ultimaRevision && <span class="text-gray-300 dark:text-gray-600">·</span>}
       {ultimaRevision && <span>Última revisión: {ultimaRevision}</span>}

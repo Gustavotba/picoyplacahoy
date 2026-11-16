@@ -45,3 +45,11 @@ export function breadcrumbJsonLd(migas: Miga[]): Record<string, unknown> {
     })),
   };
 }
+
+/**
+ * Título para Google: la parte principal siempre; el remate solo si el total
+ * cabe en 60 caracteres (más largo, Google lo corta con "...").
+ */
+export function tituloQueCabe(principal: string, remate: string, maximo = 60): string {
+  return (principal + remate).length <= maximo ? principal + remate : principal;
+}

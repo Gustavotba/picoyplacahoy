@@ -4,6 +4,7 @@ import {
   obtenerDepartamentos,
   obtenerDepartamento,
   tieneDatos,
+  tiposVehiculo,
 } from '../../lib/ciudades';
 import { breadcrumbJsonLd, canonicalDe } from '../../lib/seo';
 
@@ -26,6 +27,31 @@ if (!depto) {
 
 const conData = depto.ciudades.filter(tieneDatos);
 const sinData = depto.ciudades.filter((c) => !tieneDatos(c));
+
+// Ficha corta de cada ciudad con la medida: a qué vehículos aplica, en qué
+// horario y con qué decreto. Antes la página era solo una lista de nombres y
+// Google la podía ver como una página vacía. Son datos del JSON que no dependen
+// del día (la página es estática), así que no se quedan viejos entre despliegues.
+const NOMBRE_TIPO: Record<string, string> = {
+  particulares: 'carros particulares',
+  motos: 'motos',
+  taxis: 'taxis',
+  transporte_carga: 'carga',
+};
+function fichaDe(c: (typeof conData)[number]) {
+  const tipos = tiposVehiculo.filter((t) => c.vehiculos[t].aplica).map((t) => NOMBRE_TIPO[t]);
+  const part = c.vehiculos.particulares as { aplica: boolean; horario_texto?: string; horario?: string };
+  const horario = part.aplica ? part.horario_texto ?? part.horario : undefined;
+  return {
+    tipos,
+    horario: horario && horario !== 'pendiente_verificar' ? horario : undefined,
+    decreto: c.decreto_actual,
+  };
+}
+function listarConY(lista: string[]): string {
+  if (lista.length <= 1) return lista.join('');
+  return `${lista.slice(0, -1).join(', ')} y ${lista.at(-1)}`;
+}
 
 const titulo = `Pico y Placa en ${depto.nombre} — Todas las ciudades`;
 const descripcion = `Consulta el Pico y Placa vigente hoy en las ciudades de ${depto.nombre}: ${depto.ciudades
@@ -75,20 +101,35 @@ const otrosDepartamentos = obtenerDepartamentos().filter(
       {depto.ciudades.length === 1 ? 'ciudad' : 'ciudades'} de {depto.nombre} en
       nuestra plataforma. Elige una para ver su restricción vigente hoy.
     </p>
+    <p class="mt-3 text-gray-700 dark:text-gray-300">
+      {conData.length > 0
+        ? `${conData.length === 1 ? 'Una tiene' : `${conData.length} tienen`} Pico y Placa vigente (${listarConY(conData.map((c) => c.nombre))})${sinData.length > 0 ? ` y ${sinData.length === 1 ? 'una no tiene la medida o está por confirmar' : `${sinData.length} no tienen la medida o están por confirmar`}` : ''}. Cada alcaldía fija su medida por decreto, con su propia rotación, horario y vehículos exentos, así que dos ciudades vecinas pueden tener reglas distintas: revisa siempre la de la ciudad por donde vas a circular.`
+        : `Ninguna tiene hoy Pico y Placa vigente para particulares, según los decretos que revisamos. Cada alcaldía fija su propia medida por decreto, así que entra a la ciudad para ver el detalle y la fuente oficial.`}
+    </p>
   </header>
 
   {conData.length > 0 && (
     <section class="mb-8">
       <h2 class="mb-3 text-lg font-bold">Ciudades con Pico y Placa</h2>
-      <div class="grid grid-cols-2 gap-2 sm:grid-cols-3">
-        {conData.map((c) => (
-          <a
-            href={`/${c.slug}`}
-            class="rounded-lg border border-yellow-300 px-3 py-2.5 text-center text-sm font-medium transition-colors hover:border-yellow-400 hover:bg-yellow-50 dark:border-yellow-700 dark:hover:bg-yellow-950/20"
-          >
-            {c.nombre}
-          </a>
-        ))}
+      <div class="grid gap-3 sm:grid-cols-2">
+        {conData.map((c) => {
+          const f = fichaDe(c);
+          return (
+            <a
+              href={`/${c.slug}`}
+              class="block rounded-lg border border-yellow-300 px-4 py-3 text-sm transition-colors hover:border-yellow-400 hover:bg-yellow-50 dark:border-yellow-700 dark:hover:bg-yellow-950/20"
+            >
+              <span class="block text-base font-bold">{c.nombre}</span>
+              {f.tipos.length > 0 && (
+                <span class="mt-1 block text-gray-600 dark:text-gray-400">Aplica a {listarConY(f.tipos)}.</span>
+              )}
+              {f.horario && (
+                <span class="block text-gray-600 dark:text-gray-400">Carros: {f.horario}.</span>
+              )}
+              <span class="mt-1 block text-xs text-gray-500">{f.decreto}</span>
+            </a>
+          );
+        })}
       </div>
     </section>
   )}

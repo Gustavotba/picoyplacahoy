@@ -10,7 +10,7 @@ import { obtenerCiudad, tiposVehiculo, ciudades } from '../../lib/ciudades';
 import { calcularPicoPlaca, fechaColombia, formatearFechaColombia, conMayusculaInicial, formatearISO } from '../../lib/calcular';
 import { ETIQUETAS_VEHICULO, ICONOS_VEHICULO } from '../../lib/tipos';
 import type { TipoVehiculo, PicoYPlacaSolidario } from '../../lib/tipos';
-import { breadcrumbJsonLd } from '../../lib/seo';
+import { breadcrumbJsonLd, tituloQueCabe } from '../../lib/seo';
 import { multaVigente, esMultaTipoC, formatearPesos, formatearUnidades } from '../../lib/multas';
 
 import medellinGeo from '../../data/ciudades/medellin.geo.json';
@@ -75,11 +75,12 @@ const ciudadesCercanas = slugsCercanas
 const URL_LEY_769 = 'https://www.funcionpublica.gov.co/eva/gestornormativo/norma.php?i=5557';
 
 // SEO
+// Google corta el título hacia los 60 caracteres: el remate solo va si cabe.
 const titulo = ciudadSinPyP
-  ? `En ${ciudad.nombre} no hay Pico y Placa | Puedes circular cualquier día`
-  : `Pico y Placa hoy en ${ciudad.nombre} — Particulares, Motos, Taxis`;
+  ? tituloQueCabe(`En ${ciudad.nombre} no hay Pico y Placa`, ' | Circula cualquier día')
+  : tituloQueCabe(`Pico y Placa hoy en ${ciudad.nombre}`, ' — Particulares, Motos, Taxis');
 const descripcion = ciudadSinPyP
-  ? `En ${ciudad.nombre}, ${ciudad.departamento}, no aplica la restricción vehicular de Pico y Placa. Puedes circular cualquier día. Consulta ciudades cercanas con restricción.`
+  ? `En ${ciudad.nombre} (${ciudad.departamento}) no hay Pico y Placa: puedes circular cualquier día. Mira también las ciudades cercanas con restricción.`
   : `Consulta si hoy aplica Pico y Placa en ${ciudad.nombre}, ${ciudad.departamento}. Horarios, placas restringidas y más.`;
 
 const jsonLdBase = {

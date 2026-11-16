@@ -33,7 +33,7 @@
     "base_legal": "Artículo 131, literal C, numeral 14 de la Ley 769 de 2002",
     "valor_smldv": "15 SMLDV",
     "incluye_inmovilizacion": true,
-    "descripcion": "Multa equivalente a 15 salarios mínimos diarios legales vigentes (SMLDV) más inmovilización del vehículo."
+    "descripcion": "Multa tipo C (infracción C.14 del Código Nacional de Tránsito) más inmovilización del vehículo."
   },
   "vehiculos": {
     "particulares": {

@@ -14,10 +14,9 @@
   "vigencia_desde": "2026-08-03",
   "vigencia_hasta": "2027-01-29",
   "notas_generales": [
-    "Nueva rotación vigente desde el lunes 3 de agosto de 2026.",
+    "Rotación del segundo semestre: rige desde el lunes 3 de agosto de 2026. La prensa anunció el cambio para el 29 de enero de 2027 (el decreto no escribe una fecha final).",
     "Envigado aplica la misma rotación, horarios y exenciones acordadas para todo el Valle de Aburrá.",
-    "Del 3 al 6 de agosto de 2026 la sanción es pedagógica. Desde el lunes 10 de agosto la sanción es económica.",
-    "La fase pedagógica NO aplica a taxis: a ellos se les sanciona desde el primer día.",
+    "La fase pedagógica fue del 3 al 6 de agosto de 2026 (a los taxis se les sancionó desde el primer día). Desde el 10 de agosto la sanción es económica.",
     "El Área Metropolitana acuerda la rotación, pero cada municipio expide su propio decreto. Confirma con la alcaldía de Envigado el decreto local vigente.",
     "No aplica en días festivos oficiales ni los fines de semana.",
     "Las vías exentas varían entre municipios. Verifica cuáles rigen en tu recorrido antes de salir."
@@ -65,7 +64,7 @@
     "base_legal": "Artículo 131, literal C, numeral 14 de la Ley 769 de 2002",
     "valor_smldv": "15 SMLDV",
     "incluye_inmovilizacion": true,
-    "descripcion": "Multa equivalente a 15 salarios mínimos diarios legales vigentes (SMLDV) más inmovilización del vehículo. El decreto no fija un valor en pesos: consulta el monto vigente con la autoridad de tránsito.",
+    "descripcion": "Multa tipo C (infracción C.14 del Código Nacional de Tránsito) más inmovilización del vehículo.",
     "valor_uvb": "52,29 UVB"
   },
   "vehiculos": {
