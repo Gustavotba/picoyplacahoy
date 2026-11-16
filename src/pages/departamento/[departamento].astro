@@ -54,9 +54,14 @@ function listarConY(lista: string[]): string {
 }
 
 const titulo = `Pico y Placa en ${depto.nombre} — Todas las ciudades`;
-const descripcion = `Consulta el Pico y Placa vigente hoy en las ciudades de ${depto.nombre}: ${depto.ciudades
-  .map((c) => c.nombre)
-  .join(', ')}.`;
+// Google corta la descripción hacia los 155 caracteres: si la lista de ciudades
+// no cabe (Antioquia tiene 11), se nombran las primeras y se cuenta el resto.
+const BASE_DESCRIPCION = `Consulta el Pico y Placa vigente hoy en las ciudades de ${depto.nombre}: `;
+const nombresCiudades = depto.ciudades.map((c) => c.nombre);
+let descripcion = `${BASE_DESCRIPCION}${nombresCiudades.join(', ')}.`;
+for (let n = nombresCiudades.length - 1; descripcion.length > 155 && n >= 1; n--) {
+  descripcion = `${BASE_DESCRIPCION}${nombresCiudades.slice(0, n).join(', ')} y ${nombresCiudades.length - n} más.`;
+}
 
 const breadcrumb = breadcrumbJsonLd([
   { nombre: 'Inicio', ruta: '/' },

@@ -154,7 +154,7 @@
           "pendiente_verificar"
         ]
       },
-      "notas": "OJO: la restricción de taxis en Armenia NO va por la placa sino por el ÚLTIMO DÍGITO DEL NÚMERO INTERNO del vehículo (el número pintado en la puerta). Rota un dígito por día calendario y los domingos descansan dos dígitos a la vez (Decreto 169 de 2025). Como no es por placa, esta página no puede calcularla: consulta el número del día en el banner semanal que publica la Alcaldía en armenia.gov.co. El Decreto 329 de 2026 suspende la restricción de taxis el 24, 25 y 31 de diciembre de 2026 y el 1 de enero de 2027."
+      "notas": "OJO: la restricción de taxis en Armenia NO va por la placa sino por el ÚLTIMO DÍGITO DEL NÚMERO INTERNO del vehículo (el número pintado en la puerta): un dígito de lunes a sábado y dos el domingo, de 5:00 a.m. a 4:59 a.m. del día siguiente, con una tabla que rota cada semana (Decreto 169 del 28 de marzo de 2025). Como no es por placa, esta página no puede calcularla: consulta el número del día en el banner semanal que publica la Alcaldía en armenia.gov.co. El Decreto 329 de 2026 suspende la restricción el 24, 25 y 31 de diciembre de 2026 y el 1 de enero de 2027."
     },
     "transporte_carga": {
       "aplica": false,

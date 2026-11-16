@@ -9,15 +9,17 @@
   "autoridad": "Secretaría Distrital de Movilidad",
   "autoridad_web": "https://www.movilidadbogota.gov.co",
   "autoridad_twitter": "MovilidadBogota",
-  "decreto_actual": "Decreto Distrital 003 de 2023",
+  "decreto_actual": "Decreto Distrital 652 de 2025, artículos 226 a 237 (compila el Decreto 003 de 2023)",
   "fecha_ultima_actualizacion": "2026-11-16",
   "vigencia_desde": "2023-01-17",
-  "vigencia_hasta": "2026-12-31",
   "notas_generales": [
     "La restricción opera por FECHA par/impar del calendario, no por día de la semana.",
     "Fechas impares (1, 3, 5...): no circulan placas terminadas en 6, 7, 8, 9 y 0.",
     "Fechas pares (2, 4, 6...): no circulan placas terminadas en 1, 2, 3, 4 y 5.",
     "Horario: lunes a viernes de 6:00 a.m. a 9:00 p.m. No aplica sábados, domingos ni festivos.",
+    "Fin de año: la norma trae una pausa (del día hábil siguiente al 25 de diciembre al viernes antes del puente de Reyes), pero en 2023, 2024 y 2025 la Alcaldía la recortó por decreto a uno o dos días. Para el fin de año 2026-2027 aún no hay decreto: del 28 de diciembre al 8 de enero esta página dirá \"por confirmar\" hasta que salga.",
+    "La medida no tiene fecha de terminación. El Decreto 003 de 2023, que la creó, quedó recogido desde diciembre de 2025 en el Decreto Único del Sector Movilidad (652 de 2025), sin cambios en los dígitos, los días ni el horario.",
+    "Los sábados no hay pico y placa para particulares. El pico y placa de sábados para carros matriculados fuera de Bogotá fue anunciado, pero no se ha expedido el decreto ni tiene fecha.",
     "Programa Pico y Placa Solidario: pago para circular en día restringido."
   ],
   "exenciones_generales": [
@@ -455,7 +457,7 @@
     ],
     "destino_recaudo": "El 100% de los recursos recaudados se destinan al Fondo de Estabilización Tarifaria (FET), que financia el Sistema Integrado de Transporte Público (SITP) de Bogotá.",
     "notas_adicionales": [
-      "A partir de 2026 se implementó Pico y Placa los sábados, pero SOLO para vehículos matriculados fuera de Bogotá.",
+      "Los sábados no hay pico y placa para particulares: la medida de sábados para vehículos matriculados fuera de Bogotá fue anunciada, pero no se ha expedido el decreto.",
       "El único sitio oficial para tramitarlo es movilidadbogota.gov.co. Desconfía de intermediarios.",
       "Las tarifas se actualizan cada año según el IPC (Índice de Precios al Consumidor)."
     ]
@@ -468,5 +470,14 @@
       "Bogotá también inventó una válvula de escape: el Pico y Placa Solidario, un permiso pagado que te deja circular en día restringido. En esta página encuentras las tarifas vigentes y el enlace oficial para tramitarlo.",
       "Y si el carro se queda en casa, TransMilenio y el SITP mueven millones de personas al día; para trayectos al centro, la red de ciclorrutas de Bogotá es de las más extensas de América Latina."
     ]
+  },
+  "vigencia_indefinida": true,
+  "periodo_por_confirmar": {
+    "desde": "2026-12-28",
+    "hasta": "2027-01-08",
+    "tipos": [
+      "particulares"
+    ],
+    "motivo": "Fin de año por confirmar: la norma dice que el pico y placa no aplica desde el día hábil siguiente al 25 de diciembre hasta el viernes antes del puente de Reyes, pero en los últimos tres años la Alcaldía recortó esa pausa con un decreto de última hora. Todavía no ha salido el de este año: verifica con la Secretaría de Movilidad antes de salir."
   }
 }

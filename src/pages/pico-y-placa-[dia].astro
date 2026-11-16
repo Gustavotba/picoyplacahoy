@@ -37,6 +37,8 @@ interface FilaCiudad {
   nombre: string;
   particulares: { placas: number[]; criterio?: string } | null;
   motos: { placas: number[]; criterio?: string } | null;
+  /** A quién le aplica, cuando no es a todos (Pamplona: solo vehículos de afuera) */
+  alcance?: string;
 }
 
 const filas: FilaCiudad[] = [];
@@ -56,7 +58,8 @@ for (const ciudad of ciudades) {
   if (aplicaAlgo && ciudad.vigencia_hasta && ciudad.vigencia_hasta < hoyISO) {
     vencidas.push({ slug: ciudad.slug, nombre: ciudad.nombre });
   } else if (aplicaAlgo) {
-    filas.push({ slug: ciudad.slug, nombre: ciudad.nombre, particulares, motos });
+    const alcance = (esSemanalPorDia(vp) && vp.alcance_corto) || (esSemanalPorDia(vm) && vm.alcance_corto) || undefined;
+    filas.push({ slug: ciudad.slug, nombre: ciudad.nombre, particulares, motos, alcance });
   }
 }
 filas.sort((a, b) => a.nombre.localeCompare(b.nombre, 'es'));
@@ -117,6 +120,9 @@ const fmtPlacas = (placas: number[]) => placaDestacada(placas);
                 <a href={`/${fila.slug}`} class="font-medium text-yellow-700 hover:underline dark:text-yellow-400">
                   {fila.nombre}
                 </a>
+                {fila.alcance && (
+                  <span class="block text-[11px] font-semibold text-red-600 dark:text-red-400">{fila.alcance}</span>
+                )}
               </td>
               <td class="py-2 pr-3">
                 {fila.particulares && fila.particulares.placas.length > 0 ? (

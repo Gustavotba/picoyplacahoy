@@ -2,7 +2,7 @@
 import { ciudades } from '../lib/ciudades';
 
 // Obtener slug actual de la URL
-const urlActual = Astro.url.pathname.replace(/\/$/, '');
+const urlActual = Astro.url.pathname.replace(/\/$/, '').replace(/\.html$/, '');
 const slugActual = urlActual.split('/')[1] || '';
 
 // Regiones para el mega-menú

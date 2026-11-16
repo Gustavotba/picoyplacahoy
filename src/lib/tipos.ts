@@ -40,6 +40,22 @@ export interface VehiculoSemanalPorDia {
   aplica_fines_de_semana: boolean;
   rotacion: Partial<Record<DiaSemana, number[]>>;
   aplican_vias_exentas?: boolean;
+  /**
+   * A quién le aplica, cuando NO es a todos (ej. Pamplona: "Solo vehículos
+   * matriculados fuera de Pamplona"). Se muestra junto a los dígitos en la
+   * portada y en las tablas, para que un residente no lea la placa del día
+   * como si fuera para él.
+   */
+  alcance_corto?: string;
+  /**
+   * Sábados con calendario propio: fecha (AAAA-MM-DD) → dígitos. Es para las
+   * ciudades donde de lunes a viernes rige una tabla fija y el sábado va por
+   * fechas (Bucaramanga: cada sábado descansa una pareja distinta). Un sábado
+   * posterior al último cargado se muestra como "datos desactualizados".
+   */
+  sabados_por_fecha?: Record<string, number[]>;
+  /** Horario del sábado, cuando es distinto al de lunes a viernes */
+  horario_sabado?: { inicio: string; fin: string; texto: string };
 }
 
 /** Vehículo con restricción quincenal por fechas específicas (taxis) */
@@ -282,6 +298,19 @@ export interface Ciudad {
     hasta: string;
     motivo: string;
     decreto: string;
+  };
+  /**
+   * Días en que todavía NO sabemos si la medida rige (ej. Bogotá a fin de año:
+   * la norma trae una pausa, pero la Alcaldía suele recortarla con un decreto
+   * de última hora). En ese rango el motor responde "datos por confirmar" en
+   * vez de dar dígitos o decir "libre". Fechas inclusive, en ISO. Si `tipos`
+   * falta, vale para todos los tipos de vehículo.
+   */
+  periodo_por_confirmar?: {
+    desde: string;
+    hasta: string;
+    motivo: string;
+    tipos?: TipoVehiculo[];
   };
   notas_generales?: string[];
   /**

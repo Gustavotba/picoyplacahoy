@@ -37,6 +37,8 @@ export interface EstadoTipoHoy {
   digitos: number[];
   criterio?: CriterioPlaca;
   horario: string;
+  /** A quién le aplica, cuando no es a todos (ver `alcance_corto` en tipos.ts) */
+  alcance?: string;
 }
 
 /** Estado completo de una ciudad para una fecha */
@@ -66,6 +68,8 @@ export function resumirCiudad(ciudad: Ciudad, fecha: Date): ResumenCiudadHoy {
       digitos: resultado.placasRestringidas,
       criterio: resultado.criterioPlaca,
       horario: resultado.horarioTexto,
+      // `as`: el campo solo existe en los vehículos con rotación semanal.
+      alcance: (ciudad.vehiculos[tipo] as { alcance_corto?: string }).alcance_corto,
     };
   }
 
@@ -126,7 +130,12 @@ export function insigniaDe(resumen: ResumenCiudadHoy): InsigniaHoy {
   }
 
   if (particulares.aplica && particulares.digitos.length > 0) {
-    return { estado: 'aplica', texto: digitosCompactos(particulares.digitos) };
+    return {
+      estado: 'aplica',
+      texto: digitosCompactos(particulares.digitos),
+      // Si la medida no es para todos, la insignia lo dice ("De afuera 3·4").
+      etiqueta: particulares.alcance ? 'De afuera' : undefined,
+    };
   }
 
   // Los particulares están libres, pero puede que otro tipo de vehículo no.

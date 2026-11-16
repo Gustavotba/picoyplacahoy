@@ -18,8 +18,10 @@ export const OG_IMAGEN_DEFECTO = '/og-default.png';
  * a partir de la ruta de la página.
  */
 export function canonicalDe(pathname: string): string {
-  // Quita barras duplicadas y asegura que empiece con "/"
-  const ruta = pathname.replace(/\/+$/, '') || '/';
+  // Quita la barra final y la cola ".html": las páginas estáticas se construyen
+  // como "pagina.html" (build.format 'file') pero su dirección pública es
+  // "/pagina"; la versión con .html redirige, y un canonical no debe redirigir.
+  const ruta = pathname.replace(/\/+$/, '').replace(/(\/index)?\.html$/, '') || '/';
   return new URL(ruta, SITE_URL).href;
 }
 

@@ -9,36 +9,41 @@
   "autoridad": "Secretaría de Movilidad y Tránsito de Ocaña",
   "autoridad_web": "https://www.ocana-nortedesantander.gov.co",
   "autoridad_twitter": "",
-  "decreto_actual": "Decreto 049 de 2025",
-  "fecha_ultima_actualizacion": "2026-04-12",
+  "decreto_actual": "Decreto 049 del 9 de abril de 2025, modificado por el Decreto 075 del 16 de junio de 2025",
+  "fecha_ultima_actualizacion": "2026-11-16",
   "notas_generales": [
-    "En Ocaña el Pico y Placa aplica a vehículos particulares y motos (NO a taxis).",
-    "La restricción es DIFERENTE según el origen de la matrícula del vehículo.",
-    "Vehículos matriculados en Ocaña: 3 franjas horarias específicas.",
-    "Vehículos con matrícula de otra ciudad: restricción continua de 7:00 a.m. a 7:00 p.m. (Placa Día).",
-    "El 67% de los vehículos que circulan en Ocaña son motocicletas.",
-    "Zona de aplicación: centro histórico y Mercado Público (carreras 9-16, calles 7-11)."
+    "En Ocaña hoy rige una sola medida, el \"Placa-Día\": restringe a los vehículos particulares que NO están matriculados en Ocaña (placa de otro municipio o extranjera), de 7:00 a.m. a 7:00 p.m., de lunes a viernes, en todo el municipio. Lunes 1 y 2, martes 3 y 4, miércoles 5 y 6, jueves 7 y 8, viernes 9 y 0.",
+    "Los carros matriculados en Ocaña no tienen restricción: el pico y placa de tres franjas en el centro, que nació en abril de 2025, se retiró en junio del mismo año (Decreto 075), según lo confirmó la Secretaría de Movilidad.",
+    "Las motos no tienen restricción por dígito. La prohibición de circular los miércoles por las calles 10 y 11 también se derogó en junio de 2025.",
+    "Si vas de paso por la vía Nacional, sin entrar al casco urbano, la medida no te aplica.",
+    "No rige sábados, domingos ni festivos. El decreto no tiene fecha de terminación; la Alcaldía suele suspender la medida unos días en Semana Santa con un decreto aparte."
   ],
   "exenciones_generales": [
-    "Vehículos de emergencia",
-    "Vehículos oficiales",
-    "Vehículos eléctricos"
+    "Vehículos de paso por la vía Nacional",
+    "Vehículos de servicio público de transporte de pasajeros",
+    "Ambulancias, bomberos, Defensa Civil y atención de siniestros",
+    "Vehículos de servicios públicos domiciliarios (agua, alumbrado, energía, gas, telefonía, aseo)",
+    "Vehículos de atención médica personalizada con identificación permanente",
+    "Transporte de alimentos perecederos de hasta 2 toneladas, identificado, en las calles 10 y 11",
+    "Fuerzas Militares, Policía, CTI e INPEC",
+    "Vehículos conducidos por personas con discapacidad o que las transportan, con el símbolo de accesibilidad",
+    "Transporte de valores, coches fúnebres y transporte especial acreditado (escolar y turismo)"
   ],
-  "vias_exentas": [],
+  "vias_exentas": [
+    "Vía Nacional (vehículos en tránsito por el municipio)"
+  ],
   "restriccion_por_matricula": {
     "local": {
       "franjas_horarias": [
-        "7:30-8:30 a.m.",
-        "11:30 a.m.-2:30 p.m.",
-        "5:30-7:00 p.m."
+        "Sin restricción"
       ],
-      "nota": "Vehículos matriculados en Ocaña: aplica solo en estas 3 franjas horarias"
+      "nota": "Vehículos matriculados en Ocaña: hoy no tienen pico y placa (la medida de tres franjas en el centro se retiró en junio de 2025)."
     },
     "foranea": {
       "franjas_horarias": [
         "7:00 a.m.-7:00 p.m. (continuo)"
       ],
-      "nota": "Vehículos con matrícula de otra ciudad (nacionales y extranjeros): restricción continua todo el día hábil"
+      "nota": "Vehículos con placa de otro municipio o extranjera: \"Placa-Día\" de lunes a viernes, según el último dígito, en todo el municipio."
     }
   },
   "sanciones": {
@@ -51,12 +56,12 @@
   "vehiculos": {
     "particulares": {
       "aplica": true,
-      "descripcion": "Vehículos particulares — restricción diferenciada según origen de matrícula",
+      "descripcion": "Automóviles, camperos y camionetas particulares con placa de otro municipio o extranjera (\"Placa-Día\"). Los matriculados en Ocaña hoy no tienen restricción.",
       "criterio_placa": "ultimo_digito",
       "modalidad": "semanal_por_dia",
       "horario_inicio": "07:00",
       "horario_fin": "19:00",
-      "horario_texto": "3 franjas (matrícula Ocaña) o 7am-7pm continuo (matrícula foránea)",
+      "horario_texto": "7:00 a.m. a 7:00 p.m., en todo el municipio · solo vehículos matriculados fuera de Ocaña",
       "dias_aplicables": [
         "lunes",
         "martes",
@@ -88,58 +93,60 @@
           0
         ]
       },
-      "aplican_vias_exentas": false,
-      "nota_especial": "Matrícula de Ocaña: 3 franjas (7:30-8:30, 11:30-14:30, 17:30-19:00). Matrícula foránea: continuo 7am-7pm."
+      "aplican_vias_exentas": true,
+      "alcance_corto": "Solo vehículos matriculados fuera de Ocaña",
+      "nota_especial": "Es la medida llamada \"Placa-Día\" (Decreto 049 de 2025, artículo 5): aplica a los vehículos de placa nacional y extranjera, es decir, los que no están matriculados en Ocaña, de 7:00 a.m. a 7:00 p.m., de lunes a viernes, en toda la jurisdicción del municipio. No rige sábados, domingos ni festivos. Los vehículos que van de paso por la vía Nacional están excluidos."
     },
     "motos": {
-      "aplica": true,
-      "descripcion": "Motocicletas — misma rotación y franjas diferenciadas que particulares",
-      "criterio_placa": "ultimo_digito",
-      "modalidad": "semanal_por_dia",
-      "horario_inicio": "07:00",
-      "horario_fin": "19:00",
-      "horario_texto": "3 franjas (matrícula Ocaña) o 7am-7pm continuo (matrícula foránea)",
-      "dias_aplicables": [
-        "lunes",
-        "martes",
-        "miercoles",
-        "jueves",
-        "viernes"
-      ],
-      "aplica_festivos": false,
-      "aplica_fines_de_semana": false,
-      "rotacion": {
-        "lunes": [
-          1,
-          2
-        ],
-        "martes": [
-          3,
-          4
-        ],
-        "miercoles": [
-          5,
-          6
-        ],
-        "jueves": [
-          7,
-          8
-        ],
-        "viernes": [
-          9,
-          0
-        ]
-      },
-      "aplican_vias_exentas": false,
-      "nota_especial": "Aplica con la misma rotación y franjas diferenciadas por tipo de matrícula que los particulares."
+      "aplica": false,
+      "descripcion": "Las motos no tienen Pico y Placa por dígito en Ocaña: el \"Placa-Día\" solo cubre automóviles, camperos, camionetas, camiones y volquetas, y la restricción de motos de los miércoles en el centro fue derogada en junio de 2025 (Decreto 075)."
     },
     "taxis": {
       "aplica": false,
-      "descripcion": "Los taxis NO tienen Pico y Placa en Ocaña."
+      "descripcion": "Los taxis no tienen Pico y Placa en Ocaña: el decreto exceptúa a los vehículos de servicio público de transporte de pasajeros."
     },
     "transporte_carga": {
-      "aplica": false,
-      "descripcion": "Pendiente verificar restricciones de carga en Ocaña."
+      "aplica": true,
+      "descripcion": "Camiones y volquetas de servicio particular con placa de otro municipio o extranjera: misma tabla del \"Placa-Día\". Exentos, entre otros, los de alimentos perecederos de hasta 2 toneladas (en las calles 10 y 11) y los de valores.",
+      "criterio_placa": "ultimo_digito",
+      "modalidad": "semanal_por_dia",
+      "horario_inicio": "07:00",
+      "horario_fin": "19:00",
+      "horario_texto": "7:00 a.m. a 7:00 p.m., en todo el municipio · solo vehículos matriculados fuera de Ocaña",
+      "dias_aplicables": [
+        "lunes",
+        "martes",
+        "miercoles",
+        "jueves",
+        "viernes"
+      ],
+      "aplica_festivos": false,
+      "aplica_fines_de_semana": false,
+      "rotacion": {
+        "lunes": [
+          1,
+          2
+        ],
+        "martes": [
+          3,
+          4
+        ],
+        "miercoles": [
+          5,
+          6
+        ],
+        "jueves": [
+          7,
+          8
+        ],
+        "viernes": [
+          9,
+          0
+        ]
+      },
+      "aplican_vias_exentas": true,
+      "alcance_corto": "Solo vehículos matriculados fuera de Ocaña",
+      "nota_especial": "Es la medida llamada \"Placa-Día\" (Decreto 049 de 2025, artículo 5): aplica a los vehículos de placa nacional y extranjera, es decir, los que no están matriculados en Ocaña, de 7:00 a.m. a 7:00 p.m., de lunes a viernes, en toda la jurisdicción del municipio. No rige sábados, domingos ni festivos. Los vehículos que van de paso por la vía Nacional están excluidos."
     }
   },
   "contacto_ciudadano": {
@@ -151,12 +158,13 @@
     "linea_movilidad": "pendiente_verificar"
   },
   "contenido_local": {
-    "titulo": "Pico y placa en Ocaña: tu matrícula decide tu regla",
+    "titulo": "Pico y placa en Ocaña: solo para los carros de afuera",
     "parrafos": [
-      "El pico y placa de Ocaña tiene una arquitectura poco común en Colombia: la restricción es diferente según dónde esté matriculado el vehículo. Las placas ocañeras tienen franjas horarias específicas del día; las placas de otras ciudades enfrentan una restricción continua mucho más larga, conocida como \"Placa Día\".",
-      "Eso convierte a esta página en lectura obligada para el visitante: si llegas a Ocaña con matrícula de otra ciudad, tu regla es más dura que la de los locales — no asumas que el dígito te libera igual que a ellos.",
-      "La medida cubre a carros particulares y motos; los taxis están por fuera. Y el dato local que lo explica todo: la gran mayoría de los vehículos que ruedan por Ocaña son motocicletas.",
-      "Esta página muestra las dos variantes de la regla — matrícula local y foránea — con sus franjas, tal como las define el decreto vigente."
+      "El pico y placa de Ocaña tiene una arquitectura poco común en Colombia: mira dónde está matriculado el vehículo. La medida vigente, conocida como \"Placa-Día\", restringe a los carros particulares con placa de otro municipio; los matriculados en Ocaña circulan sin restricción.",
+      "Eso convierte a esta página en lectura obligada para el visitante: si llegas a Ocaña con matrícula de otra ciudad, en el día de tu dígito no puedes circular por el municipio durante todo el horario de la medida. La excepción es para quien solo va de paso por la vía Nacional.",
+      "Las motos — la gran mayoría de los vehículos que ruedan por Ocaña — no tienen restricción por dígito, y los taxis tampoco. Los camiones y volquetas particulares de afuera sí siguen la tabla.",
+      "La ciudad ha cambiado sus reglas varias veces en poco tiempo, probando y retirando medidas para el centro. Por eso esta página muestra lo que rige hoy según el decreto vigente, y se actualiza con cada cambio verificado en la fuente oficial."
     ]
-  }
+  },
+  "vigencia_indefinida": true
 }

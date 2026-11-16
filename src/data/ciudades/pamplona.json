@@ -9,24 +9,22 @@
   "autoridad": "Secretaría de Tránsito y Transporte de Pamplona",
   "autoridad_web": "https://pamplona-nortedesantander.gov.co",
   "autoridad_twitter": "",
-  "decreto_actual": "Decreto 067 del 28 de agosto de 2018",
-  "fecha_ultima_actualizacion": "2026-06-09",
+  "decreto_actual": "Decreto 0110 del 7 de octubre de 2021, modificado por los Decretos 005 de 2023 y 017 del 6 de febrero de 2026",
+  "fecha_ultima_actualizacion": "2026-11-16",
   "notas_generales": [
-    "En Pamplona el Pico y Placa restringe la circulación y el parqueo en el centro histórico de la ciudad, de lunes a viernes, según el último dígito de la placa.",
-    "El horario de restricción es de 8:00 a.m. a 6:00 p.m.",
-    "La medida fue establecida por el Decreto 067 del 28 de agosto de 2018.",
-    "IMPORTANTE: la asignación exacta de dígitos por día no está publicada de forma oficial en línea. Consulta siempre el dígito vigente del día con la Secretaría de Tránsito y Transporte de Pamplona."
+    "OJO: la medida \"Placa y Día\" de Pamplona aplica SOLO a vehículos de servicio particular NO matriculados en Pamplona (carros, camionetas, motos, camiones y volquetas). Si tu vehículo está matriculado en Pamplona, no tienes restricción, aunque la tarjeta muestre los dígitos del día.",
+    "Rige de lunes a viernes de 8:00 a.m. a 7:00 p.m. y prohíbe circular y también parquear dentro del perímetro del centro: Carrera 4 entre las Calles 4 y 7, Calle 7 hasta la Carrera 5, Carrera 5 hasta la Calle 9 (Hotel Cariongo), Calle 9 hasta la Carrera 7 (costado del río Pamplonita) y Carrera 8 de regreso a la Calle 4. La vía nacional que cruza la ciudad está exenta.",
+    "Lunes 1 y 2, martes 3 y 4, miércoles 5 y 6, jueves 7 y 8, viernes 9 y 0 (Decreto 017 del 6 de febrero de 2026, que modifica el Decreto 0110 de 2021).",
+    "No aplica sábados, domingos ni festivos; tampoco desde el día hábil siguiente al 17 de diciembre hasta el 10 de enero, en Semana Santa (de Domingo de Ramos a Domingo de Pascua) ni en las ferias y fiestas de la ciudad.",
+    "Exentos, entre otros: vehículos eléctricos, todo el servicio público (taxis, colectivo, carga y especial), y quienes muestren el tiquete del peaje Picacho con menos de 2 horas y 30 minutos o del peaje Pamplonita con menos de 1 hora (Decreto 017 de 2026)."
   ],
   "exenciones_generales": [
-    "Vehículos eléctricos",
-    "Vehículos con esquema de seguridad",
-    "Servicios públicos esenciales",
-    "Taxis y busetas",
-    "Vehículos diplomáticos y consulares",
-    "Carrozas fúnebres, ambulancias y vehículos de atención en salud",
-    "Vehículos de medios de comunicación debidamente identificados",
-    "Autoridades judiciales",
-    "Transporte escolar"
+    "Vehículos matriculados en Pamplona (la medida solo aplica a los de otras ciudades)",
+    "Vehículos 100 % eléctricos",
+    "Todo el servicio público: taxis, transporte colectivo, carga y especial",
+    "Caravana presidencial y vehículos de servicio diplomático o consular",
+    "Quien muestre el tiquete del peaje Picacho con menos de 2 h 30 min, o del peaje Pamplonita con menos de 1 hora",
+    "Las demás excepciones del artículo cuarto del Decreto 0110 de 2021, en la redacción del Decreto 017 de 2026 (20 en total)"
   ],
   "vias_exentas": [],
   "sanciones": {
@@ -39,47 +37,130 @@
   "vehiculos": {
     "particulares": {
       "aplica": true,
-      "horario": "8:00 a.m. a 6:00 p.m.",
-      "dias_habiles": [
-        "lun",
-        "mar",
-        "mie",
-        "jue",
-        "vie"
+      "descripcion": "Automóviles y camionetas de servicio particular NO matriculados en Pamplona, según el último dígito de la placa — prohibido circular y parquear en el centro (los matriculados en Pamplona no tienen restricción)",
+      "criterio_placa": "ultimo_digito",
+      "modalidad": "semanal_por_dia",
+      "horario_inicio": "08:00",
+      "horario_fin": "19:00",
+      "horario_texto": "8:00 a.m. a 7:00 p.m., en el centro · solo vehículos matriculados fuera de Pamplona",
+      "dias_aplicables": [
+        "lunes",
+        "martes",
+        "miercoles",
+        "jueves",
+        "viernes"
       ],
       "aplica_festivos": false,
-      "restricciones": {
+      "aplica_fines_de_semana": false,
+      "rotacion": {
         "lunes": [
-          "pendiente_verificar"
+          1,
+          2
         ],
         "martes": [
-          "pendiente_verificar"
+          3,
+          4
         ],
         "miercoles": [
-          "pendiente_verificar"
+          5,
+          6
         ],
         "jueves": [
-          "pendiente_verificar"
+          7,
+          8
         ],
         "viernes": [
-          "pendiente_verificar"
+          9,
+          0
         ]
       },
-      "notas": "Pamplona SÍ tiene Pico y Placa para particulares en el centro histórico (Decreto 067 de 2018), de lunes a viernes de 8:00 a.m. a 6:00 p.m., según el último dígito de la placa. La tabla oficial de dígitos por día no está publicada en línea; consulta el dígito vigente del día con la Secretaría de Tránsito de Pamplona."
+      "alcance_corto": "Solo vehículos matriculados fuera de Pamplona"
     },
     "motos": {
-      "aplica": false,
-      "descripcion": "El Decreto 067 de 2018 regula la circulación de vehículos en el centro histórico de Pamplona; no establece una restricción equivalente de Pico y Placa para motos.",
-      "nota": "Esta situación puede cambiar. Verifica siempre con la Secretaría de Tránsito y Transporte de Pamplona."
+      "aplica": true,
+      "descripcion": "Motocicletas de servicio particular NO matriculadas en Pamplona, según el último dígito de la placa — prohibido circular y parquear en el centro (las matriculadas en Pamplona no tienen restricción)",
+      "criterio_placa": "ultimo_digito",
+      "modalidad": "semanal_por_dia",
+      "horario_inicio": "08:00",
+      "horario_fin": "19:00",
+      "horario_texto": "8:00 a.m. a 7:00 p.m., en el centro · solo vehículos matriculados fuera de Pamplona",
+      "dias_aplicables": [
+        "lunes",
+        "martes",
+        "miercoles",
+        "jueves",
+        "viernes"
+      ],
+      "aplica_festivos": false,
+      "aplica_fines_de_semana": false,
+      "rotacion": {
+        "lunes": [
+          1,
+          2
+        ],
+        "martes": [
+          3,
+          4
+        ],
+        "miercoles": [
+          5,
+          6
+        ],
+        "jueves": [
+          7,
+          8
+        ],
+        "viernes": [
+          9,
+          0
+        ]
+      },
+      "alcance_corto": "Solo vehículos matriculados fuera de Pamplona"
     },
     "taxis": {
       "aplica": false,
-      "descripcion": "Los taxis están exentos de la medida de Pico y Placa en Pamplona según el Decreto 067 de 2018."
+      "descripcion": "Los taxis no tienen Pico y Placa en Pamplona: todo el servicio público (taxis, colectivo, carga y especial) está exento de la medida \"Placa y Día\" (Decreto 0110 de 2021, artículo cuarto, en la redacción del Decreto 017 de 2026)."
     },
     "transporte_carga": {
-      "aplica": false,
-      "descripcion": "En Pamplona no aplica Pico y Placa para transporte de carga.",
-      "nota": "Esta situación puede cambiar. Verifica siempre con la Secretaría de Tránsito y Transporte de Pamplona."
+      "aplica": true,
+      "descripcion": "Camiones y volquetas de servicio particular NO matriculados en Pamplona, según el último dígito de la placa, en el centro. La carga de servicio público está exenta.",
+      "criterio_placa": "ultimo_digito",
+      "modalidad": "semanal_por_dia",
+      "horario_inicio": "08:00",
+      "horario_fin": "19:00",
+      "horario_texto": "8:00 a.m. a 7:00 p.m., en el centro · solo vehículos matriculados fuera de Pamplona",
+      "dias_aplicables": [
+        "lunes",
+        "martes",
+        "miercoles",
+        "jueves",
+        "viernes"
+      ],
+      "aplica_festivos": false,
+      "aplica_fines_de_semana": false,
+      "rotacion": {
+        "lunes": [
+          1,
+          2
+        ],
+        "martes": [
+          3,
+          4
+        ],
+        "miercoles": [
+          5,
+          6
+        ],
+        "jueves": [
+          7,
+          8
+        ],
+        "viernes": [
+          9,
+          0
+        ]
+      },
+      "alcance_corto": "Solo vehículos matriculados fuera de Pamplona"
     }
   },
   "contacto_ciudadano": {
@@ -91,12 +172,19 @@
     "linea_movilidad": "pendiente_verificar"
   },
   "contenido_local": {
-    "titulo": "Pico y placa en Pamplona: solo en el centro histórico",
+    "titulo": "Pico y placa en Pamplona: para los de afuera, solo en el centro",
     "parrafos": [
-      "El pico y placa de Pamplona es de alcance quirúrgico: restringe la circulación — y también el parqueo — dentro del centro histórico, de lunes a viernes. Fuera de ese perímetro, la ciudad se mueve libre.",
-      "Hay un problema de transparencia que preferimos confesar antes que disimular: la asignación exacta de dígitos por día no está publicada oficialmente en línea. Por eso esta página marca la tabla como pendiente y te remite a las autoridades locales para el dígito del día — mostrar una tabla sin respaldo sería mentirte.",
-      "Las motos y los taxis no tienen restricción por placa en la información disponible.",
-      "La \"ciudad mitrada\", universitaria y religiosa, concentra su vida justamente en el centro histórico que la medida protege: si tu destino es la zona central en día hábil, confirma el dígito antes de entrar o parquea por fuera del perímetro."
+      "El pico y placa de Pamplona se llama \"Placa y Día\" y tiene una particularidad casi única en el país: no restringe a los vehículos matriculados en la ciudad, sino a los de servicio particular que vienen de otras partes, y solo dentro del centro. Si tu placa es de Pamplona, circulas libre.",
+      "Para los vehículos de afuera la regla es estricta: en el día de su dígito no pueden circular ni parquear en el centro durante todo el horario de la medida. Incluye motos, camiones y volquetas particulares; el servicio público, incluidos los taxis, está exento.",
+      "Si vienes de paso, el tiquete del peaje te sirve: con el de Picacho (menos de 2 horas y media) o el de Pamplonita (menos de una hora) puedes entrar aunque sea tu día.",
+      "La \"ciudad mitrada\", universitaria y religiosa, concentra su vida en el centro que la medida protege, y por eso la levanta en sus temporadas más visitadas: fin de año, Semana Santa y sus ferias y fiestas."
     ]
+  },
+  "vigencia_indefinida": true,
+  "suspension_temporal": {
+    "desde": "2026-12-18",
+    "hasta": "2027-01-10",
+    "motivo": "la temporada de fin de año",
+    "decreto": "Decreto 0110 de 2021, artículo primero, parágrafo segundo"
   }
 }

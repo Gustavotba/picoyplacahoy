@@ -9,15 +9,15 @@
   "autoridad": "Secretaría de Movilidad de Manizales",
   "autoridad_web": "https://manizales.gov.co",
   "autoridad_twitter": "alcaldiamzles",
-  "decreto_actual": "Particulares: sin pico y placa — la medida temporal por el sismo (Decreto Extraordinario 012 del 13 de agosto de 2026, prorrogado por el Decreto 0292 del 31 de agosto) fue levantada a partir del 16 de septiembre de 2026 · Taxis: Resolución 114 del 27 de diciembre de 2024, modificada por las Resoluciones 1359 y 1360 de 2025",
-  "fecha_ultima_actualizacion": "2026-09-16",
+  "decreto_actual": "Particulares: Decreto 0357 del 28 de octubre de 2026 (temporal, 3 al 30 de noviembre de 2026) · Taxis: Resolución 1360 del 18 de diciembre de 2025",
+  "fecha_ultima_actualizacion": "2026-11-16",
   "notas_generales": [
-    "Los vehículos particulares NO tienen pico y placa en Manizales. La restricción permanente anterior decayó al entregarse la obra de Los Cedros el 23 de diciembre de 2024.",
-    "MEDIDA TEMPORAL YA LEVANTADA: por la emergencia del sismo del 10 de agosto de 2026 hubo pico y placa para particulares entre el 14 de agosto y el 15 de septiembre de 2026 (Decreto Extraordinario 012 del 13 de agosto, prorrogado por el Decreto 0292 del 31 de agosto). La Alcaldía la levantó a partir del miércoles 16 de septiembre de 2026, tras 33 días de aplicación.",
-    "El levantamiento no significa que la movilidad haya vuelto del todo a la normalidad: en algunos puntos de la ciudad continúan obras, cierres y medidas especiales asociados a la recuperación tras el sismo.",
-    "Manizales puede volver a activar restricciones temporales por decreto extraordinario si una emergencia lo exige, incluso en fines de semana y festivos. Verifica siempre antes de salir.",
-    "Los taxis SÍ tienen Pico y Placa todo el año, de lunes a domingo, según el último dígito de la placa.",
-    "La Secretaría de Movilidad suele levantar la restricción de taxis durante la Feria de Manizales (enero) y fechas especiales de fin de año."
+    "PICO Y PLACA TEMPORAL PARA PARTICULARES: del 3 al 30 de noviembre de 2026 (Decreto 0357 del 28 de octubre de 2026), de lunes a viernes de 6:00 a.m. a 8:00 p.m., en toda la ciudad, mientras se ejecutan obras viales. Lunes 1 y 2, martes 3 y 4, miércoles 5 y 6, jueves 7 y 8, viernes 9 y 0. No aplica sábados, domingos ni festivos.",
+    "Exentos de la medida temporal: motos, vehículos 100 % eléctricos (los híbridos sí tienen restricción), vehículos de carga, taxis, medios de comunicación, y vehículos de escombros, trasteos o mensajería, entre otros, cada uno con los requisitos del decreto. La Alcaldía no expide permisos especiales.",
+    "Antes de esta medida, los particulares no tenían pico y placa permanente: la restricción anterior decayó al entregarse la obra de Los Cedros (23 de diciembre de 2024), y la medida por el sismo del 10 de agosto de 2026 rigió del 14 de agosto al 15 de septiembre de 2026.",
+    "Manizales puede activar restricciones temporales por decreto cuando una emergencia o una obra lo exige. Verifica siempre antes de salir.",
+    "Los taxis tienen Pico y Placa todo el año, todos los días, con el calendario oficial de la Resolución 1360 de 2025.",
+    "La Secretaría de Movilidad suele levantar la restricción de taxis durante la Feria de Manizales (enero) y algunas tardes de fin de año."
   ],
   "exenciones_generales": [],
   "vias_exentas": [],
@@ -30,50 +30,255 @@
   },
   "vehiculos": {
     "particulares": {
-      "aplica": false,
-      "descripcion": "En Manizales no aplica Pico y Placa para vehículos particulares. La medida temporal por la emergencia del sismo del 10 de agosto de 2026 estuvo vigente del 14 de agosto al 15 de septiembre y fue levantada: desde el miércoles 16 de septiembre de 2026 los particulares circulan sin restricción de placa.",
-      "nota": "La restricción permanente anterior decayó al entregarse la obra de Los Cedros el 23 de diciembre de 2024. Esta situación puede cambiar: la ciudad ya activó una medida temporal por decreto extraordinario en agosto de 2026. Verifica siempre con la Secretaría de Movilidad de Manizales."
+      "aplica": true,
+      "descripcion": "Vehículos particulares según el último dígito de la placa — medida TEMPORAL del 3 al 30 de noviembre de 2026 por obras viales (Decreto 0357 de 2026)",
+      "criterio_placa": "ultimo_digito",
+      "modalidad": "quincenal_por_fecha",
+      "horario_inicio": "06:00",
+      "horario_fin": "20:00",
+      "horario_texto": "6:00 a.m. a 8:00 p.m. (lunes a viernes, del 3 al 30 de noviembre de 2026)",
+      "dias_aplicables": [
+        "lunes",
+        "martes",
+        "miercoles",
+        "jueves",
+        "viernes"
+      ],
+      "aplica_festivos": false,
+      "aplica_fines_de_semana": false,
+      "nota_especial": "Decreto Municipal 0357 del 28 de octubre de 2026: pico y placa temporal del 3 al 30 de noviembre de 2026, de lunes a viernes de 6:00 a.m. a 8:00 p.m., en las vías públicas de toda la ciudad. Lunes 1 y 2, martes 3 y 4, miércoles 5 y 6, jueves 7 y 8, viernes 9 y 0. No aplica sábados, domingos ni festivos. Exentos, entre otros: motos, vehículos 100 % eléctricos (los híbridos SÍ tienen restricción), vehículos de carga y taxis. No se expiden permisos especiales.",
+      "fechas_restriccion": {
+        "0": [
+          "2026-11-06",
+          "2026-11-13",
+          "2026-11-20",
+          "2026-11-27"
+        ],
+        "1": [
+          "2026-11-09",
+          "2026-11-23",
+          "2026-11-30"
+        ],
+        "2": [
+          "2026-11-09",
+          "2026-11-23",
+          "2026-11-30"
+        ],
+        "3": [
+          "2026-11-03",
+          "2026-11-10",
+          "2026-11-17",
+          "2026-11-24"
+        ],
+        "4": [
+          "2026-11-03",
+          "2026-11-10",
+          "2026-11-17",
+          "2026-11-24"
+        ],
+        "5": [
+          "2026-11-04",
+          "2026-11-11",
+          "2026-11-18",
+          "2026-11-25"
+        ],
+        "6": [
+          "2026-11-04",
+          "2026-11-11",
+          "2026-11-18",
+          "2026-11-25"
+        ],
+        "7": [
+          "2026-11-05",
+          "2026-11-12",
+          "2026-11-19",
+          "2026-11-26"
+        ],
+        "8": [
+          "2026-11-05",
+          "2026-11-12",
+          "2026-11-19",
+          "2026-11-26"
+        ],
+        "9": [
+          "2026-11-06",
+          "2026-11-13",
+          "2026-11-20",
+          "2026-11-27"
+        ]
+      }
     },
     "motos": {
       "aplica": false,
-      "descripcion": "En Manizales no aplica Pico y Placa para motocicletas. La medida temporal por el sismo de agosto de 2026 tampoco las cubrió: las motos estuvieron expresamente exceptuadas.",
+      "descripcion": "En Manizales no aplica Pico y Placa para motocicletas: el pico y placa temporal de noviembre de 2026 (Decreto 0357) las exceptúa expresamente, igual que la medida por el sismo de agosto.",
       "nota": "Esta situación puede cambiar. Verifica siempre con la Secretaría de Movilidad de Manizales."
     },
     "taxis": {
       "aplica": true,
-      "horario": "Restricción según último dígito de placa (consultar programación oficial)",
-      "dias_habiles": [
-        "lun",
-        "mar",
-        "mie",
-        "jue",
-        "vie",
-        "sab",
-        "dom"
+      "descripcion": "Taxis según el último dígito de la placa — calendario oficial 2026 de la Secretaría de Movilidad (dos dígitos de lunes a viernes, uno el sábado y uno el domingo)",
+      "criterio_placa": "ultimo_digito",
+      "modalidad": "quincenal_por_fecha",
+      "horario_inicio": "04:00",
+      "horario_fin": "04:00",
+      "horario_texto": "4:00 a.m. a 4:00 a.m. del día siguiente (todos los días, incluidos festivos)",
+      "dias_aplicables": [
+        "lunes",
+        "martes",
+        "miercoles",
+        "jueves",
+        "viernes",
+        "sabado",
+        "domingo"
       ],
       "aplica_festivos": true,
-      "restricciones": {
-        "lunes": [
-          "pendiente_verificar"
+      "aplica_fines_de_semana": true,
+      "nota_especial": "Base legal: Resolución 1360 del 18 de diciembre de 2025 de la Secretaría de Movilidad, que fija la programación de taxis semana por semana del 29 de diciembre de 2025 al 3 de enero de 2027 (la medida opera todos los días, de 4:00 a.m. a 4:00 a.m. del día siguiente, según el Decreto 0175 de 2012). Calendario cargado hasta el 3 de enero de 2027. En diciembre de 2024 y de 2025 la Secretaría suspendió la medida algunas tardes por la temporada: si sale esa resolución, lo indicaremos aquí.",
+      "fechas_restriccion": {
+        "0": [
+          "2026-10-27",
+          "2026-11-02",
+          "2026-11-08",
+          "2026-11-13",
+          "2026-11-19",
+          "2026-11-25",
+          "2026-12-01",
+          "2026-12-07",
+          "2026-12-12",
+          "2026-12-18",
+          "2026-12-24",
+          "2026-12-30"
         ],
-        "martes": [
-          "pendiente_verificar"
+        "1": [
+          "2026-10-28",
+          "2026-11-03",
+          "2026-11-09",
+          "2026-11-15",
+          "2026-11-20",
+          "2026-11-26",
+          "2026-12-02",
+          "2026-12-08",
+          "2026-12-14",
+          "2026-12-19",
+          "2026-12-25",
+          "2026-12-31"
         ],
-        "miercoles": [
-          "pendiente_verificar"
+        "2": [
+          "2026-10-28",
+          "2026-11-03",
+          "2026-11-09",
+          "2026-11-14",
+          "2026-11-20",
+          "2026-11-26",
+          "2026-12-02",
+          "2026-12-08",
+          "2026-12-14",
+          "2026-12-20",
+          "2026-12-25",
+          "2026-12-31"
         ],
-        "jueves": [
-          "pendiente_verificar"
+        "3": [
+          "2026-10-29",
+          "2026-11-04",
+          "2026-11-10",
+          "2026-11-16",
+          "2026-11-22",
+          "2026-11-27",
+          "2026-12-03",
+          "2026-12-09",
+          "2026-12-15",
+          "2026-12-21",
+          "2026-12-26",
+          "2027-01-01"
         ],
-        "viernes": [
-          "pendiente_verificar"
+        "4": [
+          "2026-10-29",
+          "2026-11-04",
+          "2026-11-10",
+          "2026-11-16",
+          "2026-11-21",
+          "2026-11-27",
+          "2026-12-03",
+          "2026-12-09",
+          "2026-12-15",
+          "2026-12-21",
+          "2026-12-27",
+          "2027-01-01"
+        ],
+        "5": [
+          "2026-10-30",
+          "2026-11-05",
+          "2026-11-11",
+          "2026-11-17",
+          "2026-11-23",
+          "2026-11-29",
+          "2026-12-04",
+          "2026-12-10",
+          "2026-12-16",
+          "2026-12-22",
+          "2026-12-28",
+          "2027-01-02"
+        ],
+        "6": [
+          "2026-10-30",
+          "2026-11-05",
+          "2026-11-11",
+          "2026-11-17",
+          "2026-11-23",
+          "2026-11-28",
+          "2026-12-04",
+          "2026-12-10",
+          "2026-12-16",
+          "2026-12-22",
+          "2026-12-28",
+          "2027-01-03"
+        ],
+        "7": [
+          "2026-10-26",
+          "2026-10-31",
+          "2026-11-06",
+          "2026-11-12",
+          "2026-11-18",
+          "2026-11-24",
+          "2026-11-30",
+          "2026-12-06",
+          "2026-12-11",
+          "2026-12-17",
+          "2026-12-23",
+          "2026-12-29"
+        ],
+        "8": [
+          "2026-10-26",
+          "2026-11-01",
+          "2026-11-06",
+          "2026-11-12",
+          "2026-11-18",
+          "2026-11-24",
+          "2026-11-30",
+          "2026-12-05",
+          "2026-12-11",
+          "2026-12-17",
+          "2026-12-23",
+          "2026-12-29"
+        ],
+        "9": [
+          "2026-10-27",
+          "2026-11-02",
+          "2026-11-07",
+          "2026-11-13",
+          "2026-11-19",
+          "2026-11-25",
+          "2026-12-01",
+          "2026-12-07",
+          "2026-12-13",
+          "2026-12-18",
+          "2026-12-24",
+          "2026-12-30"
         ]
-      },
-      "notas": "Los taxis SÍ tienen Pico y Placa en Manizales, todos los días (lunes a domingo), según el último dígito de la placa con un esquema rodante que avanza día a día. El acto base es la Resolución 114 del 27 de diciembre de 2024 de la Secretaría de Movilidad, modificada por las Resoluciones 1359 y 1360 de 2025. No publicamos la tabla de dígitos porque esas resoluciones solo están disponibles como imágenes escaneadas y la Resolución 114 no está publicada en el sitio: preferimos dejarlo pendiente antes que transcribir mal un dato. Consulta el dígito del día con la Secretaría de Movilidad."
+      }
     },
     "transporte_carga": {
       "aplica": false,
-      "descripcion": "En Manizales no aplica Pico y Placa para transporte de carga. Los vehículos de carga estuvieron exceptuados de la medida temporal por el sismo de agosto de 2026.",
+      "descripcion": "En Manizales no aplica Pico y Placa para transporte de carga: los vehículos de carga están exceptuados del pico y placa temporal de noviembre de 2026 (Decreto 0357), como lo estuvieron en la medida por el sismo de agosto.",
       "nota": "Esta situación puede cambiar. Verifica siempre con la Secretaría de Movilidad de Manizales."
     }
   },
@@ -86,12 +291,14 @@
     "linea_movilidad": "pendiente_verificar"
   },
   "contenido_local": {
-    "titulo": "Pico y placa en Manizales: normalmente libre, pero no siempre",
+    "titulo": "Pico y placa en Manizales: temporal para carros, todo el año para taxis",
     "parrafos": [
-      "Manizales es un caso especial entre las capitales: no tiene un pico y placa permanente para vehículos particulares. La medida que existió perdió su vigencia cuando terminó la obra que la justificaba, y desde entonces los carros circulan libres — en condiciones normales.",
-      "La palabra clave es \"normales\": la ciudad ha demostrado que puede activar restricciones temporales y excepcionales cuando una emergencia lo exige, con decreto extraordinario y por semanas. Por eso la tarjeta de arriba manda sobre cualquier costumbre: refleja lo que rige hoy, incluidas las medidas temporales.",
-      "Los taxis son la otra historia: ellos sí tienen pico y placa todo el año, todos los días, con un esquema rodante propio. La autoridad publica esa programación en formatos que no permiten verificarla con confianza, así que esta página la marca como pendiente en lugar de arriesgar un dígito equivocado.",
+      "Manizales es un caso especial entre las capitales: no tiene un pico y placa permanente para vehículos particulares, pero sí lo activa de forma temporal, por decreto y por semanas, cuando una obra vial o una emergencia lo exige.",
+      "Por eso aquí la costumbre no sirve de guía: que el mes pasado no hubiera restricción no dice nada de este. La tarjeta de arriba manda sobre cualquier recuerdo, porque refleja lo que rige hoy, incluidas las medidas temporales y la fecha hasta la que van.",
+      "Los taxis son la otra historia: ellos sí tienen pico y placa todo el año, todos los días, con un calendario oficial que la Secretaría de Movilidad fija semana por semana: dos dígitos de lunes a viernes y uno el sábado y otro el domingo.",
       "El día que no puedas usar el vehículo, Manizales tiene un sistema de cable aéreo integrado al transporte público — de los pocos del país — además de las rutas urbanas que suben y bajan por las laderas de la ciudad."
     ]
-  }
+  },
+  "vigencia_desde": "2025-12-29",
+  "vigencia_hasta": "2027-01-03"
 }

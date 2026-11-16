@@ -10,7 +10,7 @@
   "autoridad_web": "https://www.tunja-boyaca.gov.co",
   "autoridad_twitter": "",
   "decreto_actual": "Decreto 0399 del 19 de septiembre de 2024 (vigencia indefinida)",
-  "fecha_ultima_actualizacion": "2026-08-19",
+  "fecha_ultima_actualizacion": "2026-11-16",
   "vigencia_desde": "2024-09-30",
   "vigencia_indefinida": true,
   "notas_generales": [
@@ -86,34 +86,8 @@
       "descripcion": "Las motocicletas NO tienen Pico y Placa en Tunja. Es textual del decreto: «se excluye de ésta restricción los vehículos clase motocicleta» (art. 1, parágrafo primero)."
     },
     "taxis": {
-      "aplica": true,
-      "horario": "pendiente_verificar",
-      "dias_habiles": [
-        "lun",
-        "mar",
-        "mie",
-        "jue",
-        "vie"
-      ],
-      "aplica_festivos": false,
-      "restricciones": {
-        "lunes": [
-          "pendiente_verificar"
-        ],
-        "martes": [
-          "pendiente_verificar"
-        ],
-        "miercoles": [
-          "pendiente_verificar"
-        ],
-        "jueves": [
-          "pendiente_verificar"
-        ],
-        "viernes": [
-          "pendiente_verificar"
-        ]
-      },
-      "notas": "El servicio público individual (taxi) en Tunja tiene su propia restricción, distinta del Decreto 0399 (que solo regula particulares): viene de la cadena Decreto 0109 de 2013, modificado por el 0150 de 2015. En 2026 los medios regionales publican una rotación de dos dígitos por día para servicio público, pero no hemos encontrado el decreto que la fija, así que no la mostramos (regla del sitio: sin decreto no se carga el dato). Consulta el turno del día con la Secretaría de Movilidad y Vida Territorial."
+      "aplica": false,
+      "descripcion": "Los taxis no tienen Pico y Placa en Tunja: el Decreto 0639 del 30 de noviembre de 2022 derogó su restricción desde el 1 de diciembre de 2022, y ningún decreto posterior la volvió a poner (el Decreto 0399 de 2024 es solo para particulares)."
     },
     "transporte_carga": {
       "aplica": true,
@@ -171,7 +145,7 @@
     "parrafos": [
       "El pico y placa de Tunja tiene una geografía propia: dentro del anillo del centro histórico la restricción rige de corrido durante todo el horario, mientras que por fuera existen ventanas de \"hora valle\" en las que puedes circular aunque tu placa esté restringida. El mismo dígito, dos realidades según dónde estés parado.",
       "Otra particularidad boyacense: la medida cubre también la carga de servicio particular — camionetas, camiones y volquetas particulares siguen la misma tabla. Las motos, en cambio, están excluidas expresamente.",
-      "Los taxis muy probablemente tienen su propia rotación, pero no hemos encontrado el decreto vigente que la respalde — por eso esta página los marca como pendientes en lugar de copiar tablas de dudosa procedencia.",
+      "Los taxis, en cambio, no tienen pico y placa: la Alcaldía lo quitó hace años para que hubiera servicio a toda hora. Ojo con las tablas de \"servicio público\" que circulan en redes: no corresponden a ningún decreto vigente.",
       "Dos costumbres locales que conviene conocer: la rotación puede cambiar cada año, y en diciembre la alcaldía suele suspender la medida por la temporada navideña. Esta página se actualiza cuando cualquiera de las dos cosas se confirma en la fuente oficial."
     ]
   }

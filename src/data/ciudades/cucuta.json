@@ -9,14 +9,15 @@
   "autoridad": "Secretaría de Tránsito y Movilidad de Cúcuta",
   "autoridad_web": "https://cucuta.gov.co",
   "autoridad_twitter": "alcaldiacucuta",
-  "decreto_actual": "Decreto 0212 de 2024",
-  "fecha_ultima_actualizacion": "2026-06-09",
+  "decreto_actual": "Decreto 0212 del 26 de abril de 2024, modificado por el Decreto 0227 de 2024",
+  "fecha_ultima_actualizacion": "2026-11-16",
   "notas_generales": [
-    "La medida aplica en el área metropolitana de Cúcuta: Cúcuta, Los Patios, Villa del Rosario y El Zulia.",
-    "Pico y Placa para vehículos del área metropolitana: aplica en tres franjas horarias (7:00 a 8:30 a.m., 11:30 a.m. a 2:30 p.m. y 5:30 a 7:30 p.m.).",
-    "Placa Día: los vehículos con placa nacional (no metropolitana) o extranjera tienen restricción continua de 7:00 a.m. a 8:00 p.m. dentro del anillo vial central, con la misma rotación de dígitos.",
-    "No aplica en días festivos oficiales de Colombia.",
-    "El Decreto 0212 de 2024 reemplazó al anterior Decreto 0300 de 2019."
+    "Pico y Placa (vehículos matriculados en Cúcuta, Los Patios, Villa del Rosario y El Zulia): tres franjas, de 7:00 a 8:30 a.m., de 11:30 a.m. a 2:30 p.m. y de 5:30 a 7:30 p.m., dentro de la zona céntrica que delimita el decreto.",
+    "Placa-Día (vehículos de placas nacionales y extranjeras, según el artículo 6 del decreto): mismos dígitos, pero de corrido de 7:00 a.m. a 8:00 p.m., en todo el interior de los anillos viales. Sobre los anillos viales Oriental y Occidental sí se puede circular.",
+    "Aplica a vehículos de servicio particular: automóviles, camperos, camionetas, camiones, volquetas, motocarros y motocicletas.",
+    "Los taxis tienen una Placa-Día aparte, de un solo dígito por fecha (ver la tarjeta de taxis). Las busetas quedaron por fuera de la medida (Decreto 0227 de 2024).",
+    "No aplica sábados, domingos ni festivos.",
+    "El decreto no tiene fecha de terminación: rige hasta que lo cambien. La Alcaldía suele suspender la medida por unos días en Semana Santa y en otras fechas especiales, con decretos transitorios."
   ],
   "exenciones_generales": [],
   "vias_exentas": [
@@ -113,12 +114,42 @@
     },
     "taxis": {
       "aplica": true,
-      "descripcion": "Transporte público individual (taxis) bajo modalidad Placa Día",
+      "horario": "7:00 a.m. a 8:00 p.m. (lunes a viernes)",
+      "dias_habiles": [
+        "lun",
+        "mar",
+        "mie",
+        "jue",
+        "vie"
+      ],
+      "aplica_festivos": false,
+      "restricciones": {
+        "lunes": [
+          "pendiente_verificar"
+        ],
+        "martes": [
+          "pendiente_verificar"
+        ],
+        "miercoles": [
+          "pendiente_verificar"
+        ],
+        "jueves": [
+          "pendiente_verificar"
+        ],
+        "viernes": [
+          "pendiente_verificar"
+        ]
+      },
+      "notas": "Los taxis de Cúcuta no van con la tabla de los carros particulares: tienen su propia \"Placa-Día\" (Decreto 0212 de 2024, artículo 7), de 7:00 a.m. a 8:00 p.m., de lunes a viernes sin festivos, dentro de los anillos viales, con UN solo dígito por fecha. La secuencia la fija la Secretaría de Tránsito por acto administrativo y el calendario de este año no está publicado en el portal oficial, así que no mostramos el dígito del día: consúltalo con la Secretaría de Tránsito y Transporte."
+    },
+    "transporte_carga": {
+      "aplica": true,
+      "descripcion": "Camiones y volquetas de servicio particular: misma tabla que los carros (el decreto los nombra expresamente junto con automóviles, camperos, camionetas, motocarros y motocicletas)",
       "criterio_placa": "ultimo_digito",
       "modalidad": "semanal_por_dia",
       "horario_inicio": "07:00",
-      "horario_fin": "20:00",
-      "horario_texto": "7:00 a.m. a 8:00 p.m. (Placa Día, continuo)",
+      "horario_fin": "19:30",
+      "horario_texto": "Tres franjas: 7:00 a 8:30 a.m., 11:30 a.m. a 2:30 p.m. y 5:30 a 7:30 p.m.",
       "dias_aplicables": [
         "lunes",
         "martes",
@@ -150,11 +181,6 @@
           0
         ]
       }
-    },
-    "transporte_carga": {
-      "aplica": false,
-      "descripcion": "El Decreto 0212 de 2024 no establece Pico y Placa para transporte de carga en Cúcuta.",
-      "nota": "Esta situación puede cambiar. Verifica siempre con la Secretaría de Tránsito y Movilidad de Cúcuta."
     }
   },
   "contacto_ciudadano": {
@@ -166,12 +192,13 @@
     "linea_movilidad": "pendiente_verificar"
   },
   "contenido_local": {
-    "titulo": "Pico y placa en Cúcuta: fronteriza y metropolitana",
+    "titulo": "Pico y placa en Cúcuta: una regla para las placas de casa y otra para las de afuera",
     "parrafos": [
-      "El pico y placa de Cúcuta no se queda en la ciudad: el esquema cubre también a Los Patios, Villa del Rosario y El Zulia, los municipios de su área metropolitana. La misma regla rige en todo ese territorio, así que un solo chequeo resuelve el recorrido completo.",
-      "La medida cucuteña tiene una arquitectura particular: para las placas locales rige por franjas horarias en momentos pico del día, mientras que las placas de otras ciudades del país tienen una regla más estricta y continua. Si tu carro está matriculado fuera del área metropolitana, revisa las notas de esta página antes de viajar.",
-      "Carros, motos y taxis están cubiertos, cada uno con su tarjeta arriba. El transporte de carga no tiene restricción por placa en el esquema vigente.",
+      "El pico y placa de Cúcuta mira dónde está matriculado el vehículo. Los de Cúcuta, Los Patios, Villa del Rosario y El Zulia — los municipios de su área metropolitana — tienen una regla más suave, por franjas, en el centro de la ciudad.",
+      "Para las demás placas la medida se llama \"Placa-Día\" y es más estricta: los mismos dígitos, pero de corrido durante el día y en una zona más grande, todo el interior de los anillos viales. Si tu carro no es del área metropolitana, revisa las notas de esta página antes de viajar.",
+      "Carros, motos, camiones y volquetas particulares comparten la misma tabla. Los taxis van aparte, con un solo dígito por fecha y un calendario que la autoridad de tránsito fija por resolución.",
       "Como ciudad de frontera con Venezuela, Cúcuta mueve un volumen alto de tráfico binacional y comercial: las autoridades ajustan la medida con cierta frecuencia, y esta página se actualiza con cada decreto verificado."
     ]
-  }
+  },
+  "vigencia_indefinida": true
 }

@@ -9,30 +9,37 @@
   "autoridad": "Dirección de Tránsito de Bucaramanga",
   "autoridad_web": "https://transitobucaramanga.gov.co",
   "autoridad_twitter": "TransitoBGA",
-  "decreto_actual": "Resolución 854 de 2025",
-  "fecha_ultima_actualizacion": "2026-04-12",
+  "decreto_actual": "Resolución 854 del 30 de diciembre de 2025 (cuarta rotación: 5 de octubre al 31 de diciembre de 2026)",
+  "fecha_ultima_actualizacion": "2026-11-16",
   "vigencia_desde": "2026-01-13",
   "vigencia_hasta": "2026-12-31",
   "notas_generales": [
-    "Aplica también en Floridablanca, Girón y Piedecuesta (Área Metropolitana).",
-    "Los dígitos rotan cada trimestre.",
-    "También hay restricción los sábados de 9:00 a.m. a 1:00 p.m.",
-    "No aplica domingos ni festivos."
+    "Rotación vigente del 5 de octubre al 31 de diciembre de 2026: lunes 5 y 6, martes 7 y 8, miércoles 9 y 0, jueves 1 y 2, viernes 3 y 4, de 6:00 a.m. a 8:00 p.m.",
+    "Los sábados también hay pico y placa, de 9:00 a.m. a 1:00 p.m., pero con calendario aparte: cada sábado descansa una sola pareja de dígitos, que avanza de semana en semana (no es la misma del lunes a viernes). La tarjeta de arriba muestra la del sábado que corresponde.",
+    "Los dígitos de lunes a viernes cambian cada trimestre (enero, abril, julio y octubre). La resolución rige hasta el 31 de diciembre de 2026: para 2027 la Dirección de Tránsito debe expedir una nueva.",
+    "Aplica a carros particulares, motos, camionetas y vehículos de servicio público que no sean taxi. En las motos se mira el último dígito NUMÉRICO de la placa, sin contar la letra final.",
+    "Floridablanca aplica la misma rotación con su propia resolución (008 de 2026). Girón y Piedecuesta suelen ir con la misma tabla, pero cada municipio expide su propio acto: si circulas por allá, confírmalo con su autoridad de tránsito.",
+    "Si vienes de fuera del área metropolitana, el día que entras a Bucaramanga quedas exceptuado mostrando el tiquete del peaje con fecha de ese mismo día.",
+    "No aplica domingos ni lunes a viernes festivos."
   ],
   "exenciones_generales": [
-    "Taxis y transporte público colectivo",
-    "Vehículos eléctricos e híbridos",
-    "Vehículos oficiales del Estado",
-    "Diplomáticos y consulares",
-    "Vehículos de emergencia",
-    "Transporte escolar",
-    "Vehículos particulares nuevos matriculados en Bucaramanga (excluye motos)"
+    "Vehículos 100 % eléctricos debidamente matriculados",
+    "Híbridos (gasolina o diésel más electricidad), si la licencia de tránsito registra esa configuración de motor",
+    "Vehículos a gas natural vehicular modelo 2019 o posterior, con certificado de instalación vigente",
+    "Transporte público masivo, colectivo y mixto, identificado y autorizado (los taxis no entran en esta medida, pero tienen su propio pico y placa: ver la tarjeta de taxis)",
+    "Camiones de menos de 5 toneladas y vehículos con permiso de cargue y descargue (dentro de su horario y ruta)",
+    "Ambulancias, atención prehospitalaria y organismos de socorro (Defensa Civil, Bomberos, Cruz Roja)",
+    "Fuerzas militares, Policía, organismos de seguridad del Estado y autoridades de tránsito en ejercicio de sus funciones",
+    "Vehículos que transportan de manera habitual a personas con discapacidad, inscritos y con la señal distintiva (un vehículo por persona)",
+    "Vehículos de servicios públicos domiciliarios de propiedad de las empresas prestadoras, demarcados",
+    "Vehículos de medios de comunicación en servicio",
+    "Transporte especial de estudiantes, asalariados y turistas, de empresa habilitada",
+    "Carrozas fúnebres y vehículos de asistencia funeraria identificados",
+    "Vehículos de enseñanza automovilística inscritos en el RUNT, mientras dan instrucción",
+    "Vehículos de fuera del área metropolitana, solo el día que ingresan, con el tiquete del peaje de ese mismo día"
   ],
   "vias_exentas": [
-    "Anillo Vial entre intercambiadores de El Palenque y Café Madrid",
-    "Vía Guatiguará en Piedecuesta (glorieta hasta límite con Girón)",
-    "Vía Los Curos en Piedecuesta",
-    "Todas las vías rurales de Piedecuesta y Floridablanca"
+    "Anillo Vial, entre el Puente Palenque y Café Madrid"
   ],
   "sanciones": {
     "tipo_multa": "Tipo C",
@@ -44,95 +51,327 @@
   "vehiculos": {
     "particulares": {
       "aplica": true,
-      "descripcion": "Vehículos particulares y motocicletas",
+      "descripcion": "Vehículos particulares según el último dígito de la placa",
       "criterio_placa": "ultimo_digito",
       "modalidad": "semanal_por_dia",
       "horario_inicio": "06:00",
       "horario_fin": "20:00",
-      "horario_texto": "6:00 a.m. a 8:00 p.m. (lun-vie) / 9:00 a.m. a 1:00 p.m. (sáb)",
+      "horario_texto": "6:00 a.m. a 8:00 p.m. (lunes a viernes) · sábados de 9:00 a.m. a 1:00 p.m.",
       "dias_aplicables": [
         "lunes",
         "martes",
         "miercoles",
         "jueves",
-        "viernes"
+        "viernes",
+        "sabado"
       ],
       "aplica_festivos": false,
       "aplica_fines_de_semana": false,
       "rotacion": {
         "lunes": [
-          9,
-          0
-        ],
-        "martes": [
-          1,
-          2
-        ],
-        "miercoles": [
-          3,
-          4
-        ],
-        "jueves": [
           5,
           6
         ],
-        "viernes": [
+        "martes": [
           7,
           8
+        ],
+        "miercoles": [
+          9,
+          0
+        ],
+        "jueves": [
+          1,
+          2
+        ],
+        "viernes": [
+          3,
+          4
         ]
       },
       "aplican_vias_exentas": true,
-      "nota_especial": "Rotación Q2 (6 abr - 27 jun 2026). Los dígitos rotan cada trimestre."
+      "sabados_por_fecha": {
+        "2026-10-10": [
+          9,
+          0
+        ],
+        "2026-10-17": [
+          1,
+          2
+        ],
+        "2026-10-24": [
+          3,
+          4
+        ],
+        "2026-10-31": [
+          5,
+          6
+        ],
+        "2026-11-07": [
+          7,
+          8
+        ],
+        "2026-11-14": [
+          9,
+          0
+        ],
+        "2026-11-21": [
+          1,
+          2
+        ],
+        "2026-11-28": [
+          3,
+          4
+        ],
+        "2026-12-05": [
+          5,
+          6
+        ],
+        "2026-12-12": [
+          7,
+          8
+        ],
+        "2026-12-19": [
+          9,
+          0
+        ],
+        "2026-12-26": [
+          1,
+          2
+        ]
+      },
+      "horario_sabado": {
+        "inicio": "09:00",
+        "fin": "13:00",
+        "texto": "9:00 a.m. a 1:00 p.m. (sábados)"
+      },
+      "nota_especial": "Cuarta rotación de 2026: del 5 de octubre al 31 de diciembre de 2026 (Resolución 854 del 30 de diciembre de 2025). De lunes a viernes, de 6:00 a.m. a 8:00 p.m.: lunes 5 y 6, martes 7 y 8, miércoles 9 y 0, jueves 1 y 2, viernes 3 y 4. Los sábados, de 9:00 a.m. a 1:00 p.m., descansa una sola pareja que avanza cada semana según el calendario de la resolución. No aplica domingos ni lunes a viernes festivos."
     },
     "motos": {
       "aplica": true,
-      "descripcion": "Motocicletas — misma rotación que particulares",
+      "descripcion": "Motocicletas: misma tabla que los carros, por el último dígito NUMÉRICO de la placa (sin contar la letra final)",
       "criterio_placa": "ultimo_digito",
       "modalidad": "semanal_por_dia",
       "horario_inicio": "06:00",
       "horario_fin": "20:00",
-      "horario_texto": "6:00 a.m. a 8:00 p.m. (lun-vie) / 9:00 a.m. a 1:00 p.m. (sáb)",
+      "horario_texto": "6:00 a.m. a 8:00 p.m. (lunes a viernes) · sábados de 9:00 a.m. a 1:00 p.m.",
       "dias_aplicables": [
         "lunes",
         "martes",
         "miercoles",
         "jueves",
-        "viernes"
+        "viernes",
+        "sabado"
       ],
       "aplica_festivos": false,
       "aplica_fines_de_semana": false,
       "rotacion": {
         "lunes": [
-          9,
-          0
-        ],
-        "martes": [
-          1,
-          2
-        ],
-        "miercoles": [
-          3,
-          4
-        ],
-        "jueves": [
           5,
           6
         ],
-        "viernes": [
+        "martes": [
           7,
           8
+        ],
+        "miercoles": [
+          9,
+          0
+        ],
+        "jueves": [
+          1,
+          2
+        ],
+        "viernes": [
+          3,
+          4
         ]
       },
-      "aplican_vias_exentas": true
+      "aplican_vias_exentas": true,
+      "sabados_por_fecha": {
+        "2026-10-10": [
+          9,
+          0
+        ],
+        "2026-10-17": [
+          1,
+          2
+        ],
+        "2026-10-24": [
+          3,
+          4
+        ],
+        "2026-10-31": [
+          5,
+          6
+        ],
+        "2026-11-07": [
+          7,
+          8
+        ],
+        "2026-11-14": [
+          9,
+          0
+        ],
+        "2026-11-21": [
+          1,
+          2
+        ],
+        "2026-11-28": [
+          3,
+          4
+        ],
+        "2026-12-05": [
+          5,
+          6
+        ],
+        "2026-12-12": [
+          7,
+          8
+        ],
+        "2026-12-19": [
+          9,
+          0
+        ],
+        "2026-12-26": [
+          1,
+          2
+        ]
+      },
+      "horario_sabado": {
+        "inicio": "09:00",
+        "fin": "13:00",
+        "texto": "9:00 a.m. a 1:00 p.m. (sábados)"
+      },
+      "nota_especial": "Cuarta rotación de 2026: del 5 de octubre al 31 de diciembre de 2026 (Resolución 854 del 30 de diciembre de 2025). De lunes a viernes, de 6:00 a.m. a 8:00 p.m.: lunes 5 y 6, martes 7 y 8, miércoles 9 y 0, jueves 1 y 2, viernes 3 y 4. Los sábados, de 9:00 a.m. a 1:00 p.m., descansa una sola pareja que avanza cada semana según el calendario de la resolución. No aplica domingos ni lunes a viernes festivos."
     },
     "taxis": {
-      "aplica": false,
-      "descripcion": "Los taxis están exentos de pico y placa en Bucaramanga."
+      "aplica": true,
+      "horario": "7:00 a.m. a 9:00 p.m. (lunes a viernes)",
+      "dias_habiles": [
+        "lun",
+        "mar",
+        "mie",
+        "jue",
+        "vie"
+      ],
+      "aplica_festivos": false,
+      "restricciones": {
+        "lunes": [
+          "pendiente_verificar"
+        ],
+        "martes": [
+          "pendiente_verificar"
+        ],
+        "miercoles": [
+          "pendiente_verificar"
+        ],
+        "jueves": [
+          "pendiente_verificar"
+        ],
+        "viernes": [
+          "pendiente_verificar"
+        ]
+      },
+      "notas": "Los taxis de Bucaramanga tienen su propio Pico y Placa, distinto al de los carros: de lunes a viernes, de 7:00 a.m. a 9:00 p.m., dos dígitos por día en un ciclo que se corre cada semana (Resolución 041 del 6 de febrero de 2023 de la Dirección de Tránsito). La resolución trae la tabla del ciclo pero no dice en qué semana va, y la Dirección de Tránsito no publica el calendario del año, así que no mostramos el dígito del día para no arriesgar un dato equivocado: consúltalo con la Dirección de Tránsito de Bucaramanga."
     },
     "transporte_carga": {
-      "aplica": false,
-      "descripcion": "No hay pico y placa específico para transporte de carga en Bucaramanga.",
-      "nota": "Verificar restricciones de horario para vehículos pesados en zonas específicas."
+      "aplica": true,
+      "descripcion": "Camionetas de todo tipo y camiones de 5 toneladas o más: misma tabla que los particulares. Los camiones de menos de 5 toneladas están exentos (se rigen por las normas de cargue y descargue), igual que los vehículos con permiso de cargue y descargue que cumplan su horario y su ruta.",
+      "criterio_placa": "ultimo_digito",
+      "modalidad": "semanal_por_dia",
+      "horario_inicio": "06:00",
+      "horario_fin": "20:00",
+      "horario_texto": "6:00 a.m. a 8:00 p.m. (lunes a viernes) · sábados de 9:00 a.m. a 1:00 p.m.",
+      "dias_aplicables": [
+        "lunes",
+        "martes",
+        "miercoles",
+        "jueves",
+        "viernes",
+        "sabado"
+      ],
+      "aplica_festivos": false,
+      "aplica_fines_de_semana": false,
+      "rotacion": {
+        "lunes": [
+          5,
+          6
+        ],
+        "martes": [
+          7,
+          8
+        ],
+        "miercoles": [
+          9,
+          0
+        ],
+        "jueves": [
+          1,
+          2
+        ],
+        "viernes": [
+          3,
+          4
+        ]
+      },
+      "aplican_vias_exentas": true,
+      "sabados_por_fecha": {
+        "2026-10-10": [
+          9,
+          0
+        ],
+        "2026-10-17": [
+          1,
+          2
+        ],
+        "2026-10-24": [
+          3,
+          4
+        ],
+        "2026-10-31": [
+          5,
+          6
+        ],
+        "2026-11-07": [
+          7,
+          8
+        ],
+        "2026-11-14": [
+          9,
+          0
+        ],
+        "2026-11-21": [
+          1,
+          2
+        ],
+        "2026-11-28": [
+          3,
+          4
+        ],
+        "2026-12-05": [
+          5,
+          6
+        ],
+        "2026-12-12": [
+          7,
+          8
+        ],
+        "2026-12-19": [
+          9,
+          0
+        ],
+        "2026-12-26": [
+          1,
+          2
+        ]
+      },
+      "horario_sabado": {
+        "inicio": "09:00",
+        "fin": "13:00",
+        "texto": "9:00 a.m. a 1:00 p.m. (sábados)"
+      },
+      "nota_especial": "Cuarta rotación de 2026: del 5 de octubre al 31 de diciembre de 2026 (Resolución 854 del 30 de diciembre de 2025). De lunes a viernes, de 6:00 a.m. a 8:00 p.m.: lunes 5 y 6, martes 7 y 8, miércoles 9 y 0, jueves 1 y 2, viernes 3 y 4. Los sábados, de 9:00 a.m. a 1:00 p.m., descansa una sola pareja que avanza cada semana según el calendario de la resolución. No aplica domingos ni lunes a viernes festivos."
     }
   },
   "contacto_ciudadano": {
@@ -144,11 +383,11 @@
     "linea_movilidad": "317 434 7156"
   },
   "contenido_local": {
-    "titulo": "Pico y placa en Bucaramanga: carros y motos bajo la misma lupa",
+    "titulo": "Pico y placa en Bucaramanga: cambia cada trimestre y también va los sábados",
     "parrafos": [
-      "En Bucaramanga el pico y placa cubre tanto a los carros particulares como a las motos, con rotación de lunes a viernes. Los taxis y el transporte de carga, en cambio, no tienen restricción por placa en el esquema vigente.",
+      "En Bucaramanga el pico y placa cubre a los carros particulares, las motos y las camionetas, con dos particularidades que hacen equivocar a mucha gente: los dígitos cambian cada trimestre, y los sábados también hay restricción, en una franja corta de la mañana y con un calendario aparte del de lunes a viernes.",
       "Un detalle clave para quien se mueve por el área metropolitana: Floridablanca, Girón y Piedecuesta son municipios aparte y toman sus propias decisiones de movilidad. Si tu ruta diaria cruza esas fronteras, verifica las reglas de cada municipio y no asumas que la de Bucaramanga aplica en todos.",
-      "La rotación bumanguesa se ajusta periódicamente por resolución, y esta página se actualiza con cada cambio verificado en la fuente oficial.",
+      "Por eso aquí no sirve aprenderse la tabla de memoria: la que te tocaba hace tres meses ya no es la tuya, y el sábado puede caerte un día que no esperabas. Esta página muestra la rotación del trimestre y la pareja de cada sábado tal como las trae la resolución oficial. Los taxis van por norma aparte, con un ciclo propio que se corre cada semana.",
       "El día de tu restricción, Metrolínea y las rutas urbanas cubren los principales corredores de la meseta; para trayectos al centro, la escala compacta de la ciudad juega a favor."
     ]
   }

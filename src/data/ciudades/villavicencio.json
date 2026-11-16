@@ -10,14 +10,15 @@
   "autoridad_web": "https://www.villavicencio.gov.co",
   "autoridad_twitter": "AlcaldiaVillavo",
   "decreto_actual": "Decreto 015 de 2026",
-  "fecha_ultima_actualizacion": "2026-08-19",
+  "fecha_ultima_actualizacion": "2026-11-16",
   "vigencia_desde": "2026-01-21",
   "vigencia_hasta": "2026-12-22",
   "notas_generales": [
     "La medida para particulares aplica de lunes a viernes en dos franjas: 6:30 a 9:30 a.m. y 5:00 a 8:00 p.m., según el último dígito de la placa.",
     "Se mantiene el polígono de restricción de 2025. Los vehículos pueden circular por las vías que delimitan el polígono sin ingresar a la zona restringida.",
     "No aplica en días festivos oficiales de Colombia.",
-    "Excepciones especiales sin restricción: 3 de junio (Día de la Bicicleta) y 31 de octubre (Día de los Niños)."
+    "Excepciones especiales sin restricción: 3 de junio (Día de la Bicicleta) y 31 de octubre (Día de los Niños).",
+    "Taxis: un dígito por día, de lunes a domingo (festivos incluidos), de 6:00 a.m. a medianoche, según la tabla del Decreto 015 de 2026, hasta el 22 de diciembre de 2026."
   ],
   "exenciones_generales": [],
   "vias_exentas": [],
@@ -76,35 +77,98 @@
     },
     "taxis": {
       "aplica": true,
-      "horario": "6:00 a.m. a medianoche (lunes a domingo)",
-      "dias_habiles": [
-        "lun",
-        "mar",
-        "mie",
-        "jue",
-        "vie",
-        "sab",
-        "dom"
+      "descripcion": "Taxis según el último dígito de la placa — un dígito por día, todos los días, con la tabla oficial del Decreto 015 de 2026",
+      "criterio_placa": "ultimo_digito",
+      "modalidad": "quincenal_por_fecha",
+      "horario_inicio": "06:00",
+      "horario_fin": "23:59",
+      "horario_texto": "6:00 a.m. a medianoche (todos los días, incluidos festivos)",
+      "dias_aplicables": [
+        "lunes",
+        "martes",
+        "miercoles",
+        "jueves",
+        "viernes",
+        "sabado",
+        "domingo"
       ],
       "aplica_festivos": true,
-      "restricciones": {
-        "lunes": [
-          "pendiente_verificar"
+      "aplica_fines_de_semana": true,
+      "nota_especial": "Base legal: artículo 3 del Decreto 015 del 20 de enero de 2026, con sus tablas mensuales: un dígito por día, de lunes a domingo (festivos incluidos), de 6:00 a.m. a medianoche, en toda el área urbana; vigente hasta el 22 de diciembre de 2026. El 3 de junio y el 31 de octubre estuvieron exentos sin gastar dígito. El taxi restringido solo puede moverse a mantenimiento de 6:30 a 8:30 a.m., de 1:00 a 2:00 p.m. y de 3:00 a 5:00 p.m., con aviso de \"Fuera de servicio\" y solo el conductor. Ojo: algunos medios nacionales publican el dígito corrido en uno; aquí usamos la tabla del decreto, que coincide con lo publicado por la Secretaría de Movilidad en agosto.",
+      "fechas_restriccion": {
+        "0": [
+          "2026-11-03",
+          "2026-11-13",
+          "2026-11-23",
+          "2026-12-03",
+          "2026-12-13"
         ],
-        "martes": [
-          "pendiente_verificar"
+        "1": [
+          "2026-11-04",
+          "2026-11-14",
+          "2026-11-24",
+          "2026-12-04",
+          "2026-12-14"
         ],
-        "miercoles": [
-          "pendiente_verificar"
+        "2": [
+          "2026-11-05",
+          "2026-11-15",
+          "2026-11-25",
+          "2026-12-05",
+          "2026-12-15"
         ],
-        "jueves": [
-          "pendiente_verificar"
+        "3": [
+          "2026-11-06",
+          "2026-11-16",
+          "2026-11-26",
+          "2026-12-06",
+          "2026-12-16"
         ],
-        "viernes": [
-          "pendiente_verificar"
+        "4": [
+          "2026-11-07",
+          "2026-11-17",
+          "2026-11-27",
+          "2026-12-07",
+          "2026-12-17"
+        ],
+        "5": [
+          "2026-11-08",
+          "2026-11-18",
+          "2026-11-28",
+          "2026-12-08",
+          "2026-12-18"
+        ],
+        "6": [
+          "2026-11-09",
+          "2026-11-19",
+          "2026-11-29",
+          "2026-12-09",
+          "2026-12-19"
+        ],
+        "7": [
+          "2026-11-10",
+          "2026-11-20",
+          "2026-11-30",
+          "2026-12-10",
+          "2026-12-20"
+        ],
+        "8": [
+          "2026-11-01",
+          "2026-11-11",
+          "2026-11-21",
+          "2026-12-01",
+          "2026-12-11",
+          "2026-12-21"
+        ],
+        "9": [
+          "2026-11-02",
+          "2026-11-12",
+          "2026-11-22",
+          "2026-12-02",
+          "2026-12-12",
+          "2026-12-22"
         ]
-      },
-      "notas": "Los taxis SÍ tienen Pico y Placa en Villavicencio (artículo 3 del Decreto 015 de 2026): un dígito por día, de lunes a domingo (festivos incluidos) entre las 6:00 a.m. y la medianoche, en TODA el área urbana, según el último dígito de la placa y el día calendario del mes (tablas mensuales impresas en el decreto; el ciclo avanza un dígito por día, con el 3 de junio y el 31 de octubre exentos). Del 21 de enero al 22 de diciembre de 2026. POR QUÉ NO MOSTRAMOS EL DÍGITO: la tabla oficial del decreto y los dígitos que publica la prensa en agosto de 2026 difieren en un dígito y ninguna fuente oficial diaria nos permitió desempatar; antes que arriesgarte a una multa, consulta el turno del día en las redes oficiales de la Alcaldía (@villavioalcaldia). Mantenimiento: solo 6:30-8:30 a.m., 1:00-2:00 p.m. y 3:00-5:00 p.m., con aviso de 'Fuera de servicio' y únicamente el conductor. Sanción C.14 más inmovilización."
+      }
     },
     "transporte_carga": {
       "aplica": false,
@@ -137,7 +201,7 @@
     "parrafos": [
       "Villavicencio es el cruce de caminos entre el centro del país y los Llanos Orientales, y buena parte de su tráfico es de paso: gente que sube o baja de Bogotá por la vía al Llano. El pico y placa local aplica a los vehículos particulares con rotación de lunes a viernes dentro del área urbana.",
       "Las motos — el vehículo rey del Llano — no tienen restricción por placa en el esquema vigente, y el transporte de carga tampoco.",
-      "Los taxis sí tienen una medida propia con un calendario que avanza por fechas, pero encontramos inconsistencias entre el decreto y lo que publican otras fuentes, así que preferimos marcarla como pendiente antes que mostrar un dígito que pueda estar corrido. Consulta el canal oficial de la alcaldía para el dígito del día.",
+      "Los taxis tienen su propia medida: un dígito por día, todos los días, con un calendario que avanza por fechas según la tabla oficial del decreto. Algunos medios nacionales publican el dígito corrido en uno; esta página usa la tabla del decreto.",
       "Si tu viaje sigue hacia Bogotá, recuerda que allá rige un esquema completamente distinto (por fecha par o impar): revisa la página de Bogotá antes de subir."
     ]
   }

@@ -130,7 +130,7 @@
           "pendiente_verificar"
         ]
       },
-      "notas": "Los taxis SÍ tienen Pico y Placa en Ibagué, con un esquema distinto al de particulares. Desde el Decreto 0085 del 13 de febrero de 2026, el horario es de 6:00 a.m. a 8:00 p.m. (antes era restricción continua de 24 horas) y aplica de domingo a domingo, incluidos festivos. Se restringe un único dígito del último número de placa, que avanza día a día de forma continua (0, 1, 2… y vuelve a empezar), independiente del día de la semana. Como esa secuencia se pausa cada vez que la medida se suspende, no publicamos una tabla fija: consulta el dígito del día directamente con la Secretaría de Movilidad de Ibagué."
+      "notas": "Los taxis SÍ tienen Pico y Placa en Ibagué: un dígito por día, del último número de la placa, en orden ascendente y en ciclos de 10 días, de domingo a domingo de 6:00 a.m. a 8:00 p.m. (Decreto 1250 de 2019, con el horario del Decreto 0085 del 13 de febrero de 2026). Como la secuencia se pausa cada vez que la medida se suspende y la Alcaldía no publica el dígito diario, no mostramos el número del día: consúltalo con la Secretaría de Movilidad. En diciembre de 2025 la medida se suspendió desde el 12 de diciembre."
     },
     "transporte_carga": {
       "aplica": false,

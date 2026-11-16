@@ -9,20 +9,24 @@
   "autoridad": "DATT — Departamento Administrativo de Tránsito y Transporte",
   "autoridad_web": "https://www.transitocartagena.gov.co",
   "autoridad_twitter": "DattCartagena",
-  "decreto_actual": "Decreto 0015 del 14 de enero de 2026",
-  "fecha_ultima_actualizacion": "2026-04-12",
+  "decreto_actual": "Decreto 0015 del 14 de enero de 2026 (particulares y motos) · Decreto 0004 de 2026 (taxis)",
+  "fecha_ultima_actualizacion": "2026-11-16",
   "vigencia_desde": "2026-01-16",
-  "vigencia_hasta": "2027-01-04",
+  "vigencia_hasta": "2027-01-22",
   "notas_generales": [
-    "Cartagena tiene pico y placa para particulares, motos y taxis.",
-    "Los dígitos rotan cada trimestre aproximadamente.",
-    "Las motos tienen restricción extendida de 5:00 a.m. a 11:00 p.m.",
-    "En temporada alta (dic-ene) se aplica pico y placa de 24 horas."
+    "Rotación vigente para carros y motos, del 5 de octubre de 2026 al 22 de enero de 2027: lunes 1 y 2, martes 3 y 4, miércoles 5 y 6, jueves 7 y 8, viernes 9 y 0. Es la cuarta y última rotación del Decreto 0015 de 2026.",
+    "Carros particulares: dos franjas, de 7:00 a 9:00 a.m. y de 6:00 a 8:00 p.m. Motos: de 5:00 a.m. a 11:00 p.m. En ambos casos, de lunes a viernes, sin festivos.",
+    "Motos, además del pico y placa: no pueden circular de 11:00 p.m. a 5:00 a.m. en ninguna vía del Distrito (salvo trabajadores con permiso tramitado ante el DATT) ni entrar a los barrios Centro, San Diego, La Matuna y Getsemaní.",
+    "Taxis: van por norma aparte (Decreto 0004 de 2026), con una rotación que cambia cada mes y restricción de 6:00 a.m. a 6:00 a.m. del día siguiente.",
+    "Temporada de fin de año: en enero la Alcaldía anunció un pico y placa de 24 horas del 11 de diciembre de 2026 al 22 de enero de 2027, pero el decreto firmado no lo trae y hoy no hay ninguna norma que lo establezca; el alcalde dejó abierta una medida transitoria para diciembre. Mientras no salga un decreto, rige el horario normal. Volveremos a revisar antes del 11 de diciembre."
   ],
   "exenciones_generales": [
-    "Vehículos de emergencia",
-    "Vehículos oficiales",
-    "Conductores de motos con permiso nocturno del DATT"
+    "Ambulancias, bomberos, policía, organismos de socorro y atención de desastres, con el personal en servicio",
+    "Grúas y vehículos de control de tráfico en cumplimiento de sus funciones",
+    "Vehículos al servicio de la seguridad nacional o de esquemas de seguridad (Fuerzas Militares, Policía, INPEC, Fiscalía)",
+    "Motos de trabajadores de empresas formalmente constituidas, con permiso nocturno tramitado por el empleador ante el DATT (para la restricción de 11:00 p.m. a 5:00 a.m.)",
+    "Taxis a gas natural, eléctricos, híbridos y de otros combustibles limpios registrados así en el RUNT (para el pico y placa de taxis)",
+    "El Decreto 0015 de 2026 trae más excepciones, algunas con permiso pago del DATT: consúltalas en la fuente oficial"
   ],
   "vias_exentas": [],
   "sanciones": {
@@ -35,12 +39,12 @@
   "vehiculos": {
     "particulares": {
       "aplica": true,
-      "descripcion": "Vehículos particulares",
+      "descripcion": "Vehículos particulares según el último dígito de la placa",
       "criterio_placa": "ultimo_digito",
       "modalidad": "semanal_por_dia",
       "horario_inicio": "07:00",
       "horario_fin": "20:00",
-      "horario_texto": "7:00-9:00 a.m. y 6:00-8:00 p.m. (dos franjas)",
+      "horario_texto": "7:00 a 9:00 a.m. y 6:00 a 8:00 p.m. (dos franjas, lunes a viernes)",
       "dias_aplicables": [
         "lunes",
         "martes",
@@ -52,37 +56,37 @@
       "aplica_fines_de_semana": false,
       "rotacion": {
         "lunes": [
-          7,
-          8
-        ],
-        "martes": [
-          9,
-          0
-        ],
-        "miercoles": [
           1,
           2
         ],
-        "jueves": [
+        "martes": [
           3,
           4
         ],
-        "viernes": [
+        "miercoles": [
           5,
           6
+        ],
+        "jueves": [
+          7,
+          8
+        ],
+        "viernes": [
+          9,
+          0
         ]
       },
       "aplican_vias_exentas": false,
-      "nota_especial": "Periodo 2 (30 mar - 27 jun 2026). Los dígitos rotan cada trimestre."
+      "nota_especial": "Cuarta rotación del Decreto 0015 de 2026: del 5 de octubre de 2026 al 22 de enero de 2027. Lunes 1 y 2, martes 3 y 4, miércoles 5 y 6, jueves 7 y 8, viernes 9 y 0. No aplica sábados, domingos ni festivos. Rige en todas las vías del Distrito, en dos franjas: de 7:00 a 9:00 a.m. y de 6:00 a 8:00 p.m."
     },
     "motos": {
       "aplica": true,
-      "descripcion": "Motocicletas — horario extendido, mismo esquema de dígitos",
+      "descripcion": "Motocicletas, cuatrimotos, tricimotos y motocarros: misma tabla que los carros, con horario más largo",
       "criterio_placa": "ultimo_digito",
       "modalidad": "semanal_por_dia",
       "horario_inicio": "05:00",
       "horario_fin": "23:00",
-      "horario_texto": "5:00 a.m. a 11:00 p.m. (horario extendido)",
+      "horario_texto": "5:00 a.m. a 11:00 p.m. (lunes a viernes)",
       "dias_aplicables": [
         "lunes",
         "martes",
@@ -94,37 +98,37 @@
       "aplica_fines_de_semana": false,
       "rotacion": {
         "lunes": [
-          7,
-          8
-        ],
-        "martes": [
-          9,
-          0
-        ],
-        "miercoles": [
           1,
           2
         ],
-        "jueves": [
+        "martes": [
           3,
           4
         ],
-        "viernes": [
+        "miercoles": [
           5,
           6
+        ],
+        "jueves": [
+          7,
+          8
+        ],
+        "viernes": [
+          9,
+          0
         ]
       },
       "aplican_vias_exentas": false,
-      "nota_especial": "Motos prohibidas en Centro, San Diego, La Matuna y Getsemaní. Restricción nocturna 11pm-5am en toda la ciudad."
+      "nota_especial": "Cuarta rotación del Decreto 0015 de 2026: del 5 de octubre de 2026 al 22 de enero de 2027. Lunes 1 y 2, martes 3 y 4, miércoles 5 y 6, jueves 7 y 8, viernes 9 y 0. No aplica sábados, domingos ni festivos. Para las motos el horario es de 5:00 a.m. a 11:00 p.m. Además, durante toda la vigencia del decreto: las motos no pueden circular de 11:00 p.m. a 5:00 a.m. en ninguna vía del Distrito (salvo permiso del DATT) ni entrar a los barrios Centro, San Diego, La Matuna y Getsemaní."
     },
     "taxis": {
       "aplica": true,
-      "descripcion": "Taxis — restricción de 24 horas por dígito, lunes a viernes",
+      "descripcion": "Taxis según el último dígito de la placa, con una rotación que cambia cada mes",
       "criterio_placa": "ultimo_digito",
-      "modalidad": "semanal_por_dia",
+      "modalidad": "quincenal_por_fecha",
       "horario_inicio": "06:00",
       "horario_fin": "06:00",
-      "horario_texto": "24 horas (6:00 a.m. a 6:00 a.m. del siguiente día)",
+      "horario_texto": "6:00 a.m. a 6:00 a.m. del día siguiente (lunes a viernes)",
       "dias_aplicables": [
         "lunes",
         "martes",
@@ -134,30 +138,66 @@
       ],
       "aplica_festivos": false,
       "aplica_fines_de_semana": false,
-      "rotacion": {
-        "lunes": [
-          1,
-          2
-        ],
-        "martes": [
-          3,
-          4
-        ],
-        "miercoles": [
-          5,
-          6
-        ],
-        "jueves": [
-          7,
-          8
-        ],
-        "viernes": [
-          9,
-          0
-        ]
-      },
       "aplican_vias_exentas": false,
-      "nota_especial": "Rotación 30 mar - 24 abr 2026. Los taxis tienen restricción de 24 horas."
+      "nota_especial": "Rotación del 2 al 27 de noviembre de 2026 (comunicado 1.572 de la Alcaldía): lunes 5 y 6, martes 7 y 8, miércoles 9 y 0, jueves 1 y 2, viernes 3 y 4, de 6:00 a.m. a 6:00 a.m. del día siguiente, de lunes a viernes sin festivos. La rotación de los taxis cambia cada mes (Decreto 0004 de 2026) y el DATT la anuncia pocos días antes: la de diciembre la cargamos apenas se publique. El decreto exceptúa el 24, 25 y 31 de diciembre de 2026 y el 1 de enero de 2027.",
+      "fechas_restriccion": {
+        "0": [
+          "2026-11-04",
+          "2026-11-11",
+          "2026-11-18",
+          "2026-11-25"
+        ],
+        "1": [
+          "2026-11-05",
+          "2026-11-12",
+          "2026-11-19",
+          "2026-11-26"
+        ],
+        "2": [
+          "2026-11-05",
+          "2026-11-12",
+          "2026-11-19",
+          "2026-11-26"
+        ],
+        "3": [
+          "2026-11-06",
+          "2026-11-13",
+          "2026-11-20",
+          "2026-11-27"
+        ],
+        "4": [
+          "2026-11-06",
+          "2026-11-13",
+          "2026-11-20",
+          "2026-11-27"
+        ],
+        "5": [
+          "2026-11-09",
+          "2026-11-23"
+        ],
+        "6": [
+          "2026-11-09",
+          "2026-11-23"
+        ],
+        "7": [
+          "2026-11-03",
+          "2026-11-10",
+          "2026-11-17",
+          "2026-11-24"
+        ],
+        "8": [
+          "2026-11-03",
+          "2026-11-10",
+          "2026-11-17",
+          "2026-11-24"
+        ],
+        "9": [
+          "2026-11-04",
+          "2026-11-11",
+          "2026-11-18",
+          "2026-11-25"
+        ]
+      }
     },
     "transporte_carga": {
       "aplica": false,

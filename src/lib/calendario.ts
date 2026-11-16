@@ -94,8 +94,8 @@ export function diasRestringidos(
       const vehiculo = ciudad.vehiculos[tipo] as { horario_inicio?: string; horario_fin?: string };
       dias.push({
         fecha: new Date(cursor),
-        horaInicio: vehiculo.horario_inicio ?? '00:00',
-        horaFin: vehiculo.horario_fin ?? '23:59',
+        horaInicio: resultado.horarioInicio ?? vehiculo.horario_inicio ?? '00:00',
+        horaFin: resultado.horarioFin ?? vehiculo.horario_fin ?? '23:59',
       });
     }
     cursor.setDate(cursor.getDate() + 1);
@@ -114,7 +114,9 @@ export function generarICS(
   const dias = diasRestringidos(ciudad, tipo, digito, desde);
   if (dias.length === 0) return null;
 
-  const vehiculo = ciudad.vehiculos[tipo] as { criterio_placa?: string };
+  const vehiculo = ciudad.vehiculos[tipo] as { criterio_placa?: string; alcance_corto?: string };
+  // A quién le aplica, cuando no es a todos (Pamplona: solo vehículos de afuera)
+  const alcance = vehiculo.alcance_corto;
   const criterio = vehiculo.criterio_placa === 'primer_digito' ? 'primer dígito' : 'último dígito';
   const etiqueta = ETIQUETAS_VEHICULO[tipo];
   const nombreCalendario = `Pico y placa ${ciudad.nombre} · ${etiqueta} placa ${digito}`;
@@ -136,15 +138,20 @@ export function generarICS(
 
     // Si la restricción termina antes de la hora en que empieza, cruza la
     // medianoche y el fin cae al día siguiente.
-    const [hi] = dia.horaInicio.split(':').map(Number);
-    const [hf] = dia.horaFin.split(':').map(Number);
+    // Se compara en MINUTOS y con <=: una franja de 24 horas (taxis de
+    // Manizales, 04:00 a 04:00; de Cartagena, 06:00 a 06:00) tiene la misma
+    // hora de inicio y de fin, y sin el "igual" salía un evento de cero minutos.
+    const [hi, mi] = dia.horaInicio.split(':').map(Number);
+    const [hf, mf] = dia.horaFin.split(':').map(Number);
+    const cruzaMedianoche = hf * 60 + mf <= hi * 60 + mi;
     const fechaFin = new Date(dia.fecha);
-    if (hf < hi) fechaFin.setDate(fechaFin.getDate() + 1);
+    if (cruzaMedianoche) fechaFin.setDate(fechaFin.getDate() + 1);
     const fin = aMarcaUTC(fechaFin, dia.horaFin);
 
     const descripcion =
       `No puedes circular en ${ciudad.nombre} con ${criterio} ${digito} ` +
-      `entre las ${dia.horaInicio} y las ${dia.horaFin}. ` +
+      `entre las ${dia.horaInicio} y las ${dia.horaFin}${cruzaMedianoche ? ' del día siguiente' : ''}. ` +
+      (alcance ? `Ojo: ${alcance.charAt(0).toLowerCase() + alcance.slice(1)}. ` : '') +
       `Consulta el detalle en https://picoyplacahoy.co/${ciudad.slug}/${tipo}`;
 
     lineas.push(
@@ -177,5 +184,8 @@ export function admiteCalendario(ciudad: Ciudad, tipo: TipoVehiculo): boolean {
   const vehiculo = ciudad.vehiculos[tipo];
   if (!vehiculo || vehiculo.aplica !== true) return false;
   if (!('modalidad' in vehiculo)) return false;
-  return Boolean(ciudad.vigencia_hasta) || 'rotacion' in vehiculo;
+  // Cualquier vehículo con una modalidad que el motor entiende: el tope de 180
+  // días (cuando no hay fecha de fin) y el salto de los días "desactualizados"
+  // ya impiden agendar fechas que no conocemos.
+  return true;
 }

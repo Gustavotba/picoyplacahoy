@@ -14,15 +14,15 @@
   "vigencia_desde": "2026-05-08",
   "vigencia_hasta": "2027-12-31",
   "notas_generales": [
-    "El Decreto 542 del 5 de noviembre de 2026 (publicado en la gaceta el 9 de noviembre) prorrogó el Decreto 213 del 8 de mayo de 2026 hasta el 31 de diciembre de 2027. La rotación, los horarios y las excepciones no cambiaron. Algunos medios dijeron \"hasta el 31 de diciembre de 2026\": el texto del decreto dice 2027.",
+    "El Decreto 542 del 5 de noviembre de 2026 (publicado en la gaceta el 9 de noviembre) prorrogó el Decreto 213 del 8 de mayo de 2026 hasta el 31 de diciembre de 2027. La rotación, los horarios y las excepciones no cambiaron. Algunos medios dijeron \"hasta el 31 de diciembre de 2026\" (así lo dice también un considerando del decreto), pero el artículo primero, que es el que manda, dice 2027.",
     "Particulares: los vehículos matriculados en Santa Marta tienen restricción en tres franjas (7:00 a 9:00 a.m., 11:30 a.m. a 2:00 p.m. y 5:00 a 8:00 p.m.). Los matriculados en otras ciudades tienen restricción continua de 7:00 a.m. a 8:00 p.m.",
     "La medida rige dentro del anillo vial formado por la Carrera 1ª, el Batallón Córdoba, el Cerro Ziruma, la Troncal del Caribe y la Vía Alterna; según el mapa del decreto, la Vía Alterna y la Troncal del Caribe quedan libres.",
     "Si vienes de otra ciudad, el día de llegada puedes circular mostrando el recibo de los peajes de Neguanje, Tasajera o Tucurinca.",
     "El Decreto 542 faculta a la Secretaría de Movilidad para reglamentar un \"permiso especial de circulación\"; cuando se publique, lo agregaremos aquí.",
-    "Motos: el Decreto 453 del 29 de octubre de 2025 rigió por un año y venció a comienzos de noviembre de 2026. Revisamos la gaceta oficial de 2026 el 16 de noviembre y no encontramos prórroga ni decreto nuevo, así que las motos quedan como pendientes de verificar.",
-    "Taxis: tienen pico y placa propio (Decreto 034 de 2022). Aún no cargamos su rotación; antes este sitio decía, por error, que no tenían restricción.",
+    "Motos: hoy no tienen Pico y Placa. El Decreto 453 del 29 de octubre de 2025 (lunes 1-2, martes 3-4, miércoles 5-6, jueves 7-8, viernes 9-0, de 7:00 a.m. a 7:00 p.m.) rigió por un año y venció a comienzos de noviembre de 2026; revisamos la gaceta oficial el 16 de noviembre de 2026 y no hay prórroga. Ya pasó antes: en 2024 la medida venció y las motos quedaron sin restricción hasta octubre de 2025. Si sale un decreto nuevo, lo cargamos.",
+    "Taxis: tienen Pico y Placa propio de lunes a sábado, de 7:00 a.m. a 11:59 p.m. (Decreto 034 de 2022), con una rotación que cambia cada semana. Aún no cargamos el dígito del día porque la tabla oficial no está publicada. Ojo: en diciembre de 2022, 2024 y 2025 la Alcaldía suspendió esta medida por las fiestas.",
     "Existe también el Decreto 212 del 8 de mayo de 2026 para transporte público especial, una categoría que este sitio todavía no cubre.",
-    "No aplica sábados, domingos ni festivos oficiales de Colombia."
+    "El Pico y Placa de carros particulares no aplica sábados, domingos ni festivos oficiales de Colombia (el de taxis sí rige los sábados)."
   ],
   "exenciones_generales": [
     "Vehículos diplomáticos y consulares",
@@ -86,46 +86,19 @@
       }
     },
     "motos": {
-      "aplica": true,
-      "horario": "7:00 a.m. a 7:00 p.m. (según el Decreto 453 de 2025, ya vencido)",
-      "dias_habiles": [
-        "lun",
-        "mar",
-        "mie",
-        "jue",
-        "vie"
-      ],
-      "aplica_festivos": false,
-      "restricciones": {
-        "lunes": [
-          "pendiente_verificar"
-        ],
-        "martes": [
-          "pendiente_verificar"
-        ],
-        "miercoles": [
-          "pendiente_verificar"
-        ],
-        "jueves": [
-          "pendiente_verificar"
-        ],
-        "viernes": [
-          "pendiente_verificar"
-        ]
-      },
-      "notas": "El Decreto 453 de 2025, que restringía las motos de lunes a viernes, venció a comienzos de noviembre de 2026 y no encontramos su prórroga en la gaceta oficial (revisada el 16 de noviembre de 2026). Consulta con la Secretaría de Movilidad de Santa Marta antes de circular."
+      "aplica": false,
+      "descripcion": "Hoy las motos no tienen Pico y Placa en Santa Marta: el Decreto 453 de 2025 rigió por un año y venció a comienzos de noviembre de 2026, y la gaceta oficial no trae prórroga (revisada el 16 de noviembre de 2026)."
     },
     "taxis": {
       "aplica": true,
-      "horario": "pendiente_verificar",
+      "horario": "7:00 a.m. a 11:59 p.m. (lunes a sábado)",
       "dias_habiles": [
         "lun",
         "mar",
         "mie",
         "jue",
         "vie",
-        "sab",
-        "dom"
+        "sab"
       ],
       "aplica_festivos": true,
       "restricciones": {
@@ -146,12 +119,9 @@
         ],
         "sabado": [
           "pendiente_verificar"
-        ],
-        "domingo": [
-          "pendiente_verificar"
         ]
       },
-      "notas": "Los taxis de Santa Marta tienen su propio pico y placa (Decreto 034 de 2022, citado por el Decreto 440 de 2026 cuando lo suspendió del 23 al 25 de septiembre). Todavía no tenemos su rotación verificada: consulta con la Secretaría de Movilidad antes de salir."
+      "notas": "Los taxis de Santa Marta tienen Pico y Placa por el Decreto 034 de 2022 (vigente: el Decreto 440 de 2026 lo suspendió del 23 al 25 de septiembre y luego se reanudó): de lunes a sábado, de 7:00 a.m. a 11:59 p.m., según el último dígito de la placa, con una rotación que cambia cada semana. La tabla del anexo del decreto no está publicada, así que no mostramos el dígito del día: consúltalo con la Secretaría de Movilidad."
     },
     "transporte_carga": {
       "aplica": false,
@@ -170,9 +140,9 @@
   "contenido_local": {
     "titulo": "Pico y placa en Santa Marta: carros, motos y reglas extra",
     "parrafos": [
-      "Santa Marta aplica pico y placa a los carros particulares con una rotación semanal fija, y con un detalle que pocas ciudades tienen: los carros matriculados en la ciudad se restringen en tres franjas, mientras los de otras ciudades lo hacen en horario continuo. Las motos han tenido su propia medida por decreto, con reglas extra por zonas y horarios: revisa las notas de esta página antes de rodar en dos ruedas.",
+      "Santa Marta aplica pico y placa a los carros particulares con una rotación semanal fija, y con un detalle que pocas ciudades tienen: los carros matriculados en la ciudad se restringen en tres franjas, mientras los de otras ciudades lo hacen en horario continuo. Las motos van por decretos de un año que no siempre se renuevan a tiempo: hay temporadas en que tienen restricción y temporadas en que no, y la tarjeta de arriba dice en cuál estamos.",
       "Los taxis tienen su propio esquema por decreto, distinto al de los carros particulares; el transporte de carga no tiene restricción por placa.",
-      "Si vienes de turismo en carro, planea con el dígito del día: la medida aplica también a placas de otras ciudades, y las zonas más turísticas — el Centro Histórico y El Rodadero — son precisamente las de reglas más estrictas para las motos.",
+      "Si vienes de turismo en carro, planea con el dígito del día: la medida aplica también a placas de otras ciudades, y con horario más largo que para las locales. El día que llegas puedes circular mostrando el recibo del peaje.",
       "La ciudad se mueve en busetas y taxis colectivos; para el turista, buena parte del centro histórico y la bahía se recorren mejor a pie."
     ]
   }

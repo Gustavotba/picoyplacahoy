@@ -24,6 +24,7 @@ import {
   DIAS_LEGIBLES,
   CRITERIO_LEGIBLE,
   placaDestacada,
+  fechaLegible,
 } from '../../lib/calcular';
 import {
   ETIQUETAS_VEHICULO,
@@ -274,6 +275,12 @@ const bloquesJsonLd = [servicioJsonLd, breadcrumb];
           </p>
         )}
 
+        {resultado.datosDesactualizados && resultado.mensaje && (
+          <p class="mt-4 text-sm text-orange-700 dark:text-orange-300">
+            {resultado.mensaje}
+          </p>
+        )}
+
         {resultado.esFestivo && !resultado.aplica && (
           <p class="mt-2 text-xs text-blue-600 dark:text-blue-400 font-medium">
             Hoy es festivo en Colombia
@@ -484,7 +491,7 @@ const bloquesJsonLd = [servicioJsonLd, breadcrumb];
                           {aplicaHoy && <span class="ml-2 text-xs text-red-600 dark:text-red-400 font-normal">(hoy)</span>}
                         </td>
                         <td class="py-3 px-4 text-xs text-gray-600 dark:text-gray-400">
-                          {futuras.length > 0 ? futuras.join(' · ') : 'Sin fechas próximas'}
+                          {futuras.length > 0 ? futuras.map((f: string) => fechaLegible(f, true)).join(' · ') : 'Sin fechas próximas'}
                         </td>
                       </tr>
                     );
@@ -771,7 +778,7 @@ const bloquesJsonLd = [servicioJsonLd, breadcrumb];
   <footer class="pt-4 border-t border-gray-200 dark:border-gray-800 text-sm text-gray-500 dark:text-gray-400">
     <p>
       {ciudad.decreto_actual !== 'pendiente_verificar' && <span>{ciudad.decreto_actual} · </span>}
-      Última actualización: {ciudad.fecha_ultima_actualizacion}
+      Última actualización: {fechaLegible(ciudad.fecha_ultima_actualizacion)}
     </p>
     <p class="mt-1">
       <a href={ciudad.autoridad_web} target="_blank" rel="noopener noreferrer" class="text-yellow-600 hover:underline">

@@ -52,6 +52,17 @@ export function conMayusculaInicial(texto: string): string {
   return texto.charAt(0).toUpperCase() + texto.slice(1);
 }
 
+/**
+ * Pasa una fecha guardada como "2026-11-16" a palabras: "16 de noviembre de 2026".
+ * Con `corta` da "lun 16 nov", para tablas apretadas. Va a MEDIODÍA para que
+ * ninguna zona horaria la corra un día.
+ */
+export function fechaLegible(iso: string, corta = false): string {
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(iso)) return iso;
+  const fecha = new Date(iso + 'T12:00:00');
+  return format(fecha, corta ? 'EEE d MMM' : "d 'de' MMMM 'de' yyyy", { locale: es });
+}
+
 /** Formatea una fecha como ISO: "2026-04-12" */
 export function formatearISO(fecha: Date): string {
   return format(fecha, 'yyyy-MM-dd');
@@ -220,8 +231,13 @@ export function calcularPicoPlaca(
     };
   }
 
+  // Sábados con calendario propio (Bucaramanga): la tabla de lunes a viernes no
+  // dice nada del sábado, pero el decreto trae qué dígitos tocan cada sábado.
+  const sabadosPorFecha =
+    esSemanalPorDia(vehiculo) && fecha.getDay() === 6 ? vehiculo.sabados_por_fecha : undefined;
+
   // Si es fin de semana y no aplica en fines de semana
-  if (finDeSemana && !vehiculoActivo.aplica_fines_de_semana) {
+  if (finDeSemana && !vehiculoActivo.aplica_fines_de_semana && !sabadosPorFecha) {
     return {
       aplica: false,
       esFestivo: festivo,
@@ -254,7 +270,29 @@ export function calcularPicoPlaca(
         horarioTexto: vehiculoActivo.horario_texto,
         criterioPlaca: vehiculoActivo.criterio_placa as ResultadoPicoPlaca['criterioPlaca'],
         descripcionVehiculo: vehiculoActivo.descripcion,
-        mensaje: `El Pico y Placa está suspendido temporalmente por ${s.motivo} (${s.decreto}). Hoy puedes circular; la medida se retoma al terminar el ${s.hasta}.`,
+        // La fecha va en palabras ("domingo 10 de enero de 2027"), no en ISO.
+        mensaje: `El Pico y Placa está suspendido temporalmente por ${s.motivo} (${s.decreto}). Hoy puedes circular; la medida se retoma al terminar el ${formatearFechaColombia(new Date(s.hasta + 'T12:00:00'))}.`,
+      };
+    }
+  }
+
+  // Periodo por confirmar: sabemos que algo cambia esos días, pero todavía no
+  // hay acto oficial que diga qué (ej. la pausa de fin de año de Bogotá).
+  if (ciudad.periodo_por_confirmar) {
+    const p = ciudad.periodo_por_confirmar;
+    const fechaISO = formatearISO(fecha);
+    if (fechaISO >= p.desde && fechaISO <= p.hasta && (!p.tipos || p.tipos.includes(tipo))) {
+      return {
+        aplica: false,
+        esFestivo: festivo,
+        esDiaHabil: true,
+        esPendiente: false,
+        datosDesactualizados: true,
+        placasRestringidas: [],
+        horarioTexto: vehiculoActivo.horario_texto,
+        criterioPlaca: vehiculoActivo.criterio_placa as ResultadoPicoPlaca['criterioPlaca'],
+        descripcionVehiculo: vehiculoActivo.descripcion,
+        mensaje: p.motivo,
       };
     }
   }
@@ -270,6 +308,47 @@ export function calcularPicoPlaca(
       placasRestringidas: [],
       horarioTexto: '',
       mensaje: 'Los datos de restricción están fuera del periodo de vigencia. Verifica con la fuente oficial.',
+    };
+  }
+
+  // Sábado con calendario por fecha (solo llega aquí si el vehículo lo trae)
+  if (esSemanalPorDia(vehiculo) && sabadosPorFecha) {
+    const fechaISO = formatearISO(fecha);
+    const placasSabado = sabadosPorFecha[fechaISO];
+    const ultimoSabado = Object.keys(sabadosPorFecha).sort().at(-1);
+    const horario = vehiculo.horario_sabado;
+    // Mismo seguro que los calendarios por fecha: pasado el último sábado
+    // cargado no sabemos qué toca, y "libre" sería un invento.
+    if (!placasSabado && ultimoSabado && fechaISO > ultimoSabado) {
+      return {
+        aplica: false,
+        esFestivo: festivo,
+        esDiaHabil: true,
+        esPendiente: false,
+        datosDesactualizados: true,
+        placasRestringidas: [],
+        horarioTexto: horario?.texto ?? vehiculo.horario_texto,
+        criterioPlaca: vehiculo.criterio_placa,
+        descripcionVehiculo: vehiculo.descripcion,
+        mensaje: 'Todavía no tenemos el calendario oficial de este sábado. Verifica con la fuente oficial.',
+      };
+    }
+    const placas = placasSabado ?? [];
+    return {
+      aplica: placas.length > 0,
+      esFestivo: festivo,
+      esDiaHabil: true,
+      esPendiente: false,
+      datosDesactualizados: false,
+      placasRestringidas: placas,
+      horarioTexto: horario?.texto ?? vehiculo.horario_texto,
+      horarioInicio: horario?.inicio ?? vehiculo.horario_inicio,
+      horarioFin: horario?.fin ?? vehiculo.horario_fin,
+      criterioPlaca: vehiculo.criterio_placa,
+      descripcionVehiculo: vehiculo.descripcion,
+      mensaje: placas.length > 0
+        ? `Hoy sábado aplica Pico y Placa para ${describirPlacas(vehiculo.criterio_placa, placas)}.`
+        : 'Hoy no aplica Pico y Placa para este tipo de vehículo.',
     };
   }
 

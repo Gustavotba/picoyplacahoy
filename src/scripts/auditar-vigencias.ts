@@ -95,6 +95,19 @@ for (const ciudad of ciudades) {
     continue;
   }
 
+  // --- Periodo por confirmar (ej. la pausa de fin de año de Bogotá) ---
+  if (ciudad.periodo_por_confirmar && ciudad.periodo_por_confirmar.hasta >= hoyISO) {
+    const p = ciudad.periodo_por_confirmar;
+    const dias = diasHasta(p.desde);
+    apuntar(
+      dias <= 14 ? 'grave' : 'aviso',
+      ciudad.nombre,
+      'Hay días POR CONFIRMAR',
+      `Del ${p.desde} al ${p.hasta} la página dirá "datos por confirmar" (${dias > 0 ? `faltan ${dias} días` : 'YA EMPEZÓ'}). ` +
+        'Toca buscar el acto oficial y cargar lo que diga, o quitar el periodo.',
+    );
+  }
+
   // --- Vigencia del decreto ---
   if (activos.length > 0) {
     if (ciudad.vigencia_indefinida) {
